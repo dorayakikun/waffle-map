@@ -1,0 +1,22 @@
+{
+  "name": "mesh_calculator",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src/ -d dist/",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "dorayakikun <amakunai.dorayaki@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-jest": "^20.0.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-flow": "^6.23.0",
+    "flow-bin": "^0.47.0",
+    "jest": "^20.0.4",
+    "regenerator-runtime": "^0.10.5"
+  }
+}
