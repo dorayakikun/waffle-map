@@ -50,3 +50,37 @@ function firstMeshToLonLat(mesh: string): LatLon {
         lon: meshLon + 100
     }
 }
+
+/**
+ * Convert LatLon to mesh.
+ *
+ * @param lat latitude
+ * @param lon longitude
+ * @param scale scale
+ * @returns {string} mesh.
+ */
+export function latLonToMesh(lat: number, lon: number, scale: number): string {
+    switch (scale) {
+        case 1:
+            return latLonToFirstMesh(lat, lon);
+        case 2:
+            throw new Error(`Not Implemented`);
+        case 3:
+            throw new Error(`Not Implemented`);
+        default:
+            throw new Error(`Illegal scale. scale is ${scale}`);
+    }
+}
+
+/**
+ * Convert LatLon to first mesh.
+ *
+ * @param lat latitude
+ * @param lon longitude
+ * @returns {string} first mesh
+ */
+function latLonToFirstMesh(lat: number, lon: number): string {
+    const meshLat = parseInt(lat * 1.5).toString();
+    const meshLon = parseInt(lon - 100).toString();
+    return meshLat + meshLon;
+}
