@@ -1,9 +1,9 @@
 import { meshToLatLon, latLonToMesh } from '../src/meshCalculator';
 
-test('mesh 5339 to equal { lat: 53 / 1.5, lon: 39 + 100 }', () => {
+test('mesh 5339 to equal { lat: 53 / 1.5 + (2 / 3), lon: 39 + 100 + (1 / 2) }', () => {
     expect(meshToLatLon('5339')).toEqual({
-        lat: 53 / 1.5,
-        lon: 39 + 100
+        lat: 53 / 1.5 + (2 / 3),
+        lon: 39 + 100 + (1 / 2)
     });
 });
 

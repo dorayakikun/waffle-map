@@ -46,8 +46,8 @@ function firstMeshToLonLat(mesh: string): LatLon {
     }
 
     return {
-        lat: meshLat / 1.5,
-        lon: meshLon + 100
+        lat: meshLat / 1.5 + (2 / 3),
+        lon: meshLon + 100 + (1 / 2)
     }
 }
 
