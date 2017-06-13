@@ -64,7 +64,7 @@ export function latLonToMesh(lat: number, lon: number, scale: number): string {
         case 1:
             return latLonToFirstMesh(lat, lon);
         case 2:
-            throw new Error(`Not Implemented`);
+            return latLonToSecondMesh(lat, lon);
         case 3:
             throw new Error(`Not Implemented`);
         default:
@@ -83,4 +83,17 @@ function latLonToFirstMesh(lat: number, lon: number): string {
     const meshLat = parseInt(lat * 1.5).toString();
     const meshLon = parseInt(lon - 100).toString();
     return meshLat + meshLon;
+}
+
+/**
+ * Convert LatLon to second mesh.
+ *
+ * @param lat latitude
+ * @param lon longitude
+ * @returns {string} second mesh
+ */
+function latLonToSecondMesh(lat: number, lon: number): string {
+    const meshLat = parseInt((lat * 1.5 - parseInt(lat * 1.5 )) * 8).toString();
+    const meshLon = parseInt((lon - 100 - parseInt(lon - 100)) * 8).toString();
+    return `${latLonToFirstMesh(lat, lon)}-${meshLat}${meshLon}`;
 }
