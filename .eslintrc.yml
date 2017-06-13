@@ -1,0 +1,23 @@
+parser: babel-eslint
+parserOptions:
+  sourceType: module
+env:
+  browser: true
+  node: true
+  es6: true
+plugins:
+  - prettier
+  - flowtype
+  - import
+extends:
+  - plugin:flowtype/recommended
+  - plugin:import/errors
+  - prettier
+  - prettier/flowtype
+rules:
+  prettier/prettier:
+    - 2
+    -
+      trailingComma: none
+      singleQuote: true
+      semi: false
