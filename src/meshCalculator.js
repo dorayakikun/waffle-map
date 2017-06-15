@@ -68,7 +68,7 @@ export function latLonToMesh(lat: number, lon: number, scale: number): string {
     case 2:
       return latLonToSecondMesh(lat, lon)
     case 3:
-      throw new Error(`Not Implemented`)
+      return latLonToThirdMesh(lat, lon)
     default:
       throw new Error(`Illegal scale. scale is ${scale}`)
   }
@@ -95,7 +95,26 @@ function latLonToFirstMesh(lat: number, lon: number): string {
  * @returns {string} second mesh
  */
 function latLonToSecondMesh(lat: number, lon: number): string {
-  const meshLat = parseInt((lat * 1.5 - parseInt(lat * 1.5)) * 8).toString()
-  const meshLon = parseInt((lon - 100 - parseInt(lon - 100)) * 8).toString()
+  const firstMeshLat = lat * 1.5
+  const firstMeshLon = lon - 100
+
+  const meshLat = `${parseInt((firstMeshLat - parseInt(firstMeshLat)) * 8)}`
+  const meshLon = `${parseInt((firstMeshLon - parseInt(firstMeshLon)) * 8)}`
   return `${latLonToFirstMesh(lat, lon)}-${meshLat}${meshLon}`
+}
+
+/**
+ * Convert LatLon to third mesh.
+ *
+ * @param lat latitude
+ * @param lon longitude
+ * @returns {string} third mesh
+ */
+function latLonToThirdMesh(lat: number, lon: number): string {
+  const secondMeshLat = (lat * 1.5 - parseInt(lat * 1.5)) * 8
+  const secondMeshLon = (lon - 100 - parseInt(lon - 100)) * 8
+
+  const meshLat = `${parseInt((secondMeshLat - parseInt(secondMeshLat)) * 10)}`
+  const meshLon = `${parseInt((secondMeshLon - parseInt(secondMeshLon)) * 10)}`
+  return `${latLonToSecondMesh(lat, lon)}-${meshLat}${meshLon}`
 }

@@ -16,3 +16,7 @@ test('{ lat: 35.6638, lon: 139.71805, scale: 1 } to equal 5339', () => {
 test('{ lat: 35.6638, lon: 139.71805, scale: 2 } to equal 5339-35', () => {
   expect(latLonToMesh(35.6638, 139.71805, 2)).toBe('5339-35')
 })
+
+test('{ lat: 35.6638, lon: 139.71805, scale: 3 } to equal 5339-35-97', () => {
+  expect(latLonToMesh(35.6638, 139.71805, 3)).toBe('5339-35-97')
+})
