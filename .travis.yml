@@ -3,3 +3,6 @@ node_js:
   - "7"
 env:
   CODECLIMATE_REPO_TOKEN: 0a05bdccb231afa868698d741b6e4c5fcd161bebab035eade290121ddca87bfd
+after_success:
+  - npm install -g codeclimate-test-reporter
+  - codeclimate-test-reporter < lcov.info
