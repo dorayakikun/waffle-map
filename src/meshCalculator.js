@@ -22,7 +22,7 @@ export function meshToLatLon(mesh: string): LatLon {
     case 4:
       return firstMeshToLonLat(mesh)
     case 6:
-      throw new Error(`Not Implemented`)
+      return secondMeshToLonLat(mesh)
     case 8:
       throw new Error(`Not Implemented`)
     default:
@@ -47,6 +47,33 @@ function firstMeshToLonLat(mesh: string): LatLon {
   return {
     lat: meshLat / 1.5 + 2 / 3,
     lon: meshLon + 100 + 1 / 2
+  }
+}
+
+/**
+ * Convert second mesh to LatLon.
+ *
+ * @param mesh second mesh
+ * @returns {LatLon} latitude and longitude
+ */
+function secondMeshToLonLat(mesh: string): LatLon {
+  const firstMeshLat = parseInt(mesh.substr(0, 2))
+  const firstMeshLon = parseInt(mesh.substr(2, 2))
+  const secondMeshLat = parseInt(mesh.substr(5, 1))
+  const secondMeshLon = parseInt(mesh.substr(6))
+
+  if (
+    isNaN(firstMeshLat) ||
+    isNaN(firstMeshLon) ||
+    isNaN(secondMeshLat) ||
+    isNaN(secondMeshLon)
+  ) {
+    throw new Error(`Illegal format. mesh is ${mesh}`)
+  }
+
+  return {
+    lat: firstMeshLat / 1.5 + secondMeshLat / 8 + 1 / 12,
+    lon: firstMeshLon + 100 + secondMeshLon / 8 + 1 / 8
   }
 }
 
