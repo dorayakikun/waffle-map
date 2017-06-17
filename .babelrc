@@ -1,3 +1,12 @@
 {
- "presets": ["es2015", "flow"]
+ "presets": [
+   ["latest", { "es2015": { "modules": false } }],
+   "flow"
+ ],
+  "plugins": ["external-helpers", "transform-react-jsx"],
+  "env": {
+    "test": {
+      "presets": ["latest", "flow"]
+    }
+  }
 }

@@ -60,5 +60,5 @@ typings/
 # WebStrom cache directory
 .idea
 
-# Distribution directory
-dist
+# Distribution JavaScript
+public/bundle.js
