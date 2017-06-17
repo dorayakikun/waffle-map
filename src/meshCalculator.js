@@ -20,9 +20,9 @@ export function meshToLatLon(mesh: string): LatLon {
   }
   switch (len) {
     case 4:
-      return firstMeshToLonLat(mesh)
+      return firstMeshToLatLon(mesh)
     case 6:
-      return secondMeshToLonLat(mesh)
+      return secondMeshToLatLon(mesh)
     case 8:
       throw new Error(`Not Implemented`)
     default:
@@ -36,7 +36,7 @@ export function meshToLatLon(mesh: string): LatLon {
  * @param mesh first mesh
  * @returns {LatLon} latitude and longitude
  */
-function firstMeshToLonLat(mesh: string): LatLon {
+function firstMeshToLatLon(mesh: string): LatLon {
   const meshLat = parseInt(mesh.substr(0, 2))
   const meshLon = parseInt(mesh.substr(2))
 
@@ -56,24 +56,18 @@ function firstMeshToLonLat(mesh: string): LatLon {
  * @param mesh second mesh
  * @returns {LatLon} latitude and longitude
  */
-function secondMeshToLonLat(mesh: string): LatLon {
-  const firstMeshLat = parseInt(mesh.substr(0, 2))
-  const firstMeshLon = parseInt(mesh.substr(2, 2))
+function secondMeshToLatLon(mesh: string): LatLon {
+  const firstMeshLatLon = firstMeshToLatLon(mesh.substr(0, 4))
   const secondMeshLat = parseInt(mesh.substr(5, 1))
   const secondMeshLon = parseInt(mesh.substr(6))
 
-  if (
-    isNaN(firstMeshLat) ||
-    isNaN(firstMeshLon) ||
-    isNaN(secondMeshLat) ||
-    isNaN(secondMeshLon)
-  ) {
+  if (isNaN(secondMeshLat) || isNaN(secondMeshLon)) {
     throw new Error(`Illegal format. mesh is ${mesh}`)
   }
 
   return {
-    lat: firstMeshLat / 1.5 + secondMeshLat / 8 + 1 / 12,
-    lon: firstMeshLon + 100 + secondMeshLon / 8 + 1 / 8
+    lat: firstMeshLatLon.lat + secondMeshLat / 8 + 1 / 12,
+    lon: firstMeshLatLon.lon + secondMeshLon / 8 + 1 / 8
   }
 }
 
