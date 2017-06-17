@@ -12,7 +12,7 @@ export type LatLon = {
  * @returns {LatLon} latitude and longitude
  */
 export function meshToLatLon(mesh: string): LatLon {
-  const newMesh = mesh.replace('-', '')
+  const newMesh = mesh.replace(/\D/g, '')
 
   const len = newMesh.length
   if (len < 4) {
@@ -20,11 +20,11 @@ export function meshToLatLon(mesh: string): LatLon {
   }
   switch (len) {
     case 4:
-      return firstMeshToLatLon(mesh)
+      return firstMeshToLatLon(newMesh)
     case 6:
-      return secondMeshToLatLon(mesh)
+      return secondMeshToLatLon(newMesh)
     case 8:
-      throw new Error(`Not Implemented`)
+      return thirdMeshToLatLon(newMesh)
     default:
       throw new Error(`Unexpected length. mesh is ${mesh}`)
   }
@@ -58,8 +58,8 @@ function firstMeshToLatLon(mesh: string): LatLon {
  */
 function secondMeshToLatLon(mesh: string): LatLon {
   const firstMeshLatLon = firstMeshToLatLon(mesh.substr(0, 4))
-  const secondMeshLat = parseInt(mesh.substr(5, 1))
-  const secondMeshLon = parseInt(mesh.substr(6))
+  const secondMeshLat = parseInt(mesh.substr(4, 1))
+  const secondMeshLon = parseInt(mesh.substr(5))
 
   if (isNaN(secondMeshLat) || isNaN(secondMeshLon)) {
     throw new Error(`Illegal format. mesh is ${mesh}`)
@@ -68,6 +68,27 @@ function secondMeshToLatLon(mesh: string): LatLon {
   return {
     lat: firstMeshLatLon.lat + secondMeshLat / 8 + 1 / 12,
     lon: firstMeshLatLon.lon + secondMeshLon / 8 + 1 / 8
+  }
+}
+
+/**
+ * Convert third mesh to LatLon.
+ *
+ * @param mesh third mesh
+ * @returns {LatLon} latitude and longitude
+ */
+function thirdMeshToLatLon(mesh: string): LatLon {
+  const secondMeshLatLon = secondMeshToLatLon(mesh.substr(0, 6))
+  const thirdMeshLat = parseInt(mesh.substr(6, 1))
+  const thirdMeshLon = parseInt(mesh.substr(7))
+
+  if (isNaN(thirdMeshLat) || isNaN(thirdMeshLon)) {
+    throw new Error(`Illegal format. mesh is ${mesh}`)
+  }
+
+  return {
+    lat: secondMeshLatLon.lat + thirdMeshLat / 10 + 1 / 120,
+    lon: secondMeshLatLon.lon + thirdMeshLon / 10 + 1 / 80
   }
 }
 
