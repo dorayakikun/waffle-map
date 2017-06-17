@@ -21,13 +21,10 @@ export function meshToLatLon(mesh: string): LatLon {
   switch (len) {
     case 4:
       return firstMeshToLonLat(mesh)
-      break
     case 6:
       throw new Error(`Not Implemented`)
-      break
     case 8:
       throw new Error(`Not Implemented`)
-      break
     default:
       throw new Error(`Unexpected length. mesh is ${mesh}`)
   }
