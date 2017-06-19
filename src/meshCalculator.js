@@ -93,6 +93,30 @@ function thirdMeshToLatLon(mesh: string): LatLon {
 }
 
 /**
+ * Convert mesh to bounds.
+ * @param mesh mesh
+ * @returns {Array<Array<number>>} bounds
+ */
+function meshToBounds(mesh: string): Array<Array<number>> {
+  const newMesh = mesh.replace(/\D/g, '')
+
+  const len = newMesh.length
+  if (len < 4) {
+    throw new Error(`Illegal format. mesh is ${mesh}`)
+  }
+  switch (len) {
+    case 4:
+      throw new Error(`Not Implemented`)
+    case 6:
+      throw new Error(`Not Implemented`)
+    case 8:
+      throw new Error(`Not Implemented`)
+    default:
+      throw new Error(`Unexpected length. mesh is ${mesh}`)
+  }
+}
+
+/**
  * Convert LatLon to mesh.
  *
  * @param lat latitude
