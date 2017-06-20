@@ -97,7 +97,7 @@ function thirdMeshToLatLon(mesh: string): LatLon {
  * @param mesh mesh
  * @returns {Array<Array<number>>} bounds
  */
-function meshToBounds(mesh: string): Array<Array<number>> {
+export function meshToBounds(mesh: string): Array<Array<number>> {
   const newMesh = mesh.replace(/\D/g, '')
 
   const len = newMesh.length
@@ -106,14 +106,94 @@ function meshToBounds(mesh: string): Array<Array<number>> {
   }
   switch (len) {
     case 4:
-      throw new Error(`Not Implemented`)
+      return meshToFirstMeshBounds(newMesh)
     case 6:
-      throw new Error(`Not Implemented`)
+      return meshToSecondMeshBounds(newMesh)
     case 8:
-      throw new Error(`Not Implemented`)
+      return meshToThirdMeshBounds(newMesh)
     default:
       throw new Error(`Unexpected length. mesh is ${mesh}`)
   }
+}
+
+/**
+ * Convert mesh to first mesh bounds.
+ * @param mesh mesh
+ * @returns {Array<Array<number>>}
+ */
+function meshToFirstMeshBounds(mesh: String): Array<Array<number>> {
+  const meshLat = parseInt(mesh.substr(0, 2))
+  const meshLon = parseInt(mesh.substr(2, 2))
+
+  if (isNaN(meshLat) || isNaN(meshLon)) {
+    throw new Error(`Illegal format. mesh is ${mesh}`)
+  }
+
+  const leftLat = meshLat / 1.5
+  const leftLon = meshLon + 100
+
+  return [[leftLat + 2 / 3, leftLon], [leftLat, leftLon + 1]]
+}
+
+/**
+ * Convert mesh to second mesh bounds.
+ *
+ * @param mesh mesh
+ * @returns {Array<Array<number>>}
+ */
+function meshToSecondMeshBounds(mesh: String): Array<Array<number>> {
+  const meshLat = parseInt(mesh.substr(0, 2))
+  const meshLon = parseInt(mesh.substr(2, 2))
+
+  const secondMeshLat = parseInt(mesh.substr(4, 1))
+  const secondMeshLon = parseInt(mesh.substr(5))
+
+  if (
+    isNaN(meshLat) ||
+    isNaN(meshLon) ||
+    isNaN(secondMeshLat) ||
+    isNaN(secondMeshLon)
+  ) {
+    throw new Error(`Illegal format. mesh is ${mesh}`)
+  }
+
+  const leftLat = meshLat / 1.5 + secondMeshLat / 8
+  const leftLon = meshLon + 100 + secondMeshLon / 8
+
+  return [[leftLat + 1 / 12, leftLon], [leftLat, leftLon + 1 / 8]]
+}
+
+/**
+ * Convert mesh to third mesh bounds.
+ *
+ * @param mesh mesh
+ * @returns {Array<Array<number>>}
+ */
+function meshToThirdMeshBounds(mesh: String): Array<Array<number>> {
+  const meshLat = parseInt(mesh.substr(0, 2))
+  const meshLon = parseInt(mesh.substr(2, 2))
+
+  const secondMeshLat = parseInt(mesh.substr(4, 1))
+  const secondMeshLon = parseInt(mesh.substr(5, 1))
+
+  const thirdMeshLat = parseInt(mesh.substr(6, 1))
+  const thirdMeshLon = parseInt(mesh.substr(7))
+
+  if (
+    isNaN(meshLat) ||
+    isNaN(meshLon) ||
+    isNaN(secondMeshLat) ||
+    isNaN(secondMeshLon) ||
+    isNaN(thirdMeshLat) ||
+    isNaN(thirdMeshLon)
+  ) {
+    throw new Error(`Illegal format. mesh is ${mesh}`)
+  }
+
+  const leftLat = meshLat / 1.5 + secondMeshLat / 8 + thirdMeshLat / 10
+  const leftLon = meshLon + 100 + secondMeshLon / 8 + thirdMeshLon / 10
+
+  return [[leftLat + 1 / 120, leftLon], [leftLat, leftLon + 1 / 80]]
 }
 
 /**
