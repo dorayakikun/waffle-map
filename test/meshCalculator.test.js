@@ -5,7 +5,7 @@ import { meshToLatLon, latLonToMesh, meshToBounds } from '../src/meshCalculator'
 // ---
 // meshToLatLon
 // ---
-test('mesh 533 should throw error', () => {
+test('Should throw error when mesh is 533', () => {
   expect(() => {
     meshToLatLon('533')
   }).toThrow()
@@ -39,7 +39,7 @@ test('mesh 5339-3a should throw error', () => {
   }).toThrow()
 })
 
-test('Should convert mesh 5339-35-97 to LatLon}', () => {
+test('Should convert mesh 5339-35-97 to LatLon', () => {
   const lat = (53 + (3 + 9 / 10) / 8) / 1.5 + 1 / 240
   const lon = 39 + (5 + 7 / 10) / 8 + 100 + 1 / 160
   expect(meshToLatLon('5339-35-97')).toEqual({
