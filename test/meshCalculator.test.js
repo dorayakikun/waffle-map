@@ -63,6 +63,60 @@ test('mesh 5339-35-97-12 should throw error', () => {
 // ---
 // meshToBounds
 // ---
+test('Should throw error when mesh is 533', () => {
+  expect(() => {
+    meshToBounds('533')
+  }).toThrow()
+})
+
+test('Should convert mesh 5339 to bounds', () => {
+  expect(meshToBounds('5339')).toEqual([
+    [53 / 1.5 + 2 / 3, 39 + 100],
+    [53 / 1.5, 39 + 100 + 1]
+  ])
+})
+
+test('Should throw error when mesh is 533a', () => {
+  expect(() => {
+    meshToBounds('533a')
+  }).toThrow()
+})
+
+test('Should convert mesh 5339-35 to bounds', () => {
+  const lat = (53 + 3 / 8) / 1.5
+  const lon = 39 + 5 / 8 + 100
+  expect(meshToBounds('5339-35')).toEqual([
+    [lat + 1 / 12, lon],
+    [lat, lon + 1 / 8]
+  ])
+})
+
+test('Should throw error when mesh is 5339-3a', () => {
+  expect(() => {
+    meshToBounds('5339-3a')
+  }).toThrow()
+})
+
+test('Should convert mesh 5339-35-97 to bounds', () => {
+  const lat = (53 + (3 + 9 / 10) / 8) / 1.5
+  const lon = 39 + (5 + 7 / 10) / 8 + 100
+  expect(meshToBounds('5339-35-97')).toEqual([
+    [lat + 1 / 120, lon],
+    [lat, lon + 1 / 80]
+  ])
+})
+
+test('Should throw error when mesh is 5339-35-9a', () => {
+  expect(() => {
+    meshToBounds('5339-35-9a')
+  }).toThrow()
+})
+
+test('Should throw error when mesh is 5339-35-97-12', () => {
+  expect(() => {
+    meshToBounds('5339-35-97-12')
+  }).toThrow()
+})
 
 // ---
 // latLonToMesh
