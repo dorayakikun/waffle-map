@@ -4,6 +4,7 @@ export type LatLon = {
   lat: number,
   lon: number
 }
+export type Bounds = Array<Array<number>>
 
 /**
  * Convert mesh to LatLon.
@@ -112,9 +113,9 @@ function thirdMeshToLatLon(mesh: string): LatLon {
 /**
  * Convert mesh to bounds.
  * @param mesh mesh
- * @returns {Array<Array<number>>} bounds
+ * @returns {Bounds} bounds
  */
-export function meshToBounds(mesh: string): Array<Array<number>> {
+export function meshToBounds(mesh: string): Bounds {
   const newMesh = mesh.replace(/\D/g, '')
 
   const len = newMesh.length
@@ -136,9 +137,9 @@ export function meshToBounds(mesh: string): Array<Array<number>> {
 /**
  * Convert mesh to first mesh bounds.
  * @param mesh mesh
- * @returns {Array<Array<number>>}
+ * @returns {Bounds}
  */
-function meshToFirstMeshBounds(mesh: String): Array<Array<number>> {
+function meshToFirstMeshBounds(mesh: string): Bounds {
   const lat = parseInt(mesh.substr(0, 2))
   const lon = parseInt(mesh.substr(2, 2))
 
@@ -156,9 +157,9 @@ function meshToFirstMeshBounds(mesh: String): Array<Array<number>> {
  * Convert mesh to second mesh bounds.
  *
  * @param mesh mesh
- * @returns {Array<Array<number>>}
+ * @returns {Bounds}
  */
-function meshToSecondMeshBounds(mesh: String): Array<Array<number>> {
+function meshToSecondMeshBounds(mesh: string): Bounds {
   const firstLat = parseInt(mesh.substr(0, 2))
   const firstLon = parseInt(mesh.substr(2, 2))
 
@@ -184,9 +185,9 @@ function meshToSecondMeshBounds(mesh: String): Array<Array<number>> {
  * Convert mesh to third mesh bounds.
  *
  * @param mesh mesh
- * @returns {Array<Array<number>>}
+ * @returns {Bounds}
  */
-function meshToThirdMeshBounds(mesh: String): Array<Array<number>> {
+function meshToThirdMeshBounds(mesh: string): Bounds {
   const firstLat = parseInt(mesh.substr(0, 2))
   const firstLon = parseInt(mesh.substr(2, 2))
 

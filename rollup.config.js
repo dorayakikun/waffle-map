@@ -26,10 +26,12 @@ export default {
         'node_modules/react/react.js': [
           'Children',
           'Component',
+          'PropTypes',
           'isValidElement',
           'cloneElement',
           'createElement'
-        ]
+        ],
+        'node_modules/react-dom/index.js': ['render']
       }
     }),
     babel({

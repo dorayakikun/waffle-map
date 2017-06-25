@@ -11,10 +11,12 @@ plugins:
   - import
 extends:
   - plugin:flowtype/recommended
-  - plugin:import/errors
   - prettier
   - prettier/flowtype
+  - prettier/react
 rules:
+  no-duplicate-imports: 0
+  import/no-duplicates: 2
   prettier/prettier:
     - 2
     -
