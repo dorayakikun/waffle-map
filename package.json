@@ -16,6 +16,7 @@
     "type": "git",
     "url": "https://github.com/dorayakikun/mesh_calculator.git"
   },
+  "homepage": "https://USERNAME.github.io/PROJECT_NAME/",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
