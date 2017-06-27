@@ -11,6 +11,7 @@ import type { State, Dispatch } from '../types'
 const MeshInput = ({ meshes, onMeshesChanged }) =>
   <div>
     <Input
+      fluid={true}
       label={<Label color="teal">meshes</Label>}
       placeholder="e.g. 5339-35-97"
       onChange={onMeshesChanged}
