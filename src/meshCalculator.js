@@ -4,7 +4,7 @@ export type LatLon = {
   lat: number,
   lon: number
 }
-export type Bounds = Array<Array<number>>
+export type Bounds = Array<any>
 
 /**
  * Convert mesh to LatLon.

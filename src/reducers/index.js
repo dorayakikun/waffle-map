@@ -1,55 +1,62 @@
 // @flow
-import { meshToLatLon, meshToBounds } from '../meshCalculator'
-import { INPUT_MESHES } from '../actions/meshInput'
+import { meshToBounds } from '../meshCalculator'
+import * as AppActions from '../actions/AppActions'
 
-import type { Bounds, LatLon } from '../meshCalculator'
-import type { State, Action } from '../types'
+import type { State as MapState } from './map'
+import type { State as MeshInputState } from './meshInput'
+import type { Action } from '../actions/AppActions'
+import type { Bounds } from '../meshCalculator'
 
-const initialState: State = {
-  meshes: '',
-  centerCoords: [],
-  boundsArray: []
+export type State = {
+  map: MapState,
+  meshInput: MeshInputState
 }
 
-export default (state: State = initialState, action: Action) => {
+const initialState: State = {
+  map: { boundsArray: [] },
+  meshInput: {
+    meshes: '',
+    separator: ''
+  }
+}
+
+export default (state: State = initialState, action: Action): State => {
   switch (action.type) {
-    case INPUT_MESHES:
-      return Object.assign({}, state, {
-        meshes: action.payload,
-        centerCoords: [meshToLatLonOr(action.payload)],
-        boundsArray: [meshToBoundsOr(action.payload)]
-      })
+    case AppActions.INPUT_MESHES:
+      const { meshes } = action.payload
+      return {
+        ...state,
+        map: { boundsArray: meshesToBoundsOr(meshes) },
+        meshInput: {
+          ...state.meshInput,
+          meshes
+        }
+      }
+    case AppActions.SELECT_SEPARATOR:
+      const { separator } = action.payload
+      return {
+        ...state,
+        meshInput: {
+          ...state.meshInput,
+          separator
+        }
+      }
     default:
       return state
   }
 }
 
 /**
- * Convert mesh to LatLon.
- * If mesh is invalid then return invalid LatLon.
- *
- * @param mesh mesh
- * @returns {LatLon} Latitude and Longitude
- */
-const meshToLatLonOr = (mesh: string) => {
-  try {
-    return meshToLatLon(mesh)
-  } catch (e) {
-    return { lat: -999, lon: -999 }
-  }
-}
-
-/**
- * Convert mesh to bounds.
+ * Convert meshes to bounds.
  * If mesh is invalid then return empty array.
  *
- * @param mesh
+ * @param meshes
  * @returns {Bounds}
  */
-const meshToBoundsOr = (mesh: string) => {
+const meshesToBoundsOr = (meshes: string): Array<Bounds> => {
   try {
-    return meshToBounds(mesh)
+    return meshToBounds(meshes)
   } catch (e) {
-    return [[], []]
+    return []
   }
 }

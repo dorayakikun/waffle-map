@@ -1,49 +1,57 @@
 // @flow
-
-import { connect } from 'react-redux'
-
 import React, { PropTypes } from 'react'
-import { Input, Label } from 'semantic-ui-react'
-import { inputMeshes } from '../actions/meshInput'
+import { Dropdown, Input, Label } from 'semantic-ui-react'
 
-import type { State, Dispatch } from '../types'
+export type SeparatorItem = {
+  text: string,
+  value: string
+}
 
-const MeshInput = ({ meshes, onMeshesChanged }) =>
+const separatorOptions: Array<SeparatorItem> = [
+  {
+    text: 'commas',
+    value: ','
+  },
+  {
+    text: 'dots',
+    value: '.'
+  }
+]
+
+const fetchTextFrom = (
+  options: Array<SeparatorItem>,
+  value: string
+): string => {
+  return options.filter(o => o.value === value).map(o => o.text).toString()
+}
+
+const MeshInput = ({
+  meshes,
+  separator,
+  onMeshesChanged,
+  onSeparatorChanged
+}: any) =>
   <div>
     <Input
-      fluid={true}
+      fluid
       label={<Label color="teal">meshes</Label>}
       placeholder="e.g. 5339-35-97"
       onChange={onMeshesChanged}
       value={meshes}
     />
+    <Dropdown
+      fluid
+      onChange={onSeparatorChanged}
+      options={separatorOptions}
+      text={`Split with ${fetchTextFrom(separatorOptions, separator)}.`}
+    />
   </div>
 
 MeshInput.propTypes = {
   meshes: PropTypes.string.isRequired,
-  centerCoords: PropTypes.arrayOf(
-    PropTypes.shape({
-      lat: PropTypes.number.isRequired,
-      lon: PropTypes.number.isRequired
-    })
-  ),
-  onMeshesChanged: PropTypes.func.isRequired
+  separator: PropTypes.string.isRequired,
+  onMeshesChanged: PropTypes.func.isRequired,
+  onSeparatorChanged: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state: State) => {
-  return {
-    meshes: state.meshes
-  }
-}
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    onMeshesChanged: event => {
-      dispatch(inputMeshes(event.target.value))
-    }
-  }
-}
-
-const connector = connect(mapStateToProps, mapDispatchToProps)
-
-export default connector(MeshInput)
+export default MeshInput

@@ -3,7 +3,7 @@
    ["latest", { "es2015": { "modules": false } }],
    "flow"
  ],
-  "plugins": ["external-helpers", "transform-react-jsx"],
+  "plugins": ["external-helpers", "transform-react-jsx", "transform-object-rest-spread"],
   "env": {
     "test": {
       "presets": ["latest", "flow"]
