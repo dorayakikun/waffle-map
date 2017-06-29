@@ -8,7 +8,6 @@ import type { State as RootState } from '../reducers'
 import type { State as MapState } from '../reducers/map'
 
 const MapContainer = data => {
-  console.log('MapContainer data is', data)
   const { boundsArray } = data
   return <Map boundsArray={boundsArray} />
 }

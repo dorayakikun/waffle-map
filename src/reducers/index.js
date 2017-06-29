@@ -16,7 +16,7 @@ const initialState: State = {
   map: { boundsArray: [] },
   meshInput: {
     meshes: '',
-    separator: ''
+    separator: '.'
   }
 }
 
@@ -26,7 +26,7 @@ export default (state: State = initialState, action: Action): State => {
       const { meshes } = action.payload
       return {
         ...state,
-        map: { boundsArray: meshesToBoundsOr(meshes) },
+        map: { boundsArray: meshesToBoundsArray(meshes, state) },
         meshInput: {
           ...state.meshInput,
           meshes
@@ -47,16 +47,21 @@ export default (state: State = initialState, action: Action): State => {
 }
 
 /**
- * Convert meshes to bounds.
- * If mesh is invalid then return empty array.
+ * Convert meshes to boundsArray.
+ * If mesh is invalid then return previous boundsArray.
  *
  * @param meshes
- * @returns {Bounds}
+ * @param state
+ * @returns {Array<Bounds>}
  */
-const meshesToBoundsOr = (meshes: string): Array<Bounds> => {
+const meshesToBoundsArray = (meshes: string, state: State): Array<Bounds> => {
+  const { separator } = state.meshInput
   try {
-    return [meshToBounds(meshes)]
+    return meshes
+      .split(separator)
+      .filter(mesh => mesh !== '')
+      .map(mesh => meshToBounds(mesh))
   } catch (e) {
-    return []
+    return state.map.boundsArray
   }
 }

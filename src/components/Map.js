@@ -8,9 +8,7 @@ const Map = ({ boundsArray }: any) =>
       url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
       attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
     />
-    {boundsArray
-      .filter(bounds => bounds[0].length !== 0)
-      .map(bounds => <Rectangle bounds={bounds} color="#00847e" />)}
+    {boundsArray.map(bounds => <Rectangle bounds={bounds} color="#00847e" />)}
   </LeafletMap>
 
 Map.propTypes = {

@@ -3,11 +3,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import MeshInput from '../components/MeshInput'
-import { inputMeshes, selectSeparator } from '../actions/meshInput'
+import { inputMeshes, selectSeparator } from '../actions/AppActions'
 
 import type { State as RootState } from '../reducers'
 import type { State as MeshInputState } from '../reducers/meshInput'
-import type { MeshInputAction } from '../actions/meshInput'
+import type { Action } from '../actions/AppActions'
 
 const MeshContainer = ({
   meshes,
