@@ -55,7 +55,7 @@ export default (state: State = initialState, action: Action): State => {
  */
 const meshesToBoundsOr = (meshes: string): Array<Bounds> => {
   try {
-    return meshToBounds(meshes)
+    return [meshToBounds(meshes)]
   } catch (e) {
     return []
   }

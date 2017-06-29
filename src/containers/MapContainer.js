@@ -7,7 +7,11 @@ import Map from '../components/Map'
 import type { State as RootState } from '../reducers'
 import type { State as MapState } from '../reducers/map'
 
-const MapContainer = ({ boundsArray }) => <Map boundsArray={boundsArray} />
+const MapContainer = data => {
+  console.log('MapContainer data is', data)
+  const { boundsArray } = data
+  return <Map boundsArray={boundsArray} />
+}
 
 const mapStateToProps = (state: RootState): MapState => state.map
 
