@@ -7,7 +7,6 @@
     "build": "export NODE_ENV=production && rollup -c",
     "eslint": "eslint src --fix",
     "flow": "flow",
-    "pretest": "npm run eslint && npm run flow",
     "test": "export NODE_ENV=test && jest"
   },
   "keywords": [],
