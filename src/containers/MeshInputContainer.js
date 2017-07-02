@@ -8,7 +8,7 @@ import { inputMeshes, selectSeparator } from '../actions/AppActions'
 import type { MeshInputState, State as RootState } from '../reducers'
 import type { Action } from '../actions/AppActions'
 
-const MeshContainer = ({
+const MeshInputContainer = ({
   meshes,
   separator,
   onMeshesChanged,
@@ -39,4 +39,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 
 const connector = connect(mapStateToProps, mapDispatchToProps)
 
-export default connector(MeshContainer)
+export default connector(MeshInputContainer)

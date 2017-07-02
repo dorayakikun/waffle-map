@@ -3,7 +3,7 @@
 import React from 'react'
 import { Grid, Image, Menu, Sidebar } from 'semantic-ui-react'
 
-import MeshContainer from './MeshContainer'
+import MeshInputContainer from './MeshInputContainer'
 import MeshDetailsContainer from './MeshDetailsContainer'
 import MapContainer from './MapContainer'
 
@@ -16,7 +16,7 @@ const App = () =>
           <strong>Waffle Map</strong>
         </Menu.Item>
         <Menu.Item name="meshInput">
-          <MeshContainer />
+          <MeshInputContainer />
         </Menu.Item>
         <Menu.Item name="meshDetails">
           <MeshDetailsContainer />
