@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { Grid, Menu, Segment, Sidebar } from 'semantic-ui-react'
+import { Grid, Image, Menu, Sidebar } from 'semantic-ui-react'
 
 import MeshContainer from './MeshContainer'
 import MeshDetailsContainer from './MeshDetailsContainer'
@@ -9,10 +9,11 @@ import MapContainer from './MapContainer'
 
 const App = () =>
   <div style={{ height: '100%' }}>
-    <Sidebar.Pushable as={Segment}>
-      <Sidebar as={Menu} width="wide" visible icon="labeled" vertical inverted>
+    <Sidebar.Pushable>
+      <Sidebar as={Menu} inverted vertical visible width="wide">
         <Menu.Item name="waffleMap">
-          Waffle Map
+          <Image src="./logo.png" size="mini" spaced />
+          <strong>Waffle Map</strong>
         </Menu.Item>
         <Menu.Item name="meshInput">
           <MeshContainer />
