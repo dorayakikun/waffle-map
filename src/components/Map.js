@@ -36,7 +36,7 @@ const calculateBoundsFrom = (meshes: Array<Mesh>): Bounds => {
 const Map = ({ meshes }: any) =>
   <LeafletMap bounds={calculateBoundsFrom(meshes)}>
     <TileLayer
-      url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
     />
     {meshes.map(mesh =>
