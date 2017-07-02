@@ -4,7 +4,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Map from '../components/Map'
 
-import type { Mesh, State as RootState } from '../reducers'
+import type { State as RootState } from '../reducers'
 
 const MapContainer = ({ meshes }) => {
   return <Map meshes={meshes} />

@@ -1,6 +1,12 @@
 // @flow
 import React, { PropTypes } from 'react'
-import { Map as LeafletMap, Rectangle, TileLayer } from 'react-leaflet'
+import {
+  Marker,
+  Map as LeafletMap,
+  Rectangle,
+  TileLayer,
+  Tooltip
+} from 'react-leaflet'
 
 import type { Bounds } from '../meshCalculator'
 import type { Mesh } from '../reducers'
@@ -34,7 +40,11 @@ const Map = ({ meshes }: any) =>
       url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
       attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
     />
-    {meshes.map(mesh => <Rectangle bounds={mesh.bounds} color="#00847e" />)}
+    {meshes.map(mesh =>
+      <Rectangle bounds={mesh.bounds} color="#00847e">
+        <Tooltip><span>{mesh.code}</span></Tooltip>
+      </Rectangle>
+    )}
   </LeafletMap>
 
 Map.propTypes = {
