@@ -4,15 +4,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Map from '../components/Map'
 
-import type { State as RootState } from '../reducers'
-import type { State as MapState } from '../reducers/map'
+import type { Mesh, State as RootState } from '../reducers'
 
-const MapContainer = data => {
-  const { boundsArray } = data
-  return <Map boundsArray={boundsArray} />
+const MapContainer = ({ meshes }) => {
+  return <Map meshes={meshes} />
 }
 
-const mapStateToProps = (state: RootState): MapState => state.map
+const mapStateToProps = (state: RootState): RootState => state
 
 const connector = connect(mapStateToProps)
 

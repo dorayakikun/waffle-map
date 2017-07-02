@@ -1,35 +1,40 @@
 // @flow
-import { meshToBounds } from '../meshCalculator'
+import { meshToBounds, meshToLatLon } from '../meshCalculator'
 import * as AppActions from '../actions/AppActions'
 
-import type { State as MapState } from './map'
 import type { State as MeshInputState } from './meshInput'
 import type { Action } from '../actions/AppActions'
-import type { Bounds } from '../meshCalculator'
+import type { Bounds, LatLon } from '../meshCalculator'
+
+export type Mesh = {
+  code: string,
+  center: LatLon,
+  bounds: Bounds
+}
 
 export type State = {
-  map: MapState,
-  meshInput: MeshInputState
+  meshInput: MeshInputState,
+  meshes: Array<Mesh>
 }
 
 const initialState: State = {
-  map: { boundsArray: [] },
   meshInput: {
-    meshes: '',
+    meshesString: '',
     separator: '.'
-  }
+  },
+  meshes: []
 }
 
 export default (state: State = initialState, action: Action): State => {
   switch (action.type) {
     case AppActions.INPUT_MESHES:
-      const { meshes } = action.payload
+      const { meshesString } = action.payload
       return {
         ...state,
-        map: { boundsArray: meshesToBoundsArray(meshes, state) },
+        meshes: meshesToBoundsArray(meshesString, state),
         meshInput: {
           ...state.meshInput,
-          meshes
+          meshesString
         }
       }
     case AppActions.SELECT_SEPARATOR:
@@ -54,14 +59,17 @@ export default (state: State = initialState, action: Action): State => {
  * @param state
  * @returns {Array<Bounds>}
  */
-const meshesToBoundsArray = (meshes: string, state: State): Array<Bounds> => {
+const meshesToBoundsArray = (meshes: string, state: State): Array<Mesh> => {
   const { separator } = state.meshInput
   try {
-    return meshes
-      .split(separator)
-      .filter(mesh => mesh !== '')
-      .map(mesh => meshToBounds(mesh))
+    return meshes.split(separator).filter(mesh => mesh !== '').map(mesh => {
+      return {
+        code: mesh,
+        center: meshToLatLon(mesh),
+        bounds: meshToBounds(mesh)
+      }
+    })
   } catch (e) {
-    return state.map.boundsArray
+    return state.meshes
   }
 }

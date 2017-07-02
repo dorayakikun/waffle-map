@@ -1,5 +1,5 @@
 // @flow
 export type State = {
-  meshes: string,
+  meshesString: string,
   separator: string
 }

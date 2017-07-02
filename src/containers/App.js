@@ -1,9 +1,10 @@
 // @flow
 
 import React from 'react'
-import { Container, Grid, Menu, Segment, Sidebar } from 'semantic-ui-react'
+import { Grid, Menu, Segment, Sidebar } from 'semantic-ui-react'
 
 import MeshContainer from './MeshContainer'
+import MeshDetailsContainer from './MeshDetailsContainer'
 import MapContainer from './MapContainer'
 
 const App = () =>
@@ -15,6 +16,9 @@ const App = () =>
         </Menu.Item>
         <Menu.Item name="meshInput">
           <MeshContainer />
+        </Menu.Item>
+        <Menu.Item name="meshDetails">
+          <MeshDetailsContainer />
         </Menu.Item>
       </Sidebar>
       <Sidebar.Pusher>

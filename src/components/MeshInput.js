@@ -26,7 +26,7 @@ const fetchTextFrom = (
 }
 
 const MeshInput = ({
-  meshes,
+  meshesString,
   separator,
   onMeshesChanged,
   onSeparatorChanged
@@ -37,7 +37,7 @@ const MeshInput = ({
       label={<Label color="teal">meshes</Label>}
       placeholder="e.g. 5339-35-97"
       onChange={onMeshesChanged}
-      value={meshes}
+      value={meshesString}
     />
     <Dropdown
       fluid
@@ -48,7 +48,7 @@ const MeshInput = ({
   </div>
 
 MeshInput.propTypes = {
-  meshes: PropTypes.string.isRequired,
+  meshesString: PropTypes.string.isRequired,
   separator: PropTypes.string.isRequired,
   onMeshesChanged: PropTypes.func.isRequired,
   onSeparatorChanged: PropTypes.func.isRequired
