@@ -2,9 +2,13 @@
 import { meshToBounds, meshToLatLon } from '../meshCalculator'
 import * as AppActions from '../actions/AppActions'
 
-import type { State as MeshInputState } from './meshInput'
 import type { Action } from '../actions/AppActions'
 import type { Bounds, LatLon } from '../meshCalculator'
+
+export type MeshInputState = {
+  meshesString: string,
+  separator: string
+}
 
 export type Mesh = {
   code: string,

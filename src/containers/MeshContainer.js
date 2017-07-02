@@ -5,8 +5,7 @@ import { connect } from 'react-redux'
 import MeshInput from '../components/MeshInput'
 import { inputMeshes, selectSeparator } from '../actions/AppActions'
 
-import type { State as RootState } from '../reducers'
-import type { State as MeshInputState } from '../reducers/meshInput'
+import type { MeshInputState, State as RootState } from '../reducers'
 import type { Action } from '../actions/AppActions'
 
 const MeshContainer = ({
