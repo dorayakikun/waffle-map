@@ -35,7 +35,7 @@ export default (state: State = initialState, action: Action): State => {
       const { meshesString } = action.payload
       return {
         ...state,
-        meshes: meshesToBoundsArray(meshesString, state),
+        meshes: meshesFrom(meshesString, state),
         meshInput: {
           ...state.meshInput,
           meshesString
@@ -59,20 +59,23 @@ export default (state: State = initialState, action: Action): State => {
  * Convert meshes to boundsArray.
  * If mesh is invalid then return previous boundsArray.
  *
- * @param meshes
+ * @param meshesString
  * @param state
  * @returns {Array<Bounds>}
  */
-const meshesToBoundsArray = (meshes: string, state: State): Array<Mesh> => {
+const meshesFrom = (meshesString: string, state: State): Array<Mesh> => {
   const { separator } = state.meshInput
   try {
-    return meshes.split(separator).filter(mesh => mesh !== '').map(mesh => {
-      return {
-        code: mesh,
-        center: meshToLatLon(mesh),
-        bounds: meshToBounds(mesh)
-      }
-    })
+    return meshesString
+      .split(separator)
+      .filter(mesh => mesh !== '')
+      .map(mesh => {
+        return {
+          code: mesh,
+          center: meshToLatLon(mesh),
+          bounds: meshToBounds(mesh)
+        }
+      })
   } catch (e) {
     return state.meshes
   }
