@@ -19,7 +19,6 @@ const calculateBoundsFrom = (meshes: Array<Mesh>): Bounds => {
   }
   let lats: Array<number> = []
   let lngs: Array<number> = []
-  console.log(meshes)
   meshes
     .map(mesh => mesh.bounds)
     .reduce((accumrator, current) => accumrator.concat(current), [])
