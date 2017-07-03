@@ -72,6 +72,10 @@ function secondMeshToLatLon(mesh: string): LatLon {
     throw new Error(`Illegal format. mesh is ${mesh}`)
   }
 
+  if (secondMeshLat > 7 || secondMeshLon > 7) {
+    throw new Error(`Illegal format. mesh is ${mesh}`)
+  }
+
   return {
     lat: (firstMeshLat + secondMeshLat / 8) / 1.5 + 1 / 24,
     lon: firstMeshLon + secondMeshLon / 8 + 100 + 1 / 16
@@ -100,6 +104,10 @@ function thirdMeshToLatLon(mesh: string): LatLon {
     isNaN(thirdMeshLat) ||
     isNaN(thirdMeshLon)
   ) {
+    throw new Error(`Illegal format. mesh is ${mesh}`)
+  }
+
+  if (secondMeshLat > 7 || secondMeshLon > 7) {
     throw new Error(`Illegal format. mesh is ${mesh}`)
   }
 
