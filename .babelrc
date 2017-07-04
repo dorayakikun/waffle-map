@@ -1,7 +1,13 @@
 {
  "presets": [
-   "latest",
+   ["latest", { "es2015": { "modules": false } }],
    "flow"
  ],
-  "plugins": ["transform-react-jsx", "transform-object-rest-spread"]
+  "plugins": ["transform-react-jsx", "transform-object-rest-spread"],
+  "env": {
+    "test": {
+      "presets": ["latest", "flow"],
+      "plugins": ["transform-react-jsx", "transform-object-rest-spread"]
+    }
+  }
 }
