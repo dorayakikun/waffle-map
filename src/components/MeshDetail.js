@@ -3,7 +3,9 @@
 import React, { PropTypes } from 'react'
 import { Table } from 'semantic-ui-react'
 
-const MeshDetail = ({ code, center, bounds }: any) =>
+import type { Mesh } from '../reducers'
+
+const MeshDetail = ({ code, center, bounds }: Mesh) =>
   <Table inverted>
     <Table.Row>
       <Table.Cell>mesh</Table.Cell>
@@ -13,16 +15,18 @@ const MeshDetail = ({ code, center, bounds }: any) =>
       <Table.Cell>center</Table.Cell>
       <Table.Cell>
         {center.lat}<br />
-        {center.lon}
+        {center.lng}
       </Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell>leftTop</Table.Cell>
-      <Table.Cell>{bounds[0][0]}<br />{bounds[0][1]}</Table.Cell>
+      <Table.Cell>{bounds.leftTop.lat}<br />{bounds.leftTop.lng}</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell>rightBottom</Table.Cell>
-      <Table.Cell>{bounds[1][0]}<br />{bounds[1][1]}</Table.Cell>
+      <Table.Cell>
+        {bounds.rightBottom.lat}<br />{bounds.rightBottom.lng}
+      </Table.Cell>
     </Table.Row>
   </Table>
 

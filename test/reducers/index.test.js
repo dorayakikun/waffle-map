@@ -2,7 +2,7 @@
 
 import * as AppActions from '../../src/actions/AppActions'
 import reducer from '../../src/reducers'
-import * as MeshCalculator from '../../src/meshCalculator'
+import * as MeshCalculator from '../../src/MeshCalculator'
 
 test('Should handle INPUT_MESHES', () => {
   const meshesString = '5339'
@@ -14,7 +14,7 @@ test('Should handle INPUT_MESHES', () => {
     meshes: [
       {
         code: meshesString,
-        center: MeshCalculator.meshToLatLon(meshesString),
+        center: MeshCalculator.meshToLatLng(meshesString),
         bounds: MeshCalculator.meshToBounds(meshesString)
       }
     ]

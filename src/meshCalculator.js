@@ -1,18 +1,21 @@
 // @flow
 
-export type LatLon = {
+export type LatLng = {
   lat: number,
-  lon: number
+  lng: number
 }
-export type Bounds = Array<Array<number>>
+export type Bounds = {
+  leftTop: LatLng,
+  rightBottom: LatLng
+}
 
 /**
- * Convert mesh to LatLon.
+ * Convert mesh to LatLng.
  *
  * @param mesh mesh
- * @returns {LatLon} latitude and longitude
+ * @returns {LatLng} latitude and longitude
  */
-export function meshToLatLon(mesh: string): LatLon {
+export function meshToLatLng(mesh: string): LatLng {
   const newMesh = mesh.replace(/\D/g, '')
 
   const len = newMesh.length
@@ -21,100 +24,100 @@ export function meshToLatLon(mesh: string): LatLon {
   }
   switch (len) {
     case 4:
-      return firstMeshToLatLon(newMesh)
+      return firstMeshToLatLng(newMesh)
     case 6:
-      return secondMeshToLatLon(newMesh)
+      return secondMeshToLatLng(newMesh)
     case 8:
-      return thirdMeshToLatLon(newMesh)
+      return thirdMeshToLatLng(newMesh)
     default:
       throw new Error(`Unexpected length. mesh is ${mesh}`)
   }
 }
 
 /**
- * Convert first mesh to LatLon.
+ * Convert first mesh to LatLng.
  *
  * @param mesh first mesh
- * @returns {LatLon} latitude and longitude
+ * @returns {LatLng} latitude and longitude
  */
-function firstMeshToLatLon(mesh: string): LatLon {
+function firstMeshToLatLng(mesh: string): LatLng {
   const meshLat = parseInt(mesh.substr(0, 2))
-  const meshLon = parseInt(mesh.substr(2))
+  const meshLng = parseInt(mesh.substr(2))
 
-  if (isNaN(meshLat) || isNaN(meshLon)) {
+  if (isNaN(meshLat) || isNaN(meshLng)) {
     throw new Error(`Illegal format. mesh is ${mesh}`)
   }
 
   return {
     lat: meshLat / 1.5 + 1 / 3,
-    lon: meshLon + 100 + 1 / 2
+    lng: meshLng + 100 + 1 / 2
   }
 }
 
 /**
- * Convert second mesh to LatLon.
+ * Convert second mesh to LatLng.
  *
  * @param mesh second mesh
- * @returns {LatLon} latitude and longitude
+ * @returns {LatLng} latitude and longitude
  */
-function secondMeshToLatLon(mesh: string): LatLon {
+function secondMeshToLatLng(mesh: string): LatLng {
   const firstMeshLat = parseInt(mesh.substr(0, 2))
-  const firstMeshLon = parseInt(mesh.substr(2, 2))
+  const firstMeshLng = parseInt(mesh.substr(2, 2))
   const secondMeshLat = parseInt(mesh.substr(4, 1))
-  const secondMeshLon = parseInt(mesh.substr(5))
+  const secondMeshLng = parseInt(mesh.substr(5))
 
   if (
     isNaN(firstMeshLat) ||
-    isNaN(firstMeshLon) ||
+    isNaN(firstMeshLng) ||
     isNaN(secondMeshLat) ||
-    isNaN(secondMeshLon)
+    isNaN(secondMeshLng)
   ) {
     throw new Error(`Illegal format. mesh is ${mesh}`)
   }
 
-  if (secondMeshLat > 7 || secondMeshLon > 7) {
+  if (secondMeshLat > 7 || secondMeshLng > 7) {
     throw new Error(`Illegal format. mesh is ${mesh}`)
   }
 
   return {
     lat: (firstMeshLat + secondMeshLat / 8) / 1.5 + 1 / 24,
-    lon: firstMeshLon + secondMeshLon / 8 + 100 + 1 / 16
+    lng: firstMeshLng + secondMeshLng / 8 + 100 + 1 / 16
   }
 }
 
 /**
- * Convert third mesh to LatLon.
+ * Convert third mesh to LatLng.
  *
  * @param mesh third mesh
- * @returns {LatLon} latitude and longitude
+ * @returns {LatLng} latitude and longitude
  */
-function thirdMeshToLatLon(mesh: string): LatLon {
+function thirdMeshToLatLng(mesh: string): LatLng {
   const firstMeshLat = parseInt(mesh.substr(0, 2))
-  const firstMeshLon = parseInt(mesh.substr(2, 2))
+  const firstMeshLng = parseInt(mesh.substr(2, 2))
   const secondMeshLat = parseInt(mesh.substr(4, 1))
-  const secondMeshLon = parseInt(mesh.substr(5, 1))
+  const secondMeshLng = parseInt(mesh.substr(5, 1))
   const thirdMeshLat = parseInt(mesh.substr(6, 1))
-  const thirdMeshLon = parseInt(mesh.substr(7))
+  const thirdMeshLng = parseInt(mesh.substr(7))
 
   if (
     isNaN(firstMeshLat) ||
-    isNaN(firstMeshLon) ||
+    isNaN(firstMeshLng) ||
     isNaN(secondMeshLat) ||
-    isNaN(secondMeshLon) ||
+    isNaN(secondMeshLng) ||
     isNaN(thirdMeshLat) ||
-    isNaN(thirdMeshLon)
+    isNaN(thirdMeshLng)
   ) {
     throw new Error(`Illegal format. mesh is ${mesh}`)
   }
 
-  if (secondMeshLat > 7 || secondMeshLon > 7) {
+  if (secondMeshLat > 7 || secondMeshLng > 7) {
     throw new Error(`Illegal format. mesh is ${mesh}`)
   }
 
   return {
     lat:
       (firstMeshLat + (secondMeshLat + thirdMeshLat / 10) / 8) / 1.5 + 1 / 240,
-    lon: firstMeshLon + (secondMeshLon + thirdMeshLon / 10) / 8 + 100 + 1 / 160
+    lng: firstMeshLng + (secondMeshLng + thirdMeshLng / 10) / 8 + 100 + 1 / 160
   }
 }
 
@@ -149,16 +152,19 @@ export function meshToBounds(mesh: string): Bounds {
  */
 function meshToFirstMeshBounds(mesh: string): Bounds {
   const lat = parseInt(mesh.substr(0, 2))
-  const lon = parseInt(mesh.substr(2, 2))
+  const lng = parseInt(mesh.substr(2, 2))
 
-  if (isNaN(lat) || isNaN(lon)) {
+  if (isNaN(lat) || isNaN(lng)) {
     throw new Error(`Illegal format. mesh is ${mesh}`)
   }
 
   const originLat = lat / 1.5
-  const originLon = lon + 100
+  const originLng = lng + 100
 
-  return [[originLat + 2 / 3, originLon], [originLat, originLon + 1]]
+  return {
+    leftTop: { lat: originLat + 2 / 3, lng: originLng },
+    rightBottom: { lat: originLat, lng: originLng + 1 }
+  }
 }
 
 /**
@@ -169,24 +175,27 @@ function meshToFirstMeshBounds(mesh: string): Bounds {
  */
 function meshToSecondMeshBounds(mesh: string): Bounds {
   const firstLat = parseInt(mesh.substr(0, 2))
-  const firstLon = parseInt(mesh.substr(2, 2))
+  const firstLng = parseInt(mesh.substr(2, 2))
 
   const secondMeshLat = parseInt(mesh.substr(4, 1))
-  const secondMeshLon = parseInt(mesh.substr(5))
+  const secondMeshLng = parseInt(mesh.substr(5))
 
   if (
     isNaN(firstLat) ||
-    isNaN(firstLon) ||
+    isNaN(firstLng) ||
     isNaN(secondMeshLat) ||
-    isNaN(secondMeshLon)
+    isNaN(secondMeshLng)
   ) {
     throw new Error(`Illegal format. mesh is ${mesh}`)
   }
 
   const originLat = (firstLat + secondMeshLat / 8) / 1.5
-  const originLon = firstLon + secondMeshLon / 8 + 100
+  const originLng = firstLng + secondMeshLng / 8 + 100
 
-  return [[originLat + 1 / 12, originLon], [originLat, originLon + 1 / 8]]
+  return {
+    leftTop: { lat: originLat + 1 / 12, lng: originLng },
+    rightBottom: { lat: originLat, lng: originLng + 1 / 8 }
+  }
 }
 
 /**
@@ -197,93 +206,96 @@ function meshToSecondMeshBounds(mesh: string): Bounds {
  */
 function meshToThirdMeshBounds(mesh: string): Bounds {
   const firstLat = parseInt(mesh.substr(0, 2))
-  const firstLon = parseInt(mesh.substr(2, 2))
+  const firstLng = parseInt(mesh.substr(2, 2))
 
   const secondMeshLat = parseInt(mesh.substr(4, 1))
-  const secondMeshLon = parseInt(mesh.substr(5, 1))
+  const secondMeshLng = parseInt(mesh.substr(5, 1))
 
   const thirdMeshLat = parseInt(mesh.substr(6, 1))
-  const thirdMeshLon = parseInt(mesh.substr(7))
+  const thirdMeshLng = parseInt(mesh.substr(7))
 
   if (
     isNaN(firstLat) ||
-    isNaN(firstLon) ||
+    isNaN(firstLng) ||
     isNaN(secondMeshLat) ||
-    isNaN(secondMeshLon) ||
+    isNaN(secondMeshLng) ||
     isNaN(thirdMeshLat) ||
-    isNaN(thirdMeshLon)
+    isNaN(thirdMeshLng)
   ) {
     throw new Error(`Illegal format. mesh is ${mesh}`)
   }
 
   const originLat = (firstLat + (secondMeshLat + thirdMeshLat / 10) / 8) / 1.5
-  const originLon = firstLon + (secondMeshLon + thirdMeshLon / 10) / 8 + 100
+  const originLng = firstLng + (secondMeshLng + thirdMeshLng / 10) / 8 + 100
 
-  return [[originLat + 1 / 120, originLon], [originLat, originLon + 1 / 80]]
+  return {
+    leftTop: { lat: originLat + 1 / 120, lng: originLng },
+    rightBottom: { lat: originLat, lng: originLng + 1 / 80 }
+  }
 }
 
 /**
- * Convert LatLon to mesh.
+ * Convert LatLng to mesh.
  *
  * @param lat latitude
- * @param lon longitude
+ * @param lng longitude
  * @param scale scale
  * @returns {string} mesh.
  */
-export function latLonToMesh(lat: number, lon: number, scale: number): string {
+export function latLngToMesh(lat: number, lng: number, scale: number): string {
   switch (scale) {
     case 1:
-      return latLonToFirstMesh(lat, lon)
+      return latLngToFirstMesh(lat, lng)
     case 2:
-      return latLonToSecondMesh(lat, lon)
+      return latLngToSecondMesh(lat, lng)
     case 3:
-      return latLonToThirdMesh(lat, lon)
+      return latLngToThirdMesh(lat, lng)
     default:
       throw new Error(`Illegal scale. scale is ${scale}`)
   }
 }
 
 /**
- * Convert LatLon to first mesh.
+ * Convert LatLng to first mesh.
  *
  * @param lat latitude
- * @param lon longitude
+ * @param lng longitude
  * @returns {string} first mesh
  */
-function latLonToFirstMesh(lat: number, lon: number): string {
+function latLngToFirstMesh(lat: number, lng: number): string {
   const meshLat = parseInt(lat * 1.5).toString()
-  const meshLon = parseInt(lon - 100).toString()
-  return meshLat + meshLon
+  const meshLng = parseInt(lng - 100).toString()
+  return meshLat + meshLng
 }
 
 /**
- * Convert LatLon to second mesh.
+ * Convert LatLng to second mesh.
  *
  * @param lat latitude
- * @param lon longitude
+ * @param lng longitude
  * @returns {string} second mesh
  */
-function latLonToSecondMesh(lat: number, lon: number): string {
+function latLngToSecondMesh(lat: number, lng: number): string {
   const firstMeshLat = lat * 1.5
-  const firstMeshLon = lon - 100
+  const firstMeshLng = lng - 100
 
   const meshLat = `${parseInt((firstMeshLat - parseInt(firstMeshLat)) * 8)}`
-  const meshLon = `${parseInt((firstMeshLon - parseInt(firstMeshLon)) * 8)}`
-  return `${latLonToFirstMesh(lat, lon)}-${meshLat}${meshLon}`
+  const meshLng = `${parseInt((firstMeshLng - parseInt(firstMeshLng)) * 8)}`
+  return `${latLngToFirstMesh(lat, lng)}-${meshLat}${meshLng}`
 }
 
 /**
- * Convert LatLon to third mesh.
+ * Convert LatLng to third mesh.
  *
  * @param lat latitude
- * @param lon longitude
+ * @param lng longitude
  * @returns {string} third mesh
  */
-function latLonToThirdMesh(lat: number, lon: number): string {
+function latLngToThirdMesh(lat: number, lng: number): string {
   const secondMeshLat = (lat * 1.5 - parseInt(lat * 1.5)) * 8
-  const secondMeshLon = (lon - 100 - parseInt(lon - 100)) * 8
+  const secondMeshLng = (lng - 100 - parseInt(lng - 100)) * 8
 
   const meshLat = `${parseInt((secondMeshLat - parseInt(secondMeshLat)) * 10)}`
-  const meshLon = `${parseInt((secondMeshLon - parseInt(secondMeshLon)) * 10)}`
-  return `${latLonToSecondMesh(lat, lon)}-${meshLat}${meshLon}`
+  const meshLng = `${parseInt((secondMeshLng - parseInt(secondMeshLng)) * 10)}`
+  return `${latLngToSecondMesh(lat, lng)}-${meshLat}${meshLng}`
 }

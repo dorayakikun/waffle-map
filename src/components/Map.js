@@ -8,23 +8,26 @@ import {
   Tooltip
 } from 'react-leaflet'
 
-import type { Bounds } from '../meshCalculator'
+import type { Bounds } from '../MeshCalculator'
 import type { Mesh } from '../reducers'
 
-const initialBounds = [[35, 139], [37, 140]]
+const initialLeafletBounds: Array<Array<number>> = [[35, 139], [37, 140]]
 
-const calculateBoundsFrom = (meshes: Array<Mesh>): Bounds => {
+const calculateLeafletBoundsFrom = (
+  meshes: Array<Mesh>
+): Array<Array<number>> => {
   if (meshes.length === 0) {
-    return initialBounds
+    return initialLeafletBounds
   }
   let lats: Array<number> = []
   let lngs: Array<number> = []
   meshes
     .map(mesh => mesh.bounds)
+    .map(bounds => [bounds.leftTop, bounds.rightBottom])
     .reduce((accumrator, current) => accumrator.concat(current), [])
     .forEach(latLng => {
-      lats.push(latLng[0])
-      lngs.push(latLng[1])
+      lats.push(latLng.lat)
+      lngs.push(latLng.lng)
     })
 
   return [
@@ -34,13 +37,19 @@ const calculateBoundsFrom = (meshes: Array<Mesh>): Bounds => {
 }
 
 const Map = ({ meshes }: any) =>
-  <LeafletMap bounds={calculateBoundsFrom(meshes)}>
+  <LeafletMap bounds={calculateLeafletBoundsFrom(meshes)}>
     <TileLayer
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
     />
     {meshes.map(mesh =>
-      <Rectangle bounds={mesh.bounds} color="#00847e">
+      <Rectangle
+        bounds={[
+          [mesh.bounds.leftTop.lat, mesh.bounds.leftTop.lng],
+          [mesh.bounds.rightBottom.lat, mesh.bounds.rightBottom.lng]
+        ]}
+        color="#00847e"
+      >
         <Tooltip><span>{mesh.code}</span></Tooltip>
       </Rectangle>
     )}

@@ -1,9 +1,9 @@
 // @flow
-import { meshToBounds, meshToLatLon } from '../meshCalculator'
+import { meshToBounds, meshToLatLng } from '../MeshCalculator'
 import * as AppActions from '../actions/AppActions'
 
 import type { Action } from '../actions/AppActions'
-import type { Bounds, LatLon } from '../meshCalculator'
+import type { Bounds, LatLng } from '../MeshCalculator'
 
 export type MeshInputState = {
   meshesString: string,
@@ -12,7 +12,7 @@ export type MeshInputState = {
 
 export type Mesh = {
   code: string,
-  center: LatLon,
+  center: LatLng,
   bounds: Bounds
 }
 
@@ -72,7 +72,7 @@ const meshesFrom = (meshesString: string, state: State): Array<Mesh> => {
       .map(mesh => {
         return {
           code: mesh,
-          center: meshToLatLon(mesh),
+          center: meshToLatLng(mesh),
           bounds: meshToBounds(mesh)
         }
       })
