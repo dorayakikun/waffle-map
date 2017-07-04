@@ -2,7 +2,7 @@
   "name": "mesh_calculator",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "public/bundle.js",
   "scripts": {
     "build": "export NODE_ENV=production && rollup -c",
     "eslint": "eslint src --fix",
@@ -16,7 +16,7 @@
     "type": "git",
     "url": "https://github.com/dorayakikun/mesh_calculator.git"
   },
-  "homepage": "https://USERNAME.github.io/PROJECT_NAME/",
+  "homepage": "https://dorayakikun.github.io/mesh_calculator/",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
