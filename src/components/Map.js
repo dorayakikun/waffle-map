@@ -8,7 +8,6 @@ import {
   Tooltip
 } from 'react-leaflet'
 
-import type { Bounds } from '../MeshCalculator'
 import type { Mesh } from '../reducers'
 
 const initialLeafletBounds: Array<Array<number>> = [[35, 139], [37, 140]]
