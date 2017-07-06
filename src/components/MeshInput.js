@@ -44,6 +44,7 @@ const MeshInput = ({
       onChange={onSeparatorChanged}
       options={separatorOptions}
       text={`Split with ${fetchTextFrom(separatorOptions, separator)}.`}
+      value={separator}
     />
   </div>
 
