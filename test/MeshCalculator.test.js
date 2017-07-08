@@ -9,7 +9,11 @@ test('Should throw error when mesh is 533', () => {
   const mesh = '533'
   expect(() => {
     meshToLatLng(mesh)
-  }).toThrow(`Unexpected length. mesh is ${mesh.replace(/-/g, '')}`)
+  }).toThrow(
+    `Invalid mesh code found.
+The length of the mesh code is 4, 6, or 8.
+The actual length is 3, the mesh code is 533.`
+  )
 })
 
 test('Should convert mesh 5339 to LatLng', () => {
@@ -28,7 +32,7 @@ test('Should throw an error when mesh is 533a', () => {
   }).toThrowError(
     `Invalid mesh code found.
 Only numbers are acceptable.
-Actual mesh code is ${mesh.replace(/-/g, '')}`
+Actual mesh code is ${mesh.replace(/-/g, '')}.`
   )
 })
 
@@ -48,7 +52,7 @@ test('Should throw an error when mesh is 5339-3a', () => {
   }).toThrow(
     `Invalid mesh code found.
 Only numbers are acceptable.
-Actual mesh code is ${mesh.replace(/-/g, '')}`
+Actual mesh code is ${mesh.replace(/-/g, '')}.`
   )
 })
 
@@ -59,7 +63,7 @@ test('Should throw an error when mesh is 5339-85', () => {
   }).toThrow(
     `Invalid mesh code found.
 Only [0-7] are acceptable in second division.
-Actual mesh code is ${mesh.replace(/-/g, '')}`
+Actual mesh code is ${mesh.replace(/-/g, '')}.`
   )
 })
 
@@ -79,7 +83,7 @@ test('Should throw an error when mesh is 5339-38-97', () => {
   }).toThrow(
     `Invalid mesh code found.
 Only [0-7] are acceptable in second division.
-Actual mesh code is ${mesh.replace(/-/g, '')}`
+Actual mesh code is ${mesh.replace(/-/g, '')}.`
   )
 })
 
@@ -90,15 +94,19 @@ test('Should throw an error when mesh is 5339-35-9a', () => {
   }).toThrow(
     `Invalid mesh code found.
 Only numbers are acceptable.
-Actual mesh code is ${mesh.replace(/-/g, '')}`
+Actual mesh code is ${mesh.replace(/-/g, '')}.`
   )
 })
 
 test('Should throw an error when mesh is 5339-35-97-12', () => {
   const mesh = '5339-35-97-12'
   expect(() => {
-    meshToLatLng('5339-35-97-12')
-  }).toThrow(`Unexpected length. mesh is ${mesh.replace(/-/g, '')}`)
+    meshToLatLng(mesh)
+  }).toThrow(
+    `Invalid mesh code found.
+The length of the mesh code is 4, 6, or 8.
+The actual length is 10, the mesh code is 5339359712.`
+  )
 })
 
 // ---
@@ -108,7 +116,11 @@ test('Should throw error when mesh is 533', () => {
   const mesh = '533'
   expect(() => {
     meshToBounds(mesh)
-  }).toThrow(`Unexpected length. mesh is ${mesh.replace(/-/g, '')}`)
+  }).toThrow(
+    `Invalid mesh code found.
+The length of the mesh code is 4, 6, or 8.
+The actual length is 3, the mesh code is 533.`
+  )
 })
 
 test('Should convert mesh 5339 to bounds', () => {
@@ -133,7 +145,7 @@ test('Should throw error when mesh is 533a', () => {
   }).toThrow(
     `Invalid mesh code found.
 Only numbers are acceptable.
-Actual mesh code is ${mesh.replace(/-/g, '')}`
+Actual mesh code is ${mesh.replace(/-/g, '')}.`
   )
 })
 
@@ -161,7 +173,7 @@ test('Should throw error when mesh is 5339-3a', () => {
   }).toThrow(
     `Invalid mesh code found.
 Only numbers are acceptable.
-Actual mesh code is ${mesh.replace(/-/g, '')}`
+Actual mesh code is ${mesh.replace(/-/g, '')}.`
   )
 })
 
@@ -172,7 +184,7 @@ test('Should throw error when mesh is 5339-95', () => {
   }).toThrow(
     `Invalid mesh code found.
 Only [0-7] are acceptable in second division.
-Actual mesh code is ${mesh.replace(/-/g, '')}`
+Actual mesh code is ${mesh.replace(/-/g, '')}.`
   )
 })
 
@@ -200,7 +212,7 @@ test('Should throw error when mesh is 5339-38-97', () => {
   }).toThrow(
     `Invalid mesh code found.
 Only [0-7] are acceptable in second division.
-Actual mesh code is ${mesh.replace(/-/g, '')}`
+Actual mesh code is ${mesh.replace(/-/g, '')}.`
   )
 })
 
@@ -211,7 +223,7 @@ test('Should throw error when mesh is 5339-35-9a', () => {
   }).toThrow(
     `Invalid mesh code found.
 Only numbers are acceptable.
-Actual mesh code is ${mesh.replace(/-/g, '')}`
+Actual mesh code is ${mesh.replace(/-/g, '')}.`
   )
 })
 
@@ -219,7 +231,11 @@ test('Should throw error when mesh is 5339-35-97-12', () => {
   const mesh = '5339-35-97-12'
   expect(() => {
     meshToBounds(mesh)
-  }).toThrow(`Unexpected length. mesh is ${mesh.replace(/-/g, '')}`)
+  }).toThrow(
+    `Invalid mesh code found.
+The length of the mesh code is 4, 6, or 8.
+The actual length is 10, the mesh code is 5339359712.`
+  )
 })
 
 // ---
@@ -237,8 +253,12 @@ test('{ lat: 35.6638, lng: 139.71805, scale: 3 } to equal 5339-35-97', () => {
   expect(latLngToMesh(35.6638, 139.71805, 3)).toBe('5339-35-97')
 })
 
-test('{ lat: 35.6638, lng: 139.71805 }, scale: 4 should throw error', () => {
+test('Should throw an error when LatLng is { lat: 35.6638, lng: 139.71805 }, scale is 4', () => {
   expect(() => {
     latLngToMesh(35.6638, 139.71805, 4)
-  }).toThrow()
+  }).toThrow(
+    `Illegal scale found.
+The scale range is [1-3].
+The actual scale is 4.`
+  )
 })

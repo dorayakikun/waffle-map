@@ -26,7 +26,11 @@ export function meshToLatLng(mesh: string): LatLng {
     case 8:
       return thirdMeshToLatLng(newMesh)
     default:
-      throw new Error(`Unexpected length. mesh is ${newMesh}`)
+      throw new Error(
+        `Invalid mesh code found.
+The length of the mesh code is 4, 6, or 8.
+The actual length is ${newMesh.length}, the mesh code is ${newMesh}.`
+      )
   }
 }
 
@@ -41,7 +45,7 @@ function firstMeshToLatLng(mesh: string): LatLng {
     throw new Error(
       `Invalid mesh code found.
 Only numbers are acceptable.
-Actual mesh code is ${mesh}`
+Actual mesh code is ${mesh}.`
     )
   }
   const meshLat = parseInt(mesh.substr(0, 2))
@@ -63,7 +67,7 @@ function secondMeshToLatLng(mesh: string): LatLng {
     throw new Error(
       `Invalid mesh code found.
 Only numbers are acceptable.
-Actual mesh code is ${mesh}`
+Actual mesh code is ${mesh}.`
     )
   }
   const firstMeshLat = parseInt(mesh.substr(0, 2))
@@ -75,7 +79,7 @@ Actual mesh code is ${mesh}`
     throw new Error(
       `Invalid mesh code found.
 Only [0-7] are acceptable in second division.
-Actual mesh code is ${mesh}`
+Actual mesh code is ${mesh}.`
     )
   }
 
@@ -96,7 +100,7 @@ function thirdMeshToLatLng(mesh: string): LatLng {
     throw new Error(
       `Invalid mesh code found.
 Only numbers are acceptable.
-Actual mesh code is ${mesh}`
+Actual mesh code is ${mesh}.`
     )
   }
 
@@ -111,7 +115,7 @@ Actual mesh code is ${mesh}`
     throw new Error(
       `Invalid mesh code found.
 Only [0-7] are acceptable in second division.
-Actual mesh code is ${mesh}`
+Actual mesh code is ${mesh}.`
     )
   }
 
@@ -139,7 +143,11 @@ export function meshToBounds(mesh: string): Bounds {
     case 8:
       return meshToThirdMeshBounds(newMesh)
     default:
-      throw new Error(`Unexpected length. mesh is ${newMesh}`)
+      throw new Error(
+        `Invalid mesh code found.
+The length of the mesh code is 4, 6, or 8.
+The actual length is ${newMesh.length}, the mesh code is ${newMesh}.`
+      )
   }
 }
 
@@ -153,7 +161,7 @@ function meshToFirstMeshBounds(mesh: string): Bounds {
     throw new Error(
       `Invalid mesh code found.
 Only numbers are acceptable.
-Actual mesh code is ${mesh}`
+Actual mesh code is ${mesh}.`
     )
   }
 
@@ -179,7 +187,7 @@ function meshToSecondMeshBounds(mesh: string): Bounds {
     throw new Error(
       `Invalid mesh code found.
 Only numbers are acceptable.
-Actual mesh code is ${mesh}`
+Actual mesh code is ${mesh}.`
     )
   }
 
@@ -192,7 +200,7 @@ Actual mesh code is ${mesh}`
     throw new Error(
       `Invalid mesh code found.
 Only [0-7] are acceptable in second division.
-Actual mesh code is ${mesh}`
+Actual mesh code is ${mesh}.`
     )
   }
 
@@ -216,7 +224,7 @@ function meshToThirdMeshBounds(mesh: string): Bounds {
     throw new Error(
       `Invalid mesh code found.
 Only numbers are acceptable.
-Actual mesh code is ${mesh}`
+Actual mesh code is ${mesh}.`
     )
   }
 
@@ -231,7 +239,7 @@ Actual mesh code is ${mesh}`
     throw new Error(
       `Invalid mesh code found.
 Only [0-7] are acceptable in second division.
-Actual mesh code is ${mesh}`
+Actual mesh code is ${mesh}.`
     )
   }
 
@@ -261,7 +269,11 @@ export function latLngToMesh(lat: number, lng: number, scale: number): string {
     case 3:
       return latLngToThirdMesh(lat, lng)
     default:
-      throw new Error(`Illegal scale. scale is ${scale}`)
+      throw new Error(
+        `Illegal scale found.
+The scale range is [1-3].
+The actual scale is ${scale}.`
+      )
   }
 }
 
