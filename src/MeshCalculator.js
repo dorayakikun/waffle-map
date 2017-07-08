@@ -16,12 +16,8 @@ export type Bounds = {
  * @returns {LatLng} latitude and longitude
  */
 export function meshToLatLng(mesh: string): LatLng {
-  const newMesh = mesh.replace(/\D/g, '')
-
+  const newMesh = mesh.replace(/-/g, '')
   const len = newMesh.length
-  if (len < 4) {
-    throw new Error(`Illegal format. mesh is ${mesh}`)
-  }
   switch (len) {
     case 4:
       return firstMeshToLatLng(newMesh)
@@ -30,7 +26,7 @@ export function meshToLatLng(mesh: string): LatLng {
     case 8:
       return thirdMeshToLatLng(newMesh)
     default:
-      throw new Error(`Unexpected length. mesh is ${mesh}`)
+      throw new Error(`Unexpected length. mesh is ${newMesh}`)
   }
 }
 
@@ -41,13 +37,15 @@ export function meshToLatLng(mesh: string): LatLng {
  * @returns {LatLng} latitude and longitude
  */
 function firstMeshToLatLng(mesh: string): LatLng {
+  if (!mesh.match(/\d{4}/)) {
+    throw new Error(
+      `Invalid mesh code found.
+Only numbers are acceptable.
+Actual mesh code is ${mesh}`
+    )
+  }
   const meshLat = parseInt(mesh.substr(0, 2))
   const meshLng = parseInt(mesh.substr(2))
-
-  if (isNaN(meshLat) || isNaN(meshLng)) {
-    throw new Error(`Illegal format. mesh is ${mesh}`)
-  }
-
   return {
     lat: meshLat / 1.5 + 1 / 3,
     lng: meshLng + 100 + 1 / 2
@@ -61,22 +59,24 @@ function firstMeshToLatLng(mesh: string): LatLng {
  * @returns {LatLng} latitude and longitude
  */
 function secondMeshToLatLng(mesh: string): LatLng {
+  if (!mesh.match(/\d{6}/)) {
+    throw new Error(
+      `Invalid mesh code found.
+Only numbers are acceptable.
+Actual mesh code is ${mesh}`
+    )
+  }
   const firstMeshLat = parseInt(mesh.substr(0, 2))
   const firstMeshLng = parseInt(mesh.substr(2, 2))
   const secondMeshLat = parseInt(mesh.substr(4, 1))
   const secondMeshLng = parseInt(mesh.substr(5))
 
-  if (
-    isNaN(firstMeshLat) ||
-    isNaN(firstMeshLng) ||
-    isNaN(secondMeshLat) ||
-    isNaN(secondMeshLng)
-  ) {
-    throw new Error(`Illegal format. mesh is ${mesh}`)
-  }
-
   if (secondMeshLat > 7 || secondMeshLng > 7) {
-    throw new Error(`Illegal format. mesh is ${mesh}`)
+    throw new Error(
+      `Invalid mesh code found.
+Only [0-7] are acceptable in secound division.
+Actual mesh code is ${mesh}`
+    )
   }
 
   return {
@@ -92,6 +92,14 @@ function secondMeshToLatLng(mesh: string): LatLng {
  * @returns {LatLng} latitude and longitude
  */
 function thirdMeshToLatLng(mesh: string): LatLng {
+  if (!mesh.match(/\d{8}/)) {
+    throw new Error(
+      `Invalid mesh code found.
+Only numbers are acceptable.
+Actual mesh code is ${mesh}`
+    )
+  }
+
   const firstMeshLat = parseInt(mesh.substr(0, 2))
   const firstMeshLng = parseInt(mesh.substr(2, 2))
   const secondMeshLat = parseInt(mesh.substr(4, 1))
@@ -99,19 +107,12 @@ function thirdMeshToLatLng(mesh: string): LatLng {
   const thirdMeshLat = parseInt(mesh.substr(6, 1))
   const thirdMeshLng = parseInt(mesh.substr(7))
 
-  if (
-    isNaN(firstMeshLat) ||
-    isNaN(firstMeshLng) ||
-    isNaN(secondMeshLat) ||
-    isNaN(secondMeshLng) ||
-    isNaN(thirdMeshLat) ||
-    isNaN(thirdMeshLng)
-  ) {
-    throw new Error(`Illegal format. mesh is ${mesh}`)
-  }
-
   if (secondMeshLat > 7 || secondMeshLng > 7) {
-    throw new Error(`Illegal format. mesh is ${mesh}`)
+    throw new Error(
+      `Invalid mesh code found.
+Only [0-7] are acceptable in secound division.
+Actual mesh code is ${mesh}`
+    )
   }
 
   return {
@@ -127,12 +128,9 @@ function thirdMeshToLatLng(mesh: string): LatLng {
  * @returns {Bounds} bounds
  */
 export function meshToBounds(mesh: string): Bounds {
-  const newMesh = mesh.replace(/\D/g, '')
+  const newMesh = mesh.replace(/-/g, '')
 
   const len = newMesh.length
-  if (len < 4) {
-    throw new Error(`Illegal format. mesh is ${mesh}`)
-  }
   switch (len) {
     case 4:
       return meshToFirstMeshBounds(newMesh)
@@ -141,7 +139,7 @@ export function meshToBounds(mesh: string): Bounds {
     case 8:
       return meshToThirdMeshBounds(newMesh)
     default:
-      throw new Error(`Unexpected length. mesh is ${mesh}`)
+      throw new Error(`Unexpected length. mesh is ${newMesh}`)
   }
 }
 
@@ -151,13 +149,16 @@ export function meshToBounds(mesh: string): Bounds {
  * @returns {Bounds}
  */
 function meshToFirstMeshBounds(mesh: string): Bounds {
-  const lat = parseInt(mesh.substr(0, 2))
-  const lng = parseInt(mesh.substr(2, 2))
-
-  if (isNaN(lat) || isNaN(lng)) {
-    throw new Error(`Illegal format. mesh is ${mesh}`)
+  if (!mesh.match(/\d{4}/)) {
+    throw new Error(
+      `Invalid mesh code found.
+Only numbers are acceptable.
+Actual mesh code is ${mesh}`
+    )
   }
 
+  const lat = parseInt(mesh.substr(0, 2))
+  const lng = parseInt(mesh.substr(2, 2))
   const originLat = lat / 1.5
   const originLng = lng + 100
 
@@ -174,19 +175,25 @@ function meshToFirstMeshBounds(mesh: string): Bounds {
  * @returns {Bounds}
  */
 function meshToSecondMeshBounds(mesh: string): Bounds {
+  if (!mesh.match(/\d{6}/)) {
+    throw new Error(
+      `Invalid mesh code found.
+Only numbers are acceptable.
+Actual mesh code is ${mesh}`
+    )
+  }
+
   const firstLat = parseInt(mesh.substr(0, 2))
   const firstLng = parseInt(mesh.substr(2, 2))
-
   const secondMeshLat = parseInt(mesh.substr(4, 1))
   const secondMeshLng = parseInt(mesh.substr(5))
 
-  if (
-    isNaN(firstLat) ||
-    isNaN(firstLng) ||
-    isNaN(secondMeshLat) ||
-    isNaN(secondMeshLng)
-  ) {
-    throw new Error(`Illegal format. mesh is ${mesh}`)
+  if (secondMeshLat > 7 || secondMeshLng > 7) {
+    throw new Error(
+      `Invalid mesh code found.
+Only [0-7] are acceptable in secound division.
+Actual mesh code is ${mesh}`
+    )
   }
 
   const originLat = (firstLat + secondMeshLat / 8) / 1.5
@@ -205,24 +212,27 @@ function meshToSecondMeshBounds(mesh: string): Bounds {
  * @returns {Bounds}
  */
 function meshToThirdMeshBounds(mesh: string): Bounds {
+  if (!mesh.match(/\d{8}/)) {
+    throw new Error(
+      `Invalid mesh code found.
+Only numbers are acceptable.
+Actual mesh code is ${mesh}`
+    )
+  }
+
   const firstLat = parseInt(mesh.substr(0, 2))
   const firstLng = parseInt(mesh.substr(2, 2))
-
   const secondMeshLat = parseInt(mesh.substr(4, 1))
   const secondMeshLng = parseInt(mesh.substr(5, 1))
-
   const thirdMeshLat = parseInt(mesh.substr(6, 1))
   const thirdMeshLng = parseInt(mesh.substr(7))
 
-  if (
-    isNaN(firstLat) ||
-    isNaN(firstLng) ||
-    isNaN(secondMeshLat) ||
-    isNaN(secondMeshLng) ||
-    isNaN(thirdMeshLat) ||
-    isNaN(thirdMeshLng)
-  ) {
-    throw new Error(`Illegal format. mesh is ${mesh}`)
+  if (secondMeshLat > 7 || secondMeshLng > 7) {
+    throw new Error(
+      `Invalid mesh code found.
+Only [0-7] are acceptable in secound division.
+Actual mesh code is ${mesh}`
+    )
   }
 
   const originLat = (firstLat + (secondMeshLat + thirdMeshLat / 10) / 8) / 1.5
