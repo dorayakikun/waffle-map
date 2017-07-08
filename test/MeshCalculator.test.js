@@ -58,7 +58,7 @@ test('Should throw an error when mesh is 5339-85', () => {
     meshToLatLng(mesh)
   }).toThrow(
     `Invalid mesh code found.
-Only [0-7] are acceptable in secound division.
+Only [0-7] are acceptable in second division.
 Actual mesh code is ${mesh.replace(/-/g, '')}`
   )
 })
@@ -78,7 +78,7 @@ test('Should throw an error when mesh is 5339-38-97', () => {
     meshToLatLng(mesh)
   }).toThrow(
     `Invalid mesh code found.
-Only [0-7] are acceptable in secound division.
+Only [0-7] are acceptable in second division.
 Actual mesh code is ${mesh.replace(/-/g, '')}`
   )
 })
@@ -171,7 +171,7 @@ test('Should throw error when mesh is 5339-95', () => {
     meshToBounds(mesh)
   }).toThrow(
     `Invalid mesh code found.
-Only [0-7] are acceptable in secound division.
+Only [0-7] are acceptable in second division.
 Actual mesh code is ${mesh.replace(/-/g, '')}`
   )
 })
@@ -199,7 +199,7 @@ test('Should throw error when mesh is 5339-38-97', () => {
     meshToBounds(mesh)
   }).toThrow(
     `Invalid mesh code found.
-Only [0-7] are acceptable in secound division.
+Only [0-7] are acceptable in second division.
 Actual mesh code is ${mesh.replace(/-/g, '')}`
   )
 })

@@ -74,7 +74,7 @@ Actual mesh code is ${mesh}`
   if (secondMeshLat > 7 || secondMeshLng > 7) {
     throw new Error(
       `Invalid mesh code found.
-Only [0-7] are acceptable in secound division.
+Only [0-7] are acceptable in second division.
 Actual mesh code is ${mesh}`
     )
   }
@@ -110,7 +110,7 @@ Actual mesh code is ${mesh}`
   if (secondMeshLat > 7 || secondMeshLng > 7) {
     throw new Error(
       `Invalid mesh code found.
-Only [0-7] are acceptable in secound division.
+Only [0-7] are acceptable in second division.
 Actual mesh code is ${mesh}`
     )
   }
@@ -191,7 +191,7 @@ Actual mesh code is ${mesh}`
   if (secondMeshLat > 7 || secondMeshLng > 7) {
     throw new Error(
       `Invalid mesh code found.
-Only [0-7] are acceptable in secound division.
+Only [0-7] are acceptable in second division.
 Actual mesh code is ${mesh}`
     )
   }
@@ -230,7 +230,7 @@ Actual mesh code is ${mesh}`
   if (secondMeshLat > 7 || secondMeshLng > 7) {
     throw new Error(
       `Invalid mesh code found.
-Only [0-7] are acceptable in secound division.
+Only [0-7] are acceptable in second division.
 Actual mesh code is ${mesh}`
     )
   }
