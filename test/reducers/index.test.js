@@ -5,9 +5,11 @@ import reducer from '../../src/reducers'
 import * as MeshCalculator from '../../src/MeshCalculator'
 
 test('Should handle INPUT_MESHES', () => {
+  const errorMessage = ''
   const meshesString = '5339'
   const expectedState = {
     meshInput: {
+      errorMessage,
       meshesString,
       separator: '.'
     },
@@ -25,9 +27,13 @@ test('Should handle INPUT_MESHES', () => {
 })
 
 test('Should handle INPUT_MESHES when setting invalid mesh code', () => {
+  const errorMessage = `Invalid mesh code found.
+The length of the mesh code is 4, 6, or 8.
+The actual length is 3, the mesh code is 533.`
   const meshesString = '533'
   const expectedState = {
     meshInput: {
+      errorMessage,
       meshesString,
       separator: '.'
     },
@@ -39,9 +45,11 @@ test('Should handle INPUT_MESHES when setting invalid mesh code', () => {
 })
 
 test('Should handle SELECT_SEPARATOR', () => {
+  const errorMessage = ''
   const separator = ','
   const expectedState = {
     meshInput: {
+      errorMessage,
       meshesString: '',
       separator
     },
@@ -56,6 +64,7 @@ test('Should return an initial state when setting an invalid action', () => {
   const invalidAction = () => ({ type: 'INVALID_ACTION', payload: {} })
   const expectedState = {
     meshInput: {
+      errorMessage: '',
       meshesString: '',
       separator: '.'
     },

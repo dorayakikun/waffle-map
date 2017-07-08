@@ -8,18 +8,7 @@ import { inputMeshes, selectSeparator } from '../actions/AppActions'
 import type { MeshInputState, State as RootState } from '../reducers'
 import type { Action } from '../actions/AppActions'
 
-const MeshInputContainer = ({
-  meshes,
-  separator,
-  onMeshesChanged,
-  onSeparatorChanged
-}) =>
-  <MeshInput
-    meshes={meshes}
-    separator={separator}
-    onMeshesChanged={onMeshesChanged}
-    onSeparatorChanged={onSeparatorChanged}
-  />
+const MeshInputContainer = props => <MeshInput {...props} />
 
 const mapStateToProps = (state: RootState): MeshInputState => state.meshInput
 
