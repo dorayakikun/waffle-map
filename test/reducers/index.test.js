@@ -24,6 +24,20 @@ test('Should handle INPUT_MESHES', () => {
   )
 })
 
+test('Should handle INPUT_MESHES when setting invalid mesh code', () => {
+  const meshesString = '533'
+  const expectedState = {
+    meshInput: {
+      meshesString,
+      separator: '.'
+    },
+    meshes: []
+  }
+  expect(reducer(undefined, AppActions.inputMeshes(meshesString))).toEqual(
+    expectedState
+  )
+})
+
 test('Should handle SELECT_SEPARATOR', () => {
   const separator = ','
   const expectedState = {
@@ -36,4 +50,16 @@ test('Should handle SELECT_SEPARATOR', () => {
   expect(reducer(undefined, AppActions.selectSeparator(separator))).toEqual(
     expectedState
   )
+})
+
+test('Should return an initial state when setting an invalid action', () => {
+  const invalidAction = () => ({ type: 'INVALID_ACTION', payload: {} })
+  const expectedState = {
+    meshInput: {
+      meshesString: '',
+      separator: '.'
+    },
+    meshes: []
+  }
+  expect(reducer(undefined, (invalidAction(): any))).toEqual(expectedState)
 })
