@@ -17,9 +17,14 @@ export type Mesh = {
   bounds: Bounds
 }
 
+export type MapState = {
+  contextmenuPosition: ?LatLng
+}
+
 export type State = {
   meshInput: MeshInputState,
-  meshes: Array<Mesh>
+  meshes: Array<Mesh>,
+  map: MapState
 }
 
 const initialState: State = {
@@ -28,7 +33,10 @@ const initialState: State = {
     meshesString: '',
     separator: '.'
   },
-  meshes: []
+  meshes: [],
+  map: {
+    contextmenuPosition: null
+  }
 }
 
 export default (state: State = initialState, action: Action): State => {
@@ -43,6 +51,14 @@ export default (state: State = initialState, action: Action): State => {
         meshInput: {
           ...state.meshInput,
           separator
+        }
+      }
+    case AppActions.UPDATE_CONTEXTMENU_POSITION:
+      const { latLng } = action.payload
+      return {
+        ...state,
+        map: {
+          contextmenuPosition: latLng
         }
       }
     default:
@@ -62,6 +78,7 @@ const stateFrom = (meshCodes: string, state: State): State => {
   const { separator } = state.meshInput
   try {
     return {
+      ...state,
       meshInput: {
         ...state.meshInput,
         errorMessage: '',
@@ -81,12 +98,12 @@ const stateFrom = (meshCodes: string, state: State): State => {
   } catch (e) {
     console.log('Waffle Map Error: \n', e.message)
     return {
+      ...state,
       meshInput: {
         ...state.meshInput,
         errorMessage: e.message,
         meshesString: meshCodes
-      },
-      meshes: state.meshes
+      }
     }
   }
 }

@@ -23,3 +23,14 @@ test('Should create action to select separator', () => {
   }
   expect(AppActions.selectSeparator(separator)).toEqual(expectedAction)
 })
+
+test('Should create action to update contextmenu position', () => {
+  const latLng = { lat: 35, lng: 139 }
+  const expectedAction = {
+    type: AppActions.UPDATE_CONTEXTMENU_POSITION,
+    payload: {
+      latLng
+    }
+  }
+  expect(AppActions.updateContextmenuPosition(latLng)).toEqual(expectedAction)
+})

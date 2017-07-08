@@ -6,8 +6,8 @@ import Map from '../components/Map'
 
 import type { State as RootState } from '../reducers'
 
-const MapContainer = ({ meshes }) => {
-  return <Map meshes={meshes} />
+const MapContainer = props => {
+  return <Map {...props} />
 }
 
 const mapStateToProps = (state: RootState): RootState => state

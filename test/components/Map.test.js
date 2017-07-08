@@ -6,7 +6,10 @@ import Map from '../../src/components/Map'
 
 test('Should render Leaflet Map', () => {
   const props = {
-    meshes: []
+    meshes: [],
+    map: {
+      contextmenuPosition: null
+    }
   }
   const enzymeWrapper = mount(<Map {...props} />)
   expect(enzymeWrapper.find('.leaflet-container').length).toBe(1)

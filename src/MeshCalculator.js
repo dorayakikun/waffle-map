@@ -9,6 +9,8 @@ export type Bounds = {
   rightBottom: LatLng
 }
 
+export const SCALES = [1, 2, 3]
+
 /**
  * Convert mesh to LatLng.
  *
