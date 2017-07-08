@@ -6,71 +6,114 @@ import { meshToLatLng, latLngToMesh, meshToBounds } from '../src/MeshCalculator'
 // meshToLatLng
 // ---
 test('Should throw error when mesh is 533', () => {
+  const mesh = '533'
   expect(() => {
-    meshToLatLng('533')
-  }).toThrow()
+    meshToLatLng(mesh)
+  }).toThrow(`Unexpected length. mesh is ${mesh.replace(/-/g, '')}`)
 })
 
 test('Should convert mesh 5339 to LatLng', () => {
-  expect(meshToLatLng('5339')).toEqual({
+  const mesh = '5339'
+  const expected = {
     lat: 53 / 1.5 + 1 / 3,
     lng: 39 + 100 + 1 / 2
-  })
+  }
+  expect(meshToLatLng(mesh)).toEqual(expected)
 })
 
 test('Should throw an error when mesh is 533a', () => {
+  const mesh = '533a'
   expect(() => {
-    meshToLatLng('533a')
-  }).toThrow()
+    meshToLatLng(mesh)
+  }).toThrowError(
+    `Invalid mesh code found.
+Only numbers are acceptable.
+Actual mesh code is ${mesh.replace(/-/g, '')}`
+  )
 })
 
 test('Should convert mesh 5339-35 to LatLng', () => {
-  const lat = (53 + 3 / 8) / 1.5 + 1 / 24
-  const lng = 39 + 5 / 8 + 100 + 1 / 16
-  expect(meshToLatLng('5339-35')).toEqual({
-    lat: lat,
-    lng: lng
-  })
+  const mesh = '5339-35'
+  const expected = {
+    lat: (53 + 3 / 8) / 1.5 + 1 / 24,
+    lng: 39 + 5 / 8 + 100 + 1 / 16
+  }
+  expect(meshToLatLng(mesh)).toEqual(expected)
 })
 
 test('Should throw an error when mesh is 5339-3a', () => {
+  const mesh = '5339-3a'
   expect(() => {
-    meshToLatLng('5339-3a')
-  }).toThrow()
+    meshToLatLng(mesh)
+  }).toThrow(
+    `Invalid mesh code found.
+Only numbers are acceptable.
+Actual mesh code is ${mesh.replace(/-/g, '')}`
+  )
+})
+
+test('Should throw an error when mesh is 5339-85', () => {
+  const mesh = '5339-85'
+  expect(() => {
+    meshToLatLng(mesh)
+  }).toThrow(
+    `Invalid mesh code found.
+Only [0-7] are acceptable in secound division.
+Actual mesh code is ${mesh.replace(/-/g, '')}`
+  )
 })
 
 test('Should convert mesh 5339-35-97 to LatLng', () => {
-  const lat = (53 + (3 + 9 / 10) / 8) / 1.5 + 1 / 240
-  const lng = 39 + (5 + 7 / 10) / 8 + 100 + 1 / 160
-  expect(meshToLatLng('5339-35-97')).toEqual({
-    lat: lat,
-    lng: lng
-  })
+  const mesh = '5339-35-97'
+  const expected = {
+    lat: (53 + (3 + 9 / 10) / 8) / 1.5 + 1 / 240,
+    lng: 39 + (5 + 7 / 10) / 8 + 100 + 1 / 160
+  }
+  expect(meshToLatLng(mesh)).toEqual(expected)
+})
+
+test('Should throw an error when mesh is 5339-38-97', () => {
+  const mesh = '5339-38-97'
+  expect(() => {
+    meshToLatLng(mesh)
+  }).toThrow(
+    `Invalid mesh code found.
+Only [0-7] are acceptable in secound division.
+Actual mesh code is ${mesh.replace(/-/g, '')}`
+  )
 })
 
 test('Should throw an error when mesh is 5339-35-9a', () => {
+  const mesh = '5339-35-9a'
   expect(() => {
-    meshToLatLng('5339-35-9a')
-  }).toThrow()
+    meshToLatLng(mesh)
+  }).toThrow(
+    `Invalid mesh code found.
+Only numbers are acceptable.
+Actual mesh code is ${mesh.replace(/-/g, '')}`
+  )
 })
 
 test('Should throw an error when mesh is 5339-35-97-12', () => {
+  const mesh = '5339-35-97-12'
   expect(() => {
     meshToLatLng('5339-35-97-12')
-  }).toThrow()
+  }).toThrow(`Unexpected length. mesh is ${mesh.replace(/-/g, '')}`)
 })
 
 // ---
 // meshToBounds
 // ---
 test('Should throw error when mesh is 533', () => {
+  const mesh = '533'
   expect(() => {
-    meshToBounds('533')
-  }).toThrow()
+    meshToBounds(mesh)
+  }).toThrow(`Unexpected length. mesh is ${mesh.replace(/-/g, '')}`)
 })
 
 test('Should convert mesh 5339 to bounds', () => {
-  expect(meshToBounds('5339')).toEqual({
+  const mesh = '5339'
+  const expected = {
     leftTop: {
       lat: 53 / 1.5 + 2 / 3,
       lng: 39 + 100
@@ -79,19 +122,26 @@ test('Should convert mesh 5339 to bounds', () => {
       lat: 53 / 1.5,
       lng: 39 + 100 + 1
     }
-  })
+  }
+  expect(meshToBounds('5339')).toEqual(expected)
 })
 
 test('Should throw error when mesh is 533a', () => {
+  const mesh = '533a'
   expect(() => {
-    meshToBounds('533a')
-  }).toThrow()
+    meshToBounds(mesh)
+  }).toThrow(
+    `Invalid mesh code found.
+Only numbers are acceptable.
+Actual mesh code is ${mesh.replace(/-/g, '')}`
+  )
 })
 
 test('Should convert mesh 5339-35 to bounds', () => {
+  const mesh = '5339-35'
   const lat = (53 + 3 / 8) / 1.5
   const lng = 39 + 5 / 8 + 100
-  expect(meshToBounds('5339-35')).toEqual({
+  const expected = {
     leftTop: {
       lat: lat + 1 / 12,
       lng: lng
@@ -100,19 +150,37 @@ test('Should convert mesh 5339-35 to bounds', () => {
       lat: lat,
       lng: lng + 1 / 8
     }
-  })
+  }
+  expect(meshToBounds(mesh)).toEqual(expected)
 })
 
 test('Should throw error when mesh is 5339-3a', () => {
+  const mesh = '5339-3a'
   expect(() => {
-    meshToBounds('5339-3a')
-  }).toThrow()
+    meshToBounds(mesh)
+  }).toThrow(
+    `Invalid mesh code found.
+Only numbers are acceptable.
+Actual mesh code is ${mesh.replace(/-/g, '')}`
+  )
+})
+
+test('Should throw error when mesh is 5339-95', () => {
+  const mesh = '5339-95'
+  expect(() => {
+    meshToBounds(mesh)
+  }).toThrow(
+    `Invalid mesh code found.
+Only [0-7] are acceptable in secound division.
+Actual mesh code is ${mesh.replace(/-/g, '')}`
+  )
 })
 
 test('Should convert mesh 5339-35-97 to bounds', () => {
+  const mesh = '5339-35-97'
   const lat = (53 + (3 + 9 / 10) / 8) / 1.5
   const lng = 39 + (5 + 7 / 10) / 8 + 100
-  expect(meshToBounds('5339-35-97')).toEqual({
+  const expected = {
     leftTop: {
       lat: lat + 1 / 120,
       lng: lng
@@ -121,19 +189,37 @@ test('Should convert mesh 5339-35-97 to bounds', () => {
       lat: lat,
       lng: lng + 1 / 80
     }
-  })
+  }
+  expect(meshToBounds(mesh)).toEqual(expected)
+})
+
+test('Should throw error when mesh is 5339-38-97', () => {
+  const mesh = '5339-38-97'
+  expect(() => {
+    meshToBounds(mesh)
+  }).toThrow(
+    `Invalid mesh code found.
+Only [0-7] are acceptable in secound division.
+Actual mesh code is ${mesh.replace(/-/g, '')}`
+  )
 })
 
 test('Should throw error when mesh is 5339-35-9a', () => {
+  const mesh = '5339-35-9a'
   expect(() => {
-    meshToBounds('5339-35-9a')
-  }).toThrow()
+    meshToBounds(mesh)
+  }).toThrow(
+    `Invalid mesh code found.
+Only numbers are acceptable.
+Actual mesh code is ${mesh.replace(/-/g, '')}`
+  )
 })
 
 test('Should throw error when mesh is 5339-35-97-12', () => {
+  const mesh = '5339-35-97-12'
   expect(() => {
-    meshToBounds('5339-35-97-12')
-  }).toThrow()
+    meshToBounds(mesh)
+  }).toThrow(`Unexpected length. mesh is ${mesh.replace(/-/g, '')}`)
 })
 
 // ---
