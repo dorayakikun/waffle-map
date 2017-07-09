@@ -3,14 +3,14 @@ require('babel-core').buildExternalHelpers()
 import * as AppActions from '../../src/actions/AppActions'
 
 test('Should create action to input meshes', () => {
-  const meshesString = '5339'
+  const meshCodes = '5339'
   const expectedAction = {
     type: AppActions.INPUT_MESHES,
     payload: {
-      meshesString
+      meshCodes
     }
   }
-  expect(AppActions.inputMeshes(meshesString)).toEqual(expectedAction)
+  expect(AppActions.inputMeshes(meshCodes)).toEqual(expectedAction)
 })
 
 test('Should create action to select separator', () => {

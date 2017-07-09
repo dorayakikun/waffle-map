@@ -2,11 +2,10 @@
 import React, { PropTypes } from 'react'
 import { Dropdown, Input, Label, Message } from 'semantic-ui-react'
 
-export type SeparatorItem = {
+type SeparatorItem = {
   text: string,
   value: string
 }
-
 const separatorOptions: Array<SeparatorItem> = [
   {
     text: 'commas',
@@ -24,13 +23,14 @@ const fetchTextFrom = (
 ): string => {
   return options.filter(o => o.value === value).map(o => o.text).toString()
 }
+
 const MeshInput = ({
   errorMessage,
-  meshesString,
+  meshCodes,
   separator,
   onMeshesChanged,
   onSeparatorChanged
-}: any) =>
+}: MeshInputProps) =>
   <div>
     <Input
       error={errorMessage !== ''}
@@ -38,7 +38,7 @@ const MeshInput = ({
       label={<Label color="teal">mesh codes</Label>}
       placeholder="e.g. 5339-35-97"
       onChange={onMeshesChanged}
-      value={meshesString}
+      value={meshCodes}
     />
     {errorMessage !== '' &&
       <Message negative>
@@ -55,7 +55,8 @@ const MeshInput = ({
   </div>
 
 MeshInput.propTypes = {
-  meshesString: PropTypes.string.isRequired,
+  errorMessage: PropTypes.string.isRequired,
+  meshCodes: PropTypes.string.isRequired,
   separator: PropTypes.string.isRequired,
   onMeshesChanged: PropTypes.func.isRequired,
   onSeparatorChanged: PropTypes.func.isRequired

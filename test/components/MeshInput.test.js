@@ -8,7 +8,7 @@ import MeshInput from '../../src/components/MeshInput'
 test('Should set props to MeshInput', () => {
   const props = {
     errorMessage: '',
-    meshesString: '',
+    meshCodes: '',
     separator: '.',
     onMeshesChanged: jest.fn(),
     onSeparatorChanged: jest.fn()
@@ -23,11 +23,11 @@ test('Should set props to MeshInput', () => {
   expect(enzymeWrapper.find('.selected .item').text()).toBe('dots')
 })
 
-test('Should call onMeshesChanged when input meshesString', () => {
+test('Should call onMeshesChanged when input meshCodes', () => {
   const onMeshesChanged = sinon.spy()
   const props = {
     errorMessage: '',
-    meshesString: '',
+    meshCodes: '',
     separator: '.',
     onMeshesChanged,
     onSeparatorChanged: jest.fn()
@@ -41,7 +41,7 @@ test('Should call onSeparatorChanged when select separator', () => {
   const onSeparatorChanged = sinon.spy()
   const props = {
     errorMessage: '',
-    meshesString: '',
+    meshCodes: '',
     separator: '.',
     onMeshesChanged: jest.fn(),
     onSeparatorChanged

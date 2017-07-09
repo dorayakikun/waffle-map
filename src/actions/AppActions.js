@@ -9,7 +9,7 @@ export type Action =
   | {
       type: typeof INPUT_MESHES,
       payload: {
-        meshesString: string
+        meshCodes: string
       }
     }
   | {
@@ -25,9 +25,9 @@ export type Action =
       }
     }
 
-export const inputMeshes = (meshesString: string): Action => ({
+export const inputMeshes = (meshCodes: string): Action => ({
   type: INPUT_MESHES,
-  payload: { meshesString }
+  payload: { meshCodes }
 })
 
 export const selectSeparator = (separator: string): Action => ({

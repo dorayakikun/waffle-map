@@ -7,7 +7,7 @@ import type { Bounds, LatLng } from 'waffle-map-mesh-calculator-basic'
 
 export type MeshInputState = {
   errorMessage: string,
-  meshesString: string,
+  meshCodes: string,
   separator: string
 }
 
@@ -30,7 +30,7 @@ export type State = {
 const initialState: State = {
   meshInput: {
     errorMessage: '',
-    meshesString: '',
+    meshCodes: '',
     separator: '.'
   },
   meshes: [],
@@ -42,8 +42,8 @@ const initialState: State = {
 export default (state: State = initialState, action: Action): State => {
   switch (action.type) {
     case AppActions.INPUT_MESHES:
-      const { meshesString } = action.payload
-      return stateFrom(meshesString, state)
+      const { meshCodes } = action.payload
+      return stateFrom(meshCodes, state)
     case AppActions.SELECT_SEPARATOR:
       const { separator } = action.payload
       return {
@@ -82,7 +82,7 @@ const stateFrom = (meshCodes: string, state: State): State => {
       meshInput: {
         ...state.meshInput,
         errorMessage: '',
-        meshesString: meshCodes
+        meshCodes: meshCodes
       },
       meshes: meshCodes
         .split(separator)
@@ -102,7 +102,7 @@ const stateFrom = (meshCodes: string, state: State): State => {
       meshInput: {
         ...state.meshInput,
         errorMessage: e.message,
-        meshesString: meshCodes
+        meshCodes: meshCodes
       }
     }
   }
