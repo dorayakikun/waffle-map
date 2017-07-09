@@ -10,10 +10,10 @@ import {
 } from 'react-leaflet'
 import { Card } from 'semantic-ui-react'
 import { updateContextmenuPosition } from '../actions/AppActions'
-import { SCALES, latLngToMesh } from '../MeshCalculator'
+import { SCALES, latLngToMesh } from 'waffle-map-mesh-calculator-basic'
 
 import type { Mesh } from '../reducers'
-import type { LatLng } from '../MeshCalculator'
+import type { LatLng } from 'waffle-map-mesh-calculator-basic'
 
 const initialLeafletBounds: Array<Array<number>> = [[35, 139], [37, 140]]
 

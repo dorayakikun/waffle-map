@@ -3,7 +3,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import MeshDetail from '../../src/components/MeshDetail'
-import { meshToLatLng, meshToBounds } from '../../src/MeshCalculator'
+import { meshToLatLng, meshToBounds } from 'waffle-map-mesh-calculator-basic'
 
 test('Should set props to MeshDetail', () => {
   const mesh = '5339'

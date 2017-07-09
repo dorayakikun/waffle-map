@@ -2,7 +2,7 @@
 
 import * as AppActions from '../../src/actions/AppActions'
 import reducer from '../../src/reducers'
-import * as MeshCalculator from '../../src/MeshCalculator'
+import * as MeshCalculator from 'waffle-map-mesh-calculator-basic'
 
 test('Should handle INPUT_MESHES', () => {
   const errorMessage = ''

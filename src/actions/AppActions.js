@@ -1,5 +1,5 @@
 // @flow
-import type { LatLng } from '../MeshCalculator'
+import type { LatLng } from 'waffle-map-mesh-calculator-basic'
 
 export const INPUT_MESHES = 'INPUT_MESHES'
 export const SELECT_SEPARATOR = 'SELECT_SEPARATOR'
