@@ -30,7 +30,7 @@ const MeshInput = ({
   separator,
   onMeshesChanged,
   onSeparatorChanged
-}: MeshInputProps) =>
+}: any) =>
   <div>
     <Input
       error={errorMessage !== ''}
