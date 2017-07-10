@@ -10,23 +10,32 @@ const MeshDetail = ({ code, center, bounds }: Mesh) =>
     <Table.Body>
       <Table.Row>
         <Table.Cell>mesh</Table.Cell>
-        <Table.Cell>{code}</Table.Cell>
+        <Table.Cell>
+          {code}
+        </Table.Cell>
       </Table.Row>
       <Table.Row>
         <Table.Cell>center</Table.Cell>
         <Table.Cell>
-          {center.lat}<br />
+          {center.lat}
+          <br />
           {center.lng}
         </Table.Cell>
       </Table.Row>
       <Table.Row>
         <Table.Cell>leftTop</Table.Cell>
-        <Table.Cell>{bounds.leftTop.lat}<br />{bounds.leftTop.lng}</Table.Cell>
+        <Table.Cell>
+          {bounds.leftTop.lat}
+          <br />
+          {bounds.leftTop.lng}
+        </Table.Cell>
       </Table.Row>
       <Table.Row>
         <Table.Cell>rightBottom</Table.Cell>
         <Table.Cell>
-          {bounds.rightBottom.lat}<br />{bounds.rightBottom.lng}
+          {bounds.rightBottom.lat}
+          <br />
+          {bounds.rightBottom.lng}
         </Table.Cell>
       </Table.Row>
     </Table.Body>

@@ -43,7 +43,9 @@ const MeshInput = ({
     {errorMessage !== '' &&
       <Message negative>
         <Message.Header>Waffle Map Error</Message.Header>
-        <p>{errorMessage}</p>
+        <p>
+          {errorMessage}
+        </p>
       </Message>}
     <Dropdown
       fluid

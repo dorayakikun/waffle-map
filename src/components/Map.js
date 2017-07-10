@@ -68,7 +68,11 @@ const Map = ({ meshes, map, dispatch }: any) =>
           bounds={[mesh.bounds.leftTop, mesh.bounds.rightBottom]}
           color="#00847e"
         >
-          <Tooltip><span>{mesh.code}</span></Tooltip>
+          <Tooltip>
+            <span>
+              {mesh.code}
+            </span>
+          </Tooltip>
         </Rectangle>
       )}
       {map.contextmenuPosition != null &&
