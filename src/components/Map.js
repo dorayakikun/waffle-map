@@ -86,8 +86,9 @@ const Map = ({ meshes, map, dispatch }: any) =>
             <Card.Content header="Scales" />
             <Card.Content
               description={`position: ${Math.ceil(
-                map.contextmenuPosition.lat * 100
-              ) / 100}, ${Math.ceil(map.contextmenuPosition.lng * 100) / 100}`}
+                map.contextmenuPosition.lat * 100000
+              ) / 100000}, ${Math.ceil(map.contextmenuPosition.lng * 100000) /
+                100000}`}
             />
             {createCardContent(map.contextmenuPosition)}
           </Card>
