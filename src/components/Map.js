@@ -55,7 +55,6 @@ const Map = ({ meshes, map, dispatch }: any) =>
     <LeafletMap
       bounds={calculateLeafletBoundsFrom(meshes)}
       onContextmenu={(e: Event & { latlng: LatLng }) => {
-        console.log(e)
         dispatch(updateContextmenuPosition(e.latlng))
       }}
     >
