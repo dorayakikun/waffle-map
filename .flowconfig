@@ -1,8 +1,10 @@
 [ignore]
-.*/node_modules/.*
+.*/node_modules/react-leaflet/*
 
 [include]
 
 [libs]
 
 [options]
+
+[lints]
