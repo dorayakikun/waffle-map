@@ -5,8 +5,10 @@ import sinon from 'sinon'
 import { mount } from 'enzyme'
 import MeshInput from '../../src/components/MeshInput'
 
+import type { MeshInputProps } from '../../src/components/MeshInput'
+
 test('Should set props to MeshInput', () => {
-  const props = {
+  const props: MeshInputProps = {
     errorMessage: '',
     meshCodes: '',
     separator: '.',
@@ -25,7 +27,7 @@ test('Should set props to MeshInput', () => {
 
 test('Should call onMeshesChanged when input meshCodes', () => {
   const onMeshesChanged = sinon.spy()
-  const props = {
+  const props: MeshInputProps = {
     errorMessage: '',
     meshCodes: '',
     separator: '.',
@@ -39,7 +41,7 @@ test('Should call onMeshesChanged when input meshCodes', () => {
 
 test('Should call onSeparatorChanged when select separator', () => {
   const onSeparatorChanged = sinon.spy()
-  const props = {
+  const props: MeshInputProps = {
     errorMessage: '',
     meshCodes: '',
     separator: '.',

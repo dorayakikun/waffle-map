@@ -9,11 +9,17 @@ import {
   Tooltip
 } from 'react-leaflet'
 import { Card } from 'semantic-ui-react'
-import { updateContextmenuPosition } from '../actions/AppActions'
 import { SCALES, latLngToMesh } from 'waffle-map-mesh-calculator-basic'
 
 import type { Mesh } from '../reducers'
 import type { LatLng } from 'waffle-map-mesh-calculator-basic'
+
+export type MapProps = {
+  meshes: Array<Mesh>,
+  contextmenuPosition: ?LatLng,
+  onContextmenu: (event: Event & { latlng: LatLng }) => void,
+  onClose: () => void
+}
 
 const initialLeafletBounds: Array<Array<number>> = [[35, 139], [37, 140]]
 
@@ -40,29 +46,24 @@ const calculateLeafletBoundsFrom = (
   ]
 }
 
-const createCardContent = ({ lat, lng }: LatLng): any => {
-  return SCALES.map(scale => {
-    return (
-      <Card.Content
-        description={`scale${scale}: ${latLngToMesh(lat, lng, scale)}`}
-      />
-    )
-  })
-}
+const createCardContent = ({ lat, lng }: LatLng) =>
+  SCALES.map(scale =>
+    <Card.Content
+      description={`scale${scale}: ${latLngToMesh(lat, lng, scale)}`}
+    />
+  )
 
-const Map = ({ meshes, map, dispatch }: any) =>
+const Map = (props: MapProps) =>
   <div style={{ width: '100%', height: '100%' }}>
     <LeafletMap
-      bounds={calculateLeafletBoundsFrom(meshes)}
-      onContextmenu={(e: Event & { latlng: LatLng }) => {
-        dispatch(updateContextmenuPosition(e.latlng))
-      }}
+      bounds={calculateLeafletBoundsFrom(props.meshes)}
+      onContextmenu={props.onContextmenu}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
       />
-      {meshes.map(mesh =>
+      {props.meshes.map(mesh =>
         <Rectangle
           bounds={[mesh.bounds.leftTop, mesh.bounds.rightBottom]}
           color="#00847e"
@@ -74,29 +75,20 @@ const Map = ({ meshes, map, dispatch }: any) =>
           </Tooltip>
         </Rectangle>
       )}
-      {map.contextmenuPosition != null &&
-        <Popup
-          position={map.contextmenuPosition}
-          onClose={() => {
-            dispatch(updateContextmenuPosition(null))
-          }}
-        >
+      {props.contextmenuPosition != null &&
+        <Popup position={props.contextmenuPosition} onClose={props.onClose}>
           <Card>
             <Card.Content header="Scales" />
             <Card.Content
               description={`position: ${Math.ceil(
-                map.contextmenuPosition.lat * 100000
-              ) / 100000}, ${Math.ceil(map.contextmenuPosition.lng * 100000) /
+                props.contextmenuPosition.lat * 100000
+              ) / 100000}, ${Math.ceil(props.contextmenuPosition.lng * 100000) /
                 100000}`}
             />
-            {createCardContent(map.contextmenuPosition)}
+            {createCardContent(props.contextmenuPosition)}
           </Card>
         </Popup>}
     </LeafletMap>
   </div>
-
-Map.propTypes = {
-  meshes: PropTypes.array.isRequired
-}
 
 export default Map

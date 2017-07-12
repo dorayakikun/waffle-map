@@ -5,19 +5,21 @@ import { mount } from 'enzyme'
 import MeshDetail from '../../src/components/MeshDetail'
 import { meshToLatLng, meshToBounds } from 'waffle-map-mesh-calculator-basic'
 
-test('Should set props to MeshDetail', () => {
-  const mesh = '5339'
-  const center = meshToLatLng(mesh)
-  const bounds = meshToBounds(mesh)
+import type { MeshDetailProps } from '../../src/components/MeshDetail'
 
-  const props = {
-    code: mesh,
+test('Should set props to MeshDetail', () => {
+  const meshCode = '5339'
+  const center = meshToLatLng(meshCode)
+  const bounds = meshToBounds(meshCode)
+
+  const props: MeshDetailProps = {
+    code: meshCode,
     center,
     bounds
   }
   const enzymeWrapper = mount(<MeshDetail {...props} />)
 
-  expect(enzymeWrapper.childAt(0).childAt(0).childAt(1).text()).toBe(mesh)
+  expect(enzymeWrapper.childAt(0).childAt(0).childAt(1).text()).toBe(meshCode)
   expect(enzymeWrapper.childAt(0).childAt(1).childAt(1).text()).toBe(
     `${center.lat}${center.lng}`
   )

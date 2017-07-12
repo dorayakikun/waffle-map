@@ -1,11 +1,23 @@
 // @flow
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { Dropdown, Input, Label, Message } from 'semantic-ui-react'
+
+export type MeshInputProps = {
+  errorMessage: string,
+  meshCodes: string,
+  separator: string,
+  onMeshesChanged: (event: Element & { target: HTMLInputElement }) => void,
+  onSeparatorChanged: (
+    event: Event,
+    data: { text: string, value: string }
+  ) => void
+}
 
 type SeparatorItem = {
   text: string,
   value: string
 }
+
 const separatorOptions: Array<SeparatorItem> = [
   {
     text: 'commas',
@@ -24,44 +36,30 @@ const fetchTextFrom = (
   return options.filter(o => o.value === value).map(o => o.text).toString()
 }
 
-const MeshInput = ({
-  errorMessage,
-  meshCodes,
-  separator,
-  onMeshesChanged,
-  onSeparatorChanged
-}: any) =>
+const MeshInput = (props: MeshInputProps) =>
   <div>
     <Input
-      error={errorMessage !== ''}
+      error={props.errorMessage !== ''}
       fluid
       label={<Label color="teal">mesh codes</Label>}
       placeholder="e.g. 5339-35-97"
-      onChange={onMeshesChanged}
-      value={meshCodes}
+      onChange={props.onMeshesChanged}
+      value={props.meshCodes}
     />
-    {errorMessage !== '' &&
+    {props.errorMessage !== '' &&
       <Message negative>
         <Message.Header>Waffle Map Error</Message.Header>
         <p>
-          {errorMessage}
+          {props.errorMessage}
         </p>
       </Message>}
     <Dropdown
       fluid
-      onChange={onSeparatorChanged}
+      onChange={props.onSeparatorChanged}
       options={separatorOptions}
-      text={`Split with ${fetchTextFrom(separatorOptions, separator)}.`}
-      value={separator}
+      text={`Split with ${fetchTextFrom(separatorOptions, props.separator)}.`}
+      value={props.separator}
     />
   </div>
-
-MeshInput.propTypes = {
-  errorMessage: PropTypes.string.isRequired,
-  meshCodes: PropTypes.string.isRequired,
-  separator: PropTypes.string.isRequired,
-  onMeshesChanged: PropTypes.func.isRequired,
-  onSeparatorChanged: PropTypes.func.isRequired
-}
 
 export default MeshInput

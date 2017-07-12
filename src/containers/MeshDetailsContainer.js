@@ -4,17 +4,24 @@ import React from 'react'
 import { connect } from 'react-redux'
 import MeshDetail from '../components/MeshDetail'
 
-import type { State as RootState } from '../reducers'
+import type { Connector } from 'react-redux'
+import type { Mesh, State as RootState } from '../reducers'
 
-const MeshContainer = ({ meshes }) =>
+type MeshDetailsContainerProps = {
+  meshes: Array<Mesh>
+}
+
+const MeshContainer = ({ meshes }: MeshDetailsContainerProps) =>
   <div>
-    {meshes.map(mesh =>
-      <MeshDetail code={mesh.code} center={mesh.center} bounds={mesh.bounds} />
-    )}
+    {meshes.map(mesh => <MeshDetail {...mesh} />)}
   </div>
 
-const mapStateToProps = (state: RootState): RootState => state
+const mapStateToProps = (state: RootState) => ({
+  meshes: state.meshes
+})
 
-const connector = connect(mapStateToProps)
+const connector: Connector<{}, MeshDetailsContainerProps> = connect(
+  mapStateToProps
+)
 
 export default connector(MeshContainer)

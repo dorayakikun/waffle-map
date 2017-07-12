@@ -5,12 +5,11 @@ import { connect } from 'react-redux'
 import MeshInput from '../components/MeshInput'
 import { inputMeshes, selectSeparator } from '../actions/AppActions'
 
-import type { MeshInputState, State as RootState } from '../reducers'
-import type { Action } from '../actions/AppActions'
+import type { Connector } from 'react-redux'
+import type { State as RootState } from '../reducers'
+import type { MeshInputProps } from '../components/MeshInput'
 
-const MeshInputContainer = props => <MeshInput {...props} />
-
-const mapStateToProps = (state: RootState): MeshInputState => state.meshInput
+const mapStateToProps = (state: RootState) => state.meshInput
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
@@ -26,6 +25,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   }
 }
 
-const connector = connect(mapStateToProps, mapDispatchToProps)
+const connector: Connector<{}, MeshInputProps> = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 
-export default connector(MeshInputContainer)
+export default connector(MeshInput)
