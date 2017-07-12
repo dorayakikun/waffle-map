@@ -7,7 +7,11 @@ import reducers from './reducers'
 import { Provider } from 'react-redux'
 import App from './containers/App'
 
-const store = createStore(
+import type { Store } from 'redux'
+import type { Action } from './actions/AppActions'
+import type { State } from './reducers'
+
+const store: Store<State, Action> = createStore(
   reducers,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
