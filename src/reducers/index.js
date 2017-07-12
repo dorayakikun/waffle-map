@@ -96,7 +96,6 @@ const stateFrom = (meshCodes: string, state: State): State => {
         })
     }
   } catch (e) {
-    console.log('Waffle Map Error: \n', e.message)
     return {
       ...state,
       meshInput: {
