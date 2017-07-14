@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "stable"
 env:
-  CODECLIMATE_REPO_TOKEN: 0a05bdccb231afa868698d741b6e4c5fcd161bebab035eade290121ddca87bfd
+  CODECLIMATE_REPO_TOKEN: 3fe7d092eafbecae5628d6b7eac7c9304001b39c6e2a090e6bf043d259f2d018
 after_success:
   - npm install -g codeclimate-test-reporter
   - codeclimate-test-reporter < coverage/lcov.info
