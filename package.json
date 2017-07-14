@@ -1,5 +1,5 @@
 {
-  "name": "mesh_calculator",
+  "name": "waffle-map",
   "version": "0.1.0",
   "description": "",
   "main": "public/bundle.js",
@@ -15,9 +15,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dorayakikun/mesh_calculator.git"
+    "url": "https://github.com/dorayakikun/waffle-map.git"
   },
-  "homepage": "https://dorayakikun.github.io/mesh_calculator/",
+  "homepage": "https://dorayakikun.github.io/waffle-map/",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
