@@ -6,12 +6,14 @@ import MeshInput from '../components/MeshInput'
 import { inputMeshes, selectSeparator } from '../actions/AppActions'
 
 import type { Connector } from 'react-redux'
+import type { Dispatch } from 'redux'
+import type { Action } from '../actions/AppActions'
 import type { State as RootState } from '../reducers'
 import type { MeshInputProps } from '../components/MeshInput'
 
 const mapStateToProps = (state: RootState) => state.meshInput
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
   return {
     onMeshesChanged: (event: Element & { target: HTMLInputElement }) => {
       dispatch(inputMeshes(event.target.value))
