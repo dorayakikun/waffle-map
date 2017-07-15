@@ -70,9 +70,9 @@ export default (state: State = initialState, action: Action): State => {
  * Create state from meshCodes.
  * If meshCodes are invalid then return previous state(with an error message).
  *
- * @param meshCodes
- * @param state
- * @returns {Array<Bounds>}
+ * @param {string} meshCodes
+ * @param {State} state
+ * @returns {State}
  */
 const stateFrom = (meshCodes: string, state: State): State => {
   const { separator } = state.meshInput
