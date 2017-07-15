@@ -25,6 +25,25 @@ test('Should set props to MeshInput', () => {
   expect(enzymeWrapper.find('.selected .item').text()).toBe('dots')
 })
 
+test('Should render negative message when errorMessage is not blank', () => {
+  const props: MeshInputProps = {
+    errorMessage: 'It seems there was something wrong ...',
+    meshCodes: '5',
+    separator: '.',
+    onMeshesChanged: jest.fn(),
+    onSeparatorChanged: jest.fn()
+  }
+  const enzymeWrapper = mount(<MeshInput {...props} />)
+  expect(
+    enzymeWrapper.find('.ui .fluid .labeled input').find('input').length
+  ).toBe(1)
+  expect(enzymeWrapper.find('.ui .teal .label .label').text()).toBe(
+    'mesh codes'
+  )
+  expect(enzymeWrapper.find('.ui .negative .message').length).toBe(1)
+  expect(enzymeWrapper.find('.selected .item').text()).toBe('dots')
+})
+
 test('Should call onMeshesChanged when input meshCodes', () => {
   const onMeshesChanged = sinon.spy()
   const props: MeshInputProps = {
