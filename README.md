@@ -25,7 +25,28 @@ $ npm run dev
 
 ## Extending Waffle Map
 
-WIP
+### first step
+Prepare below modules
+
+- name: waffle-map-mesh-calculator-{your-logic-name}
+- functions:
+  - latLngToMesh(lat: number, lng: number, scale: number): string
+  - meshToBounds(mesh: string): Bounds
+  - meshToLatLng(mesh: string): LatLng
+- constant
+  - SCALES: [number]
+  
+Please see [here](https://github.com/dorayakikun/waffle-map-mesh-calculator-basic) as sample code.
+
+### second step
+
+Append wafflemap config in package.json.
+
+``` json
+"wafflemap": {
+  "meshcalculator": "your-logic-name"
+}
+```
 
 ## Author
 - dorayakikun
