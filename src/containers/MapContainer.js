@@ -7,7 +7,7 @@ import Map from '../components/Map'
 
 import type { Connector } from 'react-redux'
 import type { Dispatch } from 'redux'
-import type { LatLng } from 'waffle-map-mesh-calculator-basic'
+import type { LatLng } from '../domain/meshCalculator'
 import type { Action } from '../actions/AppActions'
 import type { State as RootState } from '../reducers'
 import type { MapProps } from '../components/Map'

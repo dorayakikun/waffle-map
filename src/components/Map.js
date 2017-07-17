@@ -9,10 +9,9 @@ import {
   Tooltip
 } from 'react-leaflet'
 import { Card } from 'semantic-ui-react'
-import { SCALES, latLngToMesh } from 'waffle-map-mesh-calculator-basic'
+import meshCalculator from '../domain/meshCalculator'
 
-import type { Mesh } from '../reducers'
-import type { LatLng } from 'waffle-map-mesh-calculator-basic'
+import type { LatLng, Mesh } from '../domain/meshCalculator'
 
 export type MapProps = {
   meshes: Array<Mesh>,
@@ -22,7 +21,7 @@ export type MapProps = {
 }
 
 const initialLeafletBounds: Array<Array<number>> = [[35, 139], [37, 140]]
-
+const { latLngToMesh, SCALES } = meshCalculator
 const calculateLeafletBoundsFrom = (
   meshes: Array<Mesh>
 ): Array<Array<number>> => {

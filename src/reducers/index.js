@@ -1,20 +1,14 @@
 // @flow
-import { meshToBounds, meshToLatLng } from 'waffle-map-mesh-calculator-basic'
+import meshCalculator from '../domain/meshCalculator'
 import * as AppActions from '../actions/AppActions'
 
 import type { Action } from '../actions/AppActions'
-import type { Bounds, LatLng } from 'waffle-map-mesh-calculator-basic'
+import type { LatLng, Mesh } from '../domain/meshCalculator'
 
 export type MeshInputState = {
   errorMessage: string,
   meshCodes: string,
   separator: string
-}
-
-export type Mesh = {
-  code: string,
-  center: LatLng,
-  bounds: Bounds
 }
 
 export type MapState = {
@@ -26,7 +20,7 @@ export type State = {
   meshes: Array<Mesh>,
   map: MapState
 }
-
+const { meshToBounds, meshToLatLng } = meshCalculator
 const initialState: State = {
   meshInput: {
     errorMessage: '',
