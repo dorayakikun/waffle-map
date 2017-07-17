@@ -3,7 +3,7 @@
 import React from 'react'
 import { Table } from 'semantic-ui-react'
 
-import type { Bounds, LatLng } from 'waffle-map-mesh-calculator-basic'
+import type { Bounds, LatLng } from '../domain/meshCalculator'
 
 export type MeshDetailProps = {
   code: string,

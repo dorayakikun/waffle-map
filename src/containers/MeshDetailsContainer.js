@@ -5,7 +5,8 @@ import { connect } from 'react-redux'
 import MeshDetail from '../components/MeshDetail'
 
 import type { Connector } from 'react-redux'
-import type { Mesh, State as RootState } from '../reducers'
+import type { Mesh } from '../domain/meshCalculator'
+import type { State as RootState } from '../reducers'
 
 type MeshDetailsContainerProps = {
   meshes: Array<Mesh>
