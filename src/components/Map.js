@@ -9,10 +9,10 @@ import {
   Tooltip
 } from 'react-leaflet'
 import { Card } from 'semantic-ui-react'
-import meshCalculator from '../domain/meshCalculator'
+import meshCalculator from '../domain/calculateMesh'
 import { round } from '../domain/roundPoint'
 
-import type { LatLng, Mesh } from '../domain/meshCalculator'
+import type { LatLng, Mesh } from '../domain/calculateMesh'
 
 export type MapProps = {
   meshes: Array<Mesh>,

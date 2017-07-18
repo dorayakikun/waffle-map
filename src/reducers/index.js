@@ -1,9 +1,9 @@
 // @flow
-import meshCalculator from '../domain/meshCalculator'
+import meshCalculator from '../domain/calculateMesh'
 import * as AppActions from '../actions/AppActions'
 
 import type { Action } from '../actions/AppActions'
-import type { LatLng, Mesh } from '../domain/meshCalculator'
+import type { LatLng, Mesh } from '../domain/calculateMesh'
 
 export type MeshInputState = {
   errorMessage: string,

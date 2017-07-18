@@ -4,7 +4,7 @@ import React from 'react'
 import { Table } from 'semantic-ui-react'
 import { round } from '../domain/roundPoint'
 
-import type { Bounds, LatLng } from '../domain/meshCalculator'
+import type { Bounds, LatLng } from '../domain/calculateMesh'
 
 export type MeshDetailProps = {
   code: string,

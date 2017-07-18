@@ -1,5 +1,5 @@
 // @flow
-import type { LatLng } from '../domain/meshCalculator'
+import type { LatLng } from '../domain/calculateMesh'
 
 export const INPUT_MESHES = 'INPUT_MESHES'
 export const SELECT_SEPARATOR = 'SELECT_SEPARATOR'
