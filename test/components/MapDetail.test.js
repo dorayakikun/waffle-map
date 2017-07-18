@@ -2,8 +2,9 @@
 
 import React from 'react'
 import { mount } from 'enzyme'
-import MeshDetail from '../../src/components/MeshDetail'
 import { meshToLatLng, meshToBounds } from 'waffle-map-mesh-calculator-basic'
+import MeshDetail from '../../src/components/MeshDetail'
+import { round } from '../../src/domain/roundPoint'
 
 import type { MeshDetailProps } from '../../src/components/MeshDetail'
 
@@ -21,12 +22,12 @@ test('Should set props to MeshDetail', () => {
 
   expect(enzymeWrapper.childAt(0).childAt(0).childAt(1).text()).toBe(meshCode)
   expect(enzymeWrapper.childAt(0).childAt(1).childAt(1).text()).toBe(
-    `${center.lat}${center.lng}`
+    `${round(center.lat, 5)}${round(center.lng, 5)}`
   )
   expect(enzymeWrapper.childAt(0).childAt(2).childAt(1).text()).toBe(
-    `${bounds.leftTop.lat}${bounds.leftTop.lng}`
+    `${round(bounds.leftTop.lat, 5)}${round(bounds.leftTop.lng, 5)}`
   )
   expect(enzymeWrapper.childAt(0).childAt(3).childAt(1).text()).toBe(
-    `${bounds.rightBottom.lat}${bounds.rightBottom.lng}`
+    `${round(bounds.rightBottom.lat, 5)}${round(bounds.rightBottom.lng, 5)}`
   )
 })

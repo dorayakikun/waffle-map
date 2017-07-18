@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { Table } from 'semantic-ui-react'
+import { round } from '../domain/roundPoint'
 
 import type { Bounds, LatLng } from '../domain/meshCalculator'
 
@@ -23,25 +24,25 @@ const MeshDetail = (props: MeshDetailProps) =>
       <Table.Row>
         <Table.Cell>center</Table.Cell>
         <Table.Cell>
-          {props.center.lat}
+          {round(props.center.lat, 5)}
           <br />
-          {props.center.lng}
+          {round(props.center.lng, 5)}
         </Table.Cell>
       </Table.Row>
       <Table.Row>
         <Table.Cell>leftTop</Table.Cell>
         <Table.Cell>
-          {props.bounds.leftTop.lat}
+          {round(props.bounds.leftTop.lat, 5)}
           <br />
-          {props.bounds.leftTop.lng}
+          {round(props.bounds.leftTop.lng, 5)}
         </Table.Cell>
       </Table.Row>
       <Table.Row>
         <Table.Cell>rightBottom</Table.Cell>
         <Table.Cell>
-          {props.bounds.rightBottom.lat}
+          {round(props.bounds.rightBottom.lat, 5)}
           <br />
-          {props.bounds.rightBottom.lng}
+          {round(props.bounds.rightBottom.lng, 5)}
         </Table.Cell>
       </Table.Row>
     </Table.Body>
