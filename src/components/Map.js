@@ -9,9 +9,10 @@ import {
   Tooltip
 } from 'react-leaflet'
 import { Card } from 'semantic-ui-react'
-import meshCalculator from '../domain/meshCalculator'
+import meshCalculator from '../domain/calculateMesh'
+import { round } from '../domain/roundPoint'
 
-import type { LatLng, Mesh } from '../domain/meshCalculator'
+import type { LatLng, Mesh } from '../domain/calculateMesh'
 
 export type MapProps = {
   meshes: Array<Mesh>,
@@ -79,10 +80,10 @@ const Map = (props: MapProps) =>
           <Card>
             <Card.Content header="Scales" />
             <Card.Content
-              description={`position: ${Math.ceil(
-                props.contextmenuPosition.lat * 100000
-              ) / 100000}, ${Math.ceil(props.contextmenuPosition.lng * 100000) /
-                100000}`}
+              description={`position: ${round(
+                props.contextmenuPosition.lat,
+                5
+              )}, ${round(props.contextmenuPosition.lng, 5)}`}
             />
             {createCardContent(props.contextmenuPosition)}
           </Card>

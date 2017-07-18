@@ -7,7 +7,7 @@ import Map from '../components/Map'
 
 import type { Connector } from 'react-redux'
 import type { Dispatch } from 'redux'
-import type { LatLng } from '../domain/meshCalculator'
+import type { LatLng } from '../domain/calculateMesh'
 import type { Action } from '../actions/AppActions'
 import type { State as RootState } from '../reducers'
 import type { MapProps } from '../components/Map'
