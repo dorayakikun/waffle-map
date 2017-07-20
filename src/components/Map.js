@@ -63,9 +63,10 @@ const Map = (props: MapProps) =>
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
       />
-      {props.meshes.map(mesh =>
+      {props.meshes.map((mesh, index) =>
         <Rectangle
           bounds={[mesh.bounds.leftTop, mesh.bounds.rightBottom]}
+          key={index}
           color="#00847e"
         >
           <Tooltip>
