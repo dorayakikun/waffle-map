@@ -14,7 +14,7 @@ type MeshDetailsContainerProps = {
 
 const MeshContainer = ({ meshes }: MeshDetailsContainerProps) =>
   <div>
-    {meshes.map(mesh => <MeshDetail {...mesh} />)}
+    {meshes.map((mesh, index) => <MeshDetail {...mesh} key={index} />)}
   </div>
 
 const mapStateToProps = (state: RootState) => ({
