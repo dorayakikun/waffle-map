@@ -16,7 +16,7 @@ const MeshDetail = (props: MeshDetailProps) =>
   <Table inverted>
     <Table.Body>
       <Table.Row>
-        <Table.Cell>mesh</Table.Cell>
+        <Table.Cell>mesh code</Table.Cell>
         <Table.Cell>
           {props.code}
         </Table.Cell>
