@@ -6,9 +6,11 @@
   "scripts": {
     "build": "NODE_ENV=production webpack",
     "dev": "webpack-dev-server --progress",
-    "eslint": "eslint src --fix",
+    "eslint": "eslint src stories --fix",
     "flow": "flow",
-    "test": "NODE_ENV=test jest"
+    "test": "NODE_ENV=test jest",
+    "storybook": "start-storybook -p 6006 -c .storybook -s public",
+    "build-storybook": "build-storybook"
   },
   "keywords": [],
   "author": "dorayakikun <amakunai.dorayaki@gmail.com>",
@@ -19,6 +21,7 @@
   },
   "homepage": "https://dorayakikun.github.io/waffle-map/",
   "devDependencies": {
+    "@storybook/react": "^3.1.9",
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-jest": "^20.0.3",
@@ -58,6 +61,7 @@
     ]
   },
   "dependencies": {
+    "jest-cli": "^20.0.4",
     "leaflet": "^1.1.0",
     "react": "^15.6.1",
     "react-leaflet": "^1.4.0",
