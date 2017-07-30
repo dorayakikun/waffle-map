@@ -56,6 +56,7 @@
     ],
     "coveragePathIgnorePatterns": [
       "<rootDir>/src/index.js",
+      "<rootDir>/src/components/DebugTileLayer.js",
       "<rootDir>/src/components/Map.js",
       "<rootDir>/src/containers/"
     ]

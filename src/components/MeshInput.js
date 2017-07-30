@@ -57,7 +57,7 @@ const MeshInput = (props: MeshInputProps) =>
       fluid
       onChange={props.onSeparatorChanged}
       options={separatorOptions}
-      text={`Split with ${fetchTextFrom(separatorOptions, props.separator)}.`}
+      text={`Split with ${fetchTextFrom(separatorOptions, props.separator)}`}
       value={props.separator}
     />
   </div>
