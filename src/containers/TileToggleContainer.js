@@ -15,7 +15,7 @@ const mapStateToProps = (state: RootState) => state.tileToggle
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
   return {
     onToggleChanged: (_, data: { checked: boolean }) => {
-      dispatch(toggleDebugTiles(!data.checked))
+      dispatch(toggleDebugTiles(data.checked))
     }
   }
 }

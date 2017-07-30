@@ -1,16 +1,24 @@
 // @flow
 import React from 'react'
-import { MenuItem, Radio } from 'semantic-ui-react'
+import { Checkbox, MenuItem } from 'semantic-ui-react'
 
 export type TileToggleProps = {
   isShowDebugTiles: boolean,
   onToggleChanged: (_, data: { checked: boolean }) => void
 }
 
-const TileToggle = (props: TileToggleProps) =>
-  <div>
-    <span style={{ fontColor: 'white', marginRight: 5 }}>Show tiles</span>
-    <Radio toggle onChange={props.onToggleChanged} />
-  </div>
+const TileToggle = (props: TileToggleProps) => {
+  console.log('props is ', props)
+  return (
+    <div>
+      <span style={{ fontColor: 'white', marginRight: 5 }}>Show tiles</span>
+      <Checkbox
+        checked={props.isShowDebugTiles}
+        onChange={props.onToggleChanged}
+        toggle
+      />
+    </div>
+  )
+}
 
 export default TileToggle

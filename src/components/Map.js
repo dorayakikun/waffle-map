@@ -9,6 +9,7 @@ import {
   Tooltip
 } from 'react-leaflet'
 import { Card } from 'semantic-ui-react'
+import DebugTileLayer from './DebugTileLayer'
 import meshCalculator from '../domain/calculateMesh'
 import { round } from '../domain/roundPoint'
 
@@ -17,6 +18,7 @@ import type { LatLng, Mesh } from '../domain/calculateMesh'
 export type MapProps = {
   meshes: Array<Mesh>,
   contextmenuPosition: ?LatLng,
+  isShowDebugTiles: boolean,
   onContextmenu: (event: Event & { latlng: LatLng }) => void,
   onClose: () => void
 }
@@ -63,6 +65,7 @@ const Map = (props: MapProps) =>
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
       />
+      {props.isShowDebugTiles && <DebugTileLayer />}
       {props.meshes.map((mesh, index) =>
         <Rectangle
           bounds={[mesh.bounds.leftTop, mesh.bounds.rightBottom]}

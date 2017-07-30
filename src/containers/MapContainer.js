@@ -14,6 +14,7 @@ import type { MapProps } from '../components/Map'
 
 const mapStateToProps = (state: RootState) => ({
   ...state.map,
+  ...state.tileToggle,
   meshes: state.meshes
 })
 
