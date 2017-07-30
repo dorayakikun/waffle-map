@@ -13,6 +13,9 @@ test('Should handle INPUT_MESHES', () => {
       meshCodes,
       separator: '.'
     },
+    tileToggle: {
+      isShowDebugTiles: false
+    },
     meshes: [
       {
         code: meshCodes,
@@ -40,6 +43,9 @@ The actual length is 3, the mesh code is 533.`
       meshCodes,
       separator: '.'
     },
+    tileToggle: {
+      isShowDebugTiles: false
+    },
     meshes: [],
     map: {
       contextmenuPosition: null
@@ -59,6 +65,9 @@ test('Should handle SELECT_SEPARATOR', () => {
       meshCodes: '',
       separator
     },
+    tileToggle: {
+      isShowDebugTiles: false
+    },
     meshes: [],
     map: {
       contextmenuPosition: null
@@ -69,13 +78,37 @@ test('Should handle SELECT_SEPARATOR', () => {
   )
 })
 
-test('Should handle SELECT_SEPARATOR', () => {
+test('Should handle TOGGLE_DEBUG_TILES', () => {
+  const isShowDebugTiles = true
+  const expectedState = {
+    meshInput: {
+      errorMessage: '',
+      meshCodes: '',
+      separator: '.'
+    },
+    tileToggle: {
+      isShowDebugTiles
+    },
+    meshes: [],
+    map: {
+      contextmenuPosition: null
+    }
+  }
+  expect(reducer(undefined, AppActions.toggleDebugTiles(isShowDebugTiles))).toEqual(
+    expectedState
+  )
+})
+
+test('Should handle UPDATE_CONTEXTMENU_POSITION', () => {
   const latLng = { lat: 35, lng: 139 }
   const expectedState = {
     meshInput: {
       errorMessage: '',
       meshCodes: '',
       separator: '.'
+    },
+    tileToggle: {
+      isShowDebugTiles: false
     },
     meshes: [],
     map: {
@@ -94,6 +127,9 @@ test('Should return an initial state when setting an invalid action', () => {
       errorMessage: '',
       meshCodes: '',
       separator: '.'
+    },
+    tileToggle: {
+      isShowDebugTiles: false
     },
     meshes: [],
     map: {
