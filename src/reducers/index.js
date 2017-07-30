@@ -11,12 +11,17 @@ export type MeshInputState = {
   separator: string
 }
 
+export type TileToggleState = {
+  isShowDebugTiles: boolean
+}
+
 export type MapState = {
   contextmenuPosition: ?LatLng
 }
 
 export type State = {
   meshInput: MeshInputState,
+  tileToggle: TileToggleState,
   meshes: Array<Mesh>,
   map: MapState
 }
@@ -26,6 +31,9 @@ const initialState: State = {
     errorMessage: '',
     meshCodes: '',
     separator: '.'
+  },
+  tileToggle: {
+    isShowDebugTiles: false
   },
   meshes: [],
   map: {
@@ -45,6 +53,14 @@ export default (state: State = initialState, action: Action): State => {
         meshInput: {
           ...state.meshInput,
           separator
+        }
+      }
+    case AppActions.TOGGLE_DEBUG_TILES:
+      const { isShowDebugTiles } = action.payload
+      return {
+        ...state,
+        tileToggle: {
+          isShowDebugTiles
         }
       }
     case AppActions.UPDATE_CONTEXTMENU_POSITION:

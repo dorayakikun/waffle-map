@@ -3,6 +3,7 @@ import type { LatLng } from '../domain/calculateMesh'
 
 export const INPUT_MESHES = 'INPUT_MESHES'
 export const SELECT_SEPARATOR = 'SELECT_SEPARATOR'
+export const TOGGLE_DEBUG_TILES = 'TOGGLE_DEBUG_TILES'
 export const UPDATE_CONTEXTMENU_POSITION = 'UPDATE_CONTEXTMENU_POSITION'
 
 export type Action =
@@ -16,6 +17,12 @@ export type Action =
       type: typeof SELECT_SEPARATOR,
       payload: {
         separator: string
+      }
+    }
+  | {
+      type: typeof TOGGLE_DEBUG_TILES,
+      payload: {
+        isShowDebugTiles: boolean
       }
     }
   | {
@@ -34,6 +41,13 @@ export const selectSeparator = (separator: string): Action => ({
   type: SELECT_SEPARATOR,
   payload: {
     separator
+  }
+})
+
+export const toggleDebugTiles = (isShowDebugTiles: boolean): Action => ({
+  type: TOGGLE_DEBUG_TILES,
+  payload: {
+    isShowDebugTiles
   }
 })
 
