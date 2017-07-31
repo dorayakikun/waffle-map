@@ -59,6 +59,8 @@ const Map = (props: MapProps) =>
   <div style={{ width: '100%', height: '100%' }}>
     <LeafletMap
       bounds={calculateLeafletBoundsFrom(props.meshes)}
+      maxZoom={19}
+      minZoom={6}
       onContextmenu={props.onContextmenu}
     >
       <TileLayer
