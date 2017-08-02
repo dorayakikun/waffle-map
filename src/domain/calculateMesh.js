@@ -26,12 +26,11 @@ type MeshCalculator = {
 }
 
 const meshCalculator: () => MeshCalculator = () => {
-  const packageConfigPath = path.resolve(process.cwd(), 'package.json')
   if (process.env.NODE_ENV !== 'test' && pkg.wafflemap) {
-    const moduleName = `./node_modules/waffle-map-mesh-calculator-${pkg
-      .wafflemap.meshcalculator}/lib/meshCalculator.js`
     // $FlowFixMe
-    return (__webpack_require__(moduleName): any)
+    return require('../../node_modules/waffle-map-mesh-calculator-' +
+      pkg.wafflemap.meshcalculator +
+      '/lib/meshCalculator.js')
   }
   return require('waffle-map-mesh-calculator-basic')
 }
