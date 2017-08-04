@@ -49,9 +49,10 @@ const calculateLeafletBoundsFrom = (
 }
 
 const createCardContent = ({ lat, lng }: LatLng) =>
-  SCALES.map(scale =>
+  SCALES.map((scale, idx) =>
     <Card.Content
       description={`scale${scale}: ${latLngToMesh(lat, lng, scale)}`}
+      key={idx}
     />
   )
 
