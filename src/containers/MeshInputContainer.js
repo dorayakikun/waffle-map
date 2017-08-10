@@ -2,14 +2,14 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-import MeshInput from '../components/MeshInput'
+import MeshInput from '../components/MeshCodeInput'
 import { inputMeshes, selectSeparator } from '../actions/AppActions'
 
 import type { Connector } from 'react-redux'
 import type { Dispatch } from 'redux'
 import type { Action } from '../actions/AppActions'
 import type { State as RootState } from '../reducers'
-import type { MeshInputProps } from '../components/MeshInput'
+import type { MeshCodeInputProps } from '../components/MeshCodeInput'
 
 const mapStateToProps = (state: RootState) => state.meshInput
 
@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
   }
 }
 
-const connector: Connector<{}, MeshInputProps> = connect(
+const connector: Connector<{}, MeshCodeInputProps> = connect(
   mapStateToProps,
   mapDispatchToProps
 )

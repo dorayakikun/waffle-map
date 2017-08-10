@@ -3,12 +3,12 @@
 import React from 'react'
 import sinon from 'sinon'
 import { mount } from 'enzyme'
-import MeshInput from '../../src/components/MeshInput'
+import MeshInput from '../../src/components/MeshCodeInput'
 
-import type { MeshInputProps } from '../../src/components/MeshInput'
+import type { MeshCodeInputProps } from '../../src/components/MeshCodeInput'
 
-test('Should set props to MeshInput', () => {
-  const props: MeshInputProps = {
+test('Should set props to MeshCodeInput', () => {
+  const props: MeshCodeInputProps = {
     errorMessage: '',
     meshCodes: '',
     separator: '.',
@@ -26,7 +26,7 @@ test('Should set props to MeshInput', () => {
 })
 
 test('Should render negative message when errorMessage is not blank', () => {
-  const props: MeshInputProps = {
+  const props: MeshCodeInputProps = {
     errorMessage: 'It seems there was something wrong ...',
     meshCodes: '5',
     separator: '.',
@@ -46,7 +46,7 @@ test('Should render negative message when errorMessage is not blank', () => {
 
 test('Should call onMeshesChanged when input meshCodes', () => {
   const onMeshesChanged = sinon.spy()
-  const props: MeshInputProps = {
+  const props: MeshCodeInputProps = {
     errorMessage: '',
     meshCodes: '',
     separator: '.',
@@ -60,7 +60,7 @@ test('Should call onMeshesChanged when input meshCodes', () => {
 
 test('Should call onSeparatorChanged when select separator', () => {
   const onSeparatorChanged = sinon.spy()
-  const props: MeshInputProps = {
+  const props: MeshCodeInputProps = {
     errorMessage: '',
     meshCodes: '',
     separator: '.',
