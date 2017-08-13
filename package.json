@@ -72,5 +72,13 @@
     "semantic-ui-css": "^2.2.10",
     "semantic-ui-react": "^0.68.5",
     "waffle-map-mesh-calculator-basic": "^1.0.1"
+  },
+  "ava": {
+    "babel": {
+      "babelrc": true
+    },
+    "require": [
+      "babel-register"
+    ]
   }
 }
