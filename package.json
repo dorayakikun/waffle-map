@@ -8,7 +8,7 @@
     "dev": "webpack-dev-server --progress",
     "eslint": "eslint src stories --fix",
     "flow": "flow",
-    "test": "NODE_ENV=test jest",
+    "test": "NODE_ENV=test ava",
     "storybook": "start-storybook -p 6006 -c .storybook -s public",
     "build-storybook": "build-storybook"
   },
@@ -32,7 +32,6 @@
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-latest": "^6.24.1",
-    "enzyme": "^2.9.1",
     "eslint": "^3.19.0",
     "eslint-config-prettier": "^2.3.0",
     "eslint-plugin-flowtype": "^2.34.1",
@@ -40,7 +39,6 @@
     "eslint-plugin-prettier": "^2.1.1",
     "flow-bin": "^0.49.1",
     "flow-copy-source": "^1.2.0",
-    "jest": "^20.0.4",
     "json-loader": "^0.5.4",
     "prettier": "^1.5.2",
     "react-dom": "^15.6.1",
@@ -50,20 +48,7 @@
     "webpack": "^3.2.0",
     "webpack-dev-server": "^2.5.1"
   },
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx}"
-    ],
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/src/index.js",
-      "<rootDir>/src/components/DebugTileLayer.js",
-      "<rootDir>/src/components/Map.js",
-      "<rootDir>/src/containers/"
-    ]
-  },
   "dependencies": {
-    "jest-cli": "^20.0.4",
     "leaflet": "^1.1.0",
     "react": "^15.6.1",
     "react-leaflet": "^1.4.0",
