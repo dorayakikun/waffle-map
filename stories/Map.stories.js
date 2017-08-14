@@ -75,3 +75,15 @@ const propsSomeMeshAndContextPosition = {
 storiesOf('Map', module).add('with meshes and contextMenuPosition', () =>
   <Map {...propsSomeMeshAndContextPosition} />
 )
+
+const propsShowDebugTile = {
+  meshes: [],
+  contextmenuPosition: null,
+  isShowDebugTiles: true,
+  onContextmenu: event => {},
+  onClose: () => {}
+}
+
+storiesOf('Map', module).add('show Debug Tile', () =>
+  <Map {...propsShowDebugTile} />
+)

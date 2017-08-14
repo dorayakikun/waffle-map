@@ -2,7 +2,7 @@
 import React from 'react'
 import { Dropdown, Input, Label, Message } from 'semantic-ui-react'
 
-export type MeshInputProps = {
+export type MeshCodeInputProps = {
   errorMessage: string,
   meshCodes: string,
   separator: string,
@@ -36,7 +36,7 @@ const fetchTextFrom = (
   return options.filter(o => o.value === value).map(o => o.text).toString()
 }
 
-const MeshInput = (props: MeshInputProps) =>
+const MeshCodeInput = (props: MeshCodeInputProps) =>
   <div>
     <Input
       error={props.errorMessage !== ''}
@@ -62,4 +62,4 @@ const MeshInput = (props: MeshInputProps) =>
     />
   </div>
 
-export default MeshInput
+export default MeshCodeInput
