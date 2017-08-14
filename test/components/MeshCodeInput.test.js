@@ -1,75 +1,59 @@
 // @flow
 
+import test from 'ava'
 import React from 'react'
 import sinon from 'sinon'
-import { mount } from 'enzyme'
+import render from 'react-test-renderer'
 import MeshInput from '../../src/components/MeshCodeInput'
 
 import type { MeshCodeInputProps } from '../../src/components/MeshCodeInput'
 
-test('Should set props to MeshCodeInput', () => {
+test('Should set props to MeshCodeInput', t => {
   const props: MeshCodeInputProps = {
     errorMessage: '',
     meshCodes: '',
     separator: '.',
-    onMeshesChanged: jest.fn(),
-    onSeparatorChanged: jest.fn()
+    onMeshesChanged: () => {},
+    onSeparatorChanged: () => {}
   }
-  const enzymeWrapper = mount(<MeshInput {...props} />)
-  expect(
-    enzymeWrapper.find('.ui .fluid .labeled input').find('input').length
-  ).toBe(1)
-  expect(enzymeWrapper.find('.ui .teal .label .label').text()).toBe(
-    'mesh codes'
-  )
-  expect(enzymeWrapper.find('.selected .item').text()).toBe('dots')
+  const tree = render.create(<MeshInput {...props} />).toJSON()
+  t.snapshot(tree)
 })
 
-test('Should render negative message when errorMessage is not blank', () => {
+test('Should render negative message when errorMessage is not blank', t => {
   const props: MeshCodeInputProps = {
     errorMessage: 'It seems there was something wrong ...',
     meshCodes: '5',
     separator: '.',
-    onMeshesChanged: jest.fn(),
-    onSeparatorChanged: jest.fn()
+    onMeshesChanged: () => {},
+    onSeparatorChanged: () => {}
   }
-  const enzymeWrapper = mount(<MeshInput {...props} />)
-  expect(
-    enzymeWrapper.find('.ui .fluid .labeled input').find('input').length
-  ).toBe(1)
-  expect(enzymeWrapper.find('.ui .teal .label .label').text()).toBe(
-    'mesh codes'
-  )
-  expect(enzymeWrapper.find('.ui .negative .message').length).toBe(1)
-  expect(enzymeWrapper.find('.selected .item').text()).toBe('dots')
+  const tree = render.create(<MeshInput {...props} />).toJSON()
+  t.snapshot(tree)
 })
 
-test('Should call onMeshesChanged when input meshCodes', () => {
+test('Should call onMeshesChanged when input meshCodes', t => {
   const onMeshesChanged = sinon.spy()
   const props: MeshCodeInputProps = {
     errorMessage: '',
     meshCodes: '',
     separator: '.',
     onMeshesChanged,
-    onSeparatorChanged: jest.fn()
+    onSeparatorChanged: () => {}
   }
-  const enzymeWrapper = mount(<MeshInput {...props} />)
-  enzymeWrapper.find('input').simulate('change', { target: { value: '5339' } })
-  expect(onMeshesChanged).toHaveProperty('callCount', 1)
+  const tree = render.create(<MeshInput {...props} />).toJSON()
+  t.snapshot(tree)
 })
 
-test('Should call onSeparatorChanged when select separator', () => {
+test('Should call onSeparatorChanged when select separator', t => {
   const onSeparatorChanged = sinon.spy()
   const props: MeshCodeInputProps = {
     errorMessage: '',
     meshCodes: '',
     separator: '.',
-    onMeshesChanged: jest.fn(),
+    onMeshesChanged: () => {},
     onSeparatorChanged
   }
-  const enzymeWrapper = mount(<MeshInput {...props} />)
-  enzymeWrapper
-    .find('.selected .item')
-    .simulate('change', { target: { value: ',' } })
-  expect(onSeparatorChanged).toHaveProperty('callCount', 1)
+  const tree = render.create(<MeshInput {...props} />).toJSON()
+  t.snapshot(tree)
 })

@@ -1,6 +1,6 @@
 {
  "presets": [
-   ["latest", { "es2015": { "modules": false } }],
+   "latest",
    "flow"
  ],
   "plugins": ["transform-react-jsx", "transform-object-rest-spread"],

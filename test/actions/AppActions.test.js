@@ -1,8 +1,9 @@
 require('babel-core').buildExternalHelpers()
 
 import * as AppActions from '../../src/actions/AppActions'
+import test from 'ava'
 
-test('Should create action to input meshes', () => {
+test('Should create action to input meshes', t => {
   const meshCodes = '5339'
   const expectedAction = {
     type: AppActions.INPUT_MESHES,
@@ -10,10 +11,10 @@ test('Should create action to input meshes', () => {
       meshCodes
     }
   }
-  expect(AppActions.inputMeshes(meshCodes)).toEqual(expectedAction)
+  t.deepEqual(AppActions.inputMeshes(meshCodes), expectedAction)
 })
 
-test('Should create action to select separator', () => {
+test('Should create action to select separator', t => {
   const separator = '.'
   const expectedAction = {
     type: AppActions.SELECT_SEPARATOR,
@@ -21,10 +22,10 @@ test('Should create action to select separator', () => {
       separator
     }
   }
-  expect(AppActions.selectSeparator(separator)).toEqual(expectedAction)
+  t.deepEqual(AppActions.selectSeparator(separator), expectedAction)
 })
 
-test('Should create action to update contextmenu position', () => {
+test('Should create action to update contextmenu position', t => {
   const latLng = { lat: 35, lng: 139 }
   const expectedAction = {
     type: AppActions.UPDATE_CONTEXTMENU_POSITION,
@@ -32,5 +33,5 @@ test('Should create action to update contextmenu position', () => {
       latLng
     }
   }
-  expect(AppActions.updateContextmenuPosition(latLng)).toEqual(expectedAction)
+  t.deepEqual(AppActions.updateContextmenuPosition(latLng), expectedAction)
 })
