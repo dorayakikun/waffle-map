@@ -1,19 +1,19 @@
 // @flow
 
 import React from 'react'
-
 import { storiesOf } from '@storybook/react'
-
 import Map from '../src/components/Map'
+
+import type { LatLng } from '../src/domain/calculateMesh'
 
 const propsNoMesh = {
   meshes: [],
   contextmenuPosition: null,
-  onContextmenu: event => {},
+  isShowDebugTiles: false,
+  onContextmenu: (event: Event & { latlng: LatLng }) => {},
   onClose: () => {}
 }
 storiesOf('Map', module).add('no mesh', () => <Map {...propsNoMesh} />)
-
 const propsSomeMesh = {
   meshes: [
     {
@@ -26,7 +26,8 @@ const propsSomeMesh = {
     }
   ],
   contextmenuPosition: null,
-  onContextmenu: event => {},
+  isShowDebugTiles: false,
+  onContextmenu: (event: Event & { latlng: LatLng }) => {},
   onClose: () => {}
 }
 
@@ -52,7 +53,8 @@ const propsSomeMeshes = {
     }
   ],
   contextmenuPosition: null,
-  onContextmenu: event => {},
+  isShowDebugTiles: false,
+  onContextmenu: (event: Event & { latlng: LatLng }) => {},
   onClose: () => {}
 }
 
@@ -70,7 +72,8 @@ const propsSomeMeshAndContextPosition = {
     }
   ],
   contextmenuPosition: { lat: 35.6896, lng: 139.6921 },
-  onContextmenu: event => {},
+  isShowDebugTiles: false,
+  onContextmenu: (event: Event & { latlng: LatLng }) => {},
   onClose: () => {}
 }
 
@@ -82,7 +85,7 @@ const propsShowDebugTile = {
   meshes: [],
   contextmenuPosition: null,
   isShowDebugTiles: true,
-  onContextmenu: event => {},
+  onContextmenu: (event: Event & { latlng: LatLng }) => {},
   onClose: () => {}
 }
 
