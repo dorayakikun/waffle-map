@@ -4,7 +4,7 @@ import { Checkbox, MenuItem } from 'semantic-ui-react'
 
 export type TileToggleProps = {
   isShowDebugTiles: boolean,
-  onToggleChanged: (_, data: { checked: boolean }) => void
+  onToggleChanged: (event: Event, data: { checked: boolean }) => void
 }
 
 const TileToggle = (props: TileToggleProps) =>
