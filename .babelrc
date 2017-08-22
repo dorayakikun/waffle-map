@@ -1,13 +1,8 @@
 {
  "presets": [
+   "flow",
    "latest",
-   "flow"
+   "react"
  ],
-  "plugins": ["transform-react-jsx", "transform-object-rest-spread"],
-  "env": {
-    "test": {
-      "presets": ["latest", "flow"],
-      "plugins": ["transform-react-jsx", "transform-object-rest-spread"]
-    }
-  }
+  "plugins": ["transform-react-jsx", "transform-class-properties", "transform-object-rest-spread"]
 }
