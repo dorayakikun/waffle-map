@@ -5,6 +5,11 @@ import * as AppActions from '../actions/AppActions'
 import type { Action } from '../actions/AppActions'
 import type { LatLng, Mesh } from '../domain/calculateMesh'
 
+type MarkerInputState = {
+  latLng: string,
+  datum: string
+}
+
 export type MeshInputState = {
   errorMessage: string,
   meshCodes: string,
@@ -20,6 +25,7 @@ export type MapState = {
 }
 
 export type State = {
+  markerInput: MarkerInputState,
   meshInput: MeshInputState,
   tileToggle: TileToggleState,
   meshes: Array<Mesh>,
@@ -27,6 +33,10 @@ export type State = {
 }
 const { meshToBounds, meshToLatLng } = meshCalculator
 const initialState: State = {
+  markerInput: {
+    latLng: '',
+    datum: 'degree'
+  },
   meshInput: {
     errorMessage: '',
     meshCodes: '',
@@ -43,6 +53,10 @@ const initialState: State = {
 
 export default (state: State = initialState, action: Action): State => {
   switch (action.type) {
+    case AppActions.PUT_MARKER:
+      return state
+    case AppActions.REMOVE_ALL_MARKERS:
+      return state
     case AppActions.INPUT_MESHES:
       const { meshCodes } = action.payload
       return stateFrom(meshCodes, state)

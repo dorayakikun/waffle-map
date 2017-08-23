@@ -12,7 +12,7 @@ export type MarkerInputProps = {
   datum: string,
   errorMessage: string,
   putMarker: (event: Event, state: MarkerInputState) => void,
-  removeAllMarkers: (event: Event, state: MarkerInputState) => void
+  removeAllMarkers: () => void
 }
 
 class MarkerInput extends Component {
