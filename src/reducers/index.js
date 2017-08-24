@@ -1,5 +1,6 @@
 // @flow
 import meshCalculator from '../domain/calculateMesh'
+import { convertToMillisecLatLng } from '../domain/convertLatLng'
 import * as AppActions from '../actions/AppActions'
 
 import type { Action } from '../actions/AppActions'
@@ -7,7 +8,8 @@ import type { LatLng, Mesh } from '../domain/calculateMesh'
 
 type MarkerInputState = {
   latLng: string,
-  datum: string
+  datum: string,
+  markerPositions: Array<LatLng>
 }
 
 export type MeshInputState = {
@@ -35,7 +37,8 @@ const { meshToBounds, meshToLatLng } = meshCalculator
 const initialState: State = {
   markerInput: {
     latLng: '',
-    datum: 'degree'
+    datum: 'degree',
+    markerPositions: []
   },
   meshInput: {
     errorMessage: '',
@@ -54,9 +57,25 @@ const initialState: State = {
 export default (state: State = initialState, action: Action): State => {
   switch (action.type) {
     case AppActions.PUT_MARKER:
-      return state
+      return {
+        ...state,
+        markerInput: {
+          latLng: action.payload.latLng,
+          datum: action.payload.datum,
+          markerPositions: [
+            ...state.markerInput.markerPositions,
+            convertToMillisecLatLng(action.payload.latLng, action.payload.datum)
+          ]
+        }
+      }
     case AppActions.REMOVE_ALL_MARKERS:
-      return state
+      return {
+        ...state,
+        markerInput: {
+          ...state.markerInput,
+          markerPositions: []
+        }
+      }
     case AppActions.INPUT_MESHES:
       const { meshCodes } = action.payload
       return stateFrom(meshCodes, state)
