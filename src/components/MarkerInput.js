@@ -1,10 +1,18 @@
 // @flow
 import React, { Component } from 'react'
-import { Button, Dropdown, Label, Icon, Input } from 'semantic-ui-react'
+import {
+  Button,
+  Dropdown,
+  Icon,
+  Input,
+  Label,
+  Message
+} from 'semantic-ui-react'
 
 export type MarkerInputState = {
   latLng: string,
-  datum: string
+  datum: string,
+  errorMessage: string
 }
 
 export type MarkerInputProps = {
@@ -18,7 +26,8 @@ export type MarkerInputProps = {
 class MarkerInput extends Component {
   state = {
     latLng: this.props.latLng || '',
-    datum: this.props.datum || 'degree'
+    datum: this.props.datum || 'degree',
+    errorMessage: this.props.errorMessage || ''
   }
 
   onChangedLatLng = (e: Event, data: { value: string }) =>
@@ -42,6 +51,7 @@ class MarkerInput extends Component {
     return (
       <div>
         <Input
+          error={this.props.errorMessage !== ''}
           fluid
           inverted
           label={<Label color="teal">LatLng</Label>}
@@ -50,6 +60,15 @@ class MarkerInput extends Component {
           style={{ marginTop: '10px', marginBottom: '10px' }}
           value={latLng}
         />
+
+        {this.props.errorMessage !== '' &&
+          <Message negative>
+            <Message.Header>Waffle Map Error</Message.Header>
+            <p>
+              {this.props.errorMessage}
+            </p>
+          </Message>}
+
         <Dropdown
           fluid
           onChange={this.onChangedDatum}

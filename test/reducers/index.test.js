@@ -9,6 +9,10 @@ test('Should handle INPUT_MESHES', t => {
   const errorMessage = ''
   const meshCodes = '5339'
   const expectedState = {
+    markerInput: {
+      errorMessage: '',
+      markerPositions: []
+    },
     meshInput: {
       errorMessage,
       meshCodes,
@@ -40,6 +44,10 @@ The length of the mesh code is 4, 6, or 8.
 The actual length is 3, the mesh code is 533.`
   const meshCodes = '533'
   const expectedState = {
+    markerInput: {
+      errorMessage: '',
+      markerPositions: []
+    },
     meshInput: {
       errorMessage,
       meshCodes,
@@ -63,6 +71,10 @@ test('Should handle SELECT_SEPARATOR', t => {
   const errorMessage = ''
   const separator = ','
   const expectedState = {
+    markerInput: {
+      errorMessage: '',
+      markerPositions: []
+    },
     meshInput: {
       errorMessage,
       meshCodes: '',
@@ -85,6 +97,10 @@ test('Should handle SELECT_SEPARATOR', t => {
 test('Should handle TOGGLE_DEBUG_TILES', t => {
   const isShowDebugTiles = true
   const expectedState = {
+    markerInput: {
+      errorMessage: '',
+      markerPositions: []
+    },
     meshInput: {
       errorMessage: '',
       meshCodes: '',
@@ -107,6 +123,10 @@ test('Should handle TOGGLE_DEBUG_TILES', t => {
 test('Should handle UPDATE_CONTEXTMENU_POSITION', t => {
   const latLng = { lat: 35, lng: 139 }
   const expectedState = {
+    markerInput: {
+      errorMessage: '',
+      markerPositions: []
+    },
     meshInput: {
       errorMessage: '',
       meshCodes: '',
@@ -129,6 +149,10 @@ test('Should handle UPDATE_CONTEXTMENU_POSITION', t => {
 test('Should return an initial state when setting an invalid action', t => {
   const invalidAction = () => ({ type: 'INVALID_ACTION', payload: {} })
   const expectedState = {
+    markerInput: {
+      errorMessage: '',
+      markerPositions: []
+    },
     meshInput: {
       errorMessage: '',
       meshCodes: '',

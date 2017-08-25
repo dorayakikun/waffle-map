@@ -7,8 +7,7 @@ import type { Action } from '../actions/AppActions'
 import type { LatLng, Mesh } from '../domain/calculateMesh'
 
 type MarkerInputState = {
-  latLng: string,
-  datum: string,
+  errorMessage: string,
   markerPositions: Array<LatLng>
 }
 
@@ -36,8 +35,7 @@ export type State = {
 const { meshToBounds, meshToLatLng } = meshCalculator
 const initialState: State = {
   markerInput: {
-    latLng: '',
-    datum: 'degree',
+    errorMessage: '',
     markerPositions: []
   },
   meshInput: {
@@ -57,17 +55,11 @@ const initialState: State = {
 export default (state: State = initialState, action: Action): State => {
   switch (action.type) {
     case AppActions.PUT_MARKER:
-      return {
-        ...state,
-        markerInput: {
-          latLng: action.payload.latLng,
-          datum: action.payload.datum,
-          markerPositions: [
-            ...state.markerInput.markerPositions,
-            convertToMillisecLatLng(action.payload.latLng, action.payload.datum)
-          ]
-        }
-      }
+      return concatMarkerPositions(
+        state,
+        action.payload.latLng,
+        action.payload.datum
+      )
     case AppActions.REMOVE_ALL_MARKERS:
       return {
         ...state,
@@ -106,6 +98,33 @@ export default (state: State = initialState, action: Action): State => {
       }
     default:
       return state
+  }
+}
+
+const concatMarkerPositions = (
+  state: State,
+  latLng: string,
+  datum: string
+): LatLng => {
+  try {
+    return {
+      ...state,
+      markerInput: {
+        markerPositions: [
+          ...state.markerInput.markerPositions,
+          convertToMillisecLatLng(latLng, datum)
+        ],
+        errorMessage: ''
+      }
+    }
+  } catch (e) {
+    return {
+      ...state,
+      markerInput: {
+        markerPositions: [...state.markerInput.markerPositions],
+        errorMessage: e.message
+      }
+    }
   }
 }
 
