@@ -13,7 +13,7 @@ export type Action =
       type: typeof PUT_MARKER,
       payload: {
         latLng: string,
-        datum: string
+        unit: string
       }
     }
   | {
@@ -44,9 +44,9 @@ export type Action =
       }
     }
 
-export const putMarker = (latLng, datum) => ({
+export const putMarker = (latLng, unit) => ({
   type: PUT_MARKER,
-  payload: { latLng, datum }
+  payload: { latLng, unit: unit }
 })
 
 export const removeAllMarkers = () => ({

@@ -11,13 +11,13 @@ import {
 
 export type MarkerInputState = {
   latLng: string,
-  datum: string,
+  unit: string,
   errorMessage: string
 }
 
 export type MarkerInputProps = {
   latLng: string,
-  datum: string,
+  unit: string,
   errorMessage: string,
   putMarker: (event: Event, state: MarkerInputState) => void,
   removeAllMarkers: () => void
@@ -26,15 +26,15 @@ export type MarkerInputProps = {
 class MarkerInput extends Component {
   state = {
     latLng: this.props.latLng || '',
-    datum: this.props.datum || 'degree',
+    unit: this.props.unit || 'degree',
     errorMessage: this.props.errorMessage || ''
   }
 
   onChangedLatLng = (e: Event, data: { value: string }) =>
     this.setState({ latLng: data.value })
 
-  onChangedDatum = (e: Event, data: { value: string }) =>
-    this.setState({ datum: data.value })
+  onChangedUnit = (e: Event, data: { value: string }) =>
+    this.setState({ unit: data.value })
 
   handleClickPutAMarker = (event: Event) => {
     this.props.putMarker(event, this.state)
@@ -45,7 +45,7 @@ class MarkerInput extends Component {
   }
 
   render() {
-    const { latLng, datum } = this.state
+    const { latLng, unit } = this.state
     const { putMarker, removeAllMarkers } = this.props
 
     return (
@@ -71,7 +71,7 @@ class MarkerInput extends Component {
 
         <Dropdown
           fluid
-          onChange={this.onChangedDatum}
+          onChange={this.onChangedUnit}
           options={[
             {
               text: 'millisec',
@@ -83,8 +83,8 @@ class MarkerInput extends Component {
             }
           ]}
           style={{ marginTop: '10px', marginBottom: '10px' }}
-          text={datum}
-          value={datum}
+          text={unit}
+          value={unit}
         />
         <Button
           fluid

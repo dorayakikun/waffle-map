@@ -58,7 +58,7 @@ export default (state: State = initialState, action: Action): State => {
       return concatMarkerPositions(
         state,
         action.payload.latLng,
-        action.payload.datum
+        action.payload.unit
       )
     case AppActions.REMOVE_ALL_MARKERS:
       return {
@@ -104,7 +104,7 @@ export default (state: State = initialState, action: Action): State => {
 const concatMarkerPositions = (
   state: State,
   latLng: string,
-  datum: string
+  unit: string
 ): LatLng => {
   try {
     return {
@@ -112,7 +112,7 @@ const concatMarkerPositions = (
       markerInput: {
         markerPositions: [
           ...state.markerInput.markerPositions,
-          convertToMillisecLatLng(latLng, datum)
+          convertToMillisecLatLng(latLng, unit)
         ],
         errorMessage: ''
       }

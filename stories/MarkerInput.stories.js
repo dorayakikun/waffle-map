@@ -8,7 +8,7 @@ import MarkerInput from '../src/components/MarkerInput'
 
 const propsNoLatLng = {
   latLng: '',
-  datum: 'degree',
+  unit: 'degree',
   errorMessage: ''
 }
 

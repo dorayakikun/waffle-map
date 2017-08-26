@@ -1,7 +1,7 @@
 // @flow
 import type { LatLng } from './calculateMesh'
 
-export function convertToMillisecLatLng(latLng: string, datum: string): LatLng {
+export function convertToMillisecLatLng(latLng: string, unit: string): LatLng {
   const latLngArray = latLng.split(',')
 
   if (latLngArray.length !== 2) {
@@ -25,7 +25,7 @@ Only numbers are acceptable.
 Actual: ${lngString}`)
   }
 
-  if (datum === 'degree') {
+  if (unit === 'degree') {
     return {
       lat: parseFloat(latString),
       lng: parseFloat(lngString)

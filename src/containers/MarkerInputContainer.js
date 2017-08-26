@@ -13,7 +13,7 @@ const mapStateToProps = (state: RootState) => state.markerInput
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
   return {
     putMarker: (event: Event, state: MarkerInputState) => {
-      dispatch(putMarker(state.latLng, state.datum))
+      dispatch(putMarker(state.latLng, state.unit))
     },
     removeAllMarkers: () => {
       dispatch(removeAllMarkers())
