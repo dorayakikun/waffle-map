@@ -3,6 +3,7 @@
 import React from 'react'
 import { Grid, Image, Menu, Radio, Sidebar } from 'semantic-ui-react'
 
+import MarkerInputContainer from './MarkerInputContainer'
 import MeshInputContainer from './MeshInputContainer'
 import MeshDetailsContainer from './MeshDetailsContainer'
 import MapContainer from './MapContainer'
@@ -18,6 +19,9 @@ const App = () =>
         </Menu.Item>
         <Menu.Item name="tileToggle">
           <TileToggleContainer />
+        </Menu.Item>
+        <Menu.Item name="meshInput">
+          <MarkerInputContainer />
         </Menu.Item>
         <Menu.Item name="meshInput">
           <MeshInputContainer />
