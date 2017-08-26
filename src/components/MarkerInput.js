@@ -16,8 +16,8 @@ export type MarkerInputState = {
 }
 
 export type MarkerInputProps = {
-  latLng: string,
   unit: string,
+  latLng: string,
   errorMessage: string,
   putMarker: (event: Event, state: MarkerInputState) => void,
   removeAllMarkers: () => void

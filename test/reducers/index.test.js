@@ -10,6 +10,8 @@ test('Should handle PUT_MARKER', t => {
   const unit = 'degree'
   const expectedState = {
     markerInput: {
+      latLng,
+      unit,
       errorMessage: '',
       markerPositions: [{ lat: 35, lng: 139 }]
     },
@@ -37,6 +39,8 @@ test('Should handle PUT_MARKER when setting invalid latLng', t => {
   const unit = 'degree'
   const expectedState = {
     markerInput: {
+      latLng,
+      unit,
       errorMessage: `Unexpected lat found.
 Only numbers are acceptable.
 Actual: A`,
@@ -64,6 +68,8 @@ Actual: A`,
 test('Should handle REMOVE_ALL_MARKERS', t => {
   const expectedState = {
     markerInput: {
+      latLng: '',
+      unit: 'degree',
       errorMessage: '',
       markerPositions: []
     },
@@ -88,6 +94,8 @@ test('Should handle INPUT_MESHES', t => {
   const meshCodes = '5339'
   const expectedState = {
     markerInput: {
+      latLng: '',
+      unit: 'degree',
       errorMessage: '',
       markerPositions: []
     },
@@ -123,6 +131,8 @@ The actual length is 3, the mesh code is 533.`
   const meshCodes = '533'
   const expectedState = {
     markerInput: {
+      latLng: '',
+      unit: 'degree',
       errorMessage: '',
       markerPositions: []
     },
@@ -150,6 +160,8 @@ test('Should handle SELECT_SEPARATOR', t => {
   const separator = ','
   const expectedState = {
     markerInput: {
+      latLng: '',
+      unit: 'degree',
       errorMessage: '',
       markerPositions: []
     },
@@ -176,6 +188,8 @@ test('Should handle TOGGLE_DEBUG_TILES', t => {
   const isShowDebugTiles = true
   const expectedState = {
     markerInput: {
+      latLng: '',
+      unit: 'degree',
       errorMessage: '',
       markerPositions: []
     },
@@ -202,6 +216,8 @@ test('Should handle UPDATE_CONTEXTMENU_POSITION', t => {
   const latLng = { lat: 35, lng: 139 }
   const expectedState = {
     markerInput: {
+      latLng: '',
+      unit: 'degree',
       errorMessage: '',
       markerPositions: []
     },
@@ -228,6 +244,8 @@ test('Should return an initial state when setting an invalid action', t => {
   const invalidAction = () => ({ type: 'INVALID_ACTION', payload: {} })
   const expectedState = {
     markerInput: {
+      latLng: '',
+      unit: 'degree',
       errorMessage: '',
       markerPositions: []
     },

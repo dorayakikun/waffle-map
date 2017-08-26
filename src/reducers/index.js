@@ -7,6 +7,8 @@ import type { Action } from '../actions/AppActions'
 import type { LatLng, Mesh } from '../domain/calculateMesh'
 
 type MarkerInputState = {
+  latLng: string,
+  unit: string,
   errorMessage: string,
   markerPositions: Array<LatLng>
 }
@@ -35,6 +37,8 @@ export type State = {
 const { meshToBounds, meshToLatLng } = meshCalculator
 const initialState: State = {
   markerInput: {
+    latLng: '',
+    unit: 'degree',
     errorMessage: '',
     markerPositions: []
   },
@@ -105,11 +109,13 @@ const concatMarkerPositions = (
   state: State,
   latLng: string,
   unit: string
-): LatLng => {
+): State => {
   try {
     return {
       ...state,
       markerInput: {
+        latLng,
+        unit,
         markerPositions: [
           ...state.markerInput.markerPositions,
           convertToMillisecLatLng(latLng, unit)
@@ -121,6 +127,8 @@ const concatMarkerPositions = (
     return {
       ...state,
       markerInput: {
+        latLng,
+        unit,
         markerPositions: [...state.markerInput.markerPositions],
         errorMessage: e.message
       }

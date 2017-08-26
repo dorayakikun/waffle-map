@@ -3,9 +3,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { putMarker, removeAllMarkers } from '../actions/AppActions'
-import MarkerInput, { MarkerInputProps } from '../components/MarkerInput'
+import MarkerInput from '../components/MarkerInput'
 
 import type { Connector } from 'react-redux'
+import type { Action } from '../actions/AppActions'
+import type {
+  MarkerInputProps,
+  MarkerInputState
+} from '../components/MarkerInput'
 import type { State as RootState } from '../reducers'
 
 const mapStateToProps = (state: RootState) => state.markerInput

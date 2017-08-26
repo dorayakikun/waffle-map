@@ -44,7 +44,7 @@ export type Action =
       }
     }
 
-export const putMarker = (latLng, unit) => ({
+export const putMarker = (latLng: string, unit: string) => ({
   type: PUT_MARKER,
   payload: { latLng, unit: unit }
 })

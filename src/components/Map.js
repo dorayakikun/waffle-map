@@ -19,7 +19,7 @@ export type MapProps = {
   meshes: Array<Mesh>,
   contextmenuPosition: ?LatLng,
   isShowDebugTiles: boolean,
-  markerPosition: Array<LatLng>,
+  markerPositions: Array<LatLng>,
   onContextmenu: (event: Event & { latlng: LatLng }) => void,
   onClose: () => void
 }
