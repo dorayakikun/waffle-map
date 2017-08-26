@@ -38,12 +38,16 @@ const fetchTextFrom = (
 
 const MeshCodeInput = (props: MeshCodeInputProps) =>
   <div>
+    <Label color="teal" tag>
+      Mesh
+    </Label>
     <Input
       error={props.errorMessage !== ''}
       fluid
-      label={<Label color="teal">mesh codes</Label>}
+      label="mesh codes"
       placeholder="e.g. 5339-35-97"
       onChange={props.onMeshesChanged}
+      style={{ marginTop: '10px', marginBottom: '10px' }}
       value={props.meshCodes}
     />
     {props.errorMessage !== '' &&
@@ -57,6 +61,7 @@ const MeshCodeInput = (props: MeshCodeInputProps) =>
       fluid
       onChange={props.onSeparatorChanged}
       options={separatorOptions}
+      style={{ marginTop: '10px', marginBottom: '10px' }}
       text={`Split with ${fetchTextFrom(separatorOptions, props.separator)}`}
       value={props.separator}
     />

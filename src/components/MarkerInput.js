@@ -50,11 +50,14 @@ class MarkerInput extends Component {
 
     return (
       <div>
+        <Label color="teal" tag>
+          Marker
+        </Label>
         <Input
           error={this.props.errorMessage !== ''}
           fluid
           inverted
-          label={<Label color="teal">LatLng</Label>}
+          label="LatLng"
           onChange={this.onChangedLatLng}
           placeholder="lat,lng"
           style={{ marginTop: '10px', marginBottom: '10px' }}
