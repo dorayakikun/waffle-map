@@ -5,6 +5,84 @@ import * as AppActions from '../../src/actions/AppActions'
 import reducer from '../../src/reducers'
 import * as MeshCalculator from 'waffle-map-mesh-calculator-basic'
 
+test('Should handle PUT_MARKER', t => {
+  const latLng = '35,139'
+  const unit = 'degree'
+  const expectedState = {
+    markerInput: {
+      errorMessage: '',
+      markerPositions: [{ lat: 35, lng: 139 }]
+    },
+    meshInput: {
+      errorMessage: '',
+      meshCodes: '',
+      separator: '.'
+    },
+    tileToggle: {
+      isShowDebugTiles: false
+    },
+    meshes: [],
+    map: {
+      contextmenuPosition: null
+    }
+  }
+  t.deepEqual(
+    reducer(undefined, AppActions.putMarker(latLng, unit)),
+    expectedState
+  )
+})
+
+test('Should handle PUT_MARKER when setting invalid latLng', t => {
+  const latLng = 'A,139'
+  const unit = 'degree'
+  const expectedState = {
+    markerInput: {
+      errorMessage: `Unexpected lat found.
+Only numbers are acceptable.
+Actual: A`,
+      markerPositions: []
+    },
+    meshInput: {
+      errorMessage: '',
+      meshCodes: '',
+      separator: '.'
+    },
+    tileToggle: {
+      isShowDebugTiles: false
+    },
+    meshes: [],
+    map: {
+      contextmenuPosition: null
+    }
+  }
+  t.deepEqual(
+    reducer(undefined, AppActions.putMarker(latLng, unit)),
+    expectedState
+  )
+})
+
+test('Should handle REMOVE_ALL_MARKERS', t => {
+  const expectedState = {
+    markerInput: {
+      errorMessage: '',
+      markerPositions: []
+    },
+    meshInput: {
+      errorMessage: '',
+      meshCodes: '',
+      separator: '.'
+    },
+    tileToggle: {
+      isShowDebugTiles: false
+    },
+    meshes: [],
+    map: {
+      contextmenuPosition: null
+    }
+  }
+  t.deepEqual(reducer(undefined, AppActions.removeAllMarkers()), expectedState)
+})
+
 test('Should handle INPUT_MESHES', t => {
   const errorMessage = ''
   const meshCodes = '5339'
