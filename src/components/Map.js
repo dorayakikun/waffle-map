@@ -19,6 +19,7 @@ export type MapProps = {
   meshes: Array<Mesh>,
   contextmenuPosition: ?LatLng,
   isShowDebugTiles: boolean,
+  markerPositions: Array<LatLng>,
   onContextmenu: (event: Event & { latlng: LatLng }) => void,
   onClose: () => void
 }
@@ -68,7 +69,9 @@ const Map = (props: MapProps) =>
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
       />
+
       {props.isShowDebugTiles && <DebugTileLayer />}
+
       {props.meshes.map((mesh, index) =>
         <Rectangle
           bounds={[mesh.bounds.leftTop, mesh.bounds.rightBottom]}
@@ -82,6 +85,11 @@ const Map = (props: MapProps) =>
           </Tooltip>
         </Rectangle>
       )}
+
+      {props.markerPositions.map((position, idx) =>
+        <Marker key={idx} position={position} />
+      )}
+
       {props.contextmenuPosition != null &&
         <Popup position={props.contextmenuPosition} onClose={props.onClose}>
           <Card>

@@ -1,4 +1,5 @@
 import Map from './Map.stories'
+import MarkerInput from './MarkerInput.stories'
 import MeshDetailStories from './MeshDeatil.stories'
 import MeshInput from './MeshInput.stories'
 import TileToggle from './TileToggle.stories'

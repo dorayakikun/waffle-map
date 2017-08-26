@@ -1,9 +1,17 @@
 // @flow
 import meshCalculator from '../domain/calculateMesh'
+import { convertToMillisecLatLng } from '../domain/convertLatLng'
 import * as AppActions from '../actions/AppActions'
 
 import type { Action } from '../actions/AppActions'
 import type { LatLng, Mesh } from '../domain/calculateMesh'
+
+type MarkerInputState = {
+  latLng: string,
+  unit: string,
+  errorMessage: string,
+  markerPositions: Array<LatLng>
+}
 
 export type MeshInputState = {
   errorMessage: string,
@@ -20,6 +28,7 @@ export type MapState = {
 }
 
 export type State = {
+  markerInput: MarkerInputState,
   meshInput: MeshInputState,
   tileToggle: TileToggleState,
   meshes: Array<Mesh>,
@@ -27,6 +36,12 @@ export type State = {
 }
 const { meshToBounds, meshToLatLng } = meshCalculator
 const initialState: State = {
+  markerInput: {
+    latLng: '',
+    unit: 'degree',
+    errorMessage: '',
+    markerPositions: []
+  },
   meshInput: {
     errorMessage: '',
     meshCodes: '',
@@ -43,6 +58,20 @@ const initialState: State = {
 
 export default (state: State = initialState, action: Action): State => {
   switch (action.type) {
+    case AppActions.PUT_MARKER:
+      return concatMarkerPositions(
+        state,
+        action.payload.latLng,
+        action.payload.unit
+      )
+    case AppActions.REMOVE_ALL_MARKERS:
+      return {
+        ...state,
+        markerInput: {
+          ...state.markerInput,
+          markerPositions: []
+        }
+      }
     case AppActions.INPUT_MESHES:
       const { meshCodes } = action.payload
       return stateFrom(meshCodes, state)
@@ -73,6 +102,37 @@ export default (state: State = initialState, action: Action): State => {
       }
     default:
       return state
+  }
+}
+
+const concatMarkerPositions = (
+  state: State,
+  latLng: string,
+  unit: string
+): State => {
+  try {
+    return {
+      ...state,
+      markerInput: {
+        latLng,
+        unit,
+        markerPositions: [
+          ...state.markerInput.markerPositions,
+          convertToMillisecLatLng(latLng, unit)
+        ],
+        errorMessage: ''
+      }
+    }
+  } catch (e) {
+    return {
+      ...state,
+      markerInput: {
+        latLng,
+        unit,
+        markerPositions: [...state.markerInput.markerPositions],
+        errorMessage: e.message
+      }
+    }
   }
 }
 
