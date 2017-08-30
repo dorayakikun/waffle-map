@@ -97,6 +97,7 @@ export default (state: State = initialState, action: Action): State => {
       return {
         ...state,
         map: {
+          ...state.map,
           contextmenuPosition: latLng
         }
       }
