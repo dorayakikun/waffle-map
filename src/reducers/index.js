@@ -9,8 +9,7 @@ import type { LatLng, Mesh } from '../domain/calculateMesh'
 type MarkerInputState = {
   latLng: string,
   unit: string,
-  errorMessage: string,
-  markerPositions: Array<LatLng>
+  errorMessage: string
 }
 
 export type MeshInputState = {
@@ -24,7 +23,8 @@ export type TileToggleState = {
 }
 
 export type MapState = {
-  contextmenuPosition: ?LatLng
+  contextmenuPosition: ?LatLng,
+  markerPositions: Array<LatLng>
 }
 
 export type State = {
@@ -39,8 +39,7 @@ const initialState: State = {
   markerInput: {
     latLng: '',
     unit: 'degree',
-    errorMessage: '',
-    markerPositions: []
+    errorMessage: ''
   },
   meshInput: {
     errorMessage: '',
@@ -52,7 +51,8 @@ const initialState: State = {
   },
   meshes: [],
   map: {
-    contextmenuPosition: null
+    contextmenuPosition: null,
+    markerPositions: []
   }
 }
 
@@ -67,8 +67,8 @@ export default (state: State = initialState, action: Action): State => {
     case AppActions.REMOVE_ALL_MARKERS:
       return {
         ...state,
-        markerInput: {
-          ...state.markerInput,
+        map: {
+          ...state.map,
           markerPositions: []
         }
       }
@@ -97,6 +97,7 @@ export default (state: State = initialState, action: Action): State => {
       return {
         ...state,
         map: {
+          ...state.map,
           contextmenuPosition: latLng
         }
       }
@@ -116,11 +117,14 @@ const concatMarkerPositions = (
       markerInput: {
         latLng,
         unit,
-        markerPositions: [
-          ...state.markerInput.markerPositions,
-          convertToMillisecLatLng(latLng, unit)
-        ],
         errorMessage: ''
+      },
+      map: {
+        ...state.map,
+        markerPositions: [
+          ...state.map.markerPositions,
+          convertToMillisecLatLng(latLng, unit)
+        ]
       }
     }
   } catch (e) {
@@ -129,7 +133,6 @@ const concatMarkerPositions = (
       markerInput: {
         latLng,
         unit,
-        markerPositions: [...state.markerInput.markerPositions],
         errorMessage: e.message
       }
     }

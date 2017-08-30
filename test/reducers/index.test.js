@@ -12,8 +12,7 @@ test('Should handle PUT_MARKER', t => {
     markerInput: {
       latLng,
       unit,
-      errorMessage: '',
-      markerPositions: [{ lat: 35, lng: 139 }]
+      errorMessage: ''
     },
     meshInput: {
       errorMessage: '',
@@ -25,7 +24,8 @@ test('Should handle PUT_MARKER', t => {
     },
     meshes: [],
     map: {
-      contextmenuPosition: null
+      contextmenuPosition: null,
+      markerPositions: [{ lat: 35, lng: 139 }]
     }
   }
   t.deepEqual(
@@ -43,8 +43,7 @@ test('Should handle PUT_MARKER when setting invalid latLng', t => {
       unit,
       errorMessage: `Unexpected lat found.
 Only numbers are acceptable.
-Actual: A`,
-      markerPositions: []
+Actual: A`
     },
     meshInput: {
       errorMessage: '',
@@ -56,7 +55,8 @@ Actual: A`,
     },
     meshes: [],
     map: {
-      contextmenuPosition: null
+      contextmenuPosition: null,
+      markerPositions: []
     }
   }
   t.deepEqual(
@@ -70,8 +70,7 @@ test('Should handle REMOVE_ALL_MARKERS', t => {
     markerInput: {
       latLng: '',
       unit: 'degree',
-      errorMessage: '',
-      markerPositions: []
+      errorMessage: ''
     },
     meshInput: {
       errorMessage: '',
@@ -83,7 +82,8 @@ test('Should handle REMOVE_ALL_MARKERS', t => {
     },
     meshes: [],
     map: {
-      contextmenuPosition: null
+      contextmenuPosition: null,
+      markerPositions: []
     }
   }
   t.deepEqual(reducer(undefined, AppActions.removeAllMarkers()), expectedState)
@@ -96,8 +96,7 @@ test('Should handle INPUT_MESHES', t => {
     markerInput: {
       latLng: '',
       unit: 'degree',
-      errorMessage: '',
-      markerPositions: []
+      errorMessage: ''
     },
     meshInput: {
       errorMessage,
@@ -115,7 +114,8 @@ test('Should handle INPUT_MESHES', t => {
       }
     ],
     map: {
-      contextmenuPosition: null
+      contextmenuPosition: null,
+      markerPositions: []
     }
   }
   t.deepEqual(
@@ -133,8 +133,7 @@ The actual length is 3, the mesh code is 533.`
     markerInput: {
       latLng: '',
       unit: 'degree',
-      errorMessage: '',
-      markerPositions: []
+      errorMessage: ''
     },
     meshInput: {
       errorMessage,
@@ -146,7 +145,8 @@ The actual length is 3, the mesh code is 533.`
     },
     meshes: [],
     map: {
-      contextmenuPosition: null
+      contextmenuPosition: null,
+      markerPositions: []
     }
   }
   t.deepEqual(
@@ -162,8 +162,7 @@ test('Should handle SELECT_SEPARATOR', t => {
     markerInput: {
       latLng: '',
       unit: 'degree',
-      errorMessage: '',
-      markerPositions: []
+      errorMessage: ''
     },
     meshInput: {
       errorMessage,
@@ -175,7 +174,8 @@ test('Should handle SELECT_SEPARATOR', t => {
     },
     meshes: [],
     map: {
-      contextmenuPosition: null
+      contextmenuPosition: null,
+      markerPositions: []
     }
   }
   t.deepEqual(
@@ -190,8 +190,7 @@ test('Should handle TOGGLE_DEBUG_TILES', t => {
     markerInput: {
       latLng: '',
       unit: 'degree',
-      errorMessage: '',
-      markerPositions: []
+      errorMessage: ''
     },
     meshInput: {
       errorMessage: '',
@@ -203,7 +202,8 @@ test('Should handle TOGGLE_DEBUG_TILES', t => {
     },
     meshes: [],
     map: {
-      contextmenuPosition: null
+      contextmenuPosition: null,
+      markerPositions: []
     }
   }
   t.deepEqual(
@@ -218,8 +218,7 @@ test('Should handle UPDATE_CONTEXTMENU_POSITION', t => {
     markerInput: {
       latLng: '',
       unit: 'degree',
-      errorMessage: '',
-      markerPositions: []
+      errorMessage: ''
     },
     meshInput: {
       errorMessage: '',
@@ -231,7 +230,8 @@ test('Should handle UPDATE_CONTEXTMENU_POSITION', t => {
     },
     meshes: [],
     map: {
-      contextmenuPosition: latLng
+      contextmenuPosition: latLng,
+      markerPositions: []
     }
   }
   t.deepEqual(
@@ -246,8 +246,7 @@ test('Should return an initial state when setting an invalid action', t => {
     markerInput: {
       latLng: '',
       unit: 'degree',
-      errorMessage: '',
-      markerPositions: []
+      errorMessage: ''
     },
     meshInput: {
       errorMessage: '',
@@ -259,7 +258,8 @@ test('Should return an initial state when setting an invalid action', t => {
     },
     meshes: [],
     map: {
-      contextmenuPosition: null
+      contextmenuPosition: null,
+      markerPositions: []
     }
   }
   t.deepEqual(reducer(undefined, (invalidAction(): any)), expectedState)
