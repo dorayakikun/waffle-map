@@ -37,13 +37,11 @@ class MarkerInput extends Component {
   onChangedUnit = (e: Event, data: { value: string }) =>
     this.setState({ unit: data.value })
 
-  handleClickPutAMarker = (event: Event) => {
+  handleClickPutAMarker = (event: Event) =>
     this.props.putMarker(event, this.state)
-  }
 
-  handleClickRemoveAllMarkers = (event: Event) => {
+  handleClickRemoveAllMarkers = (event: Event) =>
     this.props.removeAllMarkers(event, this.state)
-  }
 
   render() {
     const { latLng, unit } = this.state
