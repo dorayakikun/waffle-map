@@ -30,26 +30,31 @@ class MarkerInput extends Component {
     errorMessage: this.props.errorMessage || ''
   }
 
-  onChangedLatLng = (e: Event, data: { value: string }) =>
+  onChangedLatLng = (e: Event, data: { value: string }) => {
     this.setState({ latLng: data.value })
+  }
 
   onChangedUnit = (e: Event, data: { value: string }) =>
     this.setState({ unit: data.value })
 
-  handleClickPutAMarker = (event: Event) => {
+  handleClickPutAMarker = (event: Event) =>
     this.props.putMarker(event, this.state)
-  }
 
-  handleClickRemoveAllMarkers = (event: Event) => {
+  handleClickRemoveAllMarkers = (event: Event) =>
     this.props.removeAllMarkers(event, this.state)
-  }
 
   render() {
     const { latLng, unit } = this.state
     const { putMarker, removeAllMarkers } = this.props
 
     return (
-      <div>
+      <div
+        onKeyPress={(event: Event) => {
+          if (event.key === 'Enter') {
+            this.handleClickPutAMarker(event)
+          }
+        }}
+      >
         <Label color="teal" tag>
           Marker
         </Label>
