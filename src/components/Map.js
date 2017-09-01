@@ -27,9 +27,10 @@ export type MapProps = {
 const initialLeafletBounds: Array<Array<number>> = [[35, 139], [37, 140]]
 const { latLngToMesh, SCALES } = meshCalculator
 const calculateLeafletBoundsFrom = (
-  meshes: Array<Mesh>
+  meshes: Array<Mesh>,
+  markerPositions: Array<LatLng>
 ): Array<Array<number>> => {
-  if (meshes.length === 0) {
+  if (meshes.length === 0 && markerPositions.length == 0) {
     return initialLeafletBounds
   }
   let lats: Array<number> = []
@@ -42,6 +43,12 @@ const calculateLeafletBoundsFrom = (
       lats.push(latLng.lat)
       lngs.push(latLng.lng)
     })
+
+  const len = markerPositions.length
+  if (len > 0) {
+    lats.push(markerPositions[len - 1].lat)
+    lngs.push(markerPositions[len - 1].lng)
+  }
 
   return [
     [Math.min(...lats), Math.max(...lngs)],
@@ -60,7 +67,7 @@ const createCardContent = ({ lat, lng }: LatLng) =>
 const Map = (props: MapProps) =>
   <div style={{ width: '100%', height: '100%' }}>
     <LeafletMap
-      bounds={calculateLeafletBoundsFrom(props.meshes)}
+      bounds={calculateLeafletBoundsFrom(props.meshes, props.markerPositions)}
       maxZoom={19}
       minZoom={6}
       onContextmenu={props.onContextmenu}
