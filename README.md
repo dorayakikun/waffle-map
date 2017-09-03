@@ -1,5 +1,7 @@
 # waffle-map
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/dorayakikun/waffle-map.svg)](https://greenkeeper.io/)
+
 > Fantastic mesh renderer
 
 [![Build Status](https://travis-ci.org/dorayakikun/waffle-map.svg?branch=master)](https://travis-ci.org/dorayakikun/waffle-map)
