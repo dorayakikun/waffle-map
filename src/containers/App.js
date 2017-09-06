@@ -14,7 +14,7 @@ const App = () =>
     <Sidebar.Pushable>
       <Sidebar as={Menu} inverted vertical visible width="wide">
         <Menu.Item name="waffleMap">
-          <Image src="./logo.png" size="mini" spaced />
+          <Image src="./images/logo.png" size="mini" spaced />
           <strong>Waffle Map</strong>
         </Menu.Item>
         <Menu.Item name="tileToggle">
