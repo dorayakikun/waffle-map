@@ -43,12 +43,11 @@ const calculateLeafletBoundsFrom = (
       lats.push(latLng.lat)
       lngs.push(latLng.lng)
     })
-
-  const len = markerPositions.length
-  if (len > 0) {
-    lats.push(markerPositions[len - 1].lat)
-    lngs.push(markerPositions[len - 1].lng)
-  }
+  
+  markerPositions.forEach(position => {
+    lats.push(position.lat)
+    lngs.push(position.lng)
+  })
 
   return [
     [Math.min(...lats), Math.max(...lngs)],
