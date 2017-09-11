@@ -8,7 +8,7 @@
     "dev": "webpack-dev-server --progress",
     "eslint": "eslint src stories --fix",
     "flow": "flow",
-    "test": "NODE_ENV=test nyc ava",
+    "test": "NODE_ENV=test nyc --reporter=lcov ava",
     "storybook": "start-storybook -p 6006 -c .storybook -s public",
     "build-storybook": "build-storybook"
   },
