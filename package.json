@@ -54,7 +54,7 @@
   "dependencies": {
     "and": "0.0.0",
     "leaflet": "^1.2.0",
-    "react": "^15.6.1",
+    "react": "^16.0.0",
     "react-leaflet": "^1.6.5",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
