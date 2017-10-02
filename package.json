@@ -25,7 +25,6 @@
     "ava": "^0.22.0",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.1",
-    "babel-jest": "^21.0.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -52,7 +51,6 @@
     "webpack-dev-server": "^2.7.1"
   },
   "dependencies": {
-    "and": "0.0.0",
     "leaflet": "^1.2.0",
     "react": "^16.0.0",
     "react-leaflet": "^1.6.5",
