@@ -1,6 +1,6 @@
 {
   "name": "waffle-map",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "description": "Fantastic mesh renderer",
   "main": "public/bundle.js",
   "scripts": {
