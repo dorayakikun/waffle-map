@@ -33,10 +33,13 @@ const fetchTextFrom = (
   options: Array<SeparatorItem>,
   value: string
 ): string => {
-  return options.filter(o => o.value === value).map(o => o.text).toString()
+  return options
+    .filter(o => o.value === value)
+    .map(o => o.text)
+    .toString()
 }
 
-const MeshCodeInput = (props: MeshCodeInputProps) =>
+const MeshCodeInput = (props: MeshCodeInputProps) => (
   <div>
     <Label color="teal" tag>
       Mesh
@@ -50,13 +53,29 @@ const MeshCodeInput = (props: MeshCodeInputProps) =>
       style={{ marginTop: '10px', marginBottom: '10px' }}
       value={props.meshCodes}
     />
-    {props.errorMessage !== '' &&
+    {props.errorMessage !== '' && (
       <Message negative>
         <Message.Header>Waffle Map Error</Message.Header>
-        <p>
-          {props.errorMessage}
-        </p>
-      </Message>}
+        <p>{props.errorMessage}</p>
+      </Message>
+    )}
+    <Dropdown
+      fluid
+      onChange={props.onSeparatorChanged}
+      options={[
+        {
+          text: 'Tokyo',
+          value: 'Tokyo'
+        },
+        {
+          text: 'WGS84',
+          value: 'WGS84'
+        }
+      ]}
+      style={{ marginTop: '10px', marginBottom: '10px' }}
+      text="WGS84"
+      value="WGS84"
+    />
     <Dropdown
       fluid
       onChange={props.onSeparatorChanged}
@@ -66,5 +85,6 @@ const MeshCodeInput = (props: MeshCodeInputProps) =>
       value={props.separator}
     />
   </div>
+)
 
 export default MeshCodeInput
