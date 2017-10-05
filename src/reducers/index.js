@@ -2,13 +2,12 @@
 import meshCalculator from '../domain/calculateMesh'
 import {
   convertToMillisecLatLng,
-  convertLatLngToTokyoDatum,
-  convertBoundsToTokyoDatum
+  convertLatLngToTokyoDatum
 } from '../domain/convertLatLng'
 import * as AppActions from '../actions/AppActions'
 
 import type { Action } from '../actions/AppActions'
-import type { Bounds, LatLng, Mesh } from '../domain/calculateMesh'
+import type { LatLng, Mesh } from '../domain/calculateMesh'
 
 type MarkerInputState = {
   latLng: string,
@@ -95,20 +94,14 @@ const concatMarkerPositions = (
   }
 }
 
-const meshCodeToLatLngWithDatum = (meshCode: string, datum: string): LatLng => {
-  const latLng = meshToLatLng(meshCode)
+const applyDatumToLatLng = (latLng: ?LatLng, datum: string): ?LatLng => {
+  if (latLng == null) {
+    return latLng
+  }
   if (datum == 'Tokyo') {
     return convertLatLngToTokyoDatum(latLng)
   }
   return latLng
-}
-
-const meshCodeToBoundsWithDatum = (meshCode: string, datum: string): LatLng => {
-  const bounds = meshToBounds(meshCode)
-  if (datum == 'Tokyo') {
-    return convertBoundsToTokyoDatum(bounds)
-  }
-  return bounds
 }
 
 /**
@@ -131,12 +124,12 @@ const stateFrom = (meshCodes: string, state: State): State => {
       },
       meshes: meshCodes
         .split(separator)
-        .filter(mesh => mesh !== '')
-        .map(mesh => {
+        .filter(meshCode => meshCode !== '')
+        .map(meshCode => {
           return {
-            code: mesh,
-            center: meshCodeToLatLngWithDatum(mesh, state.meshInput.datum),
-            bounds: meshCodeToBoundsWithDatum(mesh, state.meshInput.datum)
+            code: meshCode,
+            center: meshToLatLng(meshCode),
+            bounds: meshToBounds(meshCode)
           }
         })
     }
@@ -203,7 +196,7 @@ export default (state: State = initialState, action: Action): State => {
         ...state,
         map: {
           ...state.map,
-          contextmenuPosition: latLng
+          contextmenuPosition: applyDatumToLatLng(latLng, state.meshInput.datum)
         }
       }
     default:
