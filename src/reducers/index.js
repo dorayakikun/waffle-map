@@ -15,6 +15,7 @@ type MarkerInputState = {
 export type MeshInputState = {
   errorMessage: string,
   meshCodes: string,
+  datum: string,
   separator: string
 }
 
@@ -44,6 +45,7 @@ const initialState: State = {
   meshInput: {
     errorMessage: '',
     meshCodes: '',
+    datum: 'WGS84',
     separator: '.'
   },
   tileToggle: {
@@ -75,6 +77,15 @@ export default (state: State = initialState, action: Action): State => {
     case AppActions.INPUT_MESHES:
       const { meshCodes } = action.payload
       return stateFrom(meshCodes, state)
+    case AppActions.SELECT_DATUM:
+      const { datum } = action.payload
+      return {
+        ...state,
+        meshInput: {
+          ...state.meshInput,
+          datum
+        }
+      }
     case AppActions.SELECT_SEPARATOR:
       const { separator } = action.payload
       return {

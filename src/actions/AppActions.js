@@ -4,6 +4,7 @@ import type { LatLng } from '../domain/calculateMesh'
 export const PUT_MARKER = 'PUT_MARKER'
 export const REMOVE_ALL_MARKERS = 'REMOVE_ALL_MARKERS'
 export const INPUT_MESHES = 'INPUT_MESHES'
+export const SELECT_DATUM = 'SELECT_DATUM'
 export const SELECT_SEPARATOR = 'SELECT_SEPARATOR'
 export const TOGGLE_DEBUG_TILES = 'TOGGLE_DEBUG_TILES'
 export const UPDATE_CONTEXTMENU_POSITION = 'UPDATE_CONTEXTMENU_POSITION'
@@ -23,6 +24,12 @@ export type Action =
       type: typeof INPUT_MESHES,
       payload: {
         meshCodes: string
+      }
+    }
+  | {
+      type: typeof SELECT_DATUM,
+      payload: {
+        datum: string
       }
     }
   | {
@@ -56,6 +63,13 @@ export const removeAllMarkers = () => ({
 export const inputMeshes = (meshCodes: string): Action => ({
   type: INPUT_MESHES,
   payload: { meshCodes }
+})
+
+export const selectDatum = (datum: string): Action => ({
+  type: SELECT_DATUM,
+  payload: {
+    datum
+  }
 })
 
 export const selectSeparator = (separator: string): Action => ({

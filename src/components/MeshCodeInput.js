@@ -5,20 +5,33 @@ import { Dropdown, Input, Label, Message } from 'semantic-ui-react'
 export type MeshCodeInputProps = {
   errorMessage: string,
   meshCodes: string,
+  datum: string,
   separator: string,
   onMeshesChanged: (event: Element & { target: HTMLInputElement }) => void,
+  onDatumChanged: (event: Event, data: { text: string, value: string }) => void,
   onSeparatorChanged: (
     event: Event,
     data: { text: string, value: string }
   ) => void
 }
 
-type SeparatorItem = {
+type OptionItem = {
   text: string,
   value: string
 }
 
-const separatorOptions: Array<SeparatorItem> = [
+const datumOptions: Array<OptionItem> = [
+  {
+    text: 'Tokyo',
+    value: 'Tokyo'
+  },
+  {
+    text: 'WGS84',
+    value: 'WGS84'
+  }
+]
+
+const separatorOptions: Array<OptionItem> = [
   {
     text: 'commas',
     value: ','
@@ -29,10 +42,7 @@ const separatorOptions: Array<SeparatorItem> = [
   }
 ]
 
-const fetchTextFrom = (
-  options: Array<SeparatorItem>,
-  value: string
-): string => {
+const fetchTextFrom = (options: Array<OptionItem>, value: string): string => {
   return options
     .filter(o => o.value === value)
     .map(o => o.text)
@@ -61,20 +71,11 @@ const MeshCodeInput = (props: MeshCodeInputProps) => (
     )}
     <Dropdown
       fluid
-      onChange={props.onSeparatorChanged}
-      options={[
-        {
-          text: 'Tokyo',
-          value: 'Tokyo'
-        },
-        {
-          text: 'WGS84',
-          value: 'WGS84'
-        }
-      ]}
+      onChange={props.onDatumChanged}
+      options={datumOptions}
       style={{ marginTop: '10px', marginBottom: '10px' }}
-      text="WGS84"
-      value="WGS84"
+      text={props.datum}
+      value={props.datum}
     />
     <Dropdown
       fluid

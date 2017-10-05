@@ -3,7 +3,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import MeshInput from '../components/MeshCodeInput'
-import { inputMeshes, selectSeparator } from '../actions/AppActions'
+import {
+  inputMeshes,
+  selectDatum,
+  selectSeparator
+} from '../actions/AppActions'
 
 import type { Connector } from 'react-redux'
 import type { Dispatch } from 'redux'
@@ -17,6 +21,12 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
   return {
     onMeshesChanged: (event: Element & { target: HTMLInputElement }) => {
       dispatch(inputMeshes(event.target.value))
+    },
+    onDatumChanged: (
+      event: Event,
+      data: any & { text: string, value: string }
+    ) => {
+      dispatch(selectDatum(data.value))
     },
     onSeparatorChanged: (
       event: Event,
