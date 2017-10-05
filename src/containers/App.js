@@ -9,7 +9,7 @@ import MeshDetailsContainer from './MeshDetailsContainer'
 import MapContainer from './MapContainer'
 import TileToggleContainer from './TileToggleContainer'
 
-const App = () =>
+const App = () => (
   <div style={{ height: '100%' }}>
     <Sidebar.Pushable>
       <Sidebar as={Menu} inverted vertical visible width="wide">
@@ -35,5 +35,6 @@ const App = () =>
       </Sidebar.Pusher>
     </Sidebar.Pushable>
   </div>
+)
 
 export default App
