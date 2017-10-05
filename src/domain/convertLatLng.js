@@ -37,3 +37,19 @@ Actual: ${lngString}`)
     lng: parseInt(lngString, 10) / 3600000
   }
 }
+
+export function convertLatLngToTokyoDatum(latLng: LatLng): LatLng {
+  const wx = latLng.lng
+  const wy = latLng.lat
+  return {
+    lat: wy * 1.000106961 - wx * 0.000017467 - 0.004602017,
+    lng: wx * 1.000083049 + wy * 0.000046047 - 0.010041046
+  }
+}
+
+export function convertBoundsToTokyoDatum(bounds: Bounds): Bounds {
+  return {
+    leftTop: convertLatLngToTokyoDatum(bounds.leftTop),
+    rightBottom: convertLatLngToTokyoDatum(bounds.rightBottom)
+  }
+}

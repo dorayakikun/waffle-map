@@ -1,10 +1,14 @@
 // @flow
 import meshCalculator from '../domain/calculateMesh'
-import { convertToMillisecLatLng } from '../domain/convertLatLng'
+import {
+  convertToMillisecLatLng,
+  convertLatLngToTokyoDatum,
+  convertBoundsToTokyoDatum
+} from '../domain/convertLatLng'
 import * as AppActions from '../actions/AppActions'
 
 import type { Action } from '../actions/AppActions'
-import type { LatLng, Mesh } from '../domain/calculateMesh'
+import type { Bounds, LatLng, Mesh } from '../domain/calculateMesh'
 
 type MarkerInputState = {
   latLng: string,
@@ -55,6 +59,96 @@ const initialState: State = {
   map: {
     contextmenuPosition: null,
     markerPositions: []
+  }
+}
+
+const concatMarkerPositions = (
+  state: State,
+  latLng: string,
+  unit: string
+): State => {
+  try {
+    return {
+      ...state,
+      markerInput: {
+        latLng,
+        unit,
+        errorMessage: ''
+      },
+      map: {
+        ...state.map,
+        markerPositions: [
+          ...state.map.markerPositions,
+          convertToMillisecLatLng(latLng, unit)
+        ]
+      }
+    }
+  } catch (e) {
+    return {
+      ...state,
+      markerInput: {
+        latLng,
+        unit,
+        errorMessage: e.message
+      }
+    }
+  }
+}
+
+const meshCodeToLatLngWithDatum = (meshCode: string, datum: string): LatLng => {
+  const latLng = meshToLatLng(meshCode)
+  if (datum == 'Tokyo') {
+    return convertLatLngToTokyoDatum(latLng)
+  }
+  return latLng
+}
+
+const meshCodeToBoundsWithDatum = (meshCode: string, datum: string): LatLng => {
+  const bounds = meshToBounds(meshCode)
+  if (datum == 'Tokyo') {
+    return convertBoundsToTokyoDatum(bounds)
+  }
+  return bounds
+}
+
+/**
+ * Create state from meshCodes.
+ * If meshCodes are invalid then return previous state(with an error message).
+ *
+ * @param {string} meshCodes
+ * @param {State} state
+ * @returns {State}
+ */
+const stateFrom = (meshCodes: string, state: State): State => {
+  const { separator } = state.meshInput
+  try {
+    return {
+      ...state,
+      meshInput: {
+        ...state.meshInput,
+        errorMessage: '',
+        meshCodes: meshCodes
+      },
+      meshes: meshCodes
+        .split(separator)
+        .filter(mesh => mesh !== '')
+        .map(mesh => {
+          return {
+            code: mesh,
+            center: meshCodeToLatLngWithDatum(mesh, state.meshInput.datum),
+            bounds: meshCodeToBoundsWithDatum(mesh, state.meshInput.datum)
+          }
+        })
+    }
+  } catch (e) {
+    return {
+      ...state,
+      meshInput: {
+        ...state.meshInput,
+        errorMessage: e.message,
+        meshCodes: meshCodes
+      }
+    }
   }
 }
 
@@ -114,79 +208,5 @@ export default (state: State = initialState, action: Action): State => {
       }
     default:
       return state
-  }
-}
-
-const concatMarkerPositions = (
-  state: State,
-  latLng: string,
-  unit: string
-): State => {
-  try {
-    return {
-      ...state,
-      markerInput: {
-        latLng,
-        unit,
-        errorMessage: ''
-      },
-      map: {
-        ...state.map,
-        markerPositions: [
-          ...state.map.markerPositions,
-          convertToMillisecLatLng(latLng, unit)
-        ]
-      }
-    }
-  } catch (e) {
-    return {
-      ...state,
-      markerInput: {
-        latLng,
-        unit,
-        errorMessage: e.message
-      }
-    }
-  }
-}
-
-/**
- * Create state from meshCodes.
- * If meshCodes are invalid then return previous state(with an error message).
- *
- * @param {string} meshCodes
- * @param {State} state
- * @returns {State}
- */
-const stateFrom = (meshCodes: string, state: State): State => {
-  const { separator } = state.meshInput
-  try {
-    return {
-      ...state,
-      meshInput: {
-        ...state.meshInput,
-        errorMessage: '',
-        meshCodes: meshCodes
-      },
-      meshes: meshCodes
-        .split(separator)
-        .filter(mesh => mesh !== '')
-        .map(mesh => {
-          return {
-            code: mesh,
-            center: meshToLatLng(mesh),
-            bounds: meshToBounds(mesh)
-          }
-        })
-    }
-  } catch (e) {
-    return {
-      ...state,
-      meshInput: {
-        ...state.meshInput,
-        errorMessage: e.message,
-        meshCodes: meshCodes
-      }
-    }
   }
 }
