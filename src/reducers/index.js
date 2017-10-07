@@ -196,7 +196,7 @@ export default (state: State = initialState, action: Action): State => {
         ...state,
         map: {
           ...state.map,
-          contextmenuPosition: applyDatumToLatLng(latLng, state.meshInput.datum)
+          contextmenuPosition: latLng
         }
       }
     default:
