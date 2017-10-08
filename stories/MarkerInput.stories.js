@@ -12,6 +12,6 @@ const propsNoLatLng = {
   errorMessage: ''
 }
 
-storiesOf('MarkerInput', module).add('no latlng', () =>
+storiesOf('MarkerInput', module).add('no latlng', () => (
   <MarkerInput {...propsNoLatLng} />
-)
+))

@@ -14,9 +14,9 @@ const propsNoMeshCode = {
   onSeparatorChanged: (event, data) => {}
 }
 
-storiesOf('MeshCodeInput', module).add('no mesh code', () =>
+storiesOf('MeshCodeInput', module).add('no mesh code', () => (
   <MeshInput {...propsNoMeshCode} />
-)
+))
 
 const propsSomeMeshCode = {
   errorMessage: '',
@@ -26,9 +26,9 @@ const propsSomeMeshCode = {
   onSeparatorChanged: (event, data) => {}
 }
 
-storiesOf('MeshCodeInput', module).add('with valid mesh code', () =>
+storiesOf('MeshCodeInput', module).add('with valid mesh code', () => (
   <MeshInput {...propsSomeMeshCode} />
-)
+))
 
 const propsSomeInvalidMeshCode = {
   errorMessage: 'some error',
@@ -38,9 +38,9 @@ const propsSomeInvalidMeshCode = {
   onSeparatorChanged: (event, data) => {}
 }
 
-storiesOf('MeshCodeInput', module).add('with invalid mesh code', () =>
+storiesOf('MeshCodeInput', module).add('with invalid mesh code', () => (
   <MeshInput {...propsSomeInvalidMeshCode} />
-)
+))
 
 const propsCommas = {
   errorMessage: '',
@@ -50,6 +50,6 @@ const propsCommas = {
   onSeparatorChanged: (event, data) => {}
 }
 
-storiesOf('MeshCodeInput', module).add('select commas', () =>
+storiesOf('MeshCodeInput', module).add('select commas', () => (
   <MeshInput {...propsCommas} />
-)
+))

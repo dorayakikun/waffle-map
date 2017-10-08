@@ -81,9 +81,9 @@ const propsSomeMeshAndContextPosition = {
   onClose: () => {}
 }
 
-storiesOf('Map', module).add('with meshes and contextMenuPosition', () =>
+storiesOf('Map', module).add('with meshes and contextMenuPosition', () => (
   <Map {...propsSomeMeshAndContextPosition} />
-)
+))
 
 const propsShowDebugTile = {
   meshes: [],
@@ -94,6 +94,6 @@ const propsShowDebugTile = {
   onClose: () => {}
 }
 
-storiesOf('Map', module).add('show Debug Tile', () =>
+storiesOf('Map', module).add('show Debug Tile', () => (
   <Map {...propsShowDebugTile} />
-)
+))

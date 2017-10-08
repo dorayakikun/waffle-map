@@ -1,9 +1,6 @@
 // @flow
 import meshCalculator from '../domain/calculateMesh'
-import {
-  convertToMillisecLatLng,
-  convertLatLngToTokyoDatum
-} from '../domain/convertLatLng'
+import { convertToMillisecLatLng } from '../domain/convertLatLng'
 import * as AppActions from '../actions/AppActions'
 
 import type { Action } from '../actions/AppActions'

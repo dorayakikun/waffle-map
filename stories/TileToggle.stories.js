@@ -11,14 +11,14 @@ const propsShowDebugTile = {
   onToggleChanged: linkTo('TileToggle', 'hide debug tile')
 }
 
-storiesOf('TileToggle', module).add('show debug tile', () =>
+storiesOf('TileToggle', module).add('show debug tile', () => (
   <TileToggle {...propsShowDebugTile} />
-)
+))
 
 const propsHideDebugTile = {
   isShowDebugTiles: false,
   onToggleChanged: linkTo('TileToggle', 'show debug tile')
 }
-storiesOf('TileToggle', module).add('hide debug tile', () =>
+storiesOf('TileToggle', module).add('hide debug tile', () => (
   <TileToggle {...propsHideDebugTile} />
-)
+))
