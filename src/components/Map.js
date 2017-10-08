@@ -10,7 +10,10 @@ import {
 } from 'react-leaflet'
 import { Card } from 'semantic-ui-react'
 import DebugTileLayer from './DebugTileLayer'
-import { convertBoundsToTokyoDatum } from '../domain/convertLatLng'
+import {
+  convertBoundsToWGS84Datum,
+  convertLatLngToTokyoDatum
+} from '../domain/convertLatLng'
 import meshCalculator from '../domain/calculateMesh'
 import { round } from '../domain/roundPoint'
 
@@ -31,7 +34,7 @@ const { latLngToMesh, SCALES } = meshCalculator
 
 const applyDatumToBounds = (bounds: Bounds, datum: string): LatLng => {
   if (datum == 'Tokyo') {
-    return convertBoundsToTokyoDatum(bounds)
+    return convertBoundsToWGS84Datum(bounds)
   }
   return bounds
 }
@@ -65,6 +68,14 @@ const calculateLeafletBoundsFrom = (
     [Math.min(...lats), Math.max(...lngs)],
     [Math.max(...lats), Math.min(...lngs)]
   ]
+}
+
+const createCardDescription = (latLng: LatLng, datum: string): string => {
+  const convertedLatLng = convertLatLngToTokyoDatum(latLng, datum)
+  return `position: ${round(convertedLatLng.lat, 5)}, ${round(
+    convertedLatLng.lng,
+    5
+  )}`
 }
 
 const createCardContent = ({ lat, lng }: LatLng) =>
@@ -118,12 +129,14 @@ const Map = (props: MapProps) => (
           <Card>
             <Card.Content header="Scales" />
             <Card.Content
-              description={`position: ${round(
-                props.contextmenuPosition.lat,
-                5
-              )}, ${round(props.contextmenuPosition.lng, 5)}`}
+              description={createCardDescription(
+                props.contextmenuPosition,
+                props.datum
+              )}
             />
-            {createCardContent(props.contextmenuPosition)}
+            {createCardContent(
+              convertLatLngToTokyoDatum(props.contextmenuPosition)
+            )}
           </Card>
         </Popup>
       )}
