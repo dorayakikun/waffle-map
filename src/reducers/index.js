@@ -91,16 +91,6 @@ const concatMarkerPositions = (
   }
 }
 
-const applyDatumToLatLng = (latLng: ?LatLng, datum: string): ?LatLng => {
-  if (latLng == null) {
-    return latLng
-  }
-  if (datum == 'Tokyo') {
-    return convertLatLngToTokyoDatum(latLng)
-  }
-  return latLng
-}
-
 /**
  * Create state from meshCodes.
  * If meshCodes are invalid then return previous state(with an error message).
