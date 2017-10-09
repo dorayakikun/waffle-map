@@ -160,6 +160,32 @@ The actual length is 3, the mesh code is 533.`
   )
 })
 
+test('Should handle SELECT_DATUM', t => {
+  const datum = 'Tokyo'
+  const expectedState = {
+    markerInput: {
+      latLng: '',
+      unit: 'degree',
+      errorMessage: ''
+    },
+    meshInput: {
+      errorMessage: '',
+      meshCodes: '',
+      datum,
+      separator: '.'
+    },
+    tileToggle: {
+      isShowDebugTiles: false
+    },
+    meshes: [],
+    map: {
+      contextmenuPosition: null,
+      markerPositions: []
+    }
+  }
+  t.deepEqual(reducer(undefined, AppActions.selectDatum(datum)), expectedState)
+})
+
 test('Should handle SELECT_SEPARATOR', t => {
   const errorMessage = ''
   const separator = ','
