@@ -69,13 +69,12 @@ class MarkerInput extends Component {
           value={latLng}
         />
 
-        {this.props.errorMessage !== '' &&
+        {this.props.errorMessage !== '' && (
           <Message negative>
             <Message.Header>Waffle Map Error</Message.Header>
-            <p>
-              {this.props.errorMessage}
-            </p>
-          </Message>}
+            <p>{this.props.errorMessage}</p>
+          </Message>
+        )}
 
         <Dropdown
           fluid

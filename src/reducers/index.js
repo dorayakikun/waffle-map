@@ -15,6 +15,7 @@ type MarkerInputState = {
 export type MeshInputState = {
   errorMessage: string,
   meshCodes: string,
+  datum: string,
   separator: string
 }
 
@@ -44,6 +45,7 @@ const initialState: State = {
   meshInput: {
     errorMessage: '',
     meshCodes: '',
+    datum: 'WGS84',
     separator: '.'
   },
   tileToggle: {
@@ -53,56 +55,6 @@ const initialState: State = {
   map: {
     contextmenuPosition: null,
     markerPositions: []
-  }
-}
-
-export default (state: State = initialState, action: Action): State => {
-  switch (action.type) {
-    case AppActions.PUT_MARKER:
-      return concatMarkerPositions(
-        state,
-        action.payload.latLng,
-        action.payload.unit
-      )
-    case AppActions.REMOVE_ALL_MARKERS:
-      return {
-        ...state,
-        map: {
-          ...state.map,
-          markerPositions: []
-        }
-      }
-    case AppActions.INPUT_MESHES:
-      const { meshCodes } = action.payload
-      return stateFrom(meshCodes, state)
-    case AppActions.SELECT_SEPARATOR:
-      const { separator } = action.payload
-      return {
-        ...state,
-        meshInput: {
-          ...state.meshInput,
-          separator
-        }
-      }
-    case AppActions.TOGGLE_DEBUG_TILES:
-      const { isShowDebugTiles } = action.payload
-      return {
-        ...state,
-        tileToggle: {
-          isShowDebugTiles
-        }
-      }
-    case AppActions.UPDATE_CONTEXTMENU_POSITION:
-      const { latLng } = action.payload
-      return {
-        ...state,
-        map: {
-          ...state.map,
-          contextmenuPosition: latLng
-        }
-      }
-    default:
-      return state
   }
 }
 
@@ -159,12 +111,12 @@ const stateFrom = (meshCodes: string, state: State): State => {
       },
       meshes: meshCodes
         .split(separator)
-        .filter(mesh => mesh !== '')
-        .map(mesh => {
+        .filter(meshCode => meshCode !== '')
+        .map(meshCode => {
           return {
-            code: mesh,
-            center: meshToLatLng(mesh),
-            bounds: meshToBounds(mesh)
+            code: meshCode,
+            center: meshToLatLng(meshCode),
+            bounds: meshToBounds(meshCode)
           }
         })
     }
@@ -177,5 +129,64 @@ const stateFrom = (meshCodes: string, state: State): State => {
         meshCodes: meshCodes
       }
     }
+  }
+}
+
+export default (state: State = initialState, action: Action): State => {
+  switch (action.type) {
+    case AppActions.PUT_MARKER:
+      return concatMarkerPositions(
+        state,
+        action.payload.latLng,
+        action.payload.unit
+      )
+    case AppActions.REMOVE_ALL_MARKERS:
+      return {
+        ...state,
+        map: {
+          ...state.map,
+          markerPositions: []
+        }
+      }
+    case AppActions.INPUT_MESHES:
+      const { meshCodes } = action.payload
+      return stateFrom(meshCodes, state)
+    case AppActions.SELECT_DATUM:
+      const { datum } = action.payload
+      return {
+        ...state,
+        meshInput: {
+          ...state.meshInput,
+          datum
+        }
+      }
+    case AppActions.SELECT_SEPARATOR:
+      const { separator } = action.payload
+      return {
+        ...state,
+        meshInput: {
+          ...state.meshInput,
+          separator
+        }
+      }
+    case AppActions.TOGGLE_DEBUG_TILES:
+      const { isShowDebugTiles } = action.payload
+      return {
+        ...state,
+        tileToggle: {
+          isShowDebugTiles
+        }
+      }
+    case AppActions.UPDATE_CONTEXTMENU_POSITION:
+      const { latLng } = action.payload
+      return {
+        ...state,
+        map: {
+          ...state.map,
+          contextmenuPosition: latLng
+        }
+      }
+    default:
+      return state
   }
 }

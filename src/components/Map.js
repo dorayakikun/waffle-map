@@ -10,6 +10,10 @@ import {
 } from 'react-leaflet'
 import { Card } from 'semantic-ui-react'
 import DebugTileLayer from './DebugTileLayer'
+import {
+  convertBoundsToWGS84Datum,
+  convertLatLngToTokyoDatum
+} from '../domain/convertLatLng'
 import meshCalculator from '../domain/calculateMesh'
 import { round } from '../domain/roundPoint'
 
@@ -17,6 +21,7 @@ import type { LatLng, Mesh } from '../domain/calculateMesh'
 
 export type MapProps = {
   meshes: Array<Mesh>,
+  datum: string,
   contextmenuPosition: ?LatLng,
   isShowDebugTiles: boolean,
   markerPositions: Array<LatLng>,
@@ -26,9 +31,18 @@ export type MapProps = {
 
 const initialLeafletBounds: Array<Array<number>> = [[35, 139], [37, 140]]
 const { latLngToMesh, SCALES } = meshCalculator
+
+const applyDatumToBounds = (bounds: Bounds, datum: string): LatLng => {
+  if (datum == 'Tokyo') {
+    return convertBoundsToWGS84Datum(bounds)
+  }
+  return bounds
+}
+
 const calculateLeafletBoundsFrom = (
   meshes: Array<Mesh>,
-  markerPositions: Array<LatLng>
+  markerPositions: Array<LatLng>,
+  datum: string
 ): Array<Array<number>> => {
   if (meshes.length === 0 && markerPositions.length == 0) {
     return initialLeafletBounds
@@ -37,13 +51,14 @@ const calculateLeafletBoundsFrom = (
   let lngs: Array<number> = []
   meshes
     .map(mesh => mesh.bounds)
+    .map(bounds => applyDatumToBounds(bounds, datum))
     .map(bounds => [bounds.leftTop, bounds.rightBottom])
     .reduce((accumrator, current) => accumrator.concat(current), [])
     .forEach(latLng => {
       lats.push(latLng.lat)
       lngs.push(latLng.lng)
     })
-  
+
   markerPositions.forEach(position => {
     lats.push(position.lat)
     lngs.push(position.lng)
@@ -55,18 +70,30 @@ const calculateLeafletBoundsFrom = (
   ]
 }
 
+const createCardDescription = (latLng: LatLng, datum: string): string => {
+  const convertedLatLng = convertLatLngToTokyoDatum(latLng, datum)
+  return `position: ${round(convertedLatLng.lat, 5)}, ${round(
+    convertedLatLng.lng,
+    5
+  )}`
+}
+
 const createCardContent = ({ lat, lng }: LatLng) =>
-  SCALES.map((scale, idx) =>
+  SCALES.map((scale, idx) => (
     <Card.Content
       description={`scale${scale}: ${latLngToMesh(lat, lng, scale)}`}
       key={idx}
     />
-  )
+  ))
 
-const Map = (props: MapProps) =>
+const Map = (props: MapProps) => (
   <div style={{ width: '100%', height: '100%' }}>
     <LeafletMap
-      bounds={calculateLeafletBoundsFrom(props.meshes, props.markerPositions)}
+      bounds={calculateLeafletBoundsFrom(
+        props.meshes,
+        props.markerPositions,
+        props.datum
+      )}
       maxZoom={19}
       minZoom={6}
       onContextmenu={props.onContextmenu}
@@ -78,38 +105,43 @@ const Map = (props: MapProps) =>
 
       {props.isShowDebugTiles && <DebugTileLayer />}
 
-      {props.meshes.map((mesh, index) =>
-        <Rectangle
-          bounds={[mesh.bounds.leftTop, mesh.bounds.rightBottom]}
-          key={index}
-          color="#00847e"
-        >
-          <Tooltip>
-            <span>
-              {mesh.code}
-            </span>
-          </Tooltip>
-        </Rectangle>
-      )}
+      {props.meshes.map((mesh, index) => {
+        const bounds = applyDatumToBounds(mesh.bounds, props.datum)
+        return (
+          <Rectangle
+            bounds={[bounds.leftTop, bounds.rightBottom]}
+            key={index}
+            color="#00847e"
+          >
+            <Tooltip>
+              <span>{mesh.code}</span>
+            </Tooltip>
+          </Rectangle>
+        )
+      })}
 
-      {props.markerPositions.map((position, idx) =>
+      {props.markerPositions.map((position, idx) => (
         <Marker key={idx} position={position} />
-      )}
+      ))}
 
-      {props.contextmenuPosition != null &&
+      {props.contextmenuPosition != null && (
         <Popup position={props.contextmenuPosition} onClose={props.onClose}>
           <Card>
             <Card.Content header="Scales" />
             <Card.Content
-              description={`position: ${round(
-                props.contextmenuPosition.lat,
-                5
-              )}, ${round(props.contextmenuPosition.lng, 5)}`}
+              description={createCardDescription(
+                props.contextmenuPosition,
+                props.datum
+              )}
             />
-            {createCardContent(props.contextmenuPosition)}
+            {createCardContent(
+              convertLatLngToTokyoDatum(props.contextmenuPosition)
+            )}
           </Card>
-        </Popup>}
+        </Popup>
+      )}
     </LeafletMap>
   </div>
+)
 
 export default Map

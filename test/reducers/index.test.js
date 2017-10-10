@@ -17,6 +17,7 @@ test('Should handle PUT_MARKER', t => {
     meshInput: {
       errorMessage: '',
       meshCodes: '',
+      datum: 'WGS84',
       separator: '.'
     },
     tileToggle: {
@@ -48,6 +49,7 @@ Actual: A`
     meshInput: {
       errorMessage: '',
       meshCodes: '',
+      datum: 'WGS84',
       separator: '.'
     },
     tileToggle: {
@@ -75,6 +77,7 @@ test('Should handle REMOVE_ALL_MARKERS', t => {
     meshInput: {
       errorMessage: '',
       meshCodes: '',
+      datum: 'WGS84',
       separator: '.'
     },
     tileToggle: {
@@ -101,6 +104,7 @@ test('Should handle INPUT_MESHES', t => {
     meshInput: {
       errorMessage,
       meshCodes,
+      datum: 'WGS84',
       separator: '.'
     },
     tileToggle: {
@@ -138,6 +142,7 @@ The actual length is 3, the mesh code is 533.`
     meshInput: {
       errorMessage,
       meshCodes,
+      datum: 'WGS84',
       separator: '.'
     },
     tileToggle: {
@@ -155,6 +160,32 @@ The actual length is 3, the mesh code is 533.`
   )
 })
 
+test('Should handle SELECT_DATUM', t => {
+  const datum = 'Tokyo'
+  const expectedState = {
+    markerInput: {
+      latLng: '',
+      unit: 'degree',
+      errorMessage: ''
+    },
+    meshInput: {
+      errorMessage: '',
+      meshCodes: '',
+      datum,
+      separator: '.'
+    },
+    tileToggle: {
+      isShowDebugTiles: false
+    },
+    meshes: [],
+    map: {
+      contextmenuPosition: null,
+      markerPositions: []
+    }
+  }
+  t.deepEqual(reducer(undefined, AppActions.selectDatum(datum)), expectedState)
+})
+
 test('Should handle SELECT_SEPARATOR', t => {
   const errorMessage = ''
   const separator = ','
@@ -167,6 +198,7 @@ test('Should handle SELECT_SEPARATOR', t => {
     meshInput: {
       errorMessage,
       meshCodes: '',
+      datum: 'WGS84',
       separator
     },
     tileToggle: {
@@ -195,6 +227,7 @@ test('Should handle TOGGLE_DEBUG_TILES', t => {
     meshInput: {
       errorMessage: '',
       meshCodes: '',
+      datum: 'WGS84',
       separator: '.'
     },
     tileToggle: {
@@ -223,6 +256,7 @@ test('Should handle UPDATE_CONTEXTMENU_POSITION', t => {
     meshInput: {
       errorMessage: '',
       meshCodes: '',
+      datum: 'WGS84',
       separator: '.'
     },
     tileToggle: {
@@ -251,6 +285,7 @@ test('Should return an initial state when setting an invalid action', t => {
     meshInput: {
       errorMessage: '',
       meshCodes: '',
+      datum: 'WGS84',
       separator: '.'
     },
     tileToggle: {

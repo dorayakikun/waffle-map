@@ -7,7 +7,7 @@ export type TileToggleProps = {
   onToggleChanged: (event: Event, data: { checked: boolean }) => void
 }
 
-const TileToggle = (props: TileToggleProps) =>
+const TileToggle = (props: TileToggleProps) => (
   <div>
     <Label color="teal" tag>
       Tile Grid
@@ -28,5 +28,6 @@ const TileToggle = (props: TileToggleProps) =>
       />
     </div>
   </div>
+)
 
 export default TileToggle

@@ -12,14 +12,12 @@ export type MeshDetailProps = {
   bounds: Bounds
 }
 
-const MeshDetail = (props: MeshDetailProps) =>
+const MeshDetail = (props: MeshDetailProps) => (
   <Table inverted>
     <Table.Body>
       <Table.Row>
         <Table.Cell>mesh code</Table.Cell>
-        <Table.Cell>
-          {props.code}
-        </Table.Cell>
+        <Table.Cell>{props.code}</Table.Cell>
       </Table.Row>
       <Table.Row>
         <Table.Cell>center</Table.Cell>
@@ -47,5 +45,6 @@ const MeshDetail = (props: MeshDetailProps) =>
       </Table.Row>
     </Table.Body>
   </Table>
+)
 
 export default MeshDetail
