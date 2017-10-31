@@ -38,48 +38,46 @@ export default class AccordionExampleMenu extends Component {
                 <strong>Waffle Map</strong>
               </Menu.Item>
 
-              <Accordion.Title
-                active={activeIndex === 0}
-                index={0}
-                onClick={this.handleClick}
-              >
-                Tile Grid
-              </Accordion.Title>
-              <Accordion.Content active={activeIndex === 0}>
-                <Menu.Item name="tileToggle">
+              <Menu.Item name="tileToggle">
+                <Accordion.Title
+                  active={activeIndex === 0}
+                  index={0}
+                  onClick={this.handleClick}
+                >
+                  Tile Grid
+                </Accordion.Title>
+
+                <Accordion.Content active={activeIndex === 0}>
                   <TileToggleContainer />
-                </Menu.Item>
-              </Accordion.Content>
+                </Accordion.Content>
+              </Menu.Item>
 
-              <Accordion.Title
-                active={activeIndex === 1}
-                index={1}
-                onClick={this.handleClick}
-              >
-                Marker
-              </Accordion.Title>
-              <Accordion.Content active={activeIndex === 1}>
-                <Menu.Item name="markerInput">
+              <Menu.Item name="markerInput">
+                <Accordion.Title
+                  active={activeIndex === 1}
+                  index={1}
+                  onClick={this.handleClick}
+                >
+                  Marker
+                </Accordion.Title>
+                <Accordion.Content active={activeIndex === 1}>
                   <MarkerInputContainer />
-                </Menu.Item>
-              </Accordion.Content>
+                </Accordion.Content>
+              </Menu.Item>
 
-              <Accordion.Title
-                active={activeIndex === 2}
-                index={2}
-                onClick={this.handleClick}
-              >
-                Mesh Code
-              </Accordion.Title>
-
-              <Accordion.Content active={activeIndex === 2}>
-                <Menu.Item name="meshInput">
+              <Menu.Item name="meshInput">
+                <Accordion.Title
+                  active={activeIndex === 2}
+                  index={2}
+                  onClick={this.handleClick}
+                >
+                  Mesh Code
+                </Accordion.Title>
+                <Accordion.Content active={activeIndex === 2}>
                   <MeshInputContainer />
-                </Menu.Item>
-                <Menu.Item name="meshDetails">
                   <MeshDetailsContainer />
-                </Menu.Item>
-              </Accordion.Content>
+                </Accordion.Content>
+              </Menu.Item>
             </Accordion>
           </Sidebar>
           <Sidebar.Pusher>
