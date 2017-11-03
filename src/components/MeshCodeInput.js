@@ -51,9 +51,6 @@ const fetchTextFrom = (options: Array<OptionItem>, value: string): string => {
 
 const MeshCodeInput = (props: MeshCodeInputProps) => (
   <div>
-    <Label color="teal" tag>
-      Mesh
-    </Label>
     <Input
       error={props.errorMessage !== ''}
       fluid

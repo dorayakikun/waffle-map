@@ -55,9 +55,6 @@ class MarkerInput extends Component {
           }
         }}
       >
-        <Label color="teal" tag>
-          Marker
-        </Label>
         <Input
           error={this.props.errorMessage !== ''}
           fluid

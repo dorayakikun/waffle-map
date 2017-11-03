@@ -9,9 +9,6 @@ export type TileToggleProps = {
 
 const TileToggle = (props: TileToggleProps) => (
   <div>
-    <Label color="teal" tag>
-      Tile Grid
-    </Label>
     <div style={{ marginTop: '10px', marginBottom: '10px' }}>
       <span
         style={{
