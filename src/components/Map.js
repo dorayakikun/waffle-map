@@ -86,6 +86,16 @@ const createCardContent = ({ lat, lng }: LatLng) =>
     />
   ))
 
+const getSquareMeshes = (redius: number): Array<Mesh> => {
+  return ['5339', '5340', '5338', '5438', '5439', '5440', '5238', '5239', '5240'].map(code => {
+    return {
+      code,
+      center: meshCalculator.meshToLatLng(code),
+      bounds: meshCalculator.meshToBounds(code),
+    }
+  })
+}
+
 const Map = (props: MapProps) => (
   <div style={{ width: '100%', height: '100%' }}>
     <LeafletMap
@@ -104,6 +114,21 @@ const Map = (props: MapProps) => (
       />
 
       {props.isShowDebugTiles && <DebugTileLayer />}
+
+      {getSquareMeshes(10).map((mesh, index) => {
+        const bounds = applyDatumToBounds(mesh.bounds, props.datum)
+        return (
+          <Rectangle
+            bounds={[bounds.leftTop, bounds.rightBottom]}
+            key={index}
+            color="#9C27B0"
+          >
+            <Tooltip>
+              <span>{mesh.code}</span>
+            </Tooltip>
+          </Rectangle>
+        )
+      })}
 
       {props.meshes.map((mesh, index) => {
         const bounds = applyDatumToBounds(mesh.bounds, props.datum)
