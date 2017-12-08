@@ -22,6 +22,7 @@ type MeshCalculator = {
   meshToLatLng: (mesh: string) => LatLng,
   meshToBounds: (mesh: string) => Bounds,
   latLngToMesh: (lat: number, lng: number, scale: number) => string,
+  getScaleWith(zoom: number): number,
   SCALES: *
 }
 
