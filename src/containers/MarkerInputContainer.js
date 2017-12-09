@@ -8,8 +8,8 @@ import MarkerInput from '../components/MarkerInput'
 import type { Connector } from 'react-redux'
 import type { Action } from '../actions/AppActions'
 import type {
-  MarkerInputProps,
-  MarkerInputState
+  Props as MarkerInputProps,
+    State as MarkerInputState
 } from '../components/MarkerInput'
 import type { State as RootState } from '../reducers'
 

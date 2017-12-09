@@ -9,21 +9,21 @@ import {
   Message
 } from 'semantic-ui-react'
 
-export type MarkerInputProps = {
+export type Props = {
   latLng: string,
   unit: string,
   errorMessage: string,
-  putMarker: (event: Event, state: MarkerInputState) => void,
+  putMarker: (event: Event, state: State) => void,
   removeAllMarkers: () => void
 }
 
-export type MarkerInputState = {
+export type State = {
   latLng: string,
   unit: string,
   errorMessage: string
 }
 
-class MarkerInput extends Component<MarkerInputProps, MarkerInputState> {
+class MarkerInput extends Component<Props, State> {
   state = {
     latLng: this.props.latLng || '',
     unit: this.props.unit || 'degree',
