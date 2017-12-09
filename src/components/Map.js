@@ -1,5 +1,5 @@
 // @flow
-import React, { PropTypes } from 'react'
+import React, { PropTypes, Component } from 'react'
 import {
   Marker,
   Map as LeafletMap,
@@ -27,6 +27,11 @@ export type MapProps = {
   markerPositions: Array<LatLng>,
   onContextmenu: (event: Event & { latlng: LatLng }) => void,
   onClose: () => void
+}
+
+type State = {
+  center: LatLng,
+  zoom: number,
 }
 
 const initialLeafletBounds: Array<Array<number>> = [[35, 139], [37, 140]]
@@ -210,55 +215,74 @@ const createMeshRect = (
     </Rectangle>
   )
 
-const Map = (props: MapProps) => (
-  <div style={{ width: '100%', height: '100%' }}>
-    <LeafletMap
-      bounds={calculateLeafletBoundsFrom(
-        props.meshes,
-        props.markerPositions,
-        props.datum
-      )}
-      maxZoom={19}
-      minZoom={6}
-      onContextmenu={props.onContextmenu}
-    >
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-      />
+class Map extends Component<MapProps, State> {
+  state = {
+    center: { lat: 36.01357, lng: 139.49891 },
+    zoom: 6
+  }
+  render() {
+    return (
+      <div style={{ width: '100%', height: '100%' }}>
+        <LeafletMap
+          bounds={calculateLeafletBoundsFrom(
+            this.props.meshes,
+            this.props.markerPositions,
+            this.props.datum
+          )}
+          maxZoom={18}
+          minZoom={6}
+          onContextmenu={this.props.onContextmenu}
+          onViewportChange={(viewport: { center: ?Array<number>, zoom: ?number }) => {
+            const { center, zoom } = viewport
+            if (!center) {
+              return
+            }
+            if (zoom === undefined || zoom === null) {
+              return
+            }
+            this.setState({ center: { lat: center[0], lng: center[1] } })
+            this.setState({ zoom: zoom })
+          }}
+        >
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+          />
 
-      {props.isShowDebugTiles && <DebugTileLayer />}
+          {this.props.isShowDebugTiles && <DebugTileLayer />}
 
-      {getSquareMeshes({ lat: 35, lng: 139 }, 6, 20).map((mesh, index) => {
-        const bounds: Bounds = applyDatumToBounds(mesh.bounds, props.datum)
-        return createMeshRect(bounds, index, mesh.code, '#9C27B0')
-      })}
+          {getSquareMeshes(this.state.center, this.state.zoom, 20).map((mesh, index) => {
+            const bounds: Bounds = applyDatumToBounds(mesh.bounds, this.props.datum)
+            return createMeshRect(bounds, index, mesh.code, '#9C27B0')
+          })}
 
-      {props.meshes.map((mesh, index) => {
-        const bounds = applyDatumToBounds(mesh.bounds, props.datum)
-        return createMeshRect(bounds, index, mesh.code)
-      })}
+          {this.props.meshes.map((mesh, index) => {
+            const bounds = applyDatumToBounds(mesh.bounds, this.props.datum)
+            return createMeshRect(bounds, index, mesh.code)
+          })}
 
-      {props.markerPositions.map((position, idx) => (
-        <Marker key={idx} position={position} />
-      ))}
+          {this.props.markerPositions.map((position, idx) => (
+            <Marker key={idx} position={position} />
+          ))}
 
-      {props.contextmenuPosition != null && (
-        <Popup position={props.contextmenuPosition} onClose={props.onClose}>
-          <Card>
-            <Card.Content header="Scales" />
-            <Card.Content
-              description={createCardDescription(
-                props.contextmenuPosition,
-                props.datum
-              )}
-            />
-            {createCardContent(props.contextmenuPosition, props.datum)}
-          </Card>
-        </Popup>
-      )}
-    </LeafletMap>
-  </div>
-)
+          {this.props.contextmenuPosition != null && (
+            <Popup position={this.props.contextmenuPosition} onClose={this.props.onClose}>
+              <Card>
+                <Card.Content header="Scales" />
+                <Card.Content
+                  description={createCardDescription(
+                    this.props.contextmenuPosition,
+                    this.props.datum
+                  )}
+                />
+                {createCardContent(this.props.contextmenuPosition, this.props.datum)}
+              </Card>
+            </Popup>
+          )}
+        </LeafletMap>
+      </div>
+    )
+  }
+}
 
 export default Map
