@@ -138,6 +138,35 @@ const createCardContent = (latLng: ?LatLng, datum: string): Card.Content => {
     />
   ))
 }
+
+/**
+ * Get a square mesh codes from a mesh code and a redius.
+ * @param {string} meshCode
+ * @param {number} redius
+ * @returns {Array<string>} square meshe codes
+ */
+const getSquareMeshCodes = (meshCode: string, redius: number): Array<string> => {
+  const meshCodes: Array<string> = []
+  for (let i = -redius; i <= redius; i++) {
+    for (let j = -redius; j <= redius; j++) {
+      const code: string = meshCalculator.panMeshByOffset(meshCode, i, j)
+      meshCodes.push(code)
+    }
+  }
+  return meshCodes
+}
+
+/**
+ * Create a mesh from code.
+ * @param {string} code 
+ * @returns {Mesh} mesh
+ */
+const createMesh = (code: string): Mesh => ({
+  code,
+  center: meshCalculator.meshToLatLng(code),
+  bounds: meshCalculator.meshToBounds(code)
+})
+
 /**
  * Get a square mesh from LatLng, zoom and redius.
  * @param {LatLng} latlng
@@ -151,24 +180,9 @@ const getSquareMeshes = (
   redius: number
 ): Array<Mesh> => {
   const scale: number = meshCalculator.getScaleWith(zoom)
-
-  return [
-    '5339',
-    '5340',
-    '5338',
-    '5438',
-    '5439',
-    '5440',
-    '5238',
-    '5239',
-    '5240'
-  ].map(code => {
-    return {
-      code,
-      center: meshCalculator.meshToLatLng(code),
-      bounds: meshCalculator.meshToBounds(code)
-    }
-  })
+  const centerMeshCode = meshCalculator.latLngToMesh(latlng.lat, latlng.lng, scale)
+  const meshCodes: Array<string> = getSquareMeshCodes(centerMeshCode, redius)
+  return meshCodes.map(createMesh)
 }
 
 /**
@@ -185,16 +199,16 @@ const createMeshRect = (
   meshCode: string,
   color: string = '#00847e'
 ): Rectangle => (
-  <Rectangle
-    bounds={[bounds.leftTop, bounds.rightBottom]}
-    key={index}
-    color={color}
-  >
-    <Tooltip>
-      <span>{meshCode}</span>
-    </Tooltip>
-  </Rectangle>
-)
+    <Rectangle
+      bounds={[bounds.leftTop, bounds.rightBottom]}
+      key={index}
+      color={color}
+    >
+      <Tooltip>
+        <span>{meshCode}</span>
+      </Tooltip>
+    </Rectangle>
+  )
 
 const Map = (props: MapProps) => (
   <div style={{ width: '100%', height: '100%' }}>
@@ -215,7 +229,7 @@ const Map = (props: MapProps) => (
 
       {props.isShowDebugTiles && <DebugTileLayer />}
 
-      {getSquareMeshes({ lat: 0, lng: 0 }, 6, 10).map((mesh, index) => {
+      {getSquareMeshes({ lat: 35, lng: 139 }, 6, 20).map((mesh, index) => {
         const bounds: Bounds = applyDatumToBounds(mesh.bounds, props.datum)
         return createMeshRect(bounds, index, mesh.code, '#9C27B0')
       })}
