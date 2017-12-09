@@ -11,8 +11,9 @@ const propsNoMesh = {
   contextmenuPosition: null,
   isShowDebugTiles: false,
   markerPositions: [],
-  onContextmenu: (event: Event & { latlng: LatLng }) => {},
-  onClose: () => {}
+  datum: 'wgs84',
+  onContextmenu: (event: Event & { latlng: LatLng }) => { },
+  onClose: () => { }
 }
 storiesOf('Map', module).add('no mesh', () => <Map {...propsNoMesh} />)
 
@@ -30,8 +31,9 @@ const propsSomeMesh = {
   contextmenuPosition: null,
   isShowDebugTiles: false,
   markerPositions: [],
-  onContextmenu: (event: Event & { latlng: LatLng }) => {},
-  onClose: () => {}
+  datum: 'wgs84',
+  onContextmenu: (event: Event & { latlng: LatLng }) => { },
+  onClose: () => { }
 }
 storiesOf('Map', module).add('with mesh', () => <Map {...propsSomeMesh} />)
 
@@ -57,8 +59,9 @@ const propsSomeMeshes = {
   contextmenuPosition: null,
   isShowDebugTiles: false,
   markerPositions: [],
-  onContextmenu: (event: Event & { latlng: LatLng }) => {},
-  onClose: () => {}
+  datum: 'wgs84',
+  onContextmenu: (event: Event & { latlng: LatLng }) => { },
+  onClose: () => { }
 }
 
 storiesOf('Map', module).add('with meshes', () => <Map {...propsSomeMeshes} />)
@@ -77,8 +80,9 @@ const propsSomeMeshAndContextPosition = {
   contextmenuPosition: { lat: 35.6896, lng: 139.6921 },
   isShowDebugTiles: false,
   markerPositions: [],
-  onContextmenu: (event: Event & { latlng: LatLng }) => {},
-  onClose: () => {}
+  datum: 'wgs84',
+  onContextmenu: (event: Event & { latlng: LatLng }) => { },
+  onClose: () => { }
 }
 
 storiesOf('Map', module).add('with meshes and contextMenuPosition', () => (
@@ -90,8 +94,9 @@ const propsShowDebugTile = {
   contextmenuPosition: null,
   isShowDebugTiles: true,
   markerPositions: [],
-  onContextmenu: (event: Event & { latlng: LatLng }) => {},
-  onClose: () => {}
+  datum: 'wgs84',
+  onContextmenu: (event: Event & { latlng: LatLng }) => { },
+  onClose: () => { }
 }
 
 storiesOf('Map', module).add('show Debug Tile', () => (

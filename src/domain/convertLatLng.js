@@ -1,5 +1,5 @@
 // @flow
-import type { LatLng } from './calculateMesh'
+import type { LatLng, Bounds } from './calculateMesh'
 
 export function convertToMillisecLatLng(latLng: string, unit: string): LatLng {
   const latLngArray = latLng.split(',')

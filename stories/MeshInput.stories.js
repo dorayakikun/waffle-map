@@ -10,8 +10,10 @@ const propsNoMeshCode = {
   errorMessage: '',
   meshCodes: '',
   separator: '.',
-  onMeshesChanged: event => {},
-  onSeparatorChanged: (event, data) => {}
+  datum: 'wgs84',
+  onMeshesChanged: event => { },
+  onSeparatorChanged: (event, data) => { },
+  onDatumChanged: () => { },
 }
 
 storiesOf('MeshCodeInput', module).add('no mesh code', () => (
@@ -22,8 +24,10 @@ const propsSomeMeshCode = {
   errorMessage: '',
   meshCodes: '5339',
   separator: '.',
-  onMeshesChanged: event => {},
-  onSeparatorChanged: (event, data) => {}
+  datum: 'wgs84',
+  onMeshesChanged: event => { },
+  onSeparatorChanged: (event, data) => { },
+  onDatumChanged: () => { },
 }
 
 storiesOf('MeshCodeInput', module).add('with valid mesh code', () => (
@@ -34,8 +38,10 @@ const propsSomeInvalidMeshCode = {
   errorMessage: 'some error',
   meshCodes: '5339-99',
   separator: '.',
-  onMeshesChanged: event => {},
-  onSeparatorChanged: (event, data) => {}
+  datum: 'wgs84',
+  onMeshesChanged: event => { },
+  onSeparatorChanged: (event, data) => { },
+  onDatumChanged: () => { },
 }
 
 storiesOf('MeshCodeInput', module).add('with invalid mesh code', () => (
@@ -46,8 +52,10 @@ const propsCommas = {
   errorMessage: '',
   meshCodes: '',
   separator: ',',
-  onMeshesChanged: event => {},
-  onSeparatorChanged: (event, data) => {}
+  datum: 'wgs84',
+  onMeshesChanged: event => { },
+  onSeparatorChanged: (event, data) => { },
+  onDatumChanged: () => { },
 }
 
 storiesOf('MeshCodeInput', module).add('select commas', () => (
