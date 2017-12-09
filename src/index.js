@@ -22,7 +22,7 @@ if (!root) {
 }
 render(
   <Provider store={store}>
-    <App />
+    <App activeIndex={2} />
   </Provider>,
   root
 )

@@ -9,10 +9,18 @@ import MeshDetailsContainer from './MeshDetailsContainer'
 import MapContainer from './MapContainer'
 import TileToggleContainer from './TileToggleContainer'
 
-export default class AccordionExampleMenu extends Component {
+type Props = {
+  activeIndex: number
+}
+
+type State = {
+  activeIndex: number
+}
+
+export default class AccordionExampleMenu extends Component<Props, State> {
   state = { activeIndex: 2 }
 
-  handleClick = (e, titleProps) => {
+  handleClick = (e: Event, titleProps: { index: number }) => {
     const { index } = titleProps
     const { activeIndex } = this.state
     const newIndex = activeIndex === index ? -1 : index
