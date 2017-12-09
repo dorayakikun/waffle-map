@@ -60,5 +60,8 @@ typings/
 # WebStrom cache directory
 .idea
 
+# VSCode workspace setting
+.vscode
+
 # Distribution JavaScript
 public/bundle.js
