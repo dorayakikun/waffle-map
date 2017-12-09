@@ -109,7 +109,7 @@ const calculateLeafletBoundsFrom = (
  * @returns {string} card description
  */
 const createCardDescription = (latLng: LatLng, datum: string): string => {
-  const convertedLatLng = datum == 'tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng
+  const convertedLatLng = datum === 'tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng
   return `position: ${round(convertedLatLng.lat, 5)}, ${round(
     convertedLatLng.lng,
     5
@@ -121,14 +121,18 @@ const createCardDescription = (latLng: LatLng, datum: string): string => {
  * @param {LatLng} param0 LatLng
  * @returns card content
  */
-const createCardContent = ({ lat, lng }: LatLng) =>
-  SCALES.map((scale, idx) => (
+const createCardContent = (latLng: ?LatLng, datum: string): Card.Content => {
+  if (latLng === undefined || latLng === null) {
+    throw new Error('Unexpected exception occured. Missing latlang.')
+  }
+  const { lat, lng } = datum === 'tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng
+  return SCALES.map((scale, idx) => (
     <Card.Content
       description={`scale${scale}: ${latLngToMesh(lat, lng, scale)}`}
       key={idx}
     />
   ))
-
+}
 /**
  * Get a square mesh from LatLng, zoom and redius.
  * @param {LatLng} latlng 
@@ -211,9 +215,7 @@ const Map = (props: MapProps) => (
                 props.datum
               )}
             />
-            {createCardContent(
-              convertLatLngToTokyoDatum(props.contextmenuPosition)
-            )}
+            {createCardContent(props.contextmenuPosition, props.datum)}
           </Card>
         </Popup>
       )}
