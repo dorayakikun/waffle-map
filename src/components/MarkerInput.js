@@ -40,8 +40,7 @@ class MarkerInput extends Component<Props, State> {
   handleClickPutAMarker = (event: Event) =>
     this.props.putMarker(event, this.state)
 
-  handleClickRemoveAllMarkers = (event: Event) =>
-    this.props.removeAllMarkers()
+  handleClickRemoveAllMarkers = (event: Event) => this.props.removeAllMarkers()
 
   render() {
     const { latLng, unit } = this.state

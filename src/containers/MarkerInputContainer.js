@@ -9,7 +9,7 @@ import type { Connector } from 'react-redux'
 import type { Action } from '../actions/AppActions'
 import type {
   Props as MarkerInputProps,
-    State as MarkerInputState
+  State as MarkerInputState
 } from '../components/MarkerInput'
 import type { State as RootState } from '../reducers'
 

@@ -34,7 +34,7 @@ const { latLngToMesh, SCALES } = meshCalculator
 
 /**
  * Apply datum to bounds.
- * 
+ *
  * @param {Bounds} bounds bounds
  * @param {string} datum datum(tokyo/wgs84)
  * @returns {Bounds} bounds
@@ -48,11 +48,14 @@ const applyDatumToBounds = (bounds: Bounds, datum: string): Bounds => {
 
 /**
  * Make the set of meshes a set of latitude and longitude.
- * @param {Array<Mesh>} meshes 
- * @param {string} datum 
+ * @param {Array<Mesh>} meshes
+ * @param {string} datum
  * @returns {{ lats: Array<number>, lngs: Array<number> }} lats and lngs
  */
-const meshesToLatsAndLngs = (meshes: Array<Mesh>, datum: string): { lats: Array<number>, lngs: Array<number> } => {
+const meshesToLatsAndLngs = (
+  meshes: Array<Mesh>,
+  datum: string
+): { lats: Array<number>, lngs: Array<number> } => {
   const lats: Array<number> = []
   const lngs: Array<number> = []
   meshes
@@ -72,9 +75,9 @@ const meshesToLatsAndLngs = (meshes: Array<Mesh>, datum: string): { lats: Array<
 
 /**
  * Calculate a LeafletBounds from mesh, the maker position and datum.
- * 
- * @param {Array<Mesh>} meshes 
- * @param {Array<LatLng>} markerPositions 
+ *
+ * @param {Array<Mesh>} meshes
+ * @param {Array<LatLng>} markerPositions
  * @param {string} datum
  * @returns {Array<Array<number>>} LeafletBounds
  */
@@ -103,13 +106,14 @@ const calculateLeafletBoundsFrom = (
 
 /**
  * Create a card description from LatLng and datum.
- * 
- * @param {LatLng} latLng 
- * @param {string} datum 
+ *
+ * @param {LatLng} latLng
+ * @param {string} datum
  * @returns {string} card description
  */
 const createCardDescription = (latLng: LatLng, datum: string): string => {
-  const convertedLatLng = datum === 'tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng
+  const convertedLatLng =
+    datum === 'tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng
   return `position: ${round(convertedLatLng.lat, 5)}, ${round(
     convertedLatLng.lng,
     5
@@ -125,7 +129,8 @@ const createCardContent = (latLng: ?LatLng, datum: string): Card.Content => {
   if (latLng === undefined || latLng === null) {
     throw new Error('Unexpected exception occured. Missing latlang.')
   }
-  const { lat, lng } = datum === 'tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng
+  const { lat, lng } =
+    datum === 'tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng
   return SCALES.map((scale, idx) => (
     <Card.Content
       description={`scale${scale}: ${latLngToMesh(lat, lng, scale)}`}
@@ -135,32 +140,51 @@ const createCardContent = (latLng: ?LatLng, datum: string): Card.Content => {
 }
 /**
  * Get a square mesh from LatLng, zoom and redius.
- * @param {LatLng} latlng 
- * @param {number} zoom 
- * @param {number} redius 
+ * @param {LatLng} latlng
+ * @param {number} zoom
+ * @param {number} redius
  * @returns {Array<Mesh>} square meshes
  */
-const getSquareMeshes = (latlng: LatLng, zoom: number, redius: number): Array<Mesh> => {
+const getSquareMeshes = (
+  latlng: LatLng,
+  zoom: number,
+  redius: number
+): Array<Mesh> => {
   const scale: number = meshCalculator.getScaleWith(zoom)
 
-  return ['5339', '5340', '5338', '5438', '5439', '5440', '5238', '5239', '5240'].map(code => {
+  return [
+    '5339',
+    '5340',
+    '5338',
+    '5438',
+    '5439',
+    '5440',
+    '5238',
+    '5239',
+    '5240'
+  ].map(code => {
     return {
       code,
       center: meshCalculator.meshToLatLng(code),
-      bounds: meshCalculator.meshToBounds(code),
+      bounds: meshCalculator.meshToBounds(code)
     }
   })
 }
 
 /**
  * Create a mesh rectangle.
- * @param {Bounds} bounds 
- * @param {number} index 
- * @param {string} meshCode 
+ * @param {Bounds} bounds
+ * @param {number} index
+ * @param {string} meshCode
  * @param {string} color
  * @returns {Rectangle} mesh rectangle
  */
-const createMeshRect = (bounds: Bounds, index: number, meshCode: string, color: string = '#00847e'): Rectangle => (
+const createMeshRect = (
+  bounds: Bounds,
+  index: number,
+  meshCode: string,
+  color: string = '#00847e'
+): Rectangle => (
   <Rectangle
     bounds={[bounds.leftTop, bounds.rightBottom]}
     key={index}
