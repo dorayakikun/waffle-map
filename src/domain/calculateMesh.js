@@ -23,6 +23,7 @@ type MeshCalculator = {
   meshToBounds: (mesh: string) => Bounds,
   latLngToMesh: (lat: number, lng: number, scale: number) => string,
   getScaleWith(zoom: number): number,
+  panMeshByOffset(mesh: string, offsetX: number, offsetY: number): string,
   SCALES: *
 }
 
