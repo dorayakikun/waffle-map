@@ -224,16 +224,16 @@ const createMeshRect = (
   meshCode: string,
   color: string = '#00847e'
 ): Rectangle => (
-  <Rectangle
-    bounds={[bounds.leftTop, bounds.rightBottom]}
-    key={index}
-    color={color}
-  >
-    <Tooltip>
-      <span>{meshCode}</span>
-    </Tooltip>
-  </Rectangle>
-)
+    <Rectangle
+      bounds={[bounds.leftTop, bounds.rightBottom]}
+      key={index}
+      color={color}
+    >
+      <Tooltip>
+        <span>{meshCode}</span>
+      </Tooltip>
+    </Rectangle>
+  )
 
 class Map extends Component<Props, State> {
   state = {
@@ -251,9 +251,9 @@ class Map extends Component<Props, State> {
             this.props.datum
           )}
           maxZoom={18}
-          minZoom={6}
+          minZoom={7}
           onContextmenu={this.props.onContextmenu}
-          onViewportChange={throttleEvents(
+          onViewportChanged={throttleEvents(
             (viewport: { center: ?Array<number>, zoom: ?number }) => {
               const { center, zoom } = viewport
               if (!center) {
@@ -276,7 +276,7 @@ class Map extends Component<Props, State> {
           {this.props.isShowDebugTiles && <DebugTileLayer />}
 
           {this.props.isShowMeshes &&
-            getSquareMeshes(this.state.center, this.state.zoom, 20).map(
+            getSquareMeshes(this.state.center, this.state.zoom, 10).map(
               (mesh, index) => {
                 const bounds: Bounds = applyDatumToBounds(
                   mesh.bounds,
