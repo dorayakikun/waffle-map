@@ -190,6 +190,15 @@ const getSquareMeshes = (
   return meshCodes.map(createMesh)
 }
 
+const throttleEvents = (listener: any, delay: number): any => {
+  let timeout: number;
+  const throttledListener = (viewport: { center: ?Array<number>, zoom: ?number }) => {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(listener, delay, viewport);
+  }
+  return throttledListener;
+}
+
 /**
  * Create a mesh rectangle.
  * @param {Bounds} bounds
@@ -220,6 +229,7 @@ class Map extends Component<MapProps, State> {
     center: { lat: 36.01357, lng: 139.49891 },
     zoom: 6
   }
+
   render() {
     return (
       <div style={{ width: '100%', height: '100%' }}>
@@ -232,7 +242,7 @@ class Map extends Component<MapProps, State> {
           maxZoom={18}
           minZoom={6}
           onContextmenu={this.props.onContextmenu}
-          onViewportChange={(viewport: { center: ?Array<number>, zoom: ?number }) => {
+          onViewportChange={throttleEvents((viewport: { center: ?Array<number>, zoom: ?number }) => {
             const { center, zoom } = viewport
             if (!center) {
               return
@@ -242,7 +252,7 @@ class Map extends Component<MapProps, State> {
             }
             this.setState({ center: { lat: center[0], lng: center[1] } })
             this.setState({ zoom: zoom })
-          }}
+          }, 100)}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
