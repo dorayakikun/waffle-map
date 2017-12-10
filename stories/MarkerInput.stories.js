@@ -9,7 +9,9 @@ import MarkerInput from '../src/components/MarkerInput'
 const propsNoLatLng = {
   latLng: '',
   unit: 'degree',
-  errorMessage: ''
+  errorMessage: '',
+  putMarker: () => {},
+  removeAllMarkers: () => {}
 }
 
 storiesOf('MarkerInput', module).add('no latlng', () => (

@@ -13,8 +13,10 @@ test('Should set props to MeshCodeInput', t => {
     errorMessage: '',
     meshCodes: '',
     separator: '.',
-    onMeshesChanged: () => {},
-    onSeparatorChanged: () => {}
+    datum: 'wgs84',
+    onMeshesChanged: () => { },
+    onSeparatorChanged: () => { },
+    onDatumChanged: () => { },
   }
   const tree = render.create(<MeshInput {...props} />).toJSON()
   t.snapshot(tree)
@@ -25,8 +27,10 @@ test('Should render negative message when errorMessage is not blank', t => {
     errorMessage: 'It seems there was something wrong ...',
     meshCodes: '5',
     separator: '.',
-    onMeshesChanged: () => {},
-    onSeparatorChanged: () => {}
+    datum: 'wgs84',
+    onMeshesChanged: () => { },
+    onSeparatorChanged: () => { },
+    onDatumChanged: () => { },
   }
   const tree = render.create(<MeshInput {...props} />).toJSON()
   t.snapshot(tree)
@@ -38,8 +42,10 @@ test('Should call onMeshesChanged when input meshCodes', t => {
     errorMessage: '',
     meshCodes: '',
     separator: '.',
+    datum: 'wgs84',
     onMeshesChanged,
-    onSeparatorChanged: () => {}
+    onSeparatorChanged: () => { },
+    onDatumChanged: () => { },
   }
   const tree = render.create(<MeshInput {...props} />).toJSON()
   t.snapshot(tree)
@@ -51,8 +57,10 @@ test('Should call onSeparatorChanged when select separator', t => {
     errorMessage: '',
     meshCodes: '',
     separator: '.',
-    onMeshesChanged: () => {},
-    onSeparatorChanged
+    datum: 'wgs84',
+    onMeshesChanged: () => { },
+    onSeparatorChanged: () => { },
+    onDatumChanged: () => { },
   }
   const tree = render.create(<MeshInput {...props} />).toJSON()
   t.snapshot(tree)

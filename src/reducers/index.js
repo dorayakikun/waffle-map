@@ -23,6 +23,10 @@ export type TileToggleState = {
   isShowDebugTiles: boolean
 }
 
+export type MeshToggleState = {
+  isShowMeshes: boolean
+}
+
 export type MapState = {
   contextmenuPosition: ?LatLng,
   markerPositions: Array<LatLng>
@@ -32,6 +36,7 @@ export type State = {
   markerInput: MarkerInputState,
   meshInput: MeshInputState,
   tileToggle: TileToggleState,
+  meshToggle: MeshToggleState,
   meshes: Array<Mesh>,
   map: MapState
 }
@@ -50,6 +55,9 @@ const initialState: State = {
   },
   tileToggle: {
     isShowDebugTiles: false
+  },
+  meshToggle: {
+    isShowMeshes: false
   },
   meshes: [],
   map: {
@@ -175,6 +183,14 @@ export default (state: State = initialState, action: Action): State => {
         ...state,
         tileToggle: {
           isShowDebugTiles
+        }
+      }
+    case AppActions.TOGGLE_MESHES:
+      const { isShowMeshes } = action.payload
+      return {
+        ...state,
+        meshToggle: {
+          isShowMeshes
         }
       }
     case AppActions.UPDATE_CONTEXTMENU_POSITION:

@@ -34,6 +34,8 @@ Prepare below modules
   - latLngToMesh(lat: number, lng: number, scale: number): string
   - meshToBounds(mesh: string): Bounds
   - meshToLatLng(mesh: string): LatLng
+  - getScaleWith(zoom: number): number,
+  - panMeshByOffset(mesh: string, offsetX: number, offsetY: number): string,
 - constant
   - SCALES: [number]
   

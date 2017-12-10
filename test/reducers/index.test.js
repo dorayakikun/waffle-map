@@ -23,6 +23,9 @@ test('Should handle PUT_MARKER', t => {
     tileToggle: {
       isShowDebugTiles: false
     },
+    meshToggle: {
+      isShowMeshes: false
+    },
     meshes: [],
     map: {
       contextmenuPosition: null,
@@ -55,6 +58,9 @@ Actual: A`
     tileToggle: {
       isShowDebugTiles: false
     },
+    meshToggle: {
+      isShowMeshes: false
+    },
     meshes: [],
     map: {
       contextmenuPosition: null,
@@ -83,6 +89,9 @@ test('Should handle REMOVE_ALL_MARKERS', t => {
     tileToggle: {
       isShowDebugTiles: false
     },
+    meshToggle: {
+      isShowMeshes: false
+    },
     meshes: [],
     map: {
       contextmenuPosition: null,
@@ -109,6 +118,9 @@ test('Should handle INPUT_MESHES', t => {
     },
     tileToggle: {
       isShowDebugTiles: false
+    },
+    meshToggle: {
+      isShowMeshes: false
     },
     meshes: [
       {
@@ -148,6 +160,9 @@ The actual length is 3, the mesh code is 533.`
     tileToggle: {
       isShowDebugTiles: false
     },
+    meshToggle: {
+      isShowMeshes: false
+    },
     meshes: [],
     map: {
       contextmenuPosition: null,
@@ -177,6 +192,9 @@ test('Should handle SELECT_DATUM', t => {
     tileToggle: {
       isShowDebugTiles: false
     },
+    meshToggle: {
+      isShowMeshes: false
+    },
     meshes: [],
     map: {
       contextmenuPosition: null,
@@ -203,6 +221,9 @@ test('Should handle SELECT_SEPARATOR', t => {
     },
     tileToggle: {
       isShowDebugTiles: false
+    },
+    meshToggle: {
+      isShowMeshes: false
     },
     meshes: [],
     map: {
@@ -233,6 +254,9 @@ test('Should handle TOGGLE_DEBUG_TILES', t => {
     tileToggle: {
       isShowDebugTiles
     },
+    meshToggle: {
+      isShowMeshes: false
+    },
     meshes: [],
     map: {
       contextmenuPosition: null,
@@ -241,6 +265,38 @@ test('Should handle TOGGLE_DEBUG_TILES', t => {
   }
   t.deepEqual(
     reducer(undefined, AppActions.toggleDebugTiles(isShowDebugTiles)),
+    expectedState
+  )
+})
+
+test('Should handle TOGGLE_MESHES', t => {
+  const isShowMeshes = true
+  const expectedState = {
+    markerInput: {
+      latLng: '',
+      unit: 'degree',
+      errorMessage: ''
+    },
+    meshInput: {
+      errorMessage: '',
+      meshCodes: '',
+      datum: 'WGS84',
+      separator: '.'
+    },
+    tileToggle: {
+      isShowDebugTiles: false
+    },
+    meshToggle: {
+      isShowMeshes,
+    },
+    meshes: [],
+    map: {
+      contextmenuPosition: null,
+      markerPositions: []
+    }
+  }
+  t.deepEqual(
+    reducer(undefined, AppActions.toggleMeshes(isShowMeshes)),
     expectedState
   )
 })
@@ -261,6 +317,9 @@ test('Should handle UPDATE_CONTEXTMENU_POSITION', t => {
     },
     tileToggle: {
       isShowDebugTiles: false
+    },
+    meshToggle: {
+      isShowMeshes: false
     },
     meshes: [],
     map: {
@@ -290,6 +349,9 @@ test('Should return an initial state when setting an invalid action', t => {
     },
     tileToggle: {
       isShowDebugTiles: false
+    },
+    meshToggle: {
+      isShowMeshes: false
     },
     meshes: [],
     map: {

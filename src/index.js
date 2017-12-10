@@ -16,9 +16,13 @@ const store: Store<State, Action> = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
+const root = document.getElementById('root')
+if (!root) {
+  throw new Error('Missing root component')
+}
 render(
   <Provider store={store}>
-    <App />
+    <App activeIndex={2} />
   </Provider>,
-  document.getElementById('root')
+  root
 )

@@ -21,7 +21,8 @@ const mapStateToProps = (state: RootState) => ({
 })
 
 const connector: Connector<{}, MeshDetailsContainerProps> = connect(
-  mapStateToProps
+  mapStateToProps,
+  {}
 )
 
 export default connector(MeshContainer)

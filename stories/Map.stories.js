@@ -11,6 +11,7 @@ const propsNoMesh = {
   contextmenuPosition: null,
   isShowDebugTiles: false,
   markerPositions: [],
+  datum: 'wgs84',
   onContextmenu: (event: Event & { latlng: LatLng }) => {},
   onClose: () => {}
 }
@@ -30,6 +31,7 @@ const propsSomeMesh = {
   contextmenuPosition: null,
   isShowDebugTiles: false,
   markerPositions: [],
+  datum: 'wgs84',
   onContextmenu: (event: Event & { latlng: LatLng }) => {},
   onClose: () => {}
 }
@@ -57,6 +59,7 @@ const propsSomeMeshes = {
   contextmenuPosition: null,
   isShowDebugTiles: false,
   markerPositions: [],
+  datum: 'wgs84',
   onContextmenu: (event: Event & { latlng: LatLng }) => {},
   onClose: () => {}
 }
@@ -77,6 +80,7 @@ const propsSomeMeshAndContextPosition = {
   contextmenuPosition: { lat: 35.6896, lng: 139.6921 },
   isShowDebugTiles: false,
   markerPositions: [],
+  datum: 'wgs84',
   onContextmenu: (event: Event & { latlng: LatLng }) => {},
   onClose: () => {}
 }
@@ -90,6 +94,7 @@ const propsShowDebugTile = {
   contextmenuPosition: null,
   isShowDebugTiles: true,
   markerPositions: [],
+  datum: 'wgs84',
   onContextmenu: (event: Event & { latlng: LatLng }) => {},
   onClose: () => {}
 }
