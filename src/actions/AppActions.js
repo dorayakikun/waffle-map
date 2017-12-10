@@ -7,6 +7,7 @@ export const INPUT_MESHES = 'INPUT_MESHES'
 export const SELECT_DATUM = 'SELECT_DATUM'
 export const SELECT_SEPARATOR = 'SELECT_SEPARATOR'
 export const TOGGLE_DEBUG_TILES = 'TOGGLE_DEBUG_TILES'
+export const TOGGLE_MESHES = 'TOGGLE_MESHES'
 export const UPDATE_CONTEXTMENU_POSITION = 'UPDATE_CONTEXTMENU_POSITION'
 
 export type Action =
@@ -42,6 +43,12 @@ export type Action =
       type: typeof TOGGLE_DEBUG_TILES,
       payload: {
         isShowDebugTiles: boolean
+      }
+    }
+  | {
+      type: typeof TOGGLE_MESHES,
+      payload: {
+        isShowMeshes: boolean
       }
     }
   | {
@@ -83,6 +90,13 @@ export const toggleDebugTiles = (isShowDebugTiles: boolean): Action => ({
   type: TOGGLE_DEBUG_TILES,
   payload: {
     isShowDebugTiles
+  }
+})
+
+export const toggleMeshes = (isShowMeshes: boolean): Action => ({
+  type: TOGGLE_MESHES,
+  payload: {
+    isShowMeshes
   }
 })
 

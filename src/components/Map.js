@@ -19,11 +19,12 @@ import { round } from '../domain/roundPoint'
 
 import type { LatLng, Bounds, Mesh } from '../domain/calculateMesh'
 
-export type MapProps = {
+export type Props = {
   meshes: Array<Mesh>,
   datum: string,
   contextmenuPosition: ?LatLng,
   isShowDebugTiles: boolean,
+  isShowMeshes: boolean,
   markerPositions: Array<LatLng>,
   onContextmenu: (event: Event & { latlng: LatLng }) => void,
   onClose: () => void
@@ -31,7 +32,7 @@ export type MapProps = {
 
 type State = {
   center: LatLng,
-  zoom: number,
+  zoom: number
 }
 
 const initialLeafletBounds: Array<Array<number>> = [[35, 139], [37, 140]]
@@ -150,7 +151,10 @@ const createCardContent = (latLng: ?LatLng, datum: string): Card.Content => {
  * @param {number} redius
  * @returns {Array<string>} square meshe codes
  */
-const getSquareMeshCodes = (meshCode: string, redius: number): Array<string> => {
+const getSquareMeshCodes = (
+  meshCode: string,
+  redius: number
+): Array<string> => {
   const meshCodes: Array<string> = []
   for (let i = -redius; i <= redius; i++) {
     for (let j = -redius; j <= redius; j++) {
@@ -163,7 +167,7 @@ const getSquareMeshCodes = (meshCode: string, redius: number): Array<string> => 
 
 /**
  * Create a mesh from code.
- * @param {string} code 
+ * @param {string} code
  * @returns {Mesh} mesh
  */
 const createMesh = (code: string): Mesh => ({
@@ -185,18 +189,25 @@ const getSquareMeshes = (
   redius: number
 ): Array<Mesh> => {
   const scale: number = meshCalculator.getScaleWith(zoom)
-  const centerMeshCode = meshCalculator.latLngToMesh(latlng.lat, latlng.lng, scale)
+  const centerMeshCode = meshCalculator.latLngToMesh(
+    latlng.lat,
+    latlng.lng,
+    scale
+  )
   const meshCodes: Array<string> = getSquareMeshCodes(centerMeshCode, redius)
   return meshCodes.map(createMesh)
 }
 
 const throttleEvents = (listener: any, delay: number): any => {
-  let timeout: number;
-  const throttledListener = (viewport: { center: ?Array<number>, zoom: ?number }) => {
-    if (timeout) clearTimeout(timeout);
-    timeout = setTimeout(listener, delay, viewport);
+  let timeout: number
+  const throttledListener = (viewport: {
+    center: ?Array<number>,
+    zoom: ?number
+  }) => {
+    if (timeout) clearTimeout(timeout)
+    timeout = setTimeout(listener, delay, viewport)
   }
-  return throttledListener;
+  return throttledListener
 }
 
 /**
@@ -213,18 +224,18 @@ const createMeshRect = (
   meshCode: string,
   color: string = '#00847e'
 ): Rectangle => (
-    <Rectangle
-      bounds={[bounds.leftTop, bounds.rightBottom]}
-      key={index}
-      color={color}
-    >
-      <Tooltip>
-        <span>{meshCode}</span>
-      </Tooltip>
-    </Rectangle>
-  )
+  <Rectangle
+    bounds={[bounds.leftTop, bounds.rightBottom]}
+    key={index}
+    color={color}
+  >
+    <Tooltip>
+      <span>{meshCode}</span>
+    </Tooltip>
+  </Rectangle>
+)
 
-class Map extends Component<MapProps, State> {
+class Map extends Component<Props, State> {
   state = {
     center: { lat: 36.01357, lng: 139.49891 },
     zoom: 6
@@ -242,17 +253,20 @@ class Map extends Component<MapProps, State> {
           maxZoom={18}
           minZoom={6}
           onContextmenu={this.props.onContextmenu}
-          onViewportChange={throttleEvents((viewport: { center: ?Array<number>, zoom: ?number }) => {
-            const { center, zoom } = viewport
-            if (!center) {
-              return
-            }
-            if (zoom === undefined || zoom === null) {
-              return
-            }
-            this.setState({ center: { lat: center[0], lng: center[1] } })
-            this.setState({ zoom: zoom })
-          }, 100)}
+          onViewportChange={throttleEvents(
+            (viewport: { center: ?Array<number>, zoom: ?number }) => {
+              const { center, zoom } = viewport
+              if (!center) {
+                return
+              }
+              if (zoom === undefined || zoom === null) {
+                return
+              }
+              this.setState({ center: { lat: center[0], lng: center[1] } })
+              this.setState({ zoom: zoom })
+            },
+            100
+          )}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -261,10 +275,16 @@ class Map extends Component<MapProps, State> {
 
           {this.props.isShowDebugTiles && <DebugTileLayer />}
 
-          {getSquareMeshes(this.state.center, this.state.zoom, 20).map((mesh, index) => {
-            const bounds: Bounds = applyDatumToBounds(mesh.bounds, this.props.datum)
-            return createMeshRect(bounds, index, mesh.code, '#9C27B0')
-          })}
+          {this.props.isShowMeshes &&
+            getSquareMeshes(this.state.center, this.state.zoom, 20).map(
+              (mesh, index) => {
+                const bounds: Bounds = applyDatumToBounds(
+                  mesh.bounds,
+                  this.props.datum
+                )
+                return createMeshRect(bounds, index, mesh.code, '#9C27B0')
+              }
+            )}
 
           {this.props.meshes.map((mesh, index) => {
             const bounds = applyDatumToBounds(mesh.bounds, this.props.datum)
@@ -276,7 +296,10 @@ class Map extends Component<MapProps, State> {
           ))}
 
           {this.props.contextmenuPosition != null && (
-            <Popup position={this.props.contextmenuPosition} onClose={this.props.onClose}>
+            <Popup
+              position={this.props.contextmenuPosition}
+              onClose={this.props.onClose}
+            >
               <Card>
                 <Card.Content header="Scales" />
                 <Card.Content
@@ -285,7 +308,10 @@ class Map extends Component<MapProps, State> {
                     this.props.datum
                   )}
                 />
-                {createCardContent(this.props.contextmenuPosition, this.props.datum)}
+                {createCardContent(
+                  this.props.contextmenuPosition,
+                  this.props.datum
+                )}
               </Card>
             </Popup>
           )}

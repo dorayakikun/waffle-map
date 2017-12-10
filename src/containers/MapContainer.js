@@ -10,11 +10,12 @@ import type { Dispatch } from 'redux'
 import type { LatLng } from '../domain/calculateMesh'
 import type { Action } from '../actions/AppActions'
 import type { State as RootState } from '../reducers'
-import type { MapProps } from '../components/Map'
+import type { Props as MapProps } from '../components/Map'
 
 const mapStateToProps = (state: RootState) => ({
   ...state.map,
   ...state.tileToggle,
+  ...state.meshToggle,
   meshes: state.meshes,
   datum: state.meshInput.datum
 })

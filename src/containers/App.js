@@ -8,6 +8,7 @@ import MeshInputContainer from './MeshInputContainer'
 import MeshDetailsContainer from './MeshDetailsContainer'
 import MapContainer from './MapContainer'
 import TileToggleContainer from './TileToggleContainer'
+import MeshToggleContainer from './MeshToggleContainer'
 
 type Props = {
   activeIndex: number
@@ -60,28 +61,42 @@ export default class AccordionExampleMenu extends Component<Props, State> {
                 </Accordion.Content>
               </Menu.Item>
 
-              <Menu.Item name="markerInput">
+              <Menu.Item name="gridToggle">
                 <Accordion.Title
                   active={activeIndex === 1}
                   index={1}
                   onClick={this.handleClick}
                 >
+                  Mesh Grid
+                </Accordion.Title>
+
+                <Accordion.Content active={activeIndex === 1}>
+                  <MeshToggleContainer />
+                </Accordion.Content>
+              </Menu.Item>
+
+              <Menu.Item name="markerInput">
+                <Accordion.Title
+                  active={activeIndex === 2}
+                  index={2}
+                  onClick={this.handleClick}
+                >
                   Marker
                 </Accordion.Title>
-                <Accordion.Content active={activeIndex === 1}>
+                <Accordion.Content active={activeIndex === 2}>
                   <MarkerInputContainer />
                 </Accordion.Content>
               </Menu.Item>
 
               <Menu.Item name="meshInput">
                 <Accordion.Title
-                  active={activeIndex === 2}
-                  index={2}
+                  active={activeIndex === 3}
+                  index={3}
                   onClick={this.handleClick}
                 >
                   Mesh Code
                 </Accordion.Title>
-                <Accordion.Content active={activeIndex === 2}>
+                <Accordion.Content active={activeIndex === 3}>
                   <MeshInputContainer />
                   <MeshDetailsContainer />
                 </Accordion.Content>
