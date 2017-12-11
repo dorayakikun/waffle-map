@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import {
   Button,
   Dropdown,
-  Icon,
   Input,
   Label,
   Message
@@ -56,14 +55,15 @@ class MarkerInput extends Component<Props, State> {
       >
         <Input
           error={this.props.errorMessage !== ''}
-          fluid
           inverted
-          label="LatLng"
           onChange={this.onChangedLatLng}
           placeholder="lat,lng"
-          style={{ marginTop: '10px', marginBottom: '10px' }}
+          style={{ marginTop: '10px', marginRight: '3px', marginBottom: '10px' }}
           value={latLng}
         />
+
+        <Button icon='marker' onClick={this.handleClickPutAMarker} />
+        <Button icon='trash outline' onClick={this.handleClickRemoveAllMarkers} />
 
         {this.props.errorMessage !== '' && (
           <Message negative>
@@ -89,20 +89,6 @@ class MarkerInput extends Component<Props, State> {
           text={unit}
           value={unit}
         />
-        <Button
-          fluid
-          style={{ marginTop: '10px', marginBottom: '10px' }}
-          onClick={this.handleClickPutAMarker}
-        >
-          Put a marker
-        </Button>
-        <Button
-          fluid
-          style={{ marginTop: '10px', marginBottom: '10px' }}
-          onClick={this.handleClickRemoveAllMarkers}
-        >
-          Remove all markers
-        </Button>
       </div>
     )
   }

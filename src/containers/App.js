@@ -19,7 +19,7 @@ type State = {
 }
 
 export default class AccordionExampleMenu extends Component<Props, State> {
-  state = { activeIndex: 2 }
+  state = { activeIndex: 3 }
 
   handleClick = (e: Event, titleProps: { index: number }) => {
     const { index } = titleProps

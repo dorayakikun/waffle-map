@@ -54,8 +54,7 @@ const MeshCodeInput = (props: MeshCodeInputProps) => (
     <Input
       error={props.errorMessage !== ''}
       fluid
-      label="mesh codes"
-      placeholder="e.g. 5339-35-97"
+      placeholder="5339-35-97.5339-35-98.5339-35-99"
       onChange={props.onMeshesChanged}
       style={{ marginTop: '10px', marginBottom: '10px' }}
       value={props.meshCodes}
