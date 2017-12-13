@@ -224,16 +224,16 @@ const createMeshRect = (
   meshCode: string,
   color: string = '#00847e'
 ): Rectangle => (
-    <Rectangle
-      bounds={[bounds.leftTop, bounds.rightBottom]}
-      key={index}
-      color={color}
-    >
-      <Tooltip>
-        <span>{meshCode}</span>
-      </Tooltip>
-    </Rectangle>
-  )
+  <Rectangle
+    bounds={[bounds.leftTop, bounds.rightBottom]}
+    key={index}
+    color={color}
+  >
+    <Tooltip>
+      <span>{meshCode}</span>
+    </Tooltip>
+  </Rectangle>
+)
 
 class Map extends Component<Props, State> {
   state = {

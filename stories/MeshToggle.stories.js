@@ -7,18 +7,18 @@ import { linkTo } from '@storybook/addon-links'
 import MeshToggle from '../src/components/MeshToggle'
 
 const propsShowMeshes = {
-    isShowMeshes: true,
-    onToggleChanged: linkTo('MeshToggle', 'hide meshes')
+  isShowMeshes: true,
+  onToggleChanged: linkTo('MeshToggle', 'hide meshes')
 }
 
 storiesOf('MeshToggle', module).add('show meshes', () => (
-    <MeshToggle {...propsShowMeshes} />
+  <MeshToggle {...propsShowMeshes} />
 ))
 
 const propsHideMeshes = {
-    isShowMeshes: false,
-    onToggleChanged: linkTo('MeshToggle', 'show meshes')
+  isShowMeshes: false,
+  onToggleChanged: linkTo('MeshToggle', 'show meshes')
 }
 storiesOf('MeshToggle', module).add('hide meshes', () => (
-    <MeshToggle {...propsHideMeshes} />
+  <MeshToggle {...propsHideMeshes} />
 ))
