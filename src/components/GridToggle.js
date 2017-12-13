@@ -3,23 +3,19 @@ import React from 'react'
 import { Checkbox, Label } from 'semantic-ui-react'
 
 export type Props = {
-  isShowMeshes: boolean,
+  title: string,
+  isShowGrid: boolean,
   onToggleChanged: (event: Event, data: { checked: boolean }) => void
 }
 
-const MeshToggle = (props: Props) => (
+const GridToggle = (props: Props) => (
   <div>
     <div style={{ marginTop: '10px', marginBottom: '10px' }}>
-      <span
-        style={{
-          fontColor: 'white',
-          marginRight: 5
-        }}
-      >
-        Show meshes
+      <span style={{ fontColor: 'white', marginRight: 5 }}>
+        {props.title}
       </span>
       <Checkbox
-        checked={props.isShowMeshes}
+        checked={props.isShowGrid}
         onChange={props.onToggleChanged}
         toggle
       />
@@ -27,4 +23,4 @@ const MeshToggle = (props: Props) => (
   </div>
 )
 
-export default MeshToggle
+export default GridToggle
