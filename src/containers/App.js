@@ -30,7 +30,7 @@ const ACCORDION_MENU_ITEM_VALUES: Array<AccordionMenuItemValue> = [
   { index: 2, title: 'Marker', container: <MarkerInputContainer /> },
   {
     index: 3,
-    title: 'Marker',
+    title: 'Mesh Code',
     container: (
       <div>
         {' '}
