@@ -1,12 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import {
-  Button,
-  Dropdown,
-  Input,
-  Label,
-  Message
-} from 'semantic-ui-react'
+import { Button, Dropdown, Input, Label, Message } from 'semantic-ui-react'
 
 export type Props = {
   latLng: string,
@@ -58,12 +52,19 @@ class MarkerInput extends Component<Props, State> {
           inverted
           onChange={this.onChangedLatLng}
           placeholder="lat,lng"
-          style={{ marginTop: '10px', marginRight: '3px', marginBottom: '10px' }}
+          style={{
+            marginTop: '10px',
+            marginRight: '3px',
+            marginBottom: '10px'
+          }}
           value={latLng}
         />
 
-        <Button icon='marker' onClick={this.handleClickPutAMarker} />
-        <Button icon='trash outline' onClick={this.handleClickRemoveAllMarkers} />
+        <Button icon="marker" onClick={this.handleClickPutAMarker} />
+        <Button
+          icon="trash outline"
+          onClick={this.handleClickRemoveAllMarkers}
+        />
 
         {this.props.errorMessage !== '' && (
           <Message negative>

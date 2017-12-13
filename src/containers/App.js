@@ -18,7 +18,30 @@ type State = {
   activeIndex: number
 }
 
-export default class AccordionExampleMenu extends Component<Props, State> {
+type AccordionMenuItemValue = {
+  index: number,
+  title: string,
+  container: any
+}
+
+const ACCORDION_MENU_ITEM_VALUES: Array<AccordionMenuItemValue> = [
+  { index: 0, title: 'Tile Grid', container: <TileToggleContainer /> },
+  { index: 1, title: 'Mesh Grid', container: <MeshToggleContainer /> },
+  { index: 2, title: 'Marker', container: <MarkerInputContainer /> },
+  {
+    index: 3,
+    title: 'Marker',
+    container: (
+      <div>
+        {' '}
+        <MeshInputContainer />
+        <MeshDetailsContainer />
+      </div>
+    )
+  }
+]
+
+export default class AppContainer extends Component<Props, State> {
   state = { activeIndex: 3 }
 
   handleClick = (e: Event, titleProps: { index: number }) => {
@@ -47,60 +70,22 @@ export default class AccordionExampleMenu extends Component<Props, State> {
                 <strong>Waffle Map</strong>
               </Menu.Item>
 
-              <Menu.Item name="tileToggle">
-                <Accordion.Title
-                  active={activeIndex === 0}
-                  index={0}
-                  onClick={this.handleClick}
-                >
-                  Tile Grid
-                </Accordion.Title>
-
-                <Accordion.Content active={activeIndex === 0}>
-                  <TileToggleContainer />
-                </Accordion.Content>
-              </Menu.Item>
-
-              <Menu.Item name="gridToggle">
-                <Accordion.Title
-                  active={activeIndex === 1}
-                  index={1}
-                  onClick={this.handleClick}
-                >
-                  Mesh Grid
-                </Accordion.Title>
-
-                <Accordion.Content active={activeIndex === 1}>
-                  <MeshToggleContainer />
-                </Accordion.Content>
-              </Menu.Item>
-
-              <Menu.Item name="markerInput">
-                <Accordion.Title
-                  active={activeIndex === 2}
-                  index={2}
-                  onClick={this.handleClick}
-                >
-                  Marker
-                </Accordion.Title>
-                <Accordion.Content active={activeIndex === 2}>
-                  <MarkerInputContainer />
-                </Accordion.Content>
-              </Menu.Item>
-
-              <Menu.Item name="meshInput">
-                <Accordion.Title
-                  active={activeIndex === 3}
-                  index={3}
-                  onClick={this.handleClick}
-                >
-                  Mesh Code
-                </Accordion.Title>
-                <Accordion.Content active={activeIndex === 3}>
-                  <MeshInputContainer />
-                  <MeshDetailsContainer />
-                </Accordion.Content>
-              </Menu.Item>
+              {ACCORDION_MENU_ITEM_VALUES.map(
+                (value: AccordionMenuItemValue, key: number) => (
+                  <Menu.Item name="meshInput" key={key}>
+                    <Accordion.Title
+                      active={activeIndex === value.index}
+                      index={value.index}
+                      onClick={this.handleClick}
+                    >
+                      {value.title}
+                    </Accordion.Title>
+                    <Accordion.Content active={activeIndex === value.index}>
+                      {value.container}
+                    </Accordion.Content>
+                  </Menu.Item>
+                )
+              )}
             </Accordion>
           </Sidebar>
           <Sidebar.Pusher>
