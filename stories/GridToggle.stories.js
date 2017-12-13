@@ -4,21 +4,23 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { linkTo } from '@storybook/addon-links'
 
-import MeshToggle from '../src/components/MeshToggle'
+import GridToggle from '../src/components/GridToggle'
 
 const propsShowMeshes = {
-  isShowMeshes: true,
+  title: 'Show grid',
+  isShowGrid: true,
   onToggleChanged: linkTo('MeshToggle', 'hide meshes')
 }
 
 storiesOf('MeshToggle', module).add('show meshes', () => (
-  <MeshToggle {...propsShowMeshes} />
+  <GridToggle {...propsShowMeshes} />
 ))
 
 const propsHideMeshes = {
-  isShowMeshes: false,
+  title: 'Show grid',
+  isShowGrid: false,
   onToggleChanged: linkTo('MeshToggle', 'show meshes')
 }
 storiesOf('MeshToggle', module).add('hide meshes', () => (
-  <MeshToggle {...propsHideMeshes} />
+  <GridToggle {...propsHideMeshes} />
 ))
