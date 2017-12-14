@@ -12,7 +12,7 @@ import type { Props as MeshToggleProps } from '../components/GridToggle'
 
 const mapStateToProps = (state: RootState) => ({
   title: 'Show meshes',
-  isShowGrid: state.meshToggle.isShowMeshes,
+  isShowGrid: state.meshToggle.isShowMeshes
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
