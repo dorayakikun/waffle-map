@@ -13,7 +13,7 @@ import type { Connector } from 'react-redux'
 import type { Dispatch } from 'redux'
 import type { Action } from '../actions/AppActions'
 import type { State as RootState } from '../reducers'
-import type { MeshCodeInputProps } from '../components/MeshCodeInput'
+import type { Props as MeshCodeInputProps } from '../components/MeshCodeInput'
 
 const mapStateToProps = (state: RootState) => state.meshInput
 
