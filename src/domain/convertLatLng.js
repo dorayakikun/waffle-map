@@ -16,13 +16,13 @@ Actual: ${latLng}`)
   if (!latString.match(/^([1-9]\d*|0)(\.\d+)?$/)) {
     throw new Error(`Unexpected lat found.
 Only numbers are acceptable.
-Actual: ${latString}`)
+Actual: ${latLng}`)
   }
 
   if (!lngString.match(/^([1-9]\d*|0)(\.\d+)?$/)) {
     throw new Error(`Unexpected lng found.
 Only numbers are acceptable.
-Actual: ${lngString}`)
+Actual: ${latLng}`)
   }
 
   if (unit === 'degree') {

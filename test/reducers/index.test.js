@@ -47,7 +47,7 @@ test('Should handle PUT_MARKER when setting invalid latLng', t => {
       unit,
       errorMessage: `Unexpected lat found.
 Only numbers are acceptable.
-Actual: A`
+Actual: A,139`
     },
     meshInput: {
       errorMessage: '',
