@@ -66,7 +66,10 @@ const initialState: State = {
   }
 }
 
-const concatMarkerPositions = (state: State, point: { latLng: string, unit: string }): State => {
+const concatMarkerPositions = (
+  state: State,
+  point: { latLng: string, unit: string }
+): State => {
   const { latLng, unit } = point
   const markerPositions = state.map.markerPositions
   try {
@@ -74,7 +77,11 @@ const concatMarkerPositions = (state: State, point: { latLng: string, unit: stri
       ...state,
       markerInput: { latLng, unit, errorMessage: '' },
       map: {
-        ...state.map, markerPositions: [...markerPositions, convertToMillisecLatLng(latLng, unit)]
+        ...state.map,
+        markerPositions: [
+          ...markerPositions,
+          convertToMillisecLatLng(latLng, unit)
+        ]
       }
     }
   } catch (e) {
@@ -121,7 +128,11 @@ const stateFrom = (meshCodes: string, state: State): State => {
   } catch (e) {
     return {
       ...state,
-      meshInput: { ...state.meshInput, errorMessage: e.message, meshCodes: meshCodes }
+      meshInput: {
+        ...state.meshInput,
+        errorMessage: e.message,
+        meshCodes: meshCodes
+      }
     }
   }
 }
