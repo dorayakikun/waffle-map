@@ -10,7 +10,8 @@
     "flow": "flow",
     "test": "NODE_ENV=test nyc --reporter=lcov ava",
     "storybook": "start-storybook -p 6006 -c .storybook -s public",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "precommit": "npm run flow && npm run eslint"
   },
   "keywords": [],
   "author": "dorayakikun <amakunai.dorayaki@gmail.com>",
@@ -40,6 +41,7 @@
     "eslint-plugin-prettier": "^2.2.0",
     "flow-bin": "^0.61.0",
     "flow-copy-source": "^1.2.1",
+    "husky": "^0.14.3",
     "json-loader": "^0.5.7",
     "nyc": "^11.4.0",
     "prettier": "^1.9.1",
