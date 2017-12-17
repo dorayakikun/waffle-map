@@ -171,12 +171,9 @@ const toggleGrid = (state: State, type: any, isShow: boolean): State => {
   }
 }
 
-const updateContextmenuPosition = (
-  state: State,
-  contextMenuPoistion: LatLng
-): State => ({
+const updateContextmenuPosition = (state: State, latLng: ?LatLng): State => ({
   ...state,
-  map: { ...state.map, contextmenuPosition: contextMenuPoistion }
+  map: { ...state.map, contextmenuPosition: latLng }
 })
 
 export default (state: State = initialState, action: Action): State => {
