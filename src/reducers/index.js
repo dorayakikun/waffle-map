@@ -66,35 +66,21 @@ const initialState: State = {
   }
 }
 
-const concatMarkerPositions = (
-  state: State,
-  latLng: string,
-  unit: string
-): State => {
+const concatMarkerPositions = (state: State, point: { latLng: string, unit: string }): State => {
+  const { latLng, unit } = point
+  const markerPositions = state.map.markerPositions
   try {
     return {
       ...state,
-      markerInput: {
-        latLng,
-        unit,
-        errorMessage: ''
-      },
+      markerInput: { latLng, unit, errorMessage: '' },
       map: {
-        ...state.map,
-        markerPositions: [
-          ...state.map.markerPositions,
-          convertToMillisecLatLng(latLng, unit)
-        ]
+        ...state.map, markerPositions: [...markerPositions, convertToMillisecLatLng(latLng, unit)]
       }
     }
   } catch (e) {
     return {
       ...state,
-      markerInput: {
-        latLng,
-        unit,
-        errorMessage: e.message
-      }
+      markerInput: { latLng, unit, errorMessage: e.message }
     }
   }
 }
@@ -135,11 +121,7 @@ const stateFrom = (meshCodes: string, state: State): State => {
   } catch (e) {
     return {
       ...state,
-      meshInput: {
-        ...state.meshInput,
-        errorMessage: e.message,
-        meshCodes: meshCodes
-      }
+      meshInput: { ...state.meshInput, errorMessage: e.message, meshCodes: meshCodes }
     }
   }
 }
@@ -179,11 +161,7 @@ const updateContextmenuPosition = (state: State, latLng: ?LatLng): State => ({
 export default (state: State = initialState, action: Action): State => {
   switch (action.type) {
     case AppActions.PUT_MARKER:
-      return concatMarkerPositions(
-        state,
-        action.payload.latLng,
-        action.payload.unit
-      )
+      return concatMarkerPositions(state, action.payload)
     case AppActions.REMOVE_ALL_MARKERS:
       return removeAllMarkers(state)
     case AppActions.INPUT_MESHES:
