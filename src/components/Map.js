@@ -209,7 +209,10 @@ const getSquareMeshes = (
  * @param {number} delay
  * @returns {Viewport => void} throttleEventListener
  */
-const throttleEvents = (listener: Viewport => void, delay: number): (Viewport => void) => {
+const throttleEvents = (
+  listener: Viewport => void,
+  delay: number
+): (Viewport => void) => {
   let timeout: number
   const throttledListener = (viewport: Viewport) => {
     if (timeout) clearTimeout(timeout)
@@ -232,16 +235,16 @@ const createMeshRect = (
   meshCode: string,
   color: string = '#00847e'
 ): Rectangle => (
-    <Rectangle
-      bounds={[bounds.leftTop, bounds.rightBottom]}
-      key={index}
-      color={color}
-    >
-      <Tooltip>
-        <span>{meshCode}</span>
-      </Tooltip>
-    </Rectangle>
-  )
+  <Rectangle
+    bounds={[bounds.leftTop, bounds.rightBottom]}
+    key={index}
+    color={color}
+  >
+    <Tooltip>
+      <span>{meshCode}</span>
+    </Tooltip>
+  </Rectangle>
+)
 
 class Map extends Component<Props, State> {
   state = {
@@ -261,20 +264,17 @@ class Map extends Component<Props, State> {
           maxZoom={18}
           minZoom={7}
           onContextmenu={this.props.onContextmenu}
-          onViewportChanged={throttleEvents(
-            (viewport: Viewport) => {
-              const { center, zoom } = viewport
-              if (!center) {
-                return
-              }
-              if (zoom === undefined || zoom === null) {
-                return
-              }
-              this.setState({ center: { lat: center[0], lng: center[1] } })
-              this.setState({ zoom: zoom })
-            },
-            100
-          )}
+          onViewportChanged={throttleEvents((viewport: Viewport) => {
+            const { center, zoom } = viewport
+            if (!center) {
+              return
+            }
+            if (zoom === undefined || zoom === null) {
+              return
+            }
+            this.setState({ center: { lat: center[0], lng: center[1] } })
+            this.setState({ zoom: zoom })
+          }, 100)}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

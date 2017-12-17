@@ -99,6 +99,23 @@ const concatMarkerPositions = (
   }
 }
 
+const removeAllMarkers = (state: State): State => ({
+  ...state,
+  map: { ...state.map, markerPositions: [] }
+})
+
+const mapToMeshes = (meshCodes: string, separator: string): Array<Mesh> =>
+  meshCodes
+    .split(separator)
+    .filter(meshCode => meshCode !== '')
+    .map(meshCode => {
+      return {
+        code: meshCode,
+        center: meshToLatLng(meshCode),
+        bounds: meshToBounds(meshCode)
+      }
+    })
+
 /**
  * Create state from meshCodes.
  * If meshCodes are invalid then return previous state(with an error message).
@@ -112,21 +129,8 @@ const stateFrom = (meshCodes: string, state: State): State => {
   try {
     return {
       ...state,
-      meshInput: {
-        ...state.meshInput,
-        errorMessage: '',
-        meshCodes: meshCodes
-      },
-      meshes: meshCodes
-        .split(separator)
-        .filter(meshCode => meshCode !== '')
-        .map(meshCode => {
-          return {
-            code: meshCode,
-            center: meshToLatLng(meshCode),
-            bounds: meshToBounds(meshCode)
-          }
-        })
+      meshInput: { ...state.meshInput, errorMessage: '', meshCodes: meshCodes },
+      meshes: mapToMeshes(meshCodes, separator)
     }
   } catch (e) {
     return {
@@ -140,6 +144,41 @@ const stateFrom = (meshCodes: string, state: State): State => {
   }
 }
 
+const selectDatum = (state: State, datum: string): State => ({
+  ...state,
+  meshInput: { ...state.meshInput, datum }
+})
+
+const selectSeparator = (state: State, separator: string): State => ({
+  ...state,
+  meshInput: { ...state.meshInput, separator }
+})
+
+const toggleGrid = (state: State, type: any, isShow: boolean): State => {
+  switch (type) {
+    case AppActions.TOGGLE_DEBUG_TILES:
+      return {
+        ...state,
+        tileToggle: { isShowDebugTiles: isShow }
+      }
+    case AppActions.TOGGLE_MESHES:
+      return {
+        ...state,
+        meshToggle: { isShowMeshes: isShow }
+      }
+    default:
+      return state
+  }
+}
+
+const updateContextmenuPosition = (
+  state: State,
+  contextMenuPoistion: LatLng
+): State => ({
+  ...state,
+  map: { ...state.map, contextmenuPosition: contextMenuPoistion }
+})
+
 export default (state: State = initialState, action: Action): State => {
   switch (action.type) {
     case AppActions.PUT_MARKER:
@@ -149,59 +188,25 @@ export default (state: State = initialState, action: Action): State => {
         action.payload.unit
       )
     case AppActions.REMOVE_ALL_MARKERS:
-      return {
-        ...state,
-        map: {
-          ...state.map,
-          markerPositions: []
-        }
-      }
+      return removeAllMarkers(state)
     case AppActions.INPUT_MESHES:
       const { meshCodes } = action.payload
       return stateFrom(meshCodes, state)
     case AppActions.SELECT_DATUM:
       const { datum } = action.payload
-      return {
-        ...state,
-        meshInput: {
-          ...state.meshInput,
-          datum
-        }
-      }
+      return selectDatum(state, datum)
     case AppActions.SELECT_SEPARATOR:
       const { separator } = action.payload
-      return {
-        ...state,
-        meshInput: {
-          ...state.meshInput,
-          separator
-        }
-      }
+      return selectSeparator(state, separator)
     case AppActions.TOGGLE_DEBUG_TILES:
       const { isShowDebugTiles } = action.payload
-      return {
-        ...state,
-        tileToggle: {
-          isShowDebugTiles
-        }
-      }
+      return toggleGrid(state, action.type, isShowDebugTiles)
     case AppActions.TOGGLE_MESHES:
       const { isShowMeshes } = action.payload
-      return {
-        ...state,
-        meshToggle: {
-          isShowMeshes
-        }
-      }
+      return toggleGrid(state, action.type, isShowMeshes)
     case AppActions.UPDATE_CONTEXTMENU_POSITION:
       const { latLng } = action.payload
-      return {
-        ...state,
-        map: {
-          ...state.map,
-          contextmenuPosition: latLng
-        }
-      }
+      return updateContextmenuPosition(state, latLng)
     default:
       return state
   }
