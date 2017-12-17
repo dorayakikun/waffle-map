@@ -1,5 +1,5 @@
 // @flow
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
 import {
   Marker,
   Map as LeafletMap,
@@ -33,6 +33,11 @@ export type Props = {
 type State = {
   center: LatLng,
   zoom: number
+}
+
+type Viewport = {
+  center: ?Array<number>,
+  zoom: ?number
 }
 
 const initialLeafletBounds: Array<Array<number>> = [[35, 139], [37, 140]]
@@ -198,12 +203,15 @@ const getSquareMeshes = (
   return meshCodes.map(createMesh)
 }
 
-const throttleEvents = (listener: any, delay: number): any => {
+/**
+ * Throttle listener events.
+ * @param {Viewport => void} listener
+ * @param {number} delay
+ * @returns {Viewport => void} throttleEventListener
+ */
+const throttleEvents = (listener: Viewport => void, delay: number): (Viewport => void) => {
   let timeout: number
-  const throttledListener = (viewport: {
-    center: ?Array<number>,
-    zoom: ?number
-  }) => {
+  const throttledListener = (viewport: Viewport) => {
     if (timeout) clearTimeout(timeout)
     timeout = setTimeout(listener, delay, viewport)
   }
@@ -224,16 +232,16 @@ const createMeshRect = (
   meshCode: string,
   color: string = '#00847e'
 ): Rectangle => (
-  <Rectangle
-    bounds={[bounds.leftTop, bounds.rightBottom]}
-    key={index}
-    color={color}
-  >
-    <Tooltip>
-      <span>{meshCode}</span>
-    </Tooltip>
-  </Rectangle>
-)
+    <Rectangle
+      bounds={[bounds.leftTop, bounds.rightBottom]}
+      key={index}
+      color={color}
+    >
+      <Tooltip>
+        <span>{meshCode}</span>
+      </Tooltip>
+    </Rectangle>
+  )
 
 class Map extends Component<Props, State> {
   state = {
@@ -254,7 +262,7 @@ class Map extends Component<Props, State> {
           minZoom={7}
           onContextmenu={this.props.onContextmenu}
           onViewportChanged={throttleEvents(
-            (viewport: { center: ?Array<number>, zoom: ?number }) => {
+            (viewport: Viewport) => {
               const { center, zoom } = viewport
               if (!center) {
                 return
