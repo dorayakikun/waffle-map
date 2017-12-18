@@ -252,6 +252,27 @@ class Map extends Component<Props, State> {
     zoom: 6
   }
 
+  updateViewport = (viewport: Viewport) => {
+    const { center, zoom } = viewport
+    if (!center) {
+      return
+    }
+    if (zoom === undefined || zoom === null) {
+      return
+    }
+    this.setState({ center: { lat: center[0], lng: center[1] } })
+    this.setState({ zoom: zoom })
+  }
+
+  createMeshRects = (meshes: Array<Mesh>) =>
+    meshes.map((mesh, index) => {
+      const bounds: Bounds = applyDatumToBounds(mesh.bounds, this.props.datum)
+      return createMeshRect(bounds, index, mesh.code, '#9C27B0')
+    })
+
+  createMarkers = (positions: Array<LatLng>) =>
+    positions.map((position, idx) => <Marker key={idx} position={position} />)
+
   render() {
     return (
       <div style={{ width: '100%', height: '100%' }}>
@@ -264,17 +285,7 @@ class Map extends Component<Props, State> {
           maxZoom={18}
           minZoom={7}
           onContextmenu={this.props.onContextmenu}
-          onViewportChanged={throttleEvents((viewport: Viewport) => {
-            const { center, zoom } = viewport
-            if (!center) {
-              return
-            }
-            if (zoom === undefined || zoom === null) {
-              return
-            }
-            this.setState({ center: { lat: center[0], lng: center[1] } })
-            this.setState({ zoom: zoom })
-          }, 100)}
+          onViewportChanged={throttleEvents(this.updateViewport, 100)}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -284,24 +295,13 @@ class Map extends Component<Props, State> {
           {this.props.isShowDebugTiles && <DebugTileLayer />}
 
           {this.props.isShowMeshes &&
-            getSquareMeshes(this.state.center, this.state.zoom, 10).map(
-              (mesh, index) => {
-                const bounds: Bounds = applyDatumToBounds(
-                  mesh.bounds,
-                  this.props.datum
-                )
-                return createMeshRect(bounds, index, mesh.code, '#9C27B0')
-              }
+            this.createMeshRects(
+              getSquareMeshes(this.state.center, this.state.zoom, 10)
             )}
 
-          {this.props.meshes.map((mesh, index) => {
-            const bounds = applyDatumToBounds(mesh.bounds, this.props.datum)
-            return createMeshRect(bounds, index, mesh.code)
-          })}
+          {this.createMeshRects(this.props.meshes)}
 
-          {this.props.markerPositions.map((position, idx) => (
-            <Marker key={idx} position={position} />
-          ))}
+          {this.createMarkers(this.props.markerPositions)}
 
           {this.props.contextmenuPosition != null && (
             <Popup
