@@ -246,6 +246,28 @@ const createMeshRect = (
   </Rectangle>
 )
 
+const createPositionDescription = (latLng: LatLng, datum: string): string => {
+  const convertedLatLng =
+    datum === 'tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng
+  return `position: ${round(convertedLatLng.lat, 5)}, ${round(
+    convertedLatLng.lng,
+    5
+  )}`
+}
+
+const createScaleDescription = (
+  scale: number,
+  latLng: ?LatLng,
+  datum: string
+): string => {
+  if (latLng === undefined || latLng === null) {
+    throw new Error('Unexpected exception occured. Missing latlang.')
+  }
+  const { lat, lng } =
+    datum === 'tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng
+  return `scale${scale}: ${latLngToMesh(lat, lng, scale)}`
+}
+
 class Map extends Component<Props, State> {
   state = {
     center: { lat: 36.01357, lng: 139.49891 },
@@ -272,6 +294,14 @@ class Map extends Component<Props, State> {
 
   createMarkers = (positions: Array<LatLng>) =>
     positions.map((position, idx) => <Marker key={idx} position={position} />)
+
+  createScaleCardContents = (latLng: ?LatLng, datum: string) =>
+    SCALES.map((scale, idx) => (
+      <Card.Content
+        description={createScaleDescription(scale, latLng, datum)}
+        key={idx}
+      />
+    ))
 
   render() {
     return (
@@ -311,12 +341,12 @@ class Map extends Component<Props, State> {
               <Card>
                 <Card.Content header="Scales" />
                 <Card.Content
-                  description={createCardDescription(
+                  description={createPositionDescription(
                     this.props.contextmenuPosition,
                     this.props.datum
                   )}
                 />
-                {createCardContent(
+                {this.createScaleCardContents(
                   this.props.contextmenuPosition,
                   this.props.datum
                 )}
