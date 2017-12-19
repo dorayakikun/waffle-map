@@ -116,41 +116,6 @@ const calculateLeafletBoundsFrom = (
 }
 
 /**
- * Create a card description from LatLng and datum.
- *
- * @param {LatLng} latLng
- * @param {string} datum
- * @returns {string} card description
- */
-const createCardDescription = (latLng: LatLng, datum: string): string => {
-  const convertedLatLng =
-    datum === 'tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng
-  return `position: ${round(convertedLatLng.lat, 5)}, ${round(
-    convertedLatLng.lng,
-    5
-  )}`
-}
-
-/**
- * Create a card content from LatLng.
- * @param {LatLng} param0 LatLng
- * @returns card content
- */
-const createCardContent = (latLng: ?LatLng, datum: string): Card.Content => {
-  if (latLng === undefined || latLng === null) {
-    throw new Error('Unexpected exception occured. Missing latlang.')
-  }
-  const { lat, lng } =
-    datum === 'tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng
-  return SCALES.map((scale, idx) => (
-    <Card.Content
-      description={`scale${scale}: ${latLngToMesh(lat, lng, scale)}`}
-      key={idx}
-    />
-  ))
-}
-
-/**
  * Get a square mesh codes from a mesh code and a redius.
  * @param {string} meshCode
  * @param {number} redius
@@ -235,16 +200,38 @@ const createMeshRect = (
   meshCode: string,
   color: string = '#00847e'
 ): Rectangle => (
-  <Rectangle
-    bounds={[bounds.leftTop, bounds.rightBottom]}
-    key={index}
-    color={color}
-  >
-    <Tooltip>
-      <span>{meshCode}</span>
-    </Tooltip>
-  </Rectangle>
-)
+    <Rectangle
+      bounds={[bounds.leftTop, bounds.rightBottom]}
+      key={index}
+      color={color}
+    >
+      <Tooltip>
+        <span>{meshCode}</span>
+      </Tooltip>
+    </Rectangle>
+  )
+
+const createPositionDescription = (latLng: LatLng, datum: string): string => {
+  const convertedLatLng =
+    datum === 'tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng
+  return `position: ${round(convertedLatLng.lat, 5)}, ${round(
+    convertedLatLng.lng,
+    5
+  )}`
+}
+
+const createScaleDescription = (
+  scale: number,
+  latLng: ?LatLng,
+  datum: string
+): string => {
+  if (latLng === undefined || latLng === null) {
+    throw new Error('Unexpected exception occured. Missing latlang.')
+  }
+  const { lat, lng } =
+    datum === 'tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng
+  return `scale${scale}: ${latLngToMesh(lat, lng, scale)}`
+}
 
 class Map extends Component<Props, State> {
   state = {
@@ -272,6 +259,14 @@ class Map extends Component<Props, State> {
 
   createMarkers = (positions: Array<LatLng>) =>
     positions.map((position, idx) => <Marker key={idx} position={position} />)
+
+  createScaleCardContents = (latLng: ?LatLng, datum: string) =>
+    SCALES.map((scale, idx) => (
+      <Card.Content
+        description={createScaleDescription(scale, latLng, datum)}
+        key={idx}
+      />
+    ))
 
   render() {
     return (
@@ -311,12 +306,12 @@ class Map extends Component<Props, State> {
               <Card>
                 <Card.Content header="Scales" />
                 <Card.Content
-                  description={createCardDescription(
+                  description={createPositionDescription(
                     this.props.contextmenuPosition,
                     this.props.datum
                   )}
                 />
-                {createCardContent(
+                {this.createScaleCardContents(
                   this.props.contextmenuPosition,
                   this.props.datum
                 )}
