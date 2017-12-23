@@ -30,22 +30,16 @@ const propsDefault = {
   isShowMeshes: false,
   markerPositions: [],
   datum: 'wgs84',
-  onContextmenu: (event: Event & { latlng: LatLng }) => {},
-  onClose: () => {},
+  onContextmenu: (event: Event & { latlng: LatLng }) => { },
+  onClose: () => { },
 };
-const propsSomeMesh = Object.assign({}, { ...propsDefault, meshes: [someMesh] });
-const propsMeshes = Object.assign(
-  {},
-  { ...propsDefault, meshes: [someMesh, otherMesh] }
-);
-const propsSomeMeshAndContextPosition = Object.assign(
-  {},
-  { ...propsSomeMesh, contextmenuPosition: { lat: 35.6896, lng: 139.6921 } }
-);
-const propsShowDebugTile = Object.assign(
-  {},
-  { ...propsDefault, isShowDebugTiles: true }
-);
+const propsSomeMesh = { ...propsDefault, meshes: [someMesh] };
+const propsMeshes = { ...propsDefault, meshes: [someMesh, otherMesh] };
+const propsSomeMeshAndContextPosition = {
+  ...propsSomeMesh,
+  contextmenuPosition: { lat: 35.6896, lng: 139.6921 },
+};
+const propsShowDebugTile = { ...propsDefault, isShowDebugTiles: true };
 
 storiesOf('Map', module).add('no mesh', () => <Map {...propsDefault} />);
 storiesOf('Map', module).add('with mesh', () => <Map {...propsSomeMesh} />);

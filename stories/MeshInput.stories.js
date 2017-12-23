@@ -11,9 +11,9 @@ const defaultProps = {
   meshCodes: '',
   separator: '.',
   datum: 'wgs84',
-  onMeshesChanged: event => {},
-  onSeparatorChanged: (event, data) => {},
-  onDatumChanged: () => {},
+  onMeshesChanged: event => { },
+  onSeparatorChanged: (event, data) => { },
+  onDatumChanged: () => { },
 };
 
 storiesOf('MeshCodeInput', module).add('no mesh code', () => (
@@ -25,14 +25,11 @@ storiesOf('MeshCodeInput', module).add('with valid mesh code', () => (
   <MeshCodeInput {...someMeshCode} />
 ));
 
-const someInvalidMeshCode = Object.assign(
-  {},
-  {
-    ...defaultProps,
-    errorMessage: 'some error',
-    meshCodes: '5339-99',
-  }
-);
+const someInvalidMeshCode = {
+  ...defaultProps,
+  errorMessage: 'some error',
+  meshCodes: '5339-99',
+};
 storiesOf('MeshCodeInput', module).add('with invalid mesh code', () => (
   <MeshCodeInput {...someInvalidMeshCode} />
 ));
