@@ -1,19 +1,19 @@
 // @flow
 
-import React from 'react'
+import React from 'react';
 
-import { storiesOf } from '@storybook/react'
+import { storiesOf } from '@storybook/react';
 
-import MarkerInput from '../src/components/MarkerInput'
+import MarkerInput from '../src/components/MarkerInput';
 
 const propsNoLatLng = {
   latLng: '',
   unit: 'degree',
   errorMessage: '',
   putMarker: () => {},
-  removeAllMarkers: () => {}
-}
+  removeAllMarkers: () => {},
+};
 
 storiesOf('MarkerInput', module).add('no latlng', () => (
   <MarkerInput {...propsNoLatLng} />
-))
+));

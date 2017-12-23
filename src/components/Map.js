@@ -1,23 +1,23 @@
 // @flow
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import {
   Marker,
   Map as LeafletMap,
   Popup,
   Rectangle,
   TileLayer,
-  Tooltip
-} from 'react-leaflet'
-import { Card } from 'semantic-ui-react'
-import DebugTileLayer from './DebugTileLayer'
+  Tooltip,
+} from 'react-leaflet';
+import { Card } from 'semantic-ui-react';
+import DebugTileLayer from './DebugTileLayer';
 import {
   convertBoundsToWGS84Datum,
-  convertLatLngToTokyoDatum
-} from '../domain/convertLatLng'
-import meshCalculator from '../domain/calculateMesh'
-import { round } from '../domain/roundPoint'
+  convertLatLngToTokyoDatum,
+} from '../domain/convertLatLng';
+import meshCalculator from '../domain/calculateMesh';
+import { round } from '../domain/roundPoint';
 
-import type { LatLng, Bounds, Mesh } from '../domain/calculateMesh'
+import type { LatLng, Bounds, Mesh } from '../domain/calculateMesh';
 
 export type Props = {
   meshes: Array<Mesh>,
@@ -40,8 +40,8 @@ type Viewport = {
   zoom: ?number
 }
 
-const initialLeafletBounds: Array<Array<number>> = [[35, 139], [37, 140]]
-const { latLngToMesh, SCALES } = meshCalculator
+const initialLeafletBounds: Array<Array<number>> = [[35, 139], [37, 140]];
+const { latLngToMesh, SCALES } = meshCalculator;
 
 /**
  * Apply datum to bounds.
@@ -52,10 +52,10 @@ const { latLngToMesh, SCALES } = meshCalculator
  */
 const applyDatumToBounds = (bounds: Bounds, datum: string): Bounds => {
   if (datum == 'Tokyo') {
-    return convertBoundsToWGS84Datum(bounds)
+    return convertBoundsToWGS84Datum(bounds);
   }
-  return bounds
-}
+  return bounds;
+};
 
 /**
  * Make the set of meshes a set of latitude and longitude.
@@ -67,22 +67,22 @@ const meshesToLatsAndLngs = (
   meshes: Array<Mesh>,
   datum: string
 ): { lats: Array<number>, lngs: Array<number> } => {
-  const lats: Array<number> = []
-  const lngs: Array<number> = []
+  const lats: Array<number> = [];
+  const lngs: Array<number> = [];
   meshes
     .map(mesh => mesh.bounds)
     .map(bounds => applyDatumToBounds(bounds, datum))
     .map(bounds => [bounds.leftTop, bounds.rightBottom])
     .reduce((accumrator, current) => accumrator.concat(current), [])
     .forEach(latLng => {
-      lats.push(latLng.lat)
-      lngs.push(latLng.lng)
-    })
+      lats.push(latLng.lat);
+      lngs.push(latLng.lng);
+    });
   return {
     lats,
-    lngs
-  }
-}
+    lngs,
+  };
+};
 
 /**
  * Calculate a LeafletBounds from mesh, the maker position and datum.
@@ -98,22 +98,22 @@ const calculateLeafletBoundsFrom = (
   datum: string
 ): Array<Array<number>> => {
   if (meshes.length === 0 && markerPositions.length == 0) {
-    return initialLeafletBounds
+    return initialLeafletBounds;
   }
-  const latsAndLngs = meshesToLatsAndLngs(meshes, datum)
-  const lats: Array<number> = latsAndLngs.lats
-  const lngs: Array<number> = latsAndLngs.lngs
+  const latsAndLngs = meshesToLatsAndLngs(meshes, datum);
+  const lats: Array<number> = latsAndLngs.lats;
+  const lngs: Array<number> = latsAndLngs.lngs;
 
   markerPositions.forEach(position => {
-    lats.push(position.lat)
-    lngs.push(position.lng)
-  })
+    lats.push(position.lat);
+    lngs.push(position.lng);
+  });
 
   return [
     [Math.min(...lats), Math.max(...lngs)],
-    [Math.max(...lats), Math.min(...lngs)]
-  ]
-}
+    [Math.max(...lats), Math.min(...lngs)],
+  ];
+};
 
 /**
  * Get a square mesh codes from a mesh code and a redius.
@@ -125,15 +125,15 @@ const getSquareMeshCodes = (
   meshCode: string,
   redius: number
 ): Array<string> => {
-  const meshCodes: Array<string> = []
+  const meshCodes: Array<string> = [];
   for (let i = -redius; i <= redius; i++) {
     for (let j = -redius; j <= redius; j++) {
-      const code: string = meshCalculator.panMeshByOffset(meshCode, i, j)
-      meshCodes.push(code)
+      const code: string = meshCalculator.panMeshByOffset(meshCode, i, j);
+      meshCodes.push(code);
     }
   }
-  return meshCodes
-}
+  return meshCodes;
+};
 
 /**
  * Create a mesh from code.
@@ -143,8 +143,8 @@ const getSquareMeshCodes = (
 const createMesh = (code: string): Mesh => ({
   code,
   center: meshCalculator.meshToLatLng(code),
-  bounds: meshCalculator.meshToBounds(code)
-})
+  bounds: meshCalculator.meshToBounds(code),
+});
 
 /**
  * Get a square mesh from LatLng, zoom and redius.
@@ -158,15 +158,15 @@ const getSquareMeshes = (
   zoom: number,
   redius: number
 ): Array<Mesh> => {
-  const scale: number = meshCalculator.getScaleWith(zoom)
+  const scale: number = meshCalculator.getScaleWith(zoom);
   const centerMeshCode = meshCalculator.latLngToMesh(
     latlng.lat,
     latlng.lng,
     scale
-  )
-  const meshCodes: Array<string> = getSquareMeshCodes(centerMeshCode, redius)
-  return meshCodes.map(createMesh)
-}
+  );
+  const meshCodes: Array<string> = getSquareMeshCodes(centerMeshCode, redius);
+  return meshCodes.map(createMesh);
+};
 
 /**
  * Throttle listener events.
@@ -178,13 +178,13 @@ const throttleEvents = (
   listener: Viewport => void,
   delay: number
 ): (Viewport => void) => {
-  let timeout: number
+  let timeout: number;
   const throttledListener = (viewport: Viewport) => {
-    if (timeout) clearTimeout(timeout)
-    timeout = setTimeout(listener, delay, viewport)
-  }
-  return throttledListener
-}
+    if (timeout) {clearTimeout(timeout);}
+    timeout = setTimeout(listener, delay, viewport);
+  };
+  return throttledListener;
+};
 
 /**
  * Create a mesh rectangle.
@@ -200,25 +200,25 @@ const createMeshRect = (
   meshCode: string,
   color: string = '#00847e'
 ): Rectangle => (
-    <Rectangle
-      bounds={[bounds.leftTop, bounds.rightBottom]}
-      key={index}
-      color={color}
-    >
-      <Tooltip>
-        <span>{meshCode}</span>
-      </Tooltip>
-    </Rectangle>
-  )
+  <Rectangle
+    bounds={[bounds.leftTop, bounds.rightBottom]}
+    key={index}
+    color={color}
+  >
+    <Tooltip>
+      <span>{meshCode}</span>
+    </Tooltip>
+  </Rectangle>
+);
 
 const createPositionDescription = (latLng: LatLng, datum: string): string => {
   const convertedLatLng =
-    datum === 'tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng
+    datum === 'tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng;
   return `position: ${round(convertedLatLng.lat, 5)}, ${round(
     convertedLatLng.lng,
     5
-  )}`
-}
+  )}`;
+};
 
 const createScaleDescription = (
   scale: number,
@@ -226,35 +226,35 @@ const createScaleDescription = (
   datum: string
 ): string => {
   if (latLng === undefined || latLng === null) {
-    throw new Error('Unexpected exception occured. Missing latlang.')
+    throw new Error('Unexpected exception occured. Missing latlang.');
   }
   const { lat, lng } =
-    datum === 'tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng
-  return `scale${scale}: ${latLngToMesh(lat, lng, scale)}`
-}
+    datum === 'tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng;
+  return `scale${scale}: ${latLngToMesh(lat, lng, scale)}`;
+};
 
 class Map extends Component<Props, State> {
   state = {
     center: { lat: 36.01357, lng: 139.49891 },
-    zoom: 6
+    zoom: 6,
   }
 
   updateViewport = (viewport: Viewport) => {
-    const { center, zoom } = viewport
+    const { center, zoom } = viewport;
     if (!center) {
-      return
+      return;
     }
     if (zoom === undefined || zoom === null) {
-      return
+      return;
     }
-    this.setState({ center: { lat: center[0], lng: center[1] } })
-    this.setState({ zoom: zoom })
+    this.setState({ center: { lat: center[0], lng: center[1] } });
+    this.setState({ zoom: zoom });
   }
 
   createMeshRects = (meshes: Array<Mesh>) =>
     meshes.map((mesh, index) => {
-      const bounds: Bounds = applyDatumToBounds(mesh.bounds, this.props.datum)
-      return createMeshRect(bounds, index, mesh.code, '#9C27B0')
+      const bounds: Bounds = applyDatumToBounds(mesh.bounds, this.props.datum);
+      return createMeshRect(bounds, index, mesh.code, '#9C27B0');
     })
 
   createMarkers = (positions: Array<LatLng>) =>
@@ -320,8 +320,8 @@ class Map extends Component<Props, State> {
           )}
         </LeafletMap>
       </div>
-    )
+    );
   }
 }
 
-export default Map
+export default Map;

@@ -1,6 +1,6 @@
 // @flow
-import path from 'path'
-import pkg from '../../package.json'
+import path from 'path';
+import pkg from '../../package.json';
 
 export type LatLng = {
   lat: number,
@@ -32,9 +32,9 @@ const meshCalculator: () => MeshCalculator = () => {
     // $FlowFixMe
     return require('../../node_modules/waffle-map-mesh-calculator-' +
       pkg.wafflemap.meshcalculator +
-      '/lib/meshCalculator.js')
+      '/lib/meshCalculator.js');
   }
-  return require('waffle-map-mesh-calculator-basic')
-}
+  return require('waffle-map-mesh-calculator-basic');
+};
 
-export default meshCalculator()
+export default meshCalculator();

@@ -1,10 +1,10 @@
 // @flow
 
-import React from 'react'
-import { Table } from 'semantic-ui-react'
-import { round } from '../domain/roundPoint'
+import React from 'react';
+import { Table } from 'semantic-ui-react';
+import { round } from '../domain/roundPoint';
 
-import type { Bounds, LatLng } from '../domain/calculateMesh'
+import type { Bounds, LatLng } from '../domain/calculateMesh';
 
 export type Props = {
   code: string,
@@ -20,8 +20,8 @@ type TableRowValue = {
 const mapPropsToTableRowValues = (props: Props): Array<TableRowValue> => [
   { latLng: props.center, title: 'center' },
   { latLng: props.bounds.leftTop, title: 'leftTop' },
-  { latLng: props.bounds.rightBottom, title: 'rightBottom' }
-]
+  { latLng: props.bounds.rightBottom, title: 'rightBottom' },
+];
 
 const MeshDetail = (props: Props) => (
   <Table inverted>
@@ -44,6 +44,6 @@ const MeshDetail = (props: Props) => (
       )}
     </Table.Body>
   </Table>
-)
+);
 
-export default MeshDetail
+export default MeshDetail;

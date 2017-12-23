@@ -1,6 +1,6 @@
 // @flow
-import React from 'react'
-import { Checkbox, Label } from 'semantic-ui-react'
+import React from 'react';
+import { Checkbox, Label } from 'semantic-ui-react';
 
 export type Props = {
   title: string,
@@ -19,6 +19,6 @@ const GridToggle = (props: Props) => (
       />
     </div>
   </div>
-)
+);
 
-export default GridToggle
+export default GridToggle;
