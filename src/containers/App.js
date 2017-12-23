@@ -1,14 +1,14 @@
 // @flow
 
-import React, { Component } from 'react'
-import { Accordion, Grid, Image, Menu, Radio, Sidebar } from 'semantic-ui-react'
+import React, { Component } from 'react';
+import { Accordion, Grid, Image, Menu, Radio, Sidebar } from 'semantic-ui-react';
 
-import MarkerInputContainer from './MarkerInputContainer'
-import MeshInputContainer from './MeshInputContainer'
-import MeshDetailsContainer from './MeshDetailsContainer'
-import MapContainer from './MapContainer'
-import TileToggleContainer from './TileToggleContainer'
-import MeshToggleContainer from './MeshToggleContainer'
+import MarkerInputContainer from './MarkerInputContainer';
+import MeshInputContainer from './MeshInputContainer';
+import MeshDetailsContainer from './MeshDetailsContainer';
+import MapContainer from './MapContainer';
+import TileToggleContainer from './TileToggleContainer';
+import MeshToggleContainer from './MeshToggleContainer';
 
 type Props = {
   activeIndex: number
@@ -37,23 +37,23 @@ const ACCORDION_MENU_ITEM_VALUES: Array<AccordionMenuItemValue> = [
         <MeshInputContainer />
         <MeshDetailsContainer />
       </div>
-    )
-  }
-]
+    ),
+  },
+];
 
 export default class AppContainer extends Component<Props, State> {
   state = { activeIndex: 3 }
 
   handleClick = (e: Event, titleProps: { index: number }) => {
-    const { index } = titleProps
-    const { activeIndex } = this.state
-    const newIndex = activeIndex === index ? -1 : index
+    const { index } = titleProps;
+    const { activeIndex } = this.state;
+    const newIndex = activeIndex === index ? -1 : index;
 
-    this.setState({ activeIndex: newIndex })
+    this.setState({ activeIndex: newIndex });
   }
 
   render() {
-    const { activeIndex } = this.state
+    const { activeIndex } = this.state;
     return (
       <div style={{ height: '100%' }}>
         <Sidebar.Pushable>
@@ -93,6 +93,6 @@ export default class AppContainer extends Component<Props, State> {
           </Sidebar.Pusher>
         </Sidebar.Pushable>
       </div>
-    )
+    );
   }
 }

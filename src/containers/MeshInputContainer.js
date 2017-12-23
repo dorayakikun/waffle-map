@@ -1,45 +1,45 @@
 // @flow
 
-import React from 'react'
-import { connect } from 'react-redux'
-import MeshInput from '../components/MeshCodeInput'
+import React from 'react';
+import { connect } from 'react-redux';
+import MeshInput from '../components/MeshCodeInput';
 import {
   inputMeshes,
   selectDatum,
-  selectSeparator
-} from '../actions/AppActions'
+  selectSeparator,
+} from '../actions/AppActions';
 
-import type { Connector } from 'react-redux'
-import type { Dispatch } from 'redux'
-import type { Action } from '../actions/AppActions'
-import type { State as RootState } from '../reducers'
-import type { Props as MeshCodeInputProps } from '../components/MeshCodeInput'
+import type { Connector } from 'react-redux';
+import type { Dispatch } from 'redux';
+import type { Action } from '../actions/AppActions';
+import type { State as RootState } from '../reducers';
+import type { Props as MeshCodeInputProps } from '../components/MeshCodeInput';
 
-const mapStateToProps = (state: RootState) => state.meshInput
+const mapStateToProps = (state: RootState) => state.meshInput;
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
   return {
     onMeshesChanged: (event: Element & { target: HTMLInputElement }) => {
-      dispatch(inputMeshes(event.target.value))
+      dispatch(inputMeshes(event.target.value));
     },
     onDatumChanged: (
       event: Event,
       data: any & { text: string, value: string }
     ) => {
-      dispatch(selectDatum(data.value))
+      dispatch(selectDatum(data.value));
     },
     onSeparatorChanged: (
       event: Event,
       data: any & { text: string, value: string }
     ) => {
-      dispatch(selectSeparator(data.value))
-    }
-  }
-}
+      dispatch(selectSeparator(data.value));
+    },
+  };
+};
 
 const connector: Connector<{}, MeshCodeInputProps> = connect(
   mapStateToProps,
   mapDispatchToProps
-)
+);
 
-export default connector(MeshInput)
+export default connector(MeshInput);

@@ -1,12 +1,12 @@
 // @flow
-import { GridLayer } from 'react-leaflet'
+import { GridLayer } from 'react-leaflet';
 
 export default class DebugTileLayer extends GridLayer {
   createLeafletElement(props: Object): Object {
-    let grid = super.createLeafletElement(props)
+    let grid = super.createLeafletElement(props);
     grid.createTile = (coords: any) => {
-      const tile = document.createElement('div')
-      tile.style.outline = '1px solid red'
+      const tile = document.createElement('div');
+      tile.style.outline = '1px solid red';
       tile.innerHTML = `<span style="font-family: Lato, 
                                      'Helvetica Neue', 
                                      Helvetica, 
@@ -15,9 +15,9 @@ export default class DebugTileLayer extends GridLayer {
                                      font-size: 24px; 
                                      font-weight: 700;">
         ${[coords.x, coords.y, coords.z].join(', ')}
-        </span>`
-      return tile
-    }
-    return grid
+        </span>`;
+      return tile;
+    };
+    return grid;
   }
 }

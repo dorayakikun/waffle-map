@@ -1,6 +1,6 @@
 // @flow
-import React, { Component } from 'react'
-import { Button, Dropdown, Input, Label, Message } from 'semantic-ui-react'
+import React, { Component } from 'react';
+import { Button, Dropdown, Input, Message } from 'semantic-ui-react';
 
 export type Props = {
   latLng: string,
@@ -20,11 +20,11 @@ class MarkerInput extends Component<Props, State> {
   state = {
     latLng: this.props.latLng || '',
     unit: this.props.unit || 'degree',
-    errorMessage: this.props.errorMessage || ''
+    errorMessage: this.props.errorMessage || '',
   }
 
   onChangedLatLng = (e: Event, data: { value: string }) => {
-    this.setState({ latLng: data.value })
+    this.setState({ latLng: data.value });
   }
 
   onChangedUnit = (e: Event, data: { value: string }) =>
@@ -36,14 +36,13 @@ class MarkerInput extends Component<Props, State> {
   handleClickRemoveAllMarkers = (event: Event) => this.props.removeAllMarkers()
 
   render() {
-    const { latLng, unit } = this.state
-    const { putMarker, removeAllMarkers } = this.props
+    const { latLng, unit } = this.state;
 
     return (
       <div
         onKeyPress={(event: Event) => {
           if (event.key === 'Enter') {
-            this.handleClickPutAMarker(event)
+            this.handleClickPutAMarker(event);
           }
         }}
       >
@@ -55,7 +54,7 @@ class MarkerInput extends Component<Props, State> {
           style={{
             marginTop: '10px',
             marginRight: '3px',
-            marginBottom: '10px'
+            marginBottom: '10px',
           }}
           value={latLng}
         />
@@ -79,20 +78,20 @@ class MarkerInput extends Component<Props, State> {
           options={[
             {
               text: 'millisec',
-              value: 'millisec'
+              value: 'millisec',
             },
             {
               text: 'degree',
-              value: 'degree'
-            }
+              value: 'degree',
+            },
           ]}
           style={{ marginTop: '10px', marginBottom: '10px' }}
           text={unit}
           value={unit}
         />
       </div>
-    )
+    );
   }
 }
 
-export default MarkerInput
+export default MarkerInput;

@@ -1,14 +1,14 @@
 // @flow
-import type { LatLng } from '../domain/calculateMesh'
+import type { LatLng } from '../domain/calculateMesh';
 
-export const PUT_MARKER = 'PUT_MARKER'
-export const REMOVE_ALL_MARKERS = 'REMOVE_ALL_MARKERS'
-export const INPUT_MESHES = 'INPUT_MESHES'
-export const SELECT_DATUM = 'SELECT_DATUM'
-export const SELECT_SEPARATOR = 'SELECT_SEPARATOR'
-export const TOGGLE_DEBUG_TILES = 'TOGGLE_DEBUG_TILES'
-export const TOGGLE_MESHES = 'TOGGLE_MESHES'
-export const UPDATE_CONTEXTMENU_POSITION = 'UPDATE_CONTEXTMENU_POSITION'
+export const PUT_MARKER = 'PUT_MARKER';
+export const REMOVE_ALL_MARKERS = 'REMOVE_ALL_MARKERS';
+export const INPUT_MESHES = 'INPUT_MESHES';
+export const SELECT_DATUM = 'SELECT_DATUM';
+export const SELECT_SEPARATOR = 'SELECT_SEPARATOR';
+export const TOGGLE_DEBUG_TILES = 'TOGGLE_DEBUG_TILES';
+export const TOGGLE_MESHES = 'TOGGLE_MESHES';
+export const UPDATE_CONTEXTMENU_POSITION = 'UPDATE_CONTEXTMENU_POSITION';
 
 export type Action =
   | {
@@ -60,49 +60,49 @@ export type Action =
 
 export const putMarker = (latLng: string, unit: string) => ({
   type: PUT_MARKER,
-  payload: { latLng, unit: unit }
-})
+  payload: { latLng, unit: unit },
+});
 
 export const removeAllMarkers = () => ({
-  type: REMOVE_ALL_MARKERS
-})
+  type: REMOVE_ALL_MARKERS,
+});
 
 export const inputMeshes = (meshCodes: string): Action => ({
   type: INPUT_MESHES,
-  payload: { meshCodes }
-})
+  payload: { meshCodes },
+});
 
 export const selectDatum = (datum: string): Action => ({
   type: SELECT_DATUM,
   payload: {
-    datum
-  }
-})
+    datum,
+  },
+});
 
 export const selectSeparator = (separator: string): Action => ({
   type: SELECT_SEPARATOR,
   payload: {
-    separator
-  }
-})
+    separator,
+  },
+});
 
 export const toggleDebugTiles = (isShowDebugTiles: boolean): Action => ({
   type: TOGGLE_DEBUG_TILES,
   payload: {
-    isShowDebugTiles
-  }
-})
+    isShowDebugTiles,
+  },
+});
 
 export const toggleMeshes = (isShowMeshes: boolean): Action => ({
   type: TOGGLE_MESHES,
   payload: {
-    isShowMeshes
-  }
-})
+    isShowMeshes,
+  },
+});
 
 export const updateContextmenuPosition = (latLng: ?LatLng): Action => ({
   type: UPDATE_CONTEXTMENU_POSITION,
   payload: {
-    latLng
-  }
-})
+    latLng,
+  },
+});
