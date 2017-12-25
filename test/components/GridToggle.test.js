@@ -2,7 +2,6 @@
 
 import test from 'ava';
 import React from 'react';
-import sinon from 'sinon';
 import render from 'react-test-renderer';
 import GridToggle from '../../src/components/GridToggle';
 
@@ -21,7 +20,7 @@ test('Should set props to MeshToggle', t => {
 
 test('Should call onToggleChanged when changed checked', t => {
   const isShowGrid = false;
-  const onToggleChanged = sinon.spy();
+  const onToggleChanged = () => { };
   const props: Props = {
     title: 'Show grid',
     isShowGrid,
