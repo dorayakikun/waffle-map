@@ -180,7 +180,7 @@ const throttleEvents = (
 ): (Viewport => void) => {
   let timeout: number;
   const throttledListener = (viewport: Viewport) => {
-    if (timeout) {clearTimeout(timeout);}
+    if (timeout) { clearTimeout(timeout); }
     timeout = setTimeout(listener, delay, viewport);
   };
   return throttledListener;
@@ -198,7 +198,7 @@ const createMeshRect = (
   bounds: Bounds,
   index: number,
   meshCode: string,
-  color: string = '#00847e'
+  color: string
 ): Rectangle => (
   <Rectangle
     bounds={[bounds.leftTop, bounds.rightBottom]}
@@ -251,10 +251,10 @@ class Map extends Component<Props, State> {
     this.setState({ zoom: zoom });
   }
 
-  createMeshRects = (meshes: Array<Mesh>) =>
+  createMeshRects = (meshes: Array<Mesh>, color: string = '#00847e') =>
     meshes.map((mesh, index) => {
       const bounds: Bounds = applyDatumToBounds(mesh.bounds, this.props.datum);
-      return createMeshRect(bounds, index, mesh.code, '#9C27B0');
+      return createMeshRect(bounds, index, mesh.code, color);
     })
 
   createMarkers = (positions: Array<LatLng>) =>
@@ -291,7 +291,7 @@ class Map extends Component<Props, State> {
 
           {this.props.isShowMeshes &&
             this.createMeshRects(
-              getSquareMeshes(this.state.center, this.state.zoom, 10)
+              getSquareMeshes(this.state.center, this.state.zoom, 10), '#9C27B0'
             )}
 
           {this.createMeshRects(this.props.meshes)}
