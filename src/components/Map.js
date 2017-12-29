@@ -13,6 +13,7 @@ import DebugTileLayer from './DebugTileLayer';
 import {
   convertBoundsToWGS84Datum,
   convertLatLngToTokyoDatum,
+  convertLatLngToWGS84Datum,
 } from '../domain/convertLatLng';
 import meshCalculator from '../domain/calculateMesh';
 import { round } from '../domain/roundPoint';
@@ -213,7 +214,7 @@ const createMeshRect = (
 
 const createPositionDescription = (latLng: LatLng, datum: string): string => {
   const convertedLatLng =
-    datum === 'tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng;
+    datum === 'Tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng;
   return `position: ${round(convertedLatLng.lat, 5)}, ${round(
     convertedLatLng.lng,
     5
@@ -229,7 +230,7 @@ const createScaleDescription = (
     throw new Error('Unexpected exception occured. Missing latlang.');
   }
   const { lat, lng } =
-    datum === 'tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng;
+    datum === 'Tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng;
   return `scale${scale}: ${latLngToMesh(lat, lng, scale)}`;
 };
 
@@ -257,8 +258,10 @@ class Map extends Component<Props, State> {
       return createMeshRect(bounds, index, mesh.code, color);
     })
 
-  createMarkers = (positions: Array<LatLng>) =>
-    positions.map((position, idx) => <Marker key={idx} position={position} />)
+  createMarkers = (positions: Array<LatLng>, datum: string) =>
+    positions
+      .map(position => datum === 'Tokyo' ? convertLatLngToWGS84Datum(position) : position)
+      .map((position, idx) => <Marker key={idx} position={position} />)
 
   createScaleCardContents = (latLng: ?LatLng, datum: string) =>
     SCALES.map((scale, idx) => (
@@ -296,7 +299,7 @@ class Map extends Component<Props, State> {
 
           {this.createMeshRects(this.props.meshes)}
 
-          {this.createMarkers(this.props.markerPositions)}
+          {this.createMarkers(this.props.markerPositions, this.props.datum)}
 
           {this.props.contextmenuPosition != null && (
             <Popup
