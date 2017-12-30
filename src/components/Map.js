@@ -51,12 +51,20 @@ const { latLngToMesh, SCALES } = meshCalculator;
  * @param {string} datum datum(tokyo/wgs84)
  * @returns {Bounds} bounds
  */
-const applyDatumToBounds = (bounds: Bounds, datum: string): Bounds => {
-  if (datum == 'Tokyo') {
-    return convertBoundsToWGS84Datum(bounds);
-  }
-  return bounds;
-};
+const convertBoundsToWGS84IfNeeded =
+  (bounds: Bounds, datum: string): Bounds => (
+    datum === 'Tokyo' ? convertBoundsToWGS84Datum(bounds) : bounds
+  );
+
+const convertLatLngToTokyoIfNeeded =
+  (latLng: LatLng, datum: string): LatLng => (
+    datum === 'Tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng
+  );
+
+const convertLatLngToWGS84IfNeeded =
+  (latLng: LatLng, datum: string): LatLng => (
+    datum === 'Tokyo' ? convertLatLngToWGS84Datum(latLng) : latLng
+  );
 
 /**
  * Make the set of meshes a set of latitude and longitude.
@@ -72,7 +80,7 @@ const meshesToLatsAndLngs = (
   const lngs: Array<number> = [];
   meshes
     .map(mesh => mesh.bounds)
-    .map(bounds => applyDatumToBounds(bounds, datum))
+    .map(bounds => convertBoundsToWGS84IfNeeded(bounds, datum))
     .map(bounds => [bounds.leftTop, bounds.rightBottom])
     .reduce((accumrator, current) => accumrator.concat(current), [])
     .forEach(latLng => {
@@ -105,10 +113,12 @@ const calculateLeafletBoundsFrom = (
   const lats: Array<number> = latsAndLngs.lats;
   const lngs: Array<number> = latsAndLngs.lngs;
 
-  markerPositions.forEach(position => {
-    lats.push(position.lat);
-    lngs.push(position.lng);
-  });
+  markerPositions
+    .map(position => convertLatLngToWGS84IfNeeded(position, datum))
+    .forEach(position => {
+      lats.push(position.lat);
+      lngs.push(position.lng);
+    });
 
   return [
     [Math.min(...lats), Math.max(...lngs)],
@@ -213,12 +223,8 @@ const createMeshRect = (
 );
 
 const createPositionDescription = (latLng: LatLng, datum: string): string => {
-  const convertedLatLng =
-    datum === 'Tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng;
-  return `position: ${round(convertedLatLng.lat, 5)}, ${round(
-    convertedLatLng.lng,
-    5
-  )}`;
+  const newLatLng = convertLatLngToTokyoIfNeeded(latLng, datum);
+  return `position: ${round(newLatLng.lat, 5)}, ${round(newLatLng.lng, 5)}`;
 };
 
 const createScaleDescription = (
@@ -229,8 +235,7 @@ const createScaleDescription = (
   if (latLng === undefined || latLng === null) {
     throw new Error('Unexpected exception occured. Missing latlang.');
   }
-  const { lat, lng } =
-    datum === 'Tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng;
+  const { lat, lng } = convertLatLngToTokyoIfNeeded(latLng, datum);
   return `scale${scale}: ${latLngToMesh(lat, lng, scale)}`;
 };
 
@@ -254,13 +259,14 @@ class Map extends Component<Props, State> {
 
   createMeshRects = (meshes: Array<Mesh>, color: string = '#00847e') =>
     meshes.map((mesh, index) => {
-      const bounds: Bounds = applyDatumToBounds(mesh.bounds, this.props.datum);
+      const bounds =
+        convertBoundsToWGS84IfNeeded(mesh.bounds, this.props.datum);
       return createMeshRect(bounds, index, mesh.code, color);
     })
 
   createMarkers = (positions: Array<LatLng>, datum: string) =>
     positions
-      .map(position => datum === 'Tokyo' ? convertLatLngToWGS84Datum(position) : position)
+      .map(position => convertLatLngToWGS84IfNeeded(position, datum))
       .map((position, idx) => <Marker key={idx} position={position} />)
 
   createScaleCardContents = (latLng: ?LatLng, datum: string) =>
