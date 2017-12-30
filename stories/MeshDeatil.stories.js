@@ -15,4 +15,5 @@ const props = {
   },
 };
 
-storiesOf('Mesh Detail', module).add('default', () => <MeshDetail {...props} />);
+storiesOf('Mesh Detail', module)
+  .add('default', () => <MeshDetail {...props} />);

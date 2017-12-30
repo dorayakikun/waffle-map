@@ -14,17 +14,12 @@ const mapStateToProps = (state: RootState) => ({
   isShowGrid: state.meshToggle.isShowMeshes,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
-  return {
-    onToggleChanged: (_, data: { checked: boolean }) => {
-      dispatch(toggleMeshes(data.checked));
-    },
-  };
-};
+const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+  onToggleChanged: (_, data: { checked: boolean }) =>
+    (dispatch(toggleMeshes(data.checked))),
+});
 
-const connector: Connector<{}, MeshToggleProps> = connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+const connector: Connector<{}, MeshToggleProps> =
+  connect(mapStateToProps, mapDispatchToProps);
 
 export default connector(MeshToggle);

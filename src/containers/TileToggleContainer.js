@@ -14,17 +14,12 @@ const mapStateToProps = (state: RootState) => ({
   isShowGrid: state.tileToggle.isShowDebugTiles,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
-  return {
-    onToggleChanged: (_, data: { checked: boolean }) => {
-      dispatch(toggleDebugTiles(data.checked));
-    },
-  };
-};
+const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+  onToggleChanged: (_, data: { checked: boolean }) =>
+    (dispatch(toggleDebugTiles(data.checked))),
+});
 
-const connector: Connector<{}, TileToggleProps> = connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+const connector: Connector<{}, TileToggleProps> =
+  connect(mapStateToProps, mapDispatchToProps);
 
 export default connector(TileToggle);

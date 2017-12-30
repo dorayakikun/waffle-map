@@ -101,30 +101,31 @@ const meshesToLatsAndLngs = (
  * @param {string} datum
  * @returns {Array<Array<number>>} LeafletBounds
  */
-const calculateLeafletBoundsFrom = (
-  meshes: Array<Mesh>,
-  markerPositions: Array<LatLng>,
-  datum: string
-): Array<Array<number>> => {
-  if (meshes.length === 0 && markerPositions.length == 0) {
-    return initialLeafletBounds;
-  }
-  const latsAndLngs = meshesToLatsAndLngs(meshes, datum);
-  const lats: Array<number> = latsAndLngs.lats;
-  const lngs: Array<number> = latsAndLngs.lngs;
+const calculateLeafletBoundsFrom =
+  (
+    meshes: Array<Mesh>,
+    markerPositions: Array<LatLng>,
+    datum: string
+  ): Array<Array<number>> => {
+    if (meshes.length === 0 && markerPositions.length == 0) {
+      return initialLeafletBounds;
+    }
+    const latsAndLngs = meshesToLatsAndLngs(meshes, datum);
+    const lats: Array<number> = latsAndLngs.lats;
+    const lngs: Array<number> = latsAndLngs.lngs;
 
-  markerPositions
-    .map(position => convertLatLngToWGS84IfNeeded(position, datum))
-    .forEach(position => {
-      lats.push(position.lat);
-      lngs.push(position.lng);
-    });
+    markerPositions
+      .map(position => convertLatLngToWGS84IfNeeded(position, datum))
+      .forEach(position => {
+        lats.push(position.lat);
+        lngs.push(position.lng);
+      });
 
-  return [
-    [Math.min(...lats), Math.max(...lngs)],
-    [Math.max(...lats), Math.min(...lngs)],
-  ];
-};
+    return [
+      [Math.min(...lats), Math.max(...lngs)],
+      [Math.max(...lats), Math.min(...lngs)],
+    ];
+  };
 
 /**
  * Get a square mesh codes from a mesh code and a redius.
@@ -132,19 +133,17 @@ const calculateLeafletBoundsFrom = (
  * @param {number} redius
  * @returns {Array<string>} square meshe codes
  */
-const getSquareMeshCodes = (
-  meshCode: string,
-  redius: number
-): Array<string> => {
-  const meshCodes: Array<string> = [];
-  for (let i = -redius; i <= redius; i++) {
-    for (let j = -redius; j <= redius; j++) {
-      const code: string = meshCalculator.panMeshByOffset(meshCode, i, j);
-      meshCodes.push(code);
+const getSquareMeshCodes =
+  (meshCode: string, redius: number): Array<string> => {
+    const meshCodes: Array<string> = [];
+    for (let i = -redius; i <= redius; i++) {
+      for (let j = -redius; j <= redius; j++) {
+        const code: string = meshCalculator.panMeshByOffset(meshCode, i, j);
+        meshCodes.push(code);
+      }
     }
-  }
-  return meshCodes;
-};
+    return meshCodes;
+  };
 
 /**
  * Create a mesh from code.
@@ -164,20 +163,17 @@ const createMesh = (code: string): Mesh => ({
  * @param {number} redius
  * @returns {Array<Mesh>} square meshes
  */
-const getSquareMeshes = (
-  latlng: LatLng,
-  zoom: number,
-  redius: number
-): Array<Mesh> => {
-  const scale: number = meshCalculator.getScaleWith(zoom);
-  const centerMeshCode = meshCalculator.latLngToMesh(
-    latlng.lat,
-    latlng.lng,
-    scale
-  );
-  const meshCodes: Array<string> = getSquareMeshCodes(centerMeshCode, redius);
-  return meshCodes.map(createMesh);
-};
+const getSquareMeshes =
+  (latlng: LatLng, zoom: number, redius: number): Array<Mesh> => {
+    const scale: number = meshCalculator.getScaleWith(zoom);
+    const centerMeshCode = meshCalculator.latLngToMesh(
+      latlng.lat,
+      latlng.lng,
+      scale
+    );
+    const meshCodes: Array<string> = getSquareMeshCodes(centerMeshCode, redius);
+    return meshCodes.map(createMesh);
+  };
 
 /**
  * Throttle listener events.
@@ -185,17 +181,15 @@ const getSquareMeshes = (
  * @param {number} delay
  * @returns {Viewport => void} throttleEventListener
  */
-const throttleEvents = (
-  listener: Viewport => void,
-  delay: number
-): (Viewport => void) => {
-  let timeout: number;
-  const throttledListener = (viewport: Viewport) => {
-    if (timeout) { clearTimeout(timeout); }
-    timeout = setTimeout(listener, delay, viewport);
+const throttleEvents =
+  (listener: Viewport => void, delay: number): (Viewport => void) => {
+    let timeout: number;
+    const throttledListener = (viewport: Viewport) => {
+      if (timeout) { clearTimeout(timeout); }
+      timeout = setTimeout(listener, delay, viewport);
+    };
+    return throttledListener;
   };
-  return throttledListener;
-};
 
 /**
  * Create a mesh rectangle.
@@ -209,8 +203,7 @@ const createMeshRect = (
   bounds: Bounds,
   index: number,
   meshCode: string,
-  color: string
-): Rectangle => (
+  color: string): Rectangle => (
   <Rectangle
     bounds={[bounds.leftTop, bounds.rightBottom]}
     key={index}
