@@ -1,5 +1,4 @@
 // @flow
-import path from 'path';
 import pkg from '../../package.json';
 
 export type LatLng = {

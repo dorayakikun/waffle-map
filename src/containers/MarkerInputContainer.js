@@ -1,6 +1,5 @@
 // @flow
 
-import React from 'react';
 import { connect } from 'react-redux';
 import { putMarker, removeAllMarkers } from '../actions/AppActions';
 import MarkerInput from '../components/MarkerInput';
