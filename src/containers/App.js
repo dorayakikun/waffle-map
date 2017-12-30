@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { Accordion, Grid, Image, Menu, Radio, Sidebar } from 'semantic-ui-react';
+import { Accordion, Image, Menu, Sidebar } from 'semantic-ui-react';
 
 import MarkerInputContainer from './MarkerInputContainer';
 import MeshInputContainer from './MeshInputContainer';

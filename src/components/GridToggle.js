@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { Checkbox, Label } from 'semantic-ui-react';
+import { Checkbox } from 'semantic-ui-react';
 
 export type Props = {
   title: string,

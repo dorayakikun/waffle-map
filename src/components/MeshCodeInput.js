@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { Dropdown, Input, Label, Message } from 'semantic-ui-react';
+import { Dropdown, Input, Message } from 'semantic-ui-react';
 
 export type Props = {
   errorMessage: string,
@@ -15,7 +15,7 @@ export type Props = {
   ) => void
 }
 
-type OptionItem = {
+export type OptionItem = {
   text: string,
   value: string
 }

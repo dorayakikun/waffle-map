@@ -1,5 +1,4 @@
 // @flow
-import React from 'react';
 import { connect } from 'react-redux';
 import MeshToggle from '../components/GridToggle';
 import { toggleMeshes } from '../actions/AppActions';
