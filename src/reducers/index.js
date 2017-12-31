@@ -1,6 +1,6 @@
 // @flow
 import meshCalculator from '../domain/calculateMesh';
-import { convertToMillisecLatLng } from '../domain/convertLatLng';
+import { createLatLng } from '../domain/convertLatLng';
 import * as AppActions from '../actions/AppActions';
 
 import type { Action } from '../actions/AppActions';
@@ -68,26 +68,26 @@ const initialState: State = {
 
 const concatMarkerPositions = (
   state: State,
-  point: { latLng: string, unit: string }
+  latLng: string
 ): State => {
-  const { latLng, unit } = point;
+  const { unit } = state.markerInput;
   const markerPositions = state.map.markerPositions;
   try {
     return {
       ...state,
-      markerInput: { latLng, unit, errorMessage: '' },
+      markerInput: { ...state.markerInput, latLng, errorMessage: '' },
       map: {
         ...state.map,
         markerPositions: [
           ...markerPositions,
-          convertToMillisecLatLng(latLng, unit),
+          createLatLng(latLng, unit),
         ],
       },
     };
   } catch (e) {
     return {
       ...state,
-      markerInput: { latLng, unit, errorMessage: e.message },
+      markerInput: { ...state.markerInput, latLng, errorMessage: e.message },
     };
   }
 };
@@ -95,6 +95,11 @@ const concatMarkerPositions = (
 const removeAllMarkers = (state: State): State => ({
   ...state,
   map: { ...state.map, markerPositions: [] },
+});
+
+const changeUnit = (state: State, unit: string) => ({
+  ...state,
+  markerInput: { ...state.markerInput, unit },
 });
 
 const mapToMeshes = (meshCodes: string, separator: string): Array<Mesh> =>
@@ -172,9 +177,11 @@ const updateContextmenuPosition = (state: State, latLng: ?LatLng): State => ({
 export default (state: State = initialState, action: Action): State => {
   switch (action.type) {
     case AppActions.PUT_MARKER:
-      return concatMarkerPositions(state, action.payload);
+      return concatMarkerPositions(state, action.payload.latLng);
     case AppActions.REMOVE_ALL_MARKERS:
       return removeAllMarkers(state);
+    case AppActions.CHANGE_UNIT:
+      return changeUnit(state, action.payload.unit);
     case AppActions.INPUT_MESHES:
       const { meshCodes } = action.payload;
       return stateFrom(meshCodes, state);

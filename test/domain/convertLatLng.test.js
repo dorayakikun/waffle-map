@@ -2,11 +2,11 @@
 
 import test from 'ava';
 import {
-  convertToMillisecLatLng,
-  convertLatLngToTokyoDatum,
-  convertBoundsToTokyoDatum,
-  convertLatLngToWGS84Datum,
-  convertBoundsToWGS84Datum,
+  createLatLng,
+  convertLatLngToTokyo,
+  convertBoundsToTokyo,
+  convertLatLngToWGS84,
+  convertBoundsToWGS84,
 } from '../../src/domain/convertLatLng';
 
 // ---
@@ -20,7 +20,7 @@ test(`Should throw an error when invalidValue`, t => {
   ];
 
   testcases.forEach(testcase => {
-    const error = t.throws(() => convertToMillisecLatLng(testcase.latLng, 'degree'));
+    const error = t.throws(() => createLatLng(testcase.latLng, 'degree'));
     t.is(error.message, `Unexpected ${testcase.errorValue} found.
 ${testcase.expectedValueMessage}
 Actual: ${testcase.latLng}`);
@@ -34,19 +34,19 @@ Actual: ${testcase.latLng}`);
 const latLngStringDegree = '35,139';
 const latLngStringMellisec = '126000000,500400000';
 test(`Should return degree LatLng`, t => {
-  t.deepEqual(convertToMillisecLatLng(latLngStringDegree, 'degree'), { lat: 35, lng: 139 });
+  t.deepEqual(createLatLng(latLngStringDegree, 'degree'), { lat: 35, lng: 139 });
 });
 
 test(`Should convert to degree LatLng`, t => {
-  t.deepEqual(convertToMillisecLatLng(latLngStringMellisec, 'millisec'), { lat: 35, lng: 139 });
+  t.deepEqual(createLatLng(latLngStringMellisec, 'millisec'), { lat: 35, lng: 139 });
 });
 
 const latLngDgree = { lat: 35, lng: 139 };
 test(`Should convert to WGS84 LatLng`, t => {
-  t.deepEqual(convertLatLngToWGS84Datum(latLngDgree), { lat: 35.003285946000005, lng: 138.996885693 });
+  t.deepEqual(convertLatLngToWGS84(latLngDgree), { lat: 35.003285946000005, lng: 138.996885693 });
 });
 test(`Should convert to Tokyo LatLng`, t => {
-  t.deepEqual(convertLatLngToTokyoDatum(latLngDgree), { lat: 34.996713705, lng: 139.00311441 });
+  t.deepEqual(convertLatLngToTokyo(latLngDgree), { lat: 34.996713705, lng: 139.00311441 });
 });
 
 const boundsDegree = {
@@ -55,7 +55,7 @@ const boundsDegree = {
 };
 test(`Should convert to WGS84 Bounds`, t => {
   t.deepEqual(
-    convertBoundsToWGS84Datum(boundsDegree), {
+    convertBoundsToWGS84(boundsDegree), {
       leftTop: { lat: 36.003178996, lng: 138.996839655 },
       rightBottom: { lat: 35.00330341, lng: 139.99680265 },
     });
@@ -63,7 +63,7 @@ test(`Should convert to WGS84 Bounds`, t => {
 
 test(`Should convert to Tokyo Bounds`, t => {
   t.deepEqual(
-    convertBoundsToTokyoDatum(boundsDegree), {
+    convertBoundsToTokyo(boundsDegree), {
       leftTop: { lat: 35.996820666, lng: 139.003160457 },
       rightBottom: { lat: 34.996696238, lng: 140.00319745899998 },
     });

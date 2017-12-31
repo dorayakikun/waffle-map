@@ -30,6 +30,7 @@ const propsDefault = {
   isShowMeshes: false,
   markerPositions: [],
   datum: 'wgs84',
+  unit: 'degree',
   onContextmenu: (event: Event & { latlng: LatLng }) => { },
   onClose: () => { },
 };

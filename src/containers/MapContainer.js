@@ -17,6 +17,7 @@ const mapStateToProps = (state: RootState) => ({
   ...state.meshToggle,
   meshes: state.meshes,
   datum: state.meshInput.datum,
+  unit: state.markerInput.unit,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => {

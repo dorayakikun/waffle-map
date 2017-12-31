@@ -14,19 +14,37 @@ const createNumberErrorMessage =
 Only numbers are acceptable.
 Actual: ${value}`);
 
+/**
+ * Creates a degree LatLng from string.
+ * @param {string} latString 
+ * @param {string} lngString 
+ * @returns {LatLng} a degree LatLng
+ */
 const createDegreeLatLng =
   (latString: string, lngString: string): LatLng => ({
     lat: parseFloat(latString),
     lng: parseFloat(lngString),
   });
 
+/**
+ * Creates a millisec LatLng from string.
+ * @param {string} latString 
+ * @param {string} lngString 
+ * @returns {LatLng} a millisec LatLng
+ */
 const createMillisecLatLng =
   (latString: string, lngString: string): LatLng => ({
     lat: parseInt(latString, 10) / 3600000,
     lng: parseInt(lngString, 10) / 3600000,
   });
 
-export const convertToMillisecLatLng =
+/**
+ * Creates a LatLng according to the unit.
+ * @param {string} latLng 
+ * @param {string} unit 
+ * @returns {LatLng} a LatLng according to the unit.
+ */
+export const createLatLng =
   (latLng: string, unit: string): LatLng => {
     const latLngArray = latLng.split(',');
 
@@ -48,7 +66,7 @@ export const convertToMillisecLatLng =
       createMillisecLatLng(latString, lngString);
   };
 
-export const convertLatLngToTokyoDatum = (latLng: LatLng): LatLng => {
+export const convertLatLngToTokyo = (latLng: LatLng): LatLng => {
   const wx = latLng.lng;
   const wy = latLng.lat;
   return {
@@ -57,12 +75,12 @@ export const convertLatLngToTokyoDatum = (latLng: LatLng): LatLng => {
   };
 };
 
-export const convertBoundsToTokyoDatum = (bounds: Bounds): Bounds => ({
-  leftTop: convertLatLngToTokyoDatum(bounds.leftTop),
-  rightBottom: convertLatLngToTokyoDatum(bounds.rightBottom),
+export const convertBoundsToTokyo = (bounds: Bounds): Bounds => ({
+  leftTop: convertLatLngToTokyo(bounds.leftTop),
+  rightBottom: convertLatLngToTokyo(bounds.rightBottom),
 });
 
-export const convertLatLngToWGS84Datum = (latLng: LatLng): LatLng => {
+export const convertLatLngToWGS84 = (latLng: LatLng): LatLng => {
   const jx = latLng.lng;
   const jy = latLng.lat;
   return {
@@ -71,7 +89,49 @@ export const convertLatLngToWGS84Datum = (latLng: LatLng): LatLng => {
   };
 };
 
-export const convertBoundsToWGS84Datum = (bounds: Bounds): Bounds => ({
-  leftTop: convertLatLngToWGS84Datum(bounds.leftTop),
-  rightBottom: convertLatLngToWGS84Datum(bounds.rightBottom),
+export const convertBoundsToWGS84 = (bounds: Bounds): Bounds => ({
+  leftTop: convertLatLngToWGS84(bounds.leftTop),
+  rightBottom: convertLatLngToWGS84(bounds.rightBottom),
 });
+
+export const convertLatLngToMillisec = (latLng: LatLng): LatLng => ({
+  lat: Math.trunc(latLng.lat * 3600000),
+  lng: Math.trunc(latLng.lng * 3600000),
+});
+
+export const convertBoundsToMillisec = (bounds: Bounds): Bounds => ({
+  leftTop: convertLatLngToMillisec(bounds.leftTop),
+  rightBottom: convertLatLngToMillisec(bounds.rightBottom),
+});
+
+/**
+ * Apply datum to bounds.
+ *
+ * @param {Bounds} bounds bounds
+ * @param {string} datum datum(tokyo/wgs84)
+ * @returns {Bounds} bounds
+ */
+export const convertBoundsToWGS84IfNeeded =
+  (bounds: Bounds, datum: string): Bounds => (
+    datum === 'Tokyo' ? convertBoundsToWGS84(bounds) : bounds
+  );
+
+export const convertLatLngToTokyoIfNeeded =
+  (latLng: LatLng, datum: string): LatLng => (
+    datum === 'Tokyo' ? convertLatLngToTokyo(latLng) : latLng
+  );
+
+export const convertLatLngToWGS84IfNeeded =
+  (latLng: LatLng, datum: string): LatLng => (
+    datum === 'Tokyo' ? convertLatLngToWGS84(latLng) : latLng
+  );
+
+export const convertLatLngToMillisecIfNeeded =
+  (latLng: LatLng, unit: string): LatLng => (
+    unit === 'millisec' ? convertLatLngToMillisec(latLng) : latLng
+  );
+
+export const convertBoundsToMillisecIfNeeded =
+  (bounds: Bounds, unit: string): Bounds => (
+    unit === 'millisec' ? convertBoundsToMillisec(bounds) : bounds
+  );

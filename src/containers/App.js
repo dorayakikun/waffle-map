@@ -33,7 +33,6 @@ const ACCORDION_MENU_ITEM_VALUES: Array<AccordionMenuItemValue> = [
     title: 'Mesh Code',
     container: (
       <div>
-        {' '}
         <MeshInputContainer />
         <MeshDetailsContainer />
       </div>
@@ -55,7 +54,7 @@ export default class AppContainer extends Component<Props, State> {
   render() {
     const { activeIndex } = this.state;
     return (
-      <div style={{ height: '100%' }}>
+      <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.87)', height: '100%' }}>
         <Sidebar.Pushable>
           <Sidebar visible width="wide">
             <Accordion

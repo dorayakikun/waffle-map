@@ -10,8 +10,9 @@ const propsNoLatLng = {
   latLng: '',
   unit: 'degree',
   errorMessage: '',
-  putMarker: () => {},
-  removeAllMarkers: () => {},
+  putMarker: () => { },
+  removeAllMarkers: () => { },
+  changeUnit: () => { },
 };
 
 storiesOf('MarkerInput', module).add('no latlng', () => (

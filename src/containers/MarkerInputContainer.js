@@ -1,7 +1,7 @@
 // @flow
 
 import { connect } from 'react-redux';
-import { putMarker, removeAllMarkers } from '../actions/AppActions';
+import { putMarker, removeAllMarkers, changeUnit } from '../actions/AppActions';
 import MarkerInput from '../components/MarkerInput';
 
 import type { Connector } from 'react-redux';
@@ -14,16 +14,15 @@ import type { State as RootState } from '../reducers';
 
 const mapStateToProps = (state: RootState) => state.markerInput;
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
-  return {
-    putMarker: (event: Event, state: MarkerInputState) => {
-      dispatch(putMarker(state.latLng, state.unit));
-    },
-    removeAllMarkers: () => {
-      dispatch(removeAllMarkers());
-    },
-  };
-};
+const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+  putMarker: (event: Event, state: MarkerInputState) => (
+    dispatch(putMarker(state.latLng))
+  ),
+  removeAllMarkers: () => (dispatch(removeAllMarkers())),
+  changeUnit: (event: Event, data: { title: string, value: string }) => (
+    dispatch(changeUnit(data.value))
+  ),
+});
 
 const connector: Connector<{}, MarkerInputProps> = connect(
   mapStateToProps,

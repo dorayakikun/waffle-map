@@ -3,7 +3,6 @@
 import React from 'react';
 import { Table } from 'semantic-ui-react';
 import { round } from '../domain/roundPoint';
-
 import type { Bounds, LatLng } from '../domain/calculateMesh';
 
 export type Props = {
@@ -17,11 +16,12 @@ type TableRowValue = {
   title: string
 }
 
-const mapPropsToTableRowValues = (props: Props): Array<TableRowValue> => [
-  { latLng: props.center, title: 'center' },
-  { latLng: props.bounds.leftTop, title: 'leftTop' },
-  { latLng: props.bounds.rightBottom, title: 'rightBottom' },
-];
+const mapPropsToTableRowValues =
+  ({ center, bounds }: Props): Array<TableRowValue> => [
+    { latLng: center, title: 'center' },
+    { latLng: bounds.leftTop, title: 'leftTop' },
+    { latLng: bounds.rightBottom, title: 'rightBottom' },
+  ];
 
 const MeshDetail = (props: Props) => (
   <Table inverted>

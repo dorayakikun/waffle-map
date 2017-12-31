@@ -34,12 +34,10 @@ test('Should handle PUT_MARKER', t => {
   const latLng = '35,139';
   const unit = 'degree';
   t.deepEqual(
-    reducer(undefined, AppActions.putMarker(latLng, unit)),
+    reducer(undefined, AppActions.putMarker(latLng)),
     {
       ...defaultState,
-      markerInput: {
-        latLng: latLng, unit: unit, errorMessage: '',
-      },
+      markerInput: { latLng, unit, errorMessage: '' },
       map: {
         contextmenuPosition: null,
         markerPositions: [{ lat: 35, lng: 139 }],
@@ -51,11 +49,11 @@ test('Should handle PUT_MARKER when setting invalid latLng', t => {
   const latLng = 'A,139';
   const unit = 'degree';
   t.deepEqual(
-    reducer(undefined, AppActions.putMarker(latLng, unit)),
+    reducer(undefined, AppActions.putMarker(latLng)),
     {
       ...defaultState,
       markerInput: {
-        latLng: latLng, unit: unit, errorMessage: `Unexpected lat found.
+        latLng, unit, errorMessage: `Unexpected lat found.
 Only numbers are acceptable.
 Actual: A,139`},
     });

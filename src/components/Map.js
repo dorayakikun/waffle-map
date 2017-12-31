@@ -11,9 +11,10 @@ import {
 import { Card } from 'semantic-ui-react';
 import DebugTileLayer from './DebugTileLayer';
 import {
-  convertBoundsToWGS84Datum,
-  convertLatLngToTokyoDatum,
-  convertLatLngToWGS84Datum,
+  convertBoundsToWGS84IfNeeded,
+  convertLatLngToTokyoIfNeeded,
+  convertLatLngToWGS84IfNeeded,
+  convertLatLngToMillisecIfNeeded,
 } from '../domain/convertLatLng';
 import meshCalculator from '../domain/calculateMesh';
 import { round } from '../domain/roundPoint';
@@ -23,6 +24,7 @@ import type { LatLng, Bounds, Mesh } from '../domain/calculateMesh';
 export type Props = {
   meshes: Array<Mesh>,
   datum: string,
+  unit: string,
   contextmenuPosition: ?LatLng,
   isShowDebugTiles: boolean,
   isShowMeshes: boolean,
@@ -43,28 +45,6 @@ type Viewport = {
 
 const initialLeafletBounds: Array<Array<number>> = [[35, 139], [37, 140]];
 const { latLngToMesh, SCALES } = meshCalculator;
-
-/**
- * Apply datum to bounds.
- *
- * @param {Bounds} bounds bounds
- * @param {string} datum datum(tokyo/wgs84)
- * @returns {Bounds} bounds
- */
-const convertBoundsToWGS84IfNeeded =
-  (bounds: Bounds, datum: string): Bounds => (
-    datum === 'Tokyo' ? convertBoundsToWGS84Datum(bounds) : bounds
-  );
-
-const convertLatLngToTokyoIfNeeded =
-  (latLng: LatLng, datum: string): LatLng => (
-    datum === 'Tokyo' ? convertLatLngToTokyoDatum(latLng) : latLng
-  );
-
-const convertLatLngToWGS84IfNeeded =
-  (latLng: LatLng, datum: string): LatLng => (
-    datum === 'Tokyo' ? convertLatLngToWGS84Datum(latLng) : latLng
-  );
 
 /**
  * Make the set of meshes a set of latitude and longitude.
@@ -215,10 +195,12 @@ const createMeshRect = (
   </Rectangle>
 );
 
-const createPositionDescription = (latLng: LatLng, datum: string): string => {
-  const newLatLng = convertLatLngToTokyoIfNeeded(latLng, datum);
-  return `position: ${round(newLatLng.lat, 5)}, ${round(newLatLng.lng, 5)}`;
-};
+const createPositionDescription =
+  (latLng: LatLng, datum: string, unit: string): string => {
+    const a = convertLatLngToTokyoIfNeeded(latLng, datum);
+    const b = convertLatLngToMillisecIfNeeded(a, unit);
+    return `position: ${round(b.lat, 5)}, ${round(b.lng, 5)}`;
+  };
 
 const createScaleDescription = (
   scale: number,
@@ -310,7 +292,8 @@ class Map extends Component<Props, State> {
                 <Card.Content
                   description={createPositionDescription(
                     this.props.contextmenuPosition,
-                    this.props.datum
+                    this.props.datum,
+                    this.props.unit
                   )}
                 />
                 {this.createScaleCardContents(

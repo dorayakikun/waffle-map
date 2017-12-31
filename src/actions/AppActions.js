@@ -3,6 +3,7 @@ import type { LatLng } from '../domain/calculateMesh';
 
 export const PUT_MARKER = 'PUT_MARKER';
 export const REMOVE_ALL_MARKERS = 'REMOVE_ALL_MARKERS';
+export const CHANGE_UNIT = 'CHANGE_UNIT';
 export const INPUT_MESHES = 'INPUT_MESHES';
 export const SELECT_DATUM = 'SELECT_DATUM';
 export const SELECT_SEPARATOR = 'SELECT_SEPARATOR';
@@ -12,59 +13,53 @@ export const UPDATE_CONTEXTMENU_POSITION = 'UPDATE_CONTEXTMENU_POSITION';
 
 export type Action =
   | {
-      type: typeof PUT_MARKER,
-      payload: {
-        latLng: string,
-        unit: string
-      }
-    }
+    type: typeof PUT_MARKER,
+    payload: { latLng: string }
+  }
   | {
-      type: typeof REMOVE_ALL_MARKERS
-    }
+    type: typeof REMOVE_ALL_MARKERS
+  }
   | {
-      type: typeof INPUT_MESHES,
-      payload: {
-        meshCodes: string
-      }
-    }
+    type: typeof CHANGE_UNIT,
+    payload: { unit: string }
+  }
   | {
-      type: typeof SELECT_DATUM,
-      payload: {
-        datum: string
-      }
-    }
+    type: typeof INPUT_MESHES,
+    payload: { meshCodes: string }
+  }
   | {
-      type: typeof SELECT_SEPARATOR,
-      payload: {
-        separator: string
-      }
-    }
+    type: typeof SELECT_DATUM,
+    payload: { datum: string }
+  }
   | {
-      type: typeof TOGGLE_DEBUG_TILES,
-      payload: {
-        isShowDebugTiles: boolean
-      }
-    }
+    type: typeof SELECT_SEPARATOR,
+    payload: { separator: string }
+  }
   | {
-      type: typeof TOGGLE_MESHES,
-      payload: {
-        isShowMeshes: boolean
-      }
-    }
+    type: typeof TOGGLE_DEBUG_TILES,
+    payload: { isShowDebugTiles: boolean }
+  }
   | {
-      type: typeof UPDATE_CONTEXTMENU_POSITION,
-      payload: {
-        latLng: ?LatLng
-      }
-    }
+    type: typeof TOGGLE_MESHES,
+    payload: { isShowMeshes: boolean }
+  }
+  | {
+    type: typeof UPDATE_CONTEXTMENU_POSITION,
+    payload: { latLng: ?LatLng }
+  }
 
-export const putMarker = (latLng: string, unit: string) => ({
+export const putMarker = (latLng: string) => ({
   type: PUT_MARKER,
-  payload: { latLng, unit: unit },
+  payload: { latLng },
 });
 
 export const removeAllMarkers = () => ({
   type: REMOVE_ALL_MARKERS,
+});
+
+export const changeUnit = (unit: string) => ({
+  type: CHANGE_UNIT,
+  payload: { unit },
 });
 
 export const inputMeshes = (meshCodes: string): Action => ({
