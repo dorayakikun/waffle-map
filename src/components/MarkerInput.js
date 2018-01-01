@@ -7,12 +7,12 @@ export type Props = {
   unit: string,
   errorMessage: string,
   putMarker: (event: Event, state: State) => void,
-  removeAllMarkers: () => void
+  removeAllMarkers: () => void,
+  changeUnit: (event: Event, data: { text: string, value: string }) => void,
 }
 
 export type State = {
   latLng: string,
-  unit: string,
   errorMessage: string
 }
 
@@ -26,8 +26,8 @@ class MarkerInput extends Component<Props, State> {
   onChangedLatLng = (e: Event, data: { value: string }) =>
     this.setState({ latLng: data.value })
 
-  onChangedUnit = (e: Event, data: { value: string }) =>
-    this.setState({ unit: data.value })
+  onChangedUnit = (e: Event, data: { text: string, value: string }) =>
+    this.props.changeUnit(e, data)
 
   handleClickPutAMarker = (event: Event) =>
     this.props.putMarker(event, this.state)
@@ -36,7 +36,7 @@ class MarkerInput extends Component<Props, State> {
     this.props.removeAllMarkers()
 
   render() {
-    const { latLng, unit } = this.state;
+    const { latLng } = this.state;
 
     return (
       <div
@@ -86,8 +86,8 @@ class MarkerInput extends Component<Props, State> {
             },
           ]}
           style={{ marginTop: '10px', marginBottom: '10px' }}
-          text={unit}
-          value={unit}
+          text={this.props.unit}
+          value={this.props.unit}
         />
       </div>
     );
