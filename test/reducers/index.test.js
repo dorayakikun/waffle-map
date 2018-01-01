@@ -63,6 +63,16 @@ test('Should handle REMOVE_ALL_MARKERS', t => {
   t.deepEqual(reducer(undefined, AppActions.removeAllMarkers()), defaultState);
 });
 
+test('Should handle CHANGE_UNIT', t => {
+  const unit = 'millisec';
+  t.deepEqual(
+    reducer(undefined, AppActions.changeUnit(unit)),
+    {
+      ...defaultState,
+      markerInput: { ...defaultState.markerInput, unit },
+    });
+});
+
 test('Should handle INPUT_MESHES', t => {
   const errorMessage = '';
   const meshCodes = '5339';
