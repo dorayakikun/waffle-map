@@ -196,7 +196,11 @@ const createMeshRect = (
 );
 
 const createPositionDescription =
-  (latLng: LatLng, datum: string, unit: string): string => {
+  (latLng: ?LatLng, datum: string, unit: string): string => {
+    if (latLng == null) {
+      throw new Error('latLng is missing.');
+    }
+
     const a = convertLatLngToTokyoIfNeeded(latLng, datum);
     const b = convertLatLngToMillisecIfNeeded(a, unit);
     return `position: ${round(b.lat, 5)}, ${round(b.lng, 5)}`;
@@ -213,6 +217,35 @@ const createScaleDescription = (
   const { lat, lng } = convertLatLngToTokyoIfNeeded(latLng, datum);
   return `scale${scale}: ${latLngToMesh(lat, lng, scale)}`;
 };
+const createScaleCardContents = (latLng: ?LatLng, datum: string) =>
+  SCALES.map((scale, idx) => (
+    <Card.Content
+      description={createScaleDescription(scale, latLng, datum)}
+      key={idx}
+    />
+  ));
+
+const CoordPopup = (props: Props) => (
+  <Popup
+    position={props.contextmenuPosition}
+    onClose={props.onClose}
+  >
+    <Card>
+      <Card.Content header="Scales" />
+      <Card.Content
+        description={createPositionDescription(
+          props.contextmenuPosition,
+          props.datum,
+          props.unit
+        )}
+      />
+      {createScaleCardContents(
+        props.contextmenuPosition,
+        props.datum
+      )}
+    </Card>
+  </Popup>
+);
 
 class Map extends Component<Props, State> {
   state = {
@@ -244,23 +277,12 @@ class Map extends Component<Props, State> {
       .map(position => convertLatLngToWGS84IfNeeded(position, datum))
       .map((position, idx) => <Marker key={idx} position={position} />)
 
-  createScaleCardContents = (latLng: ?LatLng, datum: string) =>
-    SCALES.map((scale, idx) => (
-      <Card.Content
-        description={createScaleDescription(scale, latLng, datum)}
-        key={idx}
-      />
-    ))
-
   render() {
+    const { meshes, markerPositions, datum } = this.props;
     return (
       <div style={{ width: '100%', height: '100%' }}>
         <LeafletMap
-          bounds={calculateLeafletBoundsFrom(
-            this.props.meshes,
-            this.props.markerPositions,
-            this.props.datum
-          )}
+          bounds={calculateLeafletBoundsFrom(meshes, markerPositions, datum)}
           maxZoom={18}
           minZoom={7}
           onContextmenu={this.props.onContextmenu}
@@ -270,39 +292,12 @@ class Map extends Component<Props, State> {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
           />
-
           {this.props.isShowDebugTiles && <DebugTileLayer />}
-
           {this.props.isShowMeshes &&
-            this.createMeshRects(
-              getSquareMeshes(this.state.center, this.state.zoom, 10), '#9C27B0'
-            )}
-
+            this.createMeshRects(getSquareMeshes(this.state.center, this.state.zoom, 10), '#9C27B0')}
           {this.createMeshRects(this.props.meshes)}
-
           {this.createMarkers(this.props.markerPositions, this.props.datum)}
-
-          {this.props.contextmenuPosition != null && (
-            <Popup
-              position={this.props.contextmenuPosition}
-              onClose={this.props.onClose}
-            >
-              <Card>
-                <Card.Content header="Scales" />
-                <Card.Content
-                  description={createPositionDescription(
-                    this.props.contextmenuPosition,
-                    this.props.datum,
-                    this.props.unit
-                  )}
-                />
-                {this.createScaleCardContents(
-                  this.props.contextmenuPosition,
-                  this.props.datum
-                )}
-              </Card>
-            </Popup>
-          )}
+          {this.props.contextmenuPosition != null && <CoordPopup {...this.props} />}
         </LeafletMap>
       </div>
     );
