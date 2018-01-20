@@ -169,7 +169,7 @@ const throttleEvents = (
   listener: Viewport => void,
   delay: number
 ): (Viewport => void) => {
-  let timeout: number
+  let timeout: TimeoutID
   const throttledListener = (viewport: Viewport) => {
     if (timeout) {
       clearTimeout(timeout)
