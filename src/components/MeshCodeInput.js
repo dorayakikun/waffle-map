@@ -1,6 +1,6 @@
 // @flow
-import React from 'react';
-import { Dropdown, Input, Message } from 'semantic-ui-react';
+import React from 'react'
+import { Dropdown, Input, Message } from 'semantic-ui-react'
 
 export type Props = {
   errorMessage: string,
@@ -12,12 +12,12 @@ export type Props = {
   onSeparatorChanged: (
     event: Event,
     data: { text: string, value: string }
-  ) => void
+  ) => void,
 }
 
 export type OptionItem = {
   text: string,
-  value: string
+  value: string,
 }
 
 const datumOptions: Array<OptionItem> = [
@@ -29,7 +29,7 @@ const datumOptions: Array<OptionItem> = [
     text: 'WGS84',
     value: 'WGS84',
   },
-];
+]
 
 const separatorOptions: Array<OptionItem> = [
   {
@@ -40,14 +40,14 @@ const separatorOptions: Array<OptionItem> = [
     text: 'dots',
     value: '.',
   },
-];
+]
 
 const fetchTextFrom = (options: Array<OptionItem>, value: string): string => {
   return options
     .filter(o => o.value === value)
     .map(o => o.text)
-    .toString();
-};
+    .toString()
+}
 
 const MeshCodeInput = (props: Props) => (
   <div>
@@ -82,6 +82,6 @@ const MeshCodeInput = (props: Props) => (
       value={props.separator}
     />
   </div>
-);
+)
 
-export default MeshCodeInput;
+export default MeshCodeInput

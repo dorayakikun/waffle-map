@@ -1,11 +1,11 @@
 // @flow
-import React from 'react';
-import { Checkbox } from 'semantic-ui-react';
+import React from 'react'
+import { Checkbox } from 'semantic-ui-react'
 
 export type Props = {
   title: string,
   isShowGrid: boolean,
-  onToggleChanged: (event: Event, data: { checked: boolean }) => void
+  onToggleChanged: (event: Event, data: { checked: boolean }) => void,
 }
 
 const GridToggle = (props: Props) => (
@@ -19,6 +19,6 @@ const GridToggle = (props: Props) => (
       />
     </div>
   </div>
-);
+)
 
-export default GridToggle;
+export default GridToggle

@@ -1,27 +1,27 @@
 // @flow
 
-import React, { Component } from 'react';
-import { Accordion, Image, Menu, Sidebar } from 'semantic-ui-react';
+import React, { Component } from 'react'
+import { Accordion, Image, Menu, Sidebar } from 'semantic-ui-react'
 
-import MarkerInputContainer from './MarkerInputContainer';
-import MeshInputContainer from './MeshInputContainer';
-import MeshDetailsContainer from './MeshDetailsContainer';
-import MapContainer from './MapContainer';
-import TileToggleContainer from './TileToggleContainer';
-import MeshToggleContainer from './MeshToggleContainer';
+import MarkerInputContainer from './MarkerInputContainer'
+import MeshInputContainer from './MeshInputContainer'
+import MeshDetailsContainer from './MeshDetailsContainer'
+import MapContainer from './MapContainer'
+import TileToggleContainer from './TileToggleContainer'
+import MeshToggleContainer from './MeshToggleContainer'
 
 type Props = {
-  activeIndex: number
+  activeIndex: number,
 }
 
 type State = {
-  activeIndex: number
+  activeIndex: number,
 }
 
 type AccordionMenuItemValue = {
   index: number,
   title: string,
-  container: any
+  container: any,
 }
 
 const ACCORDION_MENU_ITEM_VALUES: Array<AccordionMenuItemValue> = [
@@ -38,21 +38,21 @@ const ACCORDION_MENU_ITEM_VALUES: Array<AccordionMenuItemValue> = [
       </div>
     ),
   },
-];
+]
 
 export default class AppContainer extends Component<Props, State> {
   state = { activeIndex: 3 }
 
   handleClick = (e: Event, titleProps: { index: number }) => {
-    const { index } = titleProps;
-    const { activeIndex } = this.state;
-    const newIndex = activeIndex === index ? -1 : index;
+    const { index } = titleProps
+    const { activeIndex } = this.state
+    const newIndex = activeIndex === index ? -1 : index
 
-    this.setState({ activeIndex: newIndex });
+    this.setState({ activeIndex: newIndex })
   }
 
   render() {
-    const { activeIndex } = this.state;
+    const { activeIndex } = this.state
     return (
       <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.87)', height: '100%' }}>
         <Sidebar.Pushable>
@@ -92,6 +92,6 @@ export default class AppContainer extends Component<Props, State> {
           </Sidebar.Pusher>
         </Sidebar.Pushable>
       </div>
-    );
+    )
   }
 }
