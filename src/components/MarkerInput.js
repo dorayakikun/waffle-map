@@ -1,6 +1,6 @@
 // @flow
-import React, { Component } from 'react';
-import { Button, Dropdown, Input, Message } from 'semantic-ui-react';
+import React, { Component } from 'react'
+import { Button, Dropdown, Input, Message } from 'semantic-ui-react'
 
 export type Props = {
   latLng: string,
@@ -13,7 +13,7 @@ export type Props = {
 
 export type State = {
   latLng: string,
-  errorMessage: string
+  errorMessage: string,
 }
 
 class MarkerInput extends Component<Props, State> {
@@ -32,17 +32,16 @@ class MarkerInput extends Component<Props, State> {
   handleClickPutAMarker = (event: Event) =>
     this.props.putMarker(event, this.state)
 
-  handleClickRemoveAllMarkers = (event: Event) =>
-    this.props.removeAllMarkers()
+  handleClickRemoveAllMarkers = (event: Event) => this.props.removeAllMarkers()
 
   render() {
-    const { latLng } = this.state;
+    const { latLng } = this.state
 
     return (
       <div
         onKeyPress={(event: Event) => {
           if (event.key === 'Enter') {
-            this.handleClickPutAMarker(event);
+            this.handleClickPutAMarker(event)
           }
         }}
       >
@@ -90,8 +89,8 @@ class MarkerInput extends Component<Props, State> {
           value={this.props.unit}
         />
       </div>
-    );
+    )
   }
 }
 
-export default MarkerInput;
+export default MarkerInput

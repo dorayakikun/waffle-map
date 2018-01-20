@@ -1,0 +1,7 @@
+.github
+.nyc_output
+.vscode
+coverage
+flow-typed
+package.json
+package-lock.json

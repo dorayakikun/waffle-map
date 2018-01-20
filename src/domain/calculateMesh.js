@@ -1,20 +1,20 @@
 // @flow
-import pkg from '../../package.json';
+import pkg from '../../package.json'
 
 export type LatLng = {
   lat: number,
-  lng: number
+  lng: number,
 }
 
 export type Bounds = {
   leftTop: LatLng,
-  rightBottom: LatLng
+  rightBottom: LatLng,
 }
 
 export type Mesh = {
   code: string,
   center: LatLng,
-  bounds: Bounds
+  bounds: Bounds,
 }
 
 type MeshCalculator = {
@@ -23,7 +23,7 @@ type MeshCalculator = {
   latLngToMesh: (lat: number, lng: number, scale: number) => string,
   getScaleWith(zoom: number): number,
   panMeshByOffset(mesh: string, offsetX: number, offsetY: number): string,
-  SCALES: *
+  SCALES: *,
 }
 
 const meshCalculator: () => MeshCalculator = () => {
@@ -31,9 +31,9 @@ const meshCalculator: () => MeshCalculator = () => {
     // $FlowFixMe
     return require('../../node_modules/waffle-map-mesh-calculator-' +
       pkg.wafflemap.meshcalculator +
-      '/lib/meshCalculator.js');
+      '/lib/meshCalculator.js')
   }
-  return require('waffle-map-mesh-calculator-basic');
-};
+  return require('waffle-map-mesh-calculator-basic')
+}
 
-export default meshCalculator();
+export default meshCalculator()
