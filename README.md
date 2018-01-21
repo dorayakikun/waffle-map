@@ -33,13 +33,12 @@ Prepare below modules
 
 * name: waffle-map-mesh-calculator-{your-logic-name}
 * functions:
-  * latLngToMesh(lat: number, lng: number, scale: number): string
-  * meshToBounds(mesh: string): Bounds
-  * meshToLatLng(mesh: string): LatLng
-  * getScaleWith(zoom: number): number
-  * panMeshByOffset(mesh: string, offsetX: number, offsetY: number): string
+  * toMeshCode: (lat: number, lng: number, scale: number) => string
+  * toBounds: (meshCode: string) => Bounds
+  * toCenterLatLng: (meshCode: string) => LatLng
+  * scaleFrom(zoom: number): number
+  * offset(meshCode: string, x: number, y: number): string
 * constant
-
   * SCALES: [number]
 
 Please see [here](https://github.com/dorayakikun/waffle-map-mesh-calculator-basic) as sample code.

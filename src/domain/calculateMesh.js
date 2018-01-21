@@ -22,7 +22,7 @@ type MeshCalculator = {
   toBounds: (meshCode: string) => Bounds,
   toMeshCode: (lat: number, lng: number, scale: number) => string,
   scaleFrom(zoom: number): number,
-  offset(meshCode: string, offsetX: number, offsetY: number): string,
+  offset(meshCode: string, x: number, y: number): string,
   SCALES: *,
 }
 
