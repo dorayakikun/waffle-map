@@ -44,7 +44,7 @@ type Viewport = {
 }
 
 const initialLeafletBounds: Array<Array<number>> = [[35, 139], [37, 140]]
-const { latLngToMesh, SCALES } = meshCalculator
+const { toMeshCode, SCALES } = meshCalculator
 
 /**
  * Make the set of meshes a set of latitude and longitude.
@@ -119,7 +119,7 @@ const getSquareMeshCodes = (
   const meshCodes: Array<string> = []
   for (let i = -redius; i <= redius; i++) {
     for (let j = -redius; j <= redius; j++) {
-      const code: string = meshCalculator.panMeshByOffset(meshCode, i, j)
+      const code: string = meshCalculator.offset(meshCode, i, j)
       meshCodes.push(code)
     }
   }
@@ -133,8 +133,8 @@ const getSquareMeshCodes = (
  */
 const createMesh = (code: string): Mesh => ({
   code,
-  center: meshCalculator.meshToLatLng(code),
-  bounds: meshCalculator.meshToBounds(code),
+  center: meshCalculator.toCenterLatLng(code),
+  bounds: meshCalculator.toBounds(code),
 })
 
 /**
@@ -149,8 +149,8 @@ const getSquareMeshes = (
   zoom: number,
   redius: number
 ): Array<Mesh> => {
-  const scale: number = meshCalculator.getScaleWith(zoom)
-  const centerMeshCode = meshCalculator.latLngToMesh(
+  const scale: number = meshCalculator.scaleFrom(zoom)
+  const centerMeshCode = meshCalculator.toMeshCode(
     latlng.lat,
     latlng.lng,
     scale
@@ -227,7 +227,7 @@ const createScaleDescription = (
     throw new Error('Unexpected exception occured. Missing latlang.')
   }
   const { lat, lng } = convertLatLngToTokyoIfNeeded(latLng, datum)
-  return `scale${scale}: ${latLngToMesh(lat, lng, scale)}`
+  return `scale${scale}: ${toMeshCode(lat, lng, scale)}`
 }
 const createScaleCardContents = (latLng: ?LatLng, datum: string) =>
   SCALES.map((scale, idx) => (

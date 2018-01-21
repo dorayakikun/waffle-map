@@ -84,8 +84,8 @@ test('Should handle INPUT_MESHES', t => {
     meshes: [
       {
         code: meshCodes,
-        center: MeshCalculator.meshToLatLng(meshCodes),
-        bounds: MeshCalculator.meshToBounds(meshCodes),
+        center: MeshCalculator.toCenterLatLng(meshCodes),
+        bounds: MeshCalculator.toBounds(meshCodes),
       },
     ],
   })
