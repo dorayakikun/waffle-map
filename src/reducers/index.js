@@ -40,7 +40,7 @@ export type State = {
   meshes: Array<Mesh>,
   map: MapState,
 }
-const { meshToBounds, meshToLatLng } = meshCalculator
+const { toBounds, toCenterLatLng } = meshCalculator
 const initialState: State = {
   markerInput: {
     latLng: '',
@@ -103,8 +103,8 @@ const mapToMeshes = (meshCodes: string, separator: string): Array<Mesh> =>
     .map(meshCode => {
       return {
         code: meshCode,
-        center: meshToLatLng(meshCode),
-        bounds: meshToBounds(meshCode),
+        center: toCenterLatLng(meshCode),
+        bounds: toBounds(meshCode),
       }
     })
 

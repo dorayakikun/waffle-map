@@ -3,15 +3,15 @@
 import test from 'ava'
 import React from 'react'
 import render from 'react-test-renderer'
-import { meshToLatLng, meshToBounds } from 'waffle-map-mesh-calculator-basic'
+import { toCenterLatLng, toBounds } from 'waffle-map-mesh-calculator-basic'
 import MeshDetail from '../../src/components/MeshDetail'
 
 import type { Props } from '../../src/components/MeshDetail'
 
 test('Should set props to MeshDetail', t => {
   const meshCode = '5339'
-  const center = meshToLatLng(meshCode)
-  const bounds = meshToBounds(meshCode)
+  const center = toCenterLatLng(meshCode)
+  const bounds = toBounds(meshCode)
 
   const props: Props = {
     code: meshCode,

@@ -18,11 +18,11 @@ export type Mesh = {
 }
 
 type MeshCalculator = {
-  meshToLatLng: (mesh: string) => LatLng,
-  meshToBounds: (mesh: string) => Bounds,
-  latLngToMesh: (lat: number, lng: number, scale: number) => string,
-  getScaleWith(zoom: number): number,
-  panMeshByOffset(mesh: string, offsetX: number, offsetY: number): string,
+  toCenterLatLng: (meshCode: string) => LatLng,
+  toBounds: (meshCode: string) => Bounds,
+  toMeshCode: (lat: number, lng: number, scale: number) => string,
+  scaleFrom(zoom: number): number,
+  offset(meshCode: string, offsetX: number, offsetY: number): string,
   SCALES: *,
 }
 
