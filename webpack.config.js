@@ -2,6 +2,7 @@
 
 const path = require('path')
 const webpack = require('webpack')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const BASE_PLUGINS = [
   new webpack.DefinePlugin({
@@ -33,14 +34,13 @@ module.exports = {
   plugins:
     process.env.NODE_ENV === 'production'
       ? BASE_PLUGINS.concat([
-          new webpack.optimize.UglifyJsPlugin({
-            minimize: true,
-            sourceMap: false,
-            compressor: {
-              warnings: false,
-            },
-            output: {
-              comments: false,
+          new UglifyJsPlugin({
+            sourceMap: true,
+            uglifyOptions: {
+              ecma: 8,
+              compress: {
+                warnings: false,
+              },
             },
           }),
         ])
