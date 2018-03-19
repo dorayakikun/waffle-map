@@ -64,5 +64,8 @@
     "redux": "^3.7.2",
     "semantic-ui-react": "^0.78.0",
     "waffle-map-mesh-calculator-basic": "^2.0.0"
+  },
+  "jest": {
+    "collectCoverage": true
   }
 }
