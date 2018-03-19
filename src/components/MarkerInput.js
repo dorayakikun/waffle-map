@@ -6,7 +6,7 @@ export type Props = {
   latLng: string,
   unit: string,
   errorMessage: string,
-  putMarker: (event: Event, state: State) => void,
+  putMarker: (event: SyntheticKeyboardEvent<HTMLElement>, state: State) => void,
   removeAllMarkers: () => void,
   changeUnit: (event: Event, data: { text: string, value: string }) => void,
 }
@@ -29,7 +29,7 @@ class MarkerInput extends Component<Props, State> {
   onChangedUnit = (e: Event, data: { text: string, value: string }) =>
     this.props.changeUnit(e, data)
 
-  handleClickPutAMarker = (event: Event) =>
+  handleClickPutAMarker = (event: SyntheticKeyboardEvent<HTMLElement>) =>
     this.props.putMarker(event, this.state)
 
   handleClickRemoveAllMarkers = (event: Event) => this.props.removeAllMarkers()
@@ -39,7 +39,7 @@ class MarkerInput extends Component<Props, State> {
 
     return (
       <div
-        onKeyPress={(event: Event) => {
+        onKeyPress={(event: SyntheticKeyboardEvent<HTMLElement>) => {
           if (event.key === 'Enter') {
             this.handleClickPutAMarker(event)
           }
