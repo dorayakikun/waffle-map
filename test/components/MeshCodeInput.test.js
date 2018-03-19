@@ -1,6 +1,5 @@
 // @flow
 
-import test from 'ava'
 import React from 'react'
 import render from 'react-test-renderer'
 import MeshInput from '../../src/components/MeshCodeInput'
@@ -17,17 +16,17 @@ const defaultProps: Props = {
   onDatumChanged: () => {},
 }
 
-test('Should set props to MeshCodeInput', t => {
+test('Should set props to MeshCodeInput', () => {
   const tree = render.create(<MeshInput {...defaultProps} />).toJSON()
-  t.snapshot(tree)
+  expect(tree).toMatchSnapshot()
 })
 
-test('Should render negative message when errorMessage is not blank', t => {
+test('Should render negative message when errorMessage is not blank', () => {
   const invalidProps = {
     ...defaultProps,
     meshCodes: '5',
     errorMessage: 'It seems there was something wrong ...',
   }
   const tree = render.create(<MeshInput {...invalidProps} />).toJSON()
-  t.snapshot(tree)
+  expect(tree).toMatchSnapshot()
 })

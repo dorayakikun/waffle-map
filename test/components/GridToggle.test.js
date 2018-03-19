@@ -1,13 +1,12 @@
 // @flow
 
-import test from 'ava'
 import React from 'react'
 import render from 'react-test-renderer'
 import GridToggle from '../../src/components/GridToggle'
 
 import type { Props } from '../../src/components/GridToggle'
 
-test('Should set props to MeshToggle', t => {
+test('Should set props to MeshToggle', () => {
   const isShowGrid = false
   const props: Props = {
     title: 'Show grid',
@@ -15,10 +14,10 @@ test('Should set props to MeshToggle', t => {
     onToggleChanged: () => {},
   }
   const tree = render.create(<GridToggle {...props} />).toJSON()
-  t.snapshot(tree)
+  expect(tree).toMatchSnapshot()
 })
 
-test('Should call onToggleChanged when changed checked', t => {
+test('Should call onToggleChanged when changed checked', () => {
   const isShowGrid = false
   const onToggleChanged = () => {}
   const props: Props = {
@@ -27,5 +26,5 @@ test('Should call onToggleChanged when changed checked', t => {
     onToggleChanged,
   }
   const tree = render.create(<GridToggle {...props} />).toJSON()
-  t.snapshot(tree)
+  expect(tree).toMatchSnapshot()
 })
