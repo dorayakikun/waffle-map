@@ -1,6 +1,5 @@
 // @flow
 
-import test from 'ava'
 import React from 'react'
 import render from 'react-test-renderer'
 import { toCenterLatLng, toBounds } from 'waffle-map-mesh-calculator-basic'
@@ -8,7 +7,7 @@ import MeshDetail from '../../src/components/MeshDetail'
 
 import type { Props } from '../../src/components/MeshDetail'
 
-test('Should set props to MeshDetail', t => {
+test('Should set props to MeshDetail', () => {
   const meshCode = '5339'
   const center = toCenterLatLng(meshCode)
   const bounds = toBounds(meshCode)
@@ -19,5 +18,5 @@ test('Should set props to MeshDetail', t => {
     bounds,
   }
   const tree = render.create(<MeshDetail {...props} />).toJSON()
-  t.snapshot(tree)
+  expect(tree).toMatchSnapshot()
 })

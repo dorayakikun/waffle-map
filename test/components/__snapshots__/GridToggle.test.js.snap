@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should call onToggleChanged when changed checked 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "marginBottom": "10px",
+        "marginTop": "10px",
+      }
+    }
+  >
+    <span
+      style={
+        Object {
+          "fontColor": "white",
+          "marginRight": 5,
+        }
+      }
+    >
+      Show grid
+    </span>
+    <div
+      className="ui fitted toggle checkbox"
+      onChange={[Function]}
+      onClick={[Function]}
+      onMouseDown={[Function]}
+    >
+      <input
+        checked={false}
+        className="hidden"
+        id={undefined}
+        name={undefined}
+        onClick={[Function]}
+        readOnly={true}
+        tabIndex={0}
+        type="checkbox"
+        value={undefined}
+      />
+      <label
+        htmlFor={undefined}
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Should set props to MeshToggle 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "marginBottom": "10px",
+        "marginTop": "10px",
+      }
+    }
+  >
+    <span
+      style={
+        Object {
+          "fontColor": "white",
+          "marginRight": 5,
+        }
+      }
+    >
+      Show grid
+    </span>
+    <div
+      className="ui fitted toggle checkbox"
+      onChange={[Function]}
+      onClick={[Function]}
+      onMouseDown={[Function]}
+    >
+      <input
+        checked={false}
+        className="hidden"
+        id={undefined}
+        name={undefined}
+        onClick={[Function]}
+        readOnly={true}
+        tabIndex={0}
+        type="checkbox"
+        value={undefined}
+      />
+      <label
+        htmlFor={undefined}
+      />
+    </div>
+  </div>
+</div>
+`;

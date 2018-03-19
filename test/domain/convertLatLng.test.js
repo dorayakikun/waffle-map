@@ -1,6 +1,5 @@
 // @flow
 
-import test from 'ava'
 import {
   createLatLng,
   convertLatLngToTokyo,
@@ -19,7 +18,7 @@ import {
 // ---
 // Invalid case
 // ---
-test(`Should throw an error when invalidValue`, t => {
+test(`Should throw an error when invalidValue`, () => {
   const testcases = [
     {
       latLng: '1',
@@ -39,42 +38,42 @@ test(`Should throw an error when invalidValue`, t => {
   ]
 
   testcases.forEach(testcase => {
-    const error = t.throws(() => createLatLng(testcase.latLng, 'degree'))
-    t.is(
-      error.message,
-      `Unexpected ${testcase.errorValue} found.
+    expect(() => createLatLng(testcase.latLng, 'degree')).toThrow(`Unexpected ${
+      testcase.errorValue
+    } found.
 ${testcase.expectedValueMessage}
-Actual: ${testcase.latLng}`
-    )
+Actual: ${testcase.latLng}`)
   })
 })
-
 // ---
 // normal case
 // ---
 
 const latLngStringDegree = '35,139'
 const latLngStringMellisec = '126000000,500400000'
-test(`Should return degree LatLng`, t => {
-  t.deepEqual(createLatLng(latLngStringDegree, 'degree'), { lat: 35, lng: 139 })
+test(`Should return degree LatLng`, () => {
+  expect(createLatLng(latLngStringDegree, 'degree')).toEqual({
+    lat: 35,
+    lng: 139,
+  })
 })
 
-test(`Should convert to degree LatLng`, t => {
-  t.deepEqual(createLatLng(latLngStringMellisec, 'millisec'), {
+test(`Should convert to degree LatLng`, () => {
+  expect(createLatLng(latLngStringMellisec, 'millisec')).toEqual({
     lat: 35,
     lng: 139,
   })
 })
 
 const latLngDgree = { lat: 35, lng: 139 }
-test(`Should convert to WGS84 LatLng`, t => {
-  t.deepEqual(convertLatLngToWGS84(latLngDgree), {
+test(`Should convert to WGS84 LatLng`, () => {
+  expect(convertLatLngToWGS84(latLngDgree)).toEqual({
     lat: 35.003285946000005,
     lng: 138.996885693,
   })
 })
-test(`Should convert to Tokyo LatLng`, t => {
-  t.deepEqual(convertLatLngToTokyo(latLngDgree), {
+test(`Should convert to Tokyo LatLng`, () => {
+  expect(convertLatLngToTokyo(latLngDgree)).toEqual({
     lat: 34.996713705,
     lng: 139.00311441,
   })
@@ -84,79 +83,75 @@ const boundsDegree = {
   leftTop: { lat: 36, lng: 139 },
   rightBottom: { lat: 35, lng: 140 },
 }
-test(`Should convert to WGS84 Bounds`, t => {
-  t.deepEqual(convertBoundsToWGS84(boundsDegree), {
+test(`Should convert to WGS84 Bounds`, () => {
+  expect(convertBoundsToWGS84(boundsDegree)).toEqual({
     leftTop: { lat: 36.003178996, lng: 138.996839655 },
     rightBottom: { lat: 35.00330341, lng: 139.99680265 },
   })
 })
 
-test(`Should convert to Tokyo Bounds`, t => {
-  t.deepEqual(convertBoundsToTokyo(boundsDegree), {
+test(`Should convert to Tokyo Bounds`, () => {
+  expect(convertBoundsToTokyo(boundsDegree)).toEqual({
     leftTop: { lat: 35.996820666, lng: 139.003160457 },
     rightBottom: { lat: 34.996696238, lng: 140.00319745899998 },
   })
 })
 
-test('Should convert LatLng to millisec', t => {
-  t.deepEqual(convertLatLngToMillisec({ lat: 35, lng: 139 }), {
+test('Should convert LatLng to millisec', () => {
+  expect(convertLatLngToMillisec({ lat: 35, lng: 139 })).toEqual({
     lat: 126000000,
     lng: 500400000,
   })
 })
 
-test('Should convert bounds to millisec', t => {
-  t.deepEqual(convertBoundsToMillisec(boundsDegree), {
+test('Should convert bounds to millisec', () => {
+  expect(convertBoundsToMillisec(boundsDegree)).toEqual({
     leftTop: { lat: 129600000, lng: 500400000 },
     rightBottom: { lat: 126000000, lng: 504000000 },
   })
 })
 
-test('Should convert bounds to WGS84 if needed', t => {
-  t.deepEqual(
-    convertBoundsToWGS84IfNeeded(boundsDegree, 'Tokyo'),
+test('Should convert bounds to WGS84 if needed', () => {
+  expect(convertBoundsToWGS84IfNeeded(boundsDegree, 'Tokyo')).toEqual(
     convertBoundsToWGS84(boundsDegree)
   )
-  t.deepEqual(convertBoundsToWGS84IfNeeded(boundsDegree, 'WGS84'), boundsDegree)
+  expect(convertBoundsToWGS84IfNeeded(boundsDegree, 'WGS84')).toEqual(
+    boundsDegree
+  )
 })
 
 const latLng = { lat: 35, lng: 139 }
 
-test('Should convert LatLng to Tokyo if needed', t => {
-  t.deepEqual(
-    convertLatLngToTokyoIfNeeded(latLng, 'Tokyo'),
+test('Should convert LatLng to Tokyo if needed', () => {
+  expect(convertLatLngToTokyoIfNeeded(latLng, 'Tokyo')).toEqual(
     convertLatLngToTokyo(latLng)
   )
 
-  t.deepEqual(convertLatLngToTokyoIfNeeded(latLng, 'WGS84'), latLng)
+  expect(convertLatLngToTokyoIfNeeded(latLng, 'WGS84')).toEqual(latLng)
 })
 
-test('Should convert LatLng to WGS84 if needed', t => {
-  t.deepEqual(
-    convertLatLngToWGS84IfNeeded(latLng, 'Tokyo'),
+test('Should convert LatLng to WGS84 if needed', () => {
+  expect(convertLatLngToWGS84IfNeeded(latLng, 'Tokyo')).toEqual(
     convertLatLngToWGS84(latLng)
   )
 
-  t.deepEqual(convertLatLngToWGS84IfNeeded(latLng, 'WGS84'), latLng)
+  expect(convertLatLngToWGS84IfNeeded(latLng, 'WGS84')).toEqual(latLng)
 })
 
-test('Should convert LatLng to millisec if needed', t => {
-  t.deepEqual(
-    convertLatLngToMillisecIfNeeded(latLng, 'millisec'),
+test('Should convert LatLng to millisec if needed', () => {
+  expect(convertLatLngToMillisecIfNeeded(latLng, 'millisec')).toEqual(
     convertLatLngToMillisec(latLng)
   )
 
-  t.deepEqual(convertLatLngToMillisecIfNeeded(latLng, 'degree'), latLng)
+  expect(convertLatLngToMillisecIfNeeded(latLng, 'degree')).toEqual(latLng)
 })
 
-test('Should convert bounds to millisec if needed', t => {
-  t.deepEqual(
-    convertBoundsToMillisecIfNeeded(boundsDegree, 'millisec'),
+test('Should convert bounds to millisec if needed', () => {
+  expect(convertBoundsToMillisecIfNeeded(boundsDegree, 'millisec')).toEqual(
     convertBoundsToMillisec(boundsDegree)
   )
 
-  t.deepEqual(
-    convertBoundsToMillisecIfNeeded(boundsDegree, 'degree'),
+  expect(convertBoundsToMillisecIfNeeded(boundsDegree, 'degree')).toEqual(
     boundsDegree
   )
 })
