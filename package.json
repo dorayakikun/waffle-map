@@ -36,15 +36,17 @@
     "webpack-dev-server": "^2.9.7"
   },
   "dependencies": {
+    "@types/leaflet": "^1.2.6",
     "@types/react": "^16.0.40",
     "@types/react-dom": "^16.0.4",
+    "@types/react-leaflet": "^1.1.5",
     "@types/react-redux": "^5.0.15",
     "@types/redux": "^3.6.0",
     "leaflet": "^1.2.0",
-    "react": "^16.0.40",
-    "react-dom": "^16.0.40",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "react-leaflet": "^1.7.8",
-    "react-redux": "^5.0.6",
+    "react-redux": "^5.0.7",
     "redux": "^3.6.0",
     "semantic-ui-react": "^0.79.0",
     "waffle-map-mesh-calculator-basic": "^2.0.0"

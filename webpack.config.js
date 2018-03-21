@@ -52,6 +52,11 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.ts$/,
+        use: 'awesome-typescript-loader',
+        exclude: /node_modules/,
+      },
+      {
         test: /\.tsx$/,
         use: 'awesome-typescript-loader',
         exclude: /node_modules/,
@@ -64,6 +69,6 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".ts", ".tsx"]
+    extensions: [".js",".ts", ".tsx"]
   }
 }

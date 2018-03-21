@@ -6,6 +6,9 @@
     "outDir": "dist",
     "strict": false,
     "target": "es5",
-    "types": ["react","react-dom","react-redux","redux"]
+    "types": ["leaflet", "react","react-dom","react-leaflet", "react-redux","redux"],
+    "typeRoots": [
+      "node_modues/@types", "typings"
+    ]
   }
 }
