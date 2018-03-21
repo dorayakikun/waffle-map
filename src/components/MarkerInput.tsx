@@ -1,45 +1,41 @@
-// @flow
-import React, { Component } from 'react'
-import { Button, Dropdown, Input, Message } from 'semantic-ui-react'
+import * as React from 'react'
+import { Button, Dropdown, DropdownProps, Input, Message, InputOnChangeData } from 'semantic-ui-react'
 
-export type Props = {
+export interface Props {
   latLng: string,
   unit: string,
   errorMessage: string,
-  putMarker: (event: SyntheticKeyboardEvent<HTMLElement>, state: State) => void,
+  putMarker: (event: React.SyntheticEvent<HTMLElement>, state: State) => void,
   removeAllMarkers: () => void,
-  changeUnit: (event: Event, data: { text: string, value: string }) => void,
+  changeUnit: (event: React.SyntheticEvent<HTMLElement>, data: DropdownProps) => void,
 }
 
-export type State = {
+export interface State {
   latLng: string,
+  unit: string,
   errorMessage: string,
 }
 
-class MarkerInput extends Component<Props, State> {
+export class MarkerInput extends React.Component<Props, State> {
   state = {
     latLng: this.props.latLng || '',
     unit: this.props.unit || 'degree',
     errorMessage: this.props.errorMessage || '',
   }
 
-  onChangedLatLng = (e: Event, data: { value: string }) =>
-    this.setState({ latLng: data.value })
+  onChangedLatLng = (e: React.SyntheticEvent<HTMLElement>, data: InputOnChangeData) => this.setState({ latLng: data.value })
 
-  onChangedUnit = (e: Event, data: { text: string, value: string }) =>
-    this.props.changeUnit(e, data)
+  onChangedUnit = (e: React.SyntheticEvent<HTMLElement>, data: DropdownProps) => this.props.changeUnit(e, data)
 
-  handleClickPutAMarker = (event: SyntheticKeyboardEvent<HTMLElement>) =>
-    this.props.putMarker(event, this.state)
+  handleClickPutAMarker = (event: React.SyntheticEvent<HTMLElement>) => this.props.putMarker(event, this.state)
 
-  handleClickRemoveAllMarkers = (event: Event) => this.props.removeAllMarkers()
+  handleClickRemoveAllMarkers = (event: React.SyntheticEvent<HTMLElement>) => this.props.removeAllMarkers()
 
   render() {
     const { latLng } = this.state
-
     return (
       <div
-        onKeyPress={(event: SyntheticKeyboardEvent<HTMLElement>) => {
+        onKeyPress={(event: React.KeyboardEvent<HTMLElement>) => {
           if (event.key === 'Enter') {
             this.handleClickPutAMarker(event)
           }
@@ -92,5 +88,3 @@ class MarkerInput extends Component<Props, State> {
     )
   }
 }
-
-export default MarkerInput

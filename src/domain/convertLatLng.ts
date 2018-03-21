@@ -1,5 +1,4 @@
-// @flow
-import type { LatLng, Bounds } from './calculateMesh'
+import { LatLng, Bounds } from './calculateMesh'
 
 const createFormatErrorMessage = (
   name: string,

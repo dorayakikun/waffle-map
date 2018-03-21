@@ -1,26 +1,25 @@
-// @flow
-import React from 'react'
-import { Dropdown, Input, Message } from 'semantic-ui-react'
+import * as React from 'react'
+import { Dropdown, DropdownProps, Input, Message, InputOnChangeData } from 'semantic-ui-react'
 
 export type Props = {
   errorMessage: string,
   meshCodes: string,
   datum: string,
   separator: string,
-  onMeshesChanged: (event: Element & { target: HTMLInputElement }) => void,
-  onDatumChanged: (event: Event, data: { text: string, value: string }) => void,
+  onMeshesChanged: (event: React.SyntheticEvent<HTMLInputElement>, data: InputOnChangeData) => void,
+  onDatumChanged: (event: React.SyntheticEvent<HTMLElement>, data: DropdownProps) => void,
   onSeparatorChanged: (
-    event: Event,
-    data: { text: string, value: string }
+    event: React.SyntheticEvent<HTMLElement>,
+    data: DropdownProps
   ) => void,
 }
 
-export type OptionItem = {
+export interface OptionItem {
   text: string,
   value: string,
 }
 
-const datumOptions: Array<OptionItem> = [
+const datumOptions = [
   {
     text: 'Tokyo',
     value: 'Tokyo',
@@ -31,7 +30,7 @@ const datumOptions: Array<OptionItem> = [
   },
 ]
 
-const separatorOptions: Array<OptionItem> = [
+const separatorOptions = [
   {
     text: 'commas',
     value: ',',
@@ -49,7 +48,7 @@ const fetchTextFrom = (options: Array<OptionItem>, value: string): string => {
     .toString()
 }
 
-const MeshCodeInput = (props: Props) => (
+export const MeshCodeInput = (props: Props) => (
   <div>
     <Input
       error={props.errorMessage !== ''}
@@ -83,5 +82,3 @@ const MeshCodeInput = (props: Props) => (
     />
   </div>
 )
-
-export default MeshCodeInput

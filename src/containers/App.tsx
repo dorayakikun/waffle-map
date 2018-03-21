@@ -1,14 +1,12 @@
-// @flow
+import * as React from 'react'
+import { Accordion, Image, Menu, Sidebar, AccordionTitleProps } from 'semantic-ui-react'
 
-import React, { Component } from 'react'
-import { Accordion, Image, Menu, Sidebar } from 'semantic-ui-react'
-
-import MarkerInputContainer from './MarkerInputContainer'
-import MeshInputContainer from './MeshInputContainer'
-import MeshDetailsContainer from './MeshDetailsContainer'
-import MapContainer from './MapContainer'
-import TileToggleContainer from './TileToggleContainer'
-import MeshToggleContainer from './MeshToggleContainer'
+import { MarkerInputContainer } from './MarkerInputContainer'
+import { MeshCodeInputContainer } from './MeshInputContainer'
+import { MeshDetailsContainer } from './MeshDetailsContainer'
+import { MapContainer } from './MapContainer'
+import { TileToggleContainer } from './TileToggleContainer'
+import { MeshToggleContainer } from './MeshToggleContainer'
 
 type Props = {
   activeIndex: number,
@@ -24,7 +22,7 @@ type AccordionMenuItemValue = {
   container: any,
 }
 
-const ACCORDION_MENU_ITEM_VALUES: Array<AccordionMenuItemValue> = [
+const ACCORDION_MENU_ITEM_VALUES: AccordionMenuItemValue[] = [
   { index: 0, title: 'Tile Grid', container: <TileToggleContainer /> },
   { index: 1, title: 'Mesh Grid', container: <MeshToggleContainer /> },
   { index: 2, title: 'Marker', container: <MarkerInputContainer /> },
@@ -33,18 +31,18 @@ const ACCORDION_MENU_ITEM_VALUES: Array<AccordionMenuItemValue> = [
     title: 'Mesh Code',
     container: (
       <div>
-        <MeshInputContainer />
+        <MeshCodeInputContainer />
         <MeshDetailsContainer />
       </div>
     ),
   },
 ]
 
-export default class AppContainer extends Component<Props, State> {
+export default class AppContainer extends React.Component<Props, State> {
   state = { activeIndex: 3 }
 
-  handleClick = (e: Event, titleProps: { index: number }) => {
-    const { index } = titleProps
+  handleClick = (e: React.MouseEvent<HTMLDivElement>, data: AccordionTitleProps) => {
+    const index = data.index as number
     const { activeIndex } = this.state
     const newIndex = activeIndex === index ? -1 : index
 

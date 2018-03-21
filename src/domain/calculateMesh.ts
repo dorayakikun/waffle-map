@@ -1,36 +1,36 @@
-// @flow
-import pkg from '../../package.json'
+declare const require: any
 
-export type LatLng = {
+import * as pkg from '../../package.json'
+
+export interface LatLng {
   lat: number,
   lng: number,
 }
 
-export type Bounds = {
+export interface Bounds {
   leftTop: LatLng,
   rightBottom: LatLng,
 }
 
-export type Mesh = {
+export interface Mesh {
   code: string,
   center: LatLng,
   bounds: Bounds,
 }
 
-type MeshCalculator = {
+interface MeshCalculator {
   toCenterLatLng: (meshCode: string) => LatLng,
   toBounds: (meshCode: string) => Bounds,
   toMeshCode: (lat: number, lng: number, scale: number) => string,
   scaleFrom(zoom: number): number,
   offset(meshCode: string, x: number, y: number): string,
-  SCALES: *,
+  SCALES: number[],
 }
 
 const meshCalculator: () => MeshCalculator = () => {
-  if (process.env.NODE_ENV !== 'test' && pkg.wafflemap) {
-    // $FlowFixMe
+  if ((<any>pkg).wafflemap) {
     return require('../../node_modules/waffle-map-mesh-calculator-' +
-      pkg.wafflemap.meshcalculator +
+    (<any>pkg).wafflemap.meshcalculator +
       '/lib/meshCalculator.js')
   }
   return require('waffle-map-mesh-calculator-basic')

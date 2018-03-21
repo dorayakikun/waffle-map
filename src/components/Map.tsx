@@ -1,5 +1,5 @@
-// @flow
-import React, { Component } from 'react'
+import { LatLngBoundsExpression } from 'leaflet'
+import * as React from 'react'
 import {
   Marker,
   Map as LeafletMap,
@@ -7,25 +7,25 @@ import {
   Rectangle,
   TileLayer,
   Tooltip,
+  RectangleProps,
 } from 'react-leaflet'
 import { Card } from 'semantic-ui-react'
-import DebugTileLayer from './DebugTileLayer'
+import { DebugTileLayer } from './DebugTileLayer'
 import {
   convertBoundsToWGS84IfNeeded,
   convertLatLngToTokyoIfNeeded,
   convertLatLngToWGS84IfNeeded,
   convertLatLngToMillisecIfNeeded,
 } from '../domain/convertLatLng'
+import { LatLng, Bounds, Mesh } from '../domain/calculateMesh'
 import meshCalculator from '../domain/calculateMesh'
 import { round } from '../domain/roundPoint'
 
-import type { LatLng, Bounds, Mesh } from '../domain/calculateMesh'
-
-export type Props = {
-  meshes: Array<Mesh>,
+export interface Props {
+  meshes: Mesh[],
   datum: string,
   unit: string,
-  contextmenuPosition: ?LatLng,
+  contextmenuPosition?: LatLng,
   isShowDebugTiles: boolean,
   isShowMeshes: boolean,
   markerPositions: Array<LatLng>,
@@ -33,17 +33,17 @@ export type Props = {
   onClose: () => void,
 }
 
-type State = {
+interface State {
   center: LatLng,
   zoom: number,
 }
 
-type Viewport = {
-  center: ?Array<number>,
-  zoom: ?number,
+interface Viewport {
+  center?: number[],
+  zoom?: number,
 }
 
-const initialLeafletBounds: Array<Array<number>> = [[35, 139], [37, 140]]
+const initialLeafletBounds: [number, number][] = [[35, 139], [37, 140]]
 const { toMeshCode, SCALES } = meshCalculator
 
 /**
@@ -85,7 +85,7 @@ const calculateLeafletBoundsFrom = (
   meshes: Array<Mesh>,
   markerPositions: Array<LatLng>,
   datum: string
-): Array<Array<number>> => {
+): [number, number][] => {
   if (meshes.length === 0 && markerPositions.length == 0) {
     return initialLeafletBounds
   }
@@ -148,7 +148,7 @@ const getSquareMeshes = (
   latlng: LatLng,
   zoom: number,
   redius: number
-): Array<Mesh> => {
+): Mesh[] => {
   const scale: number = meshCalculator.scaleFrom(zoom)
   const centerMeshCode = meshCalculator.toMeshCode(
     latlng.lat,
@@ -166,10 +166,10 @@ const getSquareMeshes = (
  * @returns {Viewport => void} throttleEventListener
  */
 const throttleEvents = (
-  listener: Viewport => void,
+  listener: (viewport: Viewport) => void,
   delay: number
-): (Viewport => void) => {
-  let timeout: TimeoutID
+): (viewport: Viewport) => void => {
+  let timeout: number
   const throttledListener = (viewport: Viewport) => {
     if (timeout) {
       clearTimeout(timeout)
@@ -192,9 +192,9 @@ const createMeshRect = (
   index: number,
   meshCode: string,
   color: string
-): Rectangle => (
+) => (
   <Rectangle
-    bounds={[bounds.leftTop, bounds.rightBottom]}
+    bounds={[[bounds.leftTop.lat, bounds.leftTop.lng], [bounds.rightBottom.lat, bounds.rightBottom.lng]] }
     key={index}
     color={color}
   >
@@ -205,9 +205,9 @@ const createMeshRect = (
 )
 
 const createPositionDescription = (
-  latLng: ?LatLng,
   datum: string,
-  unit: string
+  unit: string,
+  latLng?: LatLng,
 ): string => {
   if (latLng == null) {
     throw new Error('latLng is missing.')
@@ -220,8 +220,8 @@ const createPositionDescription = (
 
 const createScaleDescription = (
   scale: number,
-  latLng: ?LatLng,
-  datum: string
+  datum: string,
+  latLng?: LatLng
 ): string => {
   if (latLng === undefined || latLng === null) {
     throw new Error('Unexpected exception occured. Missing latlang.')
@@ -229,10 +229,10 @@ const createScaleDescription = (
   const { lat, lng } = convertLatLngToTokyoIfNeeded(latLng, datum)
   return `scale${scale}: ${toMeshCode(lat, lng, scale)}`
 }
-const createScaleCardContents = (latLng: ?LatLng, datum: string) =>
+const createScaleCardContents = (datum: string, latLng?: LatLng) =>
   SCALES.map((scale, idx) => (
     <Card.Content
-      description={createScaleDescription(scale, latLng, datum)}
+      description={createScaleDescription(scale, datum, latLng)}
       key={idx}
     />
   ))
@@ -243,17 +243,17 @@ const CoordPopup = (props: Props) => (
       <Card.Content header="Scales" />
       <Card.Content
         description={createPositionDescription(
-          props.contextmenuPosition,
           props.datum,
-          props.unit
+          props.unit,
+          props.contextmenuPosition
         )}
       />
-      {createScaleCardContents(props.contextmenuPosition, props.datum)}
+      {createScaleCardContents(props.datum, props.contextmenuPosition)}
     </Card>
   </Popup>
 )
 
-class Map extends Component<Props, State> {
+export class Map extends React.Component<Props, State> {
   state = {
     center: { lat: 36.01357, lng: 139.49891 },
     zoom: 6,
@@ -313,5 +313,3 @@ class Map extends Component<Props, State> {
     )
   }
 }
-
-export default Map

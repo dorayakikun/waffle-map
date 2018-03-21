@@ -1,16 +1,13 @@
-// @flow
-
-import React from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
+
+import { MeshDetail } from '../components/MeshDetail'
+import { Mesh } from '../domain/calculateMesh'
 import {
   convertLatLngToMillisecIfNeeded,
   convertBoundsToMillisecIfNeeded,
 } from '../domain/convertLatLng'
-import MeshDetail from '../components/MeshDetail'
-
-import type { Connector } from 'react-redux'
-import type { Mesh } from '../domain/calculateMesh'
-import type { State as RootState } from '../reducers'
+import { State as RootState } from '../reducers'
 
 type MeshDetailsContainerProps = { meshes: Array<Mesh> }
 
@@ -32,9 +29,9 @@ const mapStateToProps = (state: RootState) => ({
   })),
 })
 
-const connector: Connector<{}, MeshDetailsContainerProps> = connect(
+const connector = connect(
   mapStateToProps,
   {}
 )
 
-export default connector(MeshContainer)
+export const MeshDetailsContainer = connector(MeshContainer)

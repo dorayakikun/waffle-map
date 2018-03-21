@@ -1,5 +1,3 @@
-// @flow
-
 export const round = (n: number, place: number): number => {
   if (place < 1) {
     throw new Error(`Invalid place found.

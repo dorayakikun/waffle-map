@@ -1,43 +1,39 @@
-// @flow
-import meshCalculator from '../domain/calculateMesh'
-import { createLatLng } from '../domain/convertLatLng'
 import * as AppActions from '../actions/AppActions'
+import meshCalculator, { LatLng, Mesh } from '../domain/calculateMesh'
+import { createLatLng } from '../domain/convertLatLng'
 
-import type { Action } from '../actions/AppActions'
-import type { LatLng, Mesh } from '../domain/calculateMesh'
-
-type MarkerInputState = {
+interface MarkerInputState {
   latLng: string,
   unit: string,
   errorMessage: string,
 }
 
-export type MeshInputState = {
+export interface MeshInputState {
   errorMessage: string,
   meshCodes: string,
   datum: string,
   separator: string,
 }
 
-export type TileToggleState = {
+export interface TileToggleState {
   isShowDebugTiles: boolean,
 }
 
-export type MeshToggleState = {
+export interface MeshToggleState {
   isShowMeshes: boolean,
 }
 
-export type MapState = {
-  contextmenuPosition: ?LatLng,
-  markerPositions: Array<LatLng>,
+export interface MapState {
+  contextmenuPosition?:LatLng,
+  markerPositions: LatLng[],
 }
 
-export type State = {
+export interface State {
   markerInput: MarkerInputState,
   meshInput: MeshInputState,
   tileToggle: TileToggleState,
   meshToggle: MeshToggleState,
-  meshes: Array<Mesh>,
+  meshes: Mesh[],
   map: MapState,
 }
 const { toBounds, toCenterLatLng } = meshCalculator
@@ -61,7 +57,7 @@ const initialState: State = {
   },
   meshes: [],
   map: {
-    contextmenuPosition: null,
+    contextmenuPosition: undefined,
     markerPositions: [],
   },
 }
@@ -96,7 +92,7 @@ const changeUnit = (state: State, unit: string) => ({
   markerInput: { ...state.markerInput, unit },
 })
 
-const mapToMeshes = (meshCodes: string, separator: string): Array<Mesh> =>
+const mapToMeshes = (meshCodes: string, separator: string): Mesh[] =>
   meshCodes
     .split(separator)
     .filter(meshCode => meshCode !== '')
@@ -163,12 +159,12 @@ const toggleGrid = (state: State, type: any, isShow: boolean): State => {
   }
 }
 
-const updateContextmenuPosition = (state: State, latLng: ?LatLng): State => ({
+const updateContextmenuPosition = (state: State, latLng?: LatLng): State => ({
   ...state,
   map: { ...state.map, contextmenuPosition: latLng },
 })
 
-export default (state: State = initialState, action: Action): State => {
+export const reducers =  (state: State = initialState, action: AppActions.Action): State => {
   switch (action.type) {
     case AppActions.PUT_MARKER:
       return concatMarkerPositions(state, action.payload.latLng)

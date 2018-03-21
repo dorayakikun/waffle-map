@@ -1,5 +1,4 @@
-// @flow
-import type { LatLng } from '../domain/calculateMesh'
+import { LatLng } from '../domain/calculateMesh'
 
 export const PUT_MARKER = 'PUT_MARKER'
 export const REMOVE_ALL_MARKERS = 'REMOVE_ALL_MARKERS'
@@ -45,7 +44,7 @@ export type Action =
     }
   | {
       type: typeof UPDATE_CONTEXTMENU_POSITION,
-      payload: { latLng: ?LatLng },
+      payload: { latLng?: LatLng },
     }
 
 export const putMarker = (latLng: string) => ({
@@ -95,7 +94,7 @@ export const toggleMeshes = (isShowMeshes: boolean): Action => ({
   },
 })
 
-export const updateContextmenuPosition = (latLng: ?LatLng): Action => ({
+export const updateContextmenuPosition = (latLng?: LatLng): Action => ({
   type: UPDATE_CONTEXTMENU_POSITION,
   payload: {
     latLng,

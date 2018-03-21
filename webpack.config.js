@@ -14,11 +14,11 @@ console.log('env >', process.env.NODE_ENV)
 module.exports = {
   entry:
     process.env.NODE_ENV === 'production'
-      ? ['./src/index.js']
+      ? ['./src/index.tsx']
       : [
           'webpack-dev-server/client?http://localhost:9000',
           'webpack/hot/only-dev-server',
-          './src/index.js',
+          './src/index.tsx',
         ],
   output: {
     filename: 'bundle.js',
@@ -52,8 +52,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        use: 'babel-loader',
+        test: /\.tsx$/,
+        use: 'awesome-typescript-loader',
         exclude: /node_modules/,
       },
       {
@@ -63,4 +63,7 @@ module.exports = {
       },
     ],
   },
+  resolve: {
+    extensions: [".ts", ".tsx"]
+  }
 }
