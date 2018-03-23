@@ -6363,8 +6363,8 @@ react-inspector@^2.2.2:
     is-dom "^1.0.9"
 
 react-leaflet@^1.7.8:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-1.9.0.tgz#eaad329d6c35b0ee988ce17383b91fd61ae9329e"
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-1.9.1.tgz#0a282d8d26f66ea2d719ebb8f4a5fa156b33b8c8"
   dependencies:
     lodash "^4.0.0"
     lodash-es "^4.0.0"
