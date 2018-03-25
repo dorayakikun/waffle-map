@@ -1,10 +1,6 @@
-// @flow
-
-import React from 'react'
-
+import * as React from 'react'
 import { storiesOf } from '@storybook/react'
-
-import MeshCodeInput from '../src/components/MeshCodeInput'
+import { MeshCodeInput } from '../src/components/MeshCodeInput'
 
 const defaultProps = {
   errorMessage: '',

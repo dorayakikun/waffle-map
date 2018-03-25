@@ -1,10 +1,7 @@
-// @flow
-
-import React from 'react'
+import * as React from 'react'
 import { storiesOf } from '@storybook/react'
-import Map from '../src/components/Map'
-
-import type { LatLng } from '../src/domain/calculateMesh'
+import { Map } from '../src/components/Map'
+import { LatLng } from '../src/domain/calculateMesh'
 
 const someMesh = {
   code: '5031',

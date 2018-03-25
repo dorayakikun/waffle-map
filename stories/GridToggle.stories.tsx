@@ -1,10 +1,7 @@
-// @flow
-
-import React from 'react'
+import * as React from 'react'
 import { storiesOf } from '@storybook/react'
 import { linkTo } from '@storybook/addon-links'
-
-import GridToggle from '../src/components/GridToggle'
+import { GridToggle } from '../src/components/GridToggle'
 
 const propsShowMeshes = {
   title: 'Show grid',

@@ -1,10 +1,6 @@
-// @flow
-
-import React from 'react'
-
+import * as React from 'react'
 import { storiesOf } from '@storybook/react'
-
-import MeshDetail from '../src/components/MeshDetail'
+import { MeshDetail } from '../src/components/MeshDetail'
 
 const props = {
   code: '5339',
