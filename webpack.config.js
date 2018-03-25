@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 const path = require('path')
 const webpack = require('webpack')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
@@ -7,6 +5,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const BASE_PLUGINS = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    'process.env.npm_package_wafflemap_meshcalculator':  JSON.stringify(process.env.npm_package_wafflemap_meshcalculator),
   }),
 ]
 
@@ -14,11 +13,11 @@ console.log('env >', process.env.NODE_ENV)
 module.exports = {
   entry:
     process.env.NODE_ENV === 'production'
-      ? ['./src/index.js']
+      ? ['./src/index.tsx']
       : [
           'webpack-dev-server/client?http://localhost:9000',
           'webpack/hot/only-dev-server',
-          './src/index.js',
+          './src/index.tsx',
         ],
   output: {
     filename: 'bundle.js',
@@ -52,8 +51,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        use: 'babel-loader',
+        test: /\.ts$/,
+        use: 'awesome-typescript-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.tsx$/,
+        use: 'awesome-typescript-loader',
         exclude: /node_modules/,
       },
       {
@@ -63,4 +67,7 @@ module.exports = {
       },
     ],
   },
+  resolve: {
+    extensions: [".js",".ts", ".tsx"]
+  }
 }

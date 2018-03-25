@@ -4,14 +4,14 @@ node_js:
 env:
   CODECLIMATE_REPO_TOKEN: 3fe7d092eafbecae5628d6b7eac7c9304001b39c6e2a090e6bf043d259f2d018
 after_success:
-  - npm install -g codeclimate-test-reporter
+  - yarn global add codeclimate-test-reporter
   - codeclimate-test-reporter < coverage/lcov.info
 cache:
   directories:
   - node_modules
 script:
-  - npm test
-  - npm run build
+  - yarn test
+  - yarn build
 deploy:
   provider: pages
   skip_cleanup: true

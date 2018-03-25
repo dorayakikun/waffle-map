@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "lib": ["dom","esnext"],
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "strict": false,
+    "target": "es5",
+    "types": ["jest", "leaflet", "react","react-dom","react-leaflet", "react-redux","redux"],
+    "typeRoots": [
+      "node_modues/@types", "typings"
+    ]
+  },
+  "exclude": [
+    "node_modules", "public", "*/__tests__/*"
+  ]
+}
