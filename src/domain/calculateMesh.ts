@@ -1,7 +1,5 @@
 declare const require: any
 
-import * as pkg from '../../package.json'
-
 export interface LatLng {
   lat: number,
   lng: number,
@@ -28,9 +26,9 @@ interface MeshCalculator {
 }
 
 const meshCalculator: () => MeshCalculator = () => {
-  if ((<any>pkg).wafflemap) {
+  if (process.env.npm_package_wafflemap_meshcalculator) {
     return require('../../node_modules/waffle-map-mesh-calculator-' +
-    (<any>pkg).wafflemap.meshcalculator +
+    process.env.npm_package_wafflemap_meshcalculator +
       '/lib/meshCalculator.js')
   }
   return require('waffle-map-mesh-calculator-basic')

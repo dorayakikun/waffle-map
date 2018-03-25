@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 const path = require('path')
 const webpack = require('webpack')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
@@ -7,6 +5,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const BASE_PLUGINS = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    'process.env.npm_package_wafflemap_meshcalculator':  JSON.stringify(process.env.npm_package_wafflemap_meshcalculator),
   }),
 ]
 
