@@ -38,7 +38,7 @@ const ACCORDION_MENU_ITEM_VALUES: AccordionMenuItemValue[] = [
   },
 ]
 
-export default class AppContainer extends React.Component<Props, State> {
+export class AppContainer extends React.Component<Props, State> {
   state = { activeIndex: 3 }
 
   handleClick = (e: React.MouseEvent<HTMLDivElement>, data: AccordionTitleProps) => {
