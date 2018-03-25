@@ -1,5 +1,3 @@
-// @flow
-
 import {
   createLatLng,
   convertLatLngToTokyo,
@@ -13,7 +11,7 @@ import {
   convertLatLngToWGS84IfNeeded,
   convertLatLngToMillisecIfNeeded,
   convertBoundsToMillisecIfNeeded,
-} from '../../src/domain/convertLatLng'
+} from '../convertLatLng'
 
 // ---
 // Invalid case

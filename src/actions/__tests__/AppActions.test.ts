@@ -1,6 +1,4 @@
-require('babel-core').buildExternalHelpers()
-
-import * as AppActions from '../../src/actions/AppActions'
+import * as AppActions from '../AppActions'
 
 test('Should create action to input meshes', () => {
   const meshCodes = '5339'

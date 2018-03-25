@@ -1,4 +1,4 @@
-import * as AppActions from '../actions/AppActions'
+import { Action, ActionKeys } from '../actions/AppActions'
 import meshCalculator, { LatLng, Mesh } from '../domain/calculateMesh'
 import { createLatLng } from '../domain/convertLatLng'
 
@@ -144,12 +144,12 @@ const selectSeparator = (state: State, separator: string): State => ({
 
 const toggleGrid = (state: State, type: any, isShow: boolean): State => {
   switch (type) {
-    case AppActions.TOGGLE_DEBUG_TILES:
+    case ActionKeys.TOGGLE_DEBUG_TILES:
       return {
         ...state,
         tileToggle: { isShowDebugTiles: isShow },
       }
-    case AppActions.TOGGLE_MESHES:
+    case ActionKeys.TOGGLE_MESHES:
       return {
         ...state,
         meshToggle: { isShowMeshes: isShow },
@@ -164,30 +164,30 @@ const updateContextmenuPosition = (state: State, latLng?: LatLng): State => ({
   map: { ...state.map, contextmenuPosition: latLng },
 })
 
-export const reducers =  (state: State = initialState, action: AppActions.Action): State => {
+export const reducers =  (state: State = initialState, action: Action): State => {
   switch (action.type) {
-    case AppActions.PUT_MARKER:
+    case ActionKeys.PUT_MARKER:
       return concatMarkerPositions(state, action.payload.latLng)
-    case AppActions.REMOVE_ALL_MARKERS:
+    case ActionKeys.REMOVE_ALL_MARKERS:
       return removeAllMarkers(state)
-    case AppActions.CHANGE_UNIT:
+    case ActionKeys.CHANGE_UNIT:
       return changeUnit(state, action.payload.unit)
-    case AppActions.INPUT_MESHES:
+    case ActionKeys.INPUT_MESHES:
       const { meshCodes } = action.payload
       return stateFrom(meshCodes, state)
-    case AppActions.SELECT_DATUM:
+    case ActionKeys.SELECT_DATUM:
       const { datum } = action.payload
       return selectDatum(state, datum)
-    case AppActions.SELECT_SEPARATOR:
+    case ActionKeys.SELECT_SEPARATOR:
       const { separator } = action.payload
       return selectSeparator(state, separator)
-    case AppActions.TOGGLE_DEBUG_TILES:
+    case ActionKeys.TOGGLE_DEBUG_TILES:
       const { isShowDebugTiles } = action.payload
       return toggleGrid(state, action.type, isShowDebugTiles)
-    case AppActions.TOGGLE_MESHES:
+    case ActionKeys.TOGGLE_MESHES:
       const { isShowMeshes } = action.payload
       return toggleGrid(state, action.type, isShowMeshes)
-    case AppActions.UPDATE_CONTEXTMENU_POSITION:
+    case ActionKeys.UPDATE_CONTEXTMENU_POSITION:
       const { latLng } = action.payload
       return updateContextmenuPosition(state, latLng)
     default:

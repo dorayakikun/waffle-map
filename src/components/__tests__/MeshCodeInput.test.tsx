@@ -1,10 +1,8 @@
 // @flow
 
-import React from 'react'
-import render from 'react-test-renderer'
-import MeshInput from '../../src/components/MeshCodeInput'
-
-import type { Props } from '../../src/components/MeshCodeInput'
+import * as React from 'react'
+import * as render from 'react-test-renderer'
+import { MeshCodeInput, Props } from '../MeshCodeInput'
 
 const defaultProps: Props = {
   errorMessage: '',
@@ -17,7 +15,7 @@ const defaultProps: Props = {
 }
 
 test('Should set props to MeshCodeInput', () => {
-  const tree = render.create(<MeshInput {...defaultProps} />).toJSON()
+  const tree = render.create(<MeshCodeInput {...defaultProps} />).toJSON()
   expect(tree).toMatchSnapshot()
 })
 
@@ -27,6 +25,6 @@ test('Should render negative message when errorMessage is not blank', () => {
     meshCodes: '5',
     errorMessage: 'It seems there was something wrong ...',
   }
-  const tree = render.create(<MeshInput {...invalidProps} />).toJSON()
+  const tree = render.create(<MeshCodeInput {...invalidProps} />).toJSON()
   expect(tree).toMatchSnapshot()
 })

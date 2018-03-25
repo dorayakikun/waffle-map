@@ -21,6 +21,8 @@
   "homepage": "https://dorayakikun.github.io/waffle-map/",
   "devDependencies": {
     "@storybook/react": "^3.2.17",
+    "@types/jest": "^22.2.2",
+    "@types/react-test-renderer": "^16.0.1",
     "awesome-typescript-loader": "^4.0.1",
     "husky": "^0.14.3",
     "jest": "^22.4.2",
@@ -52,6 +54,9 @@
     "waffle-map-mesh-calculator-basic": "^2.0.0"
   },
   "jest": {
-    "collectCoverage": true
+    "collectCoverage": true, 
+    "moduleFileExtensions": ["ts", "tsx", "js"],
+    "transform": { "^.+\\.(ts|tsx)$": "<rootDir>/preprocessor.js" },
+    "testMatch": [ "**/__tests__/*.+(ts|tsx|js)" ]
   }
 }

@@ -6,9 +6,12 @@
     "outDir": "dist",
     "strict": false,
     "target": "es5",
-    "types": ["leaflet", "react","react-dom","react-leaflet", "react-redux","redux"],
+    "types": ["jest", "leaflet", "react","react-dom","react-leaflet", "react-redux","redux"],
     "typeRoots": [
       "node_modues/@types", "typings"
     ]
-  }
+  },
+  "exclude": [
+    "node_modules", "public", "*/__tests__/*"
+  ]
 }

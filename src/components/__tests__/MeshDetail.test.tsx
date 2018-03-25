@@ -1,11 +1,7 @@
-// @flow
-
-import React from 'react'
-import render from 'react-test-renderer'
+import * as React from 'react'
+import * as render from 'react-test-renderer'
 import { toCenterLatLng, toBounds } from 'waffle-map-mesh-calculator-basic'
-import MeshDetail from '../../src/components/MeshDetail'
-
-import type { Props } from '../../src/components/MeshDetail'
+import { MeshDetail, Props } from '../MeshDetail'
 
 test('Should set props to MeshDetail', () => {
   const meshCode = '5339'
