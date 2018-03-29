@@ -8,7 +8,6 @@ interface GeodeticInputState {
 }
 interface MarkerInputState {
   latLng: string
-  unit: string
   errorMessage: string
 }
 
@@ -49,7 +48,6 @@ const initialState: State = {
   },
   markerInput: {
     latLng: '',
-    unit: 'degree',
     errorMessage: '',
   },
   meshInput: {
@@ -72,7 +70,7 @@ const initialState: State = {
 }
 
 const concatMarkerPositions = (state: State, latLng: string): State => {
-  const { unit } = state.markerInput
+  const { unit } = state.geodeticInput
   const markerPositions = state.map.markerPositions
   try {
     return {

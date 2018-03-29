@@ -1,35 +1,41 @@
 import * as React from 'react'
-import { Button, Dropdown, DropdownProps, Input, Message, InputOnChangeData } from 'semantic-ui-react'
+import {
+  Button,
+  Dropdown,
+  DropdownProps,
+  Input,
+  Message,
+  InputOnChangeData,
+} from 'semantic-ui-react'
 
 export interface Props {
-  latLng: string,
-  unit: string,
-  errorMessage: string,
-  putMarker: (event: React.SyntheticEvent<HTMLElement>, state: State) => void,
-  removeAllMarkers: () => void,
-  changeUnit: (event: React.SyntheticEvent<HTMLElement>, data: DropdownProps) => void,
+  latLng: string
+  errorMessage: string
+  putMarker: (event: React.SyntheticEvent<HTMLElement>, state: State) => void
+  removeAllMarkers: () => void
 }
 
 export interface State {
-  latLng: string,
-  unit: string,
-  errorMessage: string,
+  latLng: string
+  errorMessage: string
 }
 
 export class MarkerInput extends React.Component<Props, State> {
   state = {
     latLng: this.props.latLng || '',
-    unit: this.props.unit || 'degree',
     errorMessage: this.props.errorMessage || '',
   }
 
-  onChangedLatLng = (e: React.SyntheticEvent<HTMLElement>, data: InputOnChangeData) => this.setState({ latLng: data.value })
+  onChangedLatLng = (
+    event: React.SyntheticEvent<HTMLElement>,
+    data: InputOnChangeData
+  ) => this.setState({ latLng: data.value })
 
-  onChangedUnit = (e: React.SyntheticEvent<HTMLElement>, data: DropdownProps) => this.props.changeUnit(e, data)
+  handleClickPutAMarker = (event: React.SyntheticEvent<HTMLElement>) =>
+    this.props.putMarker(event, this.state)
 
-  handleClickPutAMarker = (event: React.SyntheticEvent<HTMLElement>) => this.props.putMarker(event, this.state)
-
-  handleClickRemoveAllMarkers = (event: React.SyntheticEvent<HTMLElement>) => this.props.removeAllMarkers()
+  handleClickRemoveAllMarkers = (event: React.SyntheticEvent<HTMLElement>) =>
+    this.props.removeAllMarkers()
 
   render() {
     const { latLng } = this.state
@@ -67,23 +73,6 @@ export class MarkerInput extends React.Component<Props, State> {
           </Message>
         )}
 
-        <Dropdown
-          fluid
-          onChange={this.onChangedUnit}
-          options={[
-            {
-              text: 'millisec',
-              value: 'millisec',
-            },
-            {
-              text: 'degree',
-              value: 'degree',
-            },
-          ]}
-          style={{ marginTop: '10px', marginBottom: '10px' }}
-          text={this.props.unit}
-          value={this.props.unit}
-        />
       </div>
     )
   }
