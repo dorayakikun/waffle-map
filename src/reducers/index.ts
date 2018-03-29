@@ -2,42 +2,51 @@ import { Action, ActionKeys } from '../actions/AppActions'
 import meshCalculator, { LatLng, Mesh } from '../domain/calculateMesh'
 import { createLatLng } from '../domain/convertLatLng'
 
+interface GeodeticInputState {
+  unit: string
+  datum: string
+}
 interface MarkerInputState {
-  latLng: string,
-  unit: string,
-  errorMessage: string,
+  latLng: string
+  unit: string
+  errorMessage: string
 }
 
 export interface MeshInputState {
-  errorMessage: string,
-  meshCodes: string,
-  datum: string,
-  separator: string,
+  errorMessage: string
+  meshCodes: string
+  datum: string
+  separator: string
 }
 
 export interface TileToggleState {
-  isShowDebugTiles: boolean,
+  isShowDebugTiles: boolean
 }
 
 export interface MeshToggleState {
-  isShowMeshes: boolean,
+  isShowMeshes: boolean
 }
 
 export interface MapState {
-  contextmenuPosition?:LatLng,
-  markerPositions: LatLng[],
+  contextmenuPosition?: LatLng
+  markerPositions: LatLng[]
 }
 
 export interface State {
-  markerInput: MarkerInputState,
-  meshInput: MeshInputState,
-  tileToggle: TileToggleState,
-  meshToggle: MeshToggleState,
-  meshes: Mesh[],
-  map: MapState,
+  geodeticInput: GeodeticInputState
+  markerInput: MarkerInputState
+  meshInput: MeshInputState
+  tileToggle: TileToggleState
+  meshToggle: MeshToggleState
+  meshes: Mesh[]
+  map: MapState
 }
 const { toBounds, toCenterLatLng } = meshCalculator
 const initialState: State = {
+  geodeticInput: {
+    unit: 'degree',
+    datum: 'WGS84',
+  },
   markerInput: {
     latLng: '',
     unit: 'degree',
@@ -164,7 +173,10 @@ const updateContextmenuPosition = (state: State, latLng?: LatLng): State => ({
   map: { ...state.map, contextmenuPosition: latLng },
 })
 
-export const reducers =  (state: State = initialState, action: Action): State => {
+export const reducers = (
+  state: State = initialState,
+  action: Action
+): State => {
   switch (action.type) {
     case ActionKeys.PUT_MARKER:
       return concatMarkerPositions(state, action.payload.latLng)
