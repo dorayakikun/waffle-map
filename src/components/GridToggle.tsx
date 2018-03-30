@@ -2,9 +2,12 @@ import * as React from 'react'
 import { Checkbox, CheckboxProps } from 'semantic-ui-react'
 
 export type Props = {
-  title: string,
-  isShowGrid: boolean,
-  onToggleChanged: (event: React.FormEvent<HTMLInputElement>, data: CheckboxProps) => void,
+  title: string
+  isShowGrid: boolean
+  onToggleChanged: (
+    event: React.FormEvent<HTMLInputElement>,
+    data: CheckboxProps
+  ) => void
 }
 
 export const GridToggle = (props: Props) => (

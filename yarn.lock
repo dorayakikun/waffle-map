@@ -255,6 +255,12 @@
   dependencies:
     redux "*"
 
+"@types/storybook__addon-links@^3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@types/storybook__addon-links/-/storybook__addon-links-3.3.0.tgz#750ee3422ceb88af3090bf8e4bc565ca341595a4"
+  dependencies:
+    "@types/react" "*"
+
 "@types/storybook__react@^3.0.7":
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/@types/storybook__react/-/storybook__react-3.0.7.tgz#2ca6ab78e5fe777737aa5880b0bb5228f564e137"
@@ -7962,8 +7968,8 @@ w3c-hr-time@^1.0.1:
     browser-process-hrtime "^0.1.2"
 
 waffle-map-mesh-calculator-basic@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/waffle-map-mesh-calculator-basic/-/waffle-map-mesh-calculator-basic-2.1.0.tgz#a69d38aa4f5dfafa17cf1b6adfeaafed85b4ec9b"
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/waffle-map-mesh-calculator-basic/-/waffle-map-mesh-calculator-basic-2.1.1.tgz#e1dd54fdbe892629321b83aee37a6b6e239bb021"
 
 walker@~1.0.5:
   version "1.0.7"

@@ -8,10 +8,8 @@ const defaultProps: Props = {
   errorMessage: '',
   meshCodes: '',
   separator: '.',
-  datum: 'wgs84',
   onMeshesChanged: () => {},
   onSeparatorChanged: () => {},
-  onDatumChanged: () => {},
 }
 
 test('Should set props to MeshCodeInput', () => {

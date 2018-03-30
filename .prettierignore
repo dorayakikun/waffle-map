@@ -5,3 +5,4 @@ coverage
 flow-typed
 package.json
 package-lock.json
+public/bundle.js

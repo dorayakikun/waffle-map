@@ -22,25 +22,25 @@ import meshCalculator from '../domain/calculateMesh'
 import { round } from '../domain/roundPoint'
 
 export interface Props {
-  meshes: Mesh[],
-  datum: string,
-  unit: string,
-  contextmenuPosition?: LatLng,
-  isShowDebugTiles: boolean,
-  isShowMeshes: boolean,
-  markerPositions: Array<LatLng>,
-  onContextmenu: (event: Event & { latlng: LatLng }) => void,
-  onClose: () => void,
+  meshes: Mesh[]
+  datum: string
+  unit: string
+  contextmenuPosition?: LatLng
+  isShowDebugTiles: boolean
+  isShowMeshes: boolean
+  markerPositions: Array<LatLng>
+  onContextmenu: (event: Event & { latlng: LatLng }) => void
+  onClose: () => void
 }
 
 interface State {
-  center: LatLng,
-  zoom: number,
+  center: LatLng
+  zoom: number
 }
 
 interface Viewport {
-  center?: number[],
-  zoom?: number,
+  center?: number[]
+  zoom?: number
 }
 
 const initialLeafletBounds: [number, number][] = [[35, 139], [37, 140]]
@@ -55,7 +55,7 @@ const { toMeshCode, SCALES } = meshCalculator
 const meshesToLatsAndLngs = (
   meshes: Array<Mesh>,
   datum: string
-): { lats: Array<number>, lngs: Array<number> } => {
+): { lats: Array<number>; lngs: Array<number> } => {
   const lats: Array<number> = []
   const lngs: Array<number> = []
   meshes
@@ -168,7 +168,7 @@ const getSquareMeshes = (
 const throttleEvents = (
   listener: (viewport: Viewport) => void,
   delay: number
-): (viewport: Viewport) => void => {
+): ((viewport: Viewport) => void) => {
   let timeout: number
   const throttledListener = (viewport: Viewport) => {
     if (timeout) {
@@ -194,7 +194,10 @@ const createMeshRect = (
   color: string
 ) => (
   <Rectangle
-    bounds={[[bounds.leftTop.lat, bounds.leftTop.lng], [bounds.rightBottom.lat, bounds.rightBottom.lng]] }
+    bounds={[
+      [bounds.leftTop.lat, bounds.leftTop.lng],
+      [bounds.rightBottom.lat, bounds.rightBottom.lng],
+    ]}
     key={index}
     color={color}
   >
@@ -207,7 +210,7 @@ const createMeshRect = (
 const createPositionDescription = (
   datum: string,
   unit: string,
-  latLng?: LatLng,
+  latLng?: LatLng
 ): string => {
   if (latLng == null) {
     throw new Error('latLng is missing.')

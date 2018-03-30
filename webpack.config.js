@@ -5,7 +5,9 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const BASE_PLUGINS = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    'process.env.npm_package_wafflemap_meshcalculator':  JSON.stringify(process.env.npm_package_wafflemap_meshcalculator),
+    'process.env.npm_package_wafflemap_meshcalculator': JSON.stringify(
+      process.env.npm_package_wafflemap_meshcalculator
+    ),
   }),
 ]
 
@@ -51,12 +53,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts$/,
-        use: 'awesome-typescript-loader',
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.tsx$/,
+        test: /\.tsx?$/,
         use: 'awesome-typescript-loader',
         exclude: /node_modules/,
       },
@@ -68,6 +65,6 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js",".ts", ".tsx"]
-  }
+    extensions: ['.js', '.ts', '.tsx'],
+  },
 }

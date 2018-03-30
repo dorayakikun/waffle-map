@@ -1,5 +1,5 @@
 import { GridLayer, GridLayerProps } from 'react-leaflet'
-import * as Leaflet from 'leaflet';
+import * as Leaflet from 'leaflet'
 
 class DebugTileLayer extends GridLayer {
   createLeafletElement(props: GridLayerProps): Leaflet.GridLayer {
@@ -17,7 +17,7 @@ class DebugTileLayer extends GridLayer {
           ${[coords.x, coords.y, coords.z].join(', ')}
           </span>`
         return tile
-      }
+      },
     })
     return new debugGridLayer(this.getOptions(props))
   }
