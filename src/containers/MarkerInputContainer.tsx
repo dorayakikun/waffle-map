@@ -3,11 +3,7 @@ import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { DropdownProps } from 'semantic-ui-react'
 
-import {
-  Action,
-  putMarker,
-  removeAllMarkers,
-} from '../actions/AppActions'
+import { Action, putMarker, removeAllMarkers } from '../actions/AppActions'
 import {
   MarkerInput,
   State as MarkerInputState,

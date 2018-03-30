@@ -4,14 +4,14 @@ import { round } from '../domain/roundPoint'
 import { Bounds, LatLng } from '../domain/calculateMesh'
 
 export interface Props {
-  code: string,
-  center: LatLng,
-  bounds: Bounds,
+  code: string
+  center: LatLng
+  bounds: Bounds
 }
 
 interface TableRowValue {
-  latLng: LatLng,
-  title: string,
+  latLng: LatLng
+  title: string
 }
 
 const mapPropsToTableRowValues = ({

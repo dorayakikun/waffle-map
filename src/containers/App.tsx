@@ -1,6 +1,13 @@
 import * as React from 'react'
-import { Accordion, Image, Menu, Sidebar, AccordionTitleProps } from 'semantic-ui-react'
+import {
+  Accordion,
+  Image,
+  Menu,
+  Sidebar,
+  AccordionTitleProps,
+} from 'semantic-ui-react'
 
+import { GeodeticInputContainer } from './GeodeticInputContainer'
 import { MarkerInputContainer } from './MarkerInputContainer'
 import { MeshCodeInputContainer } from './MeshInputContainer'
 import { MeshDetailsContainer } from './MeshDetailsContainer'
@@ -9,17 +16,17 @@ import { TileToggleContainer } from './TileToggleContainer'
 import { MeshToggleContainer } from './MeshToggleContainer'
 
 type Props = {
-  activeIndex: number,
+  activeIndex: number
 }
 
 type State = {
-  activeIndex: number,
+  activeIndex: number
 }
 
 type AccordionMenuItemValue = {
-  index: number,
-  title: string,
-  container: any,
+  index: number
+  title: string
+  container: any
 }
 
 const ACCORDION_MENU_ITEM_VALUES: AccordionMenuItemValue[] = [
@@ -41,7 +48,10 @@ const ACCORDION_MENU_ITEM_VALUES: AccordionMenuItemValue[] = [
 export class AppContainer extends React.Component<Props, State> {
   state = { activeIndex: 3 }
 
-  handleClick = (e: React.MouseEvent<HTMLDivElement>, data: AccordionTitleProps) => {
+  handleClick = (
+    e: React.MouseEvent<HTMLDivElement>,
+    data: AccordionTitleProps
+  ) => {
     const index = data.index as number
     const { activeIndex } = this.state
     const newIndex = activeIndex === index ? -1 : index
@@ -65,6 +75,10 @@ export class AppContainer extends React.Component<Props, State> {
               <Menu.Item name="waffleMap">
                 <Image src="./images/logo.png" size="mini" spaced />
                 <strong>Waffle Map</strong>
+              </Menu.Item>
+
+              <Menu.Item name="Geodetic">
+                <GeodeticInputContainer />
               </Menu.Item>
 
               {ACCORDION_MENU_ITEM_VALUES.map(

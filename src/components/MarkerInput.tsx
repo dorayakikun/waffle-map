@@ -72,7 +72,6 @@ export class MarkerInput extends React.Component<Props, State> {
             <p>{this.props.errorMessage}</p>
           </Message>
         )}
-
       </div>
     )
   }

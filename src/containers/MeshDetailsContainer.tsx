@@ -20,18 +20,15 @@ const mapStateToProps = (state: RootState) => ({
     code: mesh.code,
     center: convertLatLngToMillisecIfNeeded(
       mesh.center,
-      state.markerInput.unit
+      state.geodeticInput.unit
     ),
     bounds: convertBoundsToMillisecIfNeeded(
       mesh.bounds,
-      state.markerInput.unit
+      state.geodeticInput.unit
     ),
   })),
 })
 
-const connector = connect(
-  mapStateToProps,
-  {}
-)
+const connector = connect(mapStateToProps, {})
 
 export const MeshDetailsContainer = connector(MeshContainer)

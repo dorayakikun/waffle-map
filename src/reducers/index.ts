@@ -14,7 +14,6 @@ interface MarkerInputState {
 export interface MeshInputState {
   errorMessage: string
   meshCodes: string
-  datum: string
   separator: string
 }
 
@@ -41,7 +40,7 @@ export interface State {
   map: MapState
 }
 const { toBounds, toCenterLatLng } = meshCalculator
-const initialState: State = {
+export const initialState: State = {
   geodeticInput: {
     unit: 'degree',
     datum: 'WGS84',
@@ -53,7 +52,6 @@ const initialState: State = {
   meshInput: {
     errorMessage: '',
     meshCodes: '',
-    datum: 'WGS84',
     separator: '.',
   },
   tileToggle: {
@@ -96,7 +94,7 @@ const removeAllMarkers = (state: State): State => ({
 
 const changeUnit = (state: State, unit: string) => ({
   ...state,
-  markerInput: { ...state.markerInput, unit },
+  geodeticInput: { ...state.geodeticInput, unit },
 })
 
 const mapToMeshes = (meshCodes: string, separator: string): Mesh[] =>
@@ -141,7 +139,7 @@ const stateFrom = (meshCodes: string, state: State): State => {
 
 const selectDatum = (state: State, datum: string): State => ({
   ...state,
-  meshInput: { ...state.meshInput, datum },
+  geodeticInput: { ...state.geodeticInput, datum },
 })
 
 const selectSeparator = (state: State, separator: string): State => ({

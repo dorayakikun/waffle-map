@@ -1,4 +1,9 @@
-import { ActionKeys, inputMeshes, selectSeparator, updateContextmenuPosition } from '../AppActions'
+import {
+  ActionKeys,
+  inputMeshes,
+  selectSeparator,
+  updateContextmenuPosition,
+} from '../AppActions'
 
 test('Should create action to input meshes', () => {
   const meshCodes = '5339'

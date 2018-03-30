@@ -2,10 +2,16 @@ import * as React from 'react'
 import { Dropdown, DropdownItemProps, DropdownProps } from 'semantic-ui-react'
 
 export interface Props {
-  unit: string,
-  datum: string,
-  changeUnit: (event: React.SyntheticEvent<HTMLElement>, data: DropdownProps) => void,
-  onDatumChanged: (event: React.SyntheticEvent<HTMLElement>, data: DropdownProps) => void,
+  unit: string
+  datum: string
+  changeUnit: (
+    event: React.SyntheticEvent<HTMLElement>,
+    data: DropdownProps
+  ) => void
+  onDatumChanged: (
+    event: React.SyntheticEvent<HTMLElement>,
+    data: DropdownProps
+  ) => void
 }
 const units: DropdownItemProps[] = [
   {
@@ -32,7 +38,7 @@ export const GeodeticInput = (props: Props) => (
   <div>
     <Dropdown
       fluid
-      onChange={this.onChangedUnit}
+      onChange={props.changeUnit}
       options={units}
       style={{ marginTop: '10px', marginBottom: '10px' }}
       text={props.unit}

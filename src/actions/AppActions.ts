@@ -13,39 +13,39 @@ export enum ActionKeys {
 }
 
 interface PutMarkerAction {
-  readonly type: ActionKeys.PUT_MARKER,
-  payload: { latLng: string },
+  readonly type: ActionKeys.PUT_MARKER
+  payload: { latLng: string }
 }
 interface RemoveAllMarkerAction {
-  readonly type: ActionKeys.REMOVE_ALL_MARKERS,
+  readonly type: ActionKeys.REMOVE_ALL_MARKERS
 }
 interface ChangeUnitAction {
-  readonly type: ActionKeys.CHANGE_UNIT,
-  payload: { unit: string },
+  readonly type: ActionKeys.CHANGE_UNIT
+  payload: { unit: string }
 }
 interface InputMeshesAction {
-  readonly type: ActionKeys.INPUT_MESHES,
-  payload: { meshCodes: string },
+  readonly type: ActionKeys.INPUT_MESHES
+  payload: { meshCodes: string }
 }
 interface SelectDatumAction {
-  readonly type: ActionKeys.SELECT_DATUM,
-  payload: { datum: string },
+  readonly type: ActionKeys.SELECT_DATUM
+  payload: { datum: string }
 }
 interface SelectSeparatorAction {
-  type: ActionKeys.SELECT_SEPARATOR,
-  payload: { separator: string },
+  type: ActionKeys.SELECT_SEPARATOR
+  payload: { separator: string }
 }
 interface ToggleDebugTilesAction {
-  readonly type: ActionKeys.TOGGLE_DEBUG_TILES,
-  payload: { isShowDebugTiles: boolean },
+  readonly type: ActionKeys.TOGGLE_DEBUG_TILES
+  payload: { isShowDebugTiles: boolean }
 }
 interface ToggleMeshesAction {
-  type: ActionKeys.TOGGLE_MESHES,
-  payload: { isShowMeshes: boolean },
+  type: ActionKeys.TOGGLE_MESHES
+  payload: { isShowMeshes: boolean }
 }
 interface UpdateContextmenuPositionAction {
-  type: ActionKeys.UPDATE_CONTEXTMENU_POSITION,
-  payload: { latLng?: LatLng },
+  type: ActionKeys.UPDATE_CONTEXTMENU_POSITION
+  payload: { latLng?: LatLng }
 }
 
 export type Action =
@@ -92,7 +92,9 @@ export const selectSeparator = (separator: string): SelectSeparatorAction => ({
   },
 })
 
-export const toggleDebugTiles = (isShowDebugTiles: boolean): ToggleDebugTilesAction => ({
+export const toggleDebugTiles = (
+  isShowDebugTiles: boolean
+): ToggleDebugTilesAction => ({
   type: ActionKeys.TOGGLE_DEBUG_TILES,
   payload: {
     isShowDebugTiles,
@@ -106,7 +108,9 @@ export const toggleMeshes = (isShowMeshes: boolean): ToggleMeshesAction => ({
   },
 })
 
-export const updateContextmenuPosition = (latLng?: LatLng): UpdateContextmenuPositionAction => ({
+export const updateContextmenuPosition = (
+  latLng?: LatLng
+): UpdateContextmenuPositionAction => ({
   type: ActionKeys.UPDATE_CONTEXTMENU_POSITION,
   payload: {
     latLng,

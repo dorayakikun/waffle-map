@@ -10,22 +10,19 @@ const mapStateToProps = (state: RootState) => ({
   ...state.tileToggle,
   ...state.meshToggle,
   meshes: state.meshes,
-  datum: state.meshInput.datum,
-  unit: state.markerInput.unit,
+  datum: state.geodeticInput.datum,
+  unit: state.geodeticInput.unit,
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-    onContextmenu: (event: Event & { latlng: LatLng }) => {
-      dispatch(updateContextmenuPosition(event.latlng))
-    },
-    onClose: () => {
-      dispatch(updateContextmenuPosition(undefined))
-    },
-  })
+  onContextmenu: (event: Event & { latlng: LatLng }) => {
+    dispatch(updateContextmenuPosition(event.latlng))
+  },
+  onClose: () => {
+    dispatch(updateContextmenuPosition(undefined))
+  },
+})
 
-const connector = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)
+const connector = connect(mapStateToProps, mapDispatchToProps)
 
 export const MapContainer = connector(Map)

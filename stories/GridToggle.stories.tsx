@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { CheckboxProps } from 'semantic-ui-react'
 import { storiesOf } from '@storybook/react'
 import { linkTo } from '@storybook/addon-links'
 import { GridToggle } from '../src/components/GridToggle'
@@ -6,7 +7,8 @@ import { GridToggle } from '../src/components/GridToggle'
 const propsShowMeshes = {
   title: 'Show grid',
   isShowGrid: true,
-  onToggleChanged: linkTo('MeshToggle', 'hide meshes'),
+  // linkTo('MeshToggle', 'hide meshes')
+  onToggleChanged: (event: React.FormEvent<HTMLInputElement>, data: CheckboxProps) => {},
 }
 
 storiesOf('MeshToggle', module).add('show meshes', () => (
@@ -16,7 +18,8 @@ storiesOf('MeshToggle', module).add('show meshes', () => (
 const propsHideMeshes = {
   title: 'Show grid',
   isShowGrid: false,
-  onToggleChanged: linkTo('MeshToggle', 'show meshes'),
+  // linkTo('MeshToggle', 'show meshes')
+  onToggleChanged: (event: React.FormEvent<HTMLInputElement>, data: CheckboxProps) => {},
 }
 storiesOf('MeshToggle', module).add('hide meshes', () => (
   <GridToggle {...propsHideMeshes} />

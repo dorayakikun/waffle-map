@@ -1,5 +1,6 @@
-import * as React from 'react'
 import { storiesOf } from '@storybook/react'
+import * as React from 'react'
+import { DropdownProps, InputOnChangeData } from 'semantic-ui-react'
 import { MeshCodeInput } from '../src/components/MeshCodeInput'
 
 const defaultProps = {
@@ -7,8 +8,14 @@ const defaultProps = {
   meshCodes: '',
   separator: '.',
   datum: 'wgs84',
-  onMeshesChanged: event => {},
-  onSeparatorChanged: (event, data) => {},
+  onMeshesChanged: (
+    event: React.SyntheticEvent<HTMLInputElement>,
+    data: InputOnChangeData
+  ) => {},
+  onSeparatorChanged: (
+    event: React.SyntheticEvent<HTMLElement>,
+    data: DropdownProps
+  ) => {},
   onDatumChanged: () => {},
 }
 

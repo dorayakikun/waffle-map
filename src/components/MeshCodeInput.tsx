@@ -33,7 +33,10 @@ const separatorOptions = [
   },
 ]
 
-const fetchTextFrom = (options: Array<DropdownItemProps>, value: string): string => {
+const fetchTextFrom = (
+  options: Array<DropdownItemProps>,
+  value: string
+): string => {
   return options
     .filter(o => o.value === value)
     .map(o => o.text)

@@ -22,7 +22,7 @@ const otherMesh = {
 
 const propsDefault = {
   meshes: [],
-  contextmenuPosition: null,
+  contextmenuPosition: undefined,
   isShowDebugTiles: false,
   isShowMeshes: false,
   markerPositions: [],
