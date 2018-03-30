@@ -1,34 +1,26 @@
 import * as React from 'react'
-import { Dropdown, DropdownProps, Input, Message, InputOnChangeData } from 'semantic-ui-react'
+import {
+  Dropdown,
+  DropdownItemProps,
+  DropdownProps,
+  Input,
+  Message,
+  InputOnChangeData,
+} from 'semantic-ui-react'
 
 export type Props = {
-  errorMessage: string,
-  meshCodes: string,
-  datum: string,
-  separator: string,
-  onMeshesChanged: (event: React.SyntheticEvent<HTMLInputElement>, data: InputOnChangeData) => void,
-  onDatumChanged: (event: React.SyntheticEvent<HTMLElement>, data: DropdownProps) => void,
+  errorMessage: string
+  meshCodes: string
+  separator: string
+  onMeshesChanged: (
+    event: React.SyntheticEvent<HTMLInputElement>,
+    data: InputOnChangeData
+  ) => void
   onSeparatorChanged: (
     event: React.SyntheticEvent<HTMLElement>,
     data: DropdownProps
-  ) => void,
+  ) => void
 }
-
-export interface OptionItem {
-  text: string,
-  value: string,
-}
-
-const datumOptions = [
-  {
-    text: 'Tokyo',
-    value: 'Tokyo',
-  },
-  {
-    text: 'WGS84',
-    value: 'WGS84',
-  },
-]
 
 const separatorOptions = [
   {
@@ -41,7 +33,7 @@ const separatorOptions = [
   },
 ]
 
-const fetchTextFrom = (options: Array<OptionItem>, value: string): string => {
+const fetchTextFrom = (options: Array<DropdownItemProps>, value: string): string => {
   return options
     .filter(o => o.value === value)
     .map(o => o.text)
@@ -64,14 +56,6 @@ export const MeshCodeInput = (props: Props) => (
         <p>{props.errorMessage}</p>
       </Message>
     )}
-    <Dropdown
-      fluid
-      onChange={props.onDatumChanged}
-      options={datumOptions}
-      style={{ marginTop: '10px', marginBottom: '10px' }}
-      text={props.datum}
-      value={props.datum}
-    />
     <Dropdown
       fluid
       onChange={props.onSeparatorChanged}
