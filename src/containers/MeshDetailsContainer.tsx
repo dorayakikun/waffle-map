@@ -6,6 +6,8 @@ import { Mesh } from '../domain/calculateMesh'
 import {
   convertLatLngToMillisecIfNeeded,
   convertBoundsToMillisecIfNeeded,
+  convertLatLngToTokyoIfNeeded,
+  convertBoundsToTokyoIfNeeded,
 } from '../domain/convertLatLng'
 import { State as RootState } from '../reducers'
 
@@ -19,11 +21,11 @@ const mapStateToProps = (state: RootState) => ({
   meshes: state.meshes.map(mesh => ({
     code: mesh.code,
     center: convertLatLngToMillisecIfNeeded(
-      mesh.center,
+      convertLatLngToTokyoIfNeeded(mesh.center, state.geodeticInput.datum),
       state.geodeticInput.unit
     ),
     bounds: convertBoundsToMillisecIfNeeded(
-      mesh.bounds,
+      convertBoundsToTokyoIfNeeded(mesh.bounds, state.geodeticInput.datum),
       state.geodeticInput.unit
     ),
   })),

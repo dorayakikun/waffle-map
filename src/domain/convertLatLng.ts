@@ -119,6 +119,11 @@ export const convertBoundsToWGS84IfNeeded = (
   datum: string
 ): Bounds => (datum === 'Tokyo' ? convertBoundsToWGS84(bounds) : bounds)
 
+export const convertBoundsToTokyoIfNeeded = (
+  bounds: Bounds,
+  datum: string
+): Bounds => (datum === 'Tokyo' ? convertBoundsToTokyo(bounds) : bounds)
+
 export const convertLatLngToTokyoIfNeeded = (
   latLng: LatLng,
   datum: string
