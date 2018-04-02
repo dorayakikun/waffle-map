@@ -7,6 +7,7 @@ import {
   convertLatLngToMillisec,
   convertBoundsToMillisec,
   convertBoundsToWGS84IfNeeded,
+  convertBoundsToTokyoIfNeeded,
   convertLatLngToTokyoIfNeeded,
   convertLatLngToWGS84IfNeeded,
   convertLatLngToMillisecIfNeeded,
@@ -114,6 +115,15 @@ test('Should convert bounds to WGS84 if needed', () => {
     convertBoundsToWGS84(boundsDegree)
   )
   expect(convertBoundsToWGS84IfNeeded(boundsDegree, 'WGS84')).toEqual(
+    boundsDegree
+  )
+})
+
+test('Should convert bounds to Tokyo if needed', () => {
+  expect(convertBoundsToTokyoIfNeeded(boundsDegree, 'Tokyo')).toEqual(
+    convertBoundsToTokyo(boundsDegree)
+  )
+  expect(convertBoundsToTokyoIfNeeded(boundsDegree, 'WGS84')).toEqual(
     boundsDegree
   )
 })
