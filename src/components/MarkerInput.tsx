@@ -4,8 +4,8 @@ import {
   Dropdown,
   DropdownProps,
   Input,
-  Message,
   InputOnChangeData,
+  Message,
 } from 'semantic-ui-react'
 
 export interface Props {
@@ -21,23 +21,23 @@ export interface State {
 }
 
 export class MarkerInput extends React.Component<Props, State> {
-  state = {
+  public state = {
     latLng: this.props.latLng || '',
     errorMessage: this.props.errorMessage || '',
   }
 
-  onChangedLatLng = (
+  public onChangedLatLng = (
     event: React.SyntheticEvent<HTMLElement>,
     data: InputOnChangeData
   ) => this.setState({ latLng: data.value })
 
-  handleClickPutAMarker = (event: React.SyntheticEvent<HTMLElement>) =>
+  public handleClickPutAMarker = (event: React.SyntheticEvent<HTMLElement>) =>
     this.props.putMarker(event, this.state)
 
-  handleClickRemoveAllMarkers = (event: React.SyntheticEvent<HTMLElement>) =>
+  public handleClickRemoveAllMarkers = (event: React.SyntheticEvent<HTMLElement>) =>
     this.props.removeAllMarkers()
 
-  render() {
+  public render() {
     const { latLng } = this.state
     return (
       <div

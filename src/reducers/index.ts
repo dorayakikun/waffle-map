@@ -122,7 +122,7 @@ const stateFrom = (meshCodes: string, state: State): State => {
   try {
     return {
       ...state,
-      meshInput: { ...state.meshInput, errorMessage: '', meshCodes: meshCodes },
+      meshInput: { ...state.meshInput, errorMessage: '', meshCodes },
       meshes: mapToMeshes(meshCodes, separator),
     }
   } catch (e) {
@@ -131,7 +131,7 @@ const stateFrom = (meshCodes: string, state: State): State => {
       meshInput: {
         ...state.meshInput,
         errorMessage: e.message,
-        meshCodes: meshCodes,
+        meshCodes,
       },
     }
   }

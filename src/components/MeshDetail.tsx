@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Table } from 'semantic-ui-react'
-import { round } from '../domain/roundPoint'
 import { Bounds, LatLng } from '../domain/calculateMesh'
+import { round } from '../domain/roundPoint'
 
 export interface Props {
   code: string
@@ -17,7 +17,7 @@ interface TableRowValue {
 const mapPropsToTableRowValues = ({
   center,
   bounds,
-}: Props): Array<TableRowValue> => [
+}: Props): TableRowValue[] => [
   { latLng: center, title: 'center' },
   { latLng: bounds.leftTop, title: 'leftTop' },
   { latLng: bounds.rightBottom, title: 'rightBottom' },

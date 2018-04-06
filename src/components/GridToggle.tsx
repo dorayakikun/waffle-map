@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Checkbox, CheckboxProps } from 'semantic-ui-react'
 
-export type Props = {
+export interface Props {
   title: string
   isShowGrid: boolean
   onToggleChanged: (

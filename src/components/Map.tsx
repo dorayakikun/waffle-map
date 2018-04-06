@@ -1,25 +1,25 @@
 import { LatLngBoundsExpression } from 'leaflet'
 import * as React from 'react'
 import {
-  Marker,
   Map as LeafletMap,
+  Marker,
   Popup,
   Rectangle,
+  RectangleProps,
   TileLayer,
   Tooltip,
-  RectangleProps,
 } from 'react-leaflet'
 import { Card } from 'semantic-ui-react'
-import { DebugTileLayer } from './DebugTileLayer'
+import { Bounds, LatLng, Mesh } from '../domain/calculateMesh'
+import meshCalculator from '../domain/calculateMesh'
 import {
   convertBoundsToWGS84IfNeeded,
+  convertLatLngToMillisecIfNeeded,
   convertLatLngToTokyoIfNeeded,
   convertLatLngToWGS84IfNeeded,
-  convertLatLngToMillisecIfNeeded,
 } from '../domain/convertLatLng'
-import { LatLng, Bounds, Mesh } from '../domain/calculateMesh'
-import meshCalculator from '../domain/calculateMesh'
 import { round } from '../domain/roundPoint'
+import { DebugTileLayer } from './DebugTileLayer'
 
 export interface Props {
   meshes: Mesh[]
@@ -28,7 +28,7 @@ export interface Props {
   contextmenuPosition?: LatLng
   isShowDebugTiles: boolean
   isShowMeshes: boolean
-  markerPositions: Array<LatLng>
+  markerPositions: LatLng[]
   onContextmenu: (event: Event & { latlng: LatLng }) => void
   onClose: () => void
 }
@@ -43,7 +43,7 @@ interface Viewport {
   zoom?: number
 }
 
-const initialLeafletBounds: [number, number][] = [[35, 139], [37, 140]]
+const initialLeafletBounds: Array<[number, number]> = [[35, 139], [37, 140]]
 const { toMeshCode, SCALES } = meshCalculator
 
 /**
@@ -53,11 +53,11 @@ const { toMeshCode, SCALES } = meshCalculator
  * @returns {{ lats: Array<number>, lngs: Array<number> }} lats and lngs
  */
 const meshesToLatsAndLngs = (
-  meshes: Array<Mesh>,
+  meshes: Mesh[],
   datum: string
-): { lats: Array<number>; lngs: Array<number> } => {
-  const lats: Array<number> = []
-  const lngs: Array<number> = []
+): { lats: number[]; lngs: number[] } => {
+  const lats: number[] = []
+  const lngs: number[] = []
   meshes
     .map(mesh => mesh.bounds)
     .map(bounds => convertBoundsToWGS84IfNeeded(bounds, datum))
@@ -82,16 +82,16 @@ const meshesToLatsAndLngs = (
  * @returns {Array<Array<number>>} LeafletBounds
  */
 const calculateLeafletBoundsFrom = (
-  meshes: Array<Mesh>,
-  markerPositions: Array<LatLng>,
+  meshes: Mesh[],
+  markerPositions: LatLng[],
   datum: string
-): [number, number][] => {
+): Array<[number, number]> => {
   if (meshes.length === 0 && markerPositions.length == 0) {
     return initialLeafletBounds
   }
   const latsAndLngs = meshesToLatsAndLngs(meshes, datum)
-  const lats: Array<number> = latsAndLngs.lats
-  const lngs: Array<number> = latsAndLngs.lngs
+  const lats: number[] = latsAndLngs.lats
+  const lngs: number[] = latsAndLngs.lngs
 
   markerPositions
     .map(position => convertLatLngToWGS84IfNeeded(position, datum))
@@ -115,8 +115,8 @@ const calculateLeafletBoundsFrom = (
 const getSquareMeshCodes = (
   meshCode: string,
   redius: number
-): Array<string> => {
-  const meshCodes: Array<string> = []
+): string[] => {
+  const meshCodes: string[] = []
   for (let i = -redius; i <= redius; i++) {
     for (let j = -redius; j <= redius; j++) {
       const code: string = meshCalculator.offset(meshCode, i, j)
@@ -155,7 +155,7 @@ const getSquareMeshes = (
     latlng.lng,
     scale
   )
-  const meshCodes: Array<string> = getSquareMeshCodes(centerMeshCode, redius)
+  const meshCodes: string[] = getSquareMeshCodes(centerMeshCode, redius)
   return meshCodes.map(createMesh)
 }
 
@@ -257,12 +257,12 @@ const CoordPopup = (props: Props) => (
 )
 
 export class Map extends React.Component<Props, State> {
-  state = {
+  public state = {
     center: { lat: 36.01357, lng: 139.49891 },
     zoom: 6,
   }
 
-  updateViewport = (viewport: Viewport) => {
+  public updateViewport = (viewport: Viewport) => {
     const { center, zoom } = viewport
     if (!center) {
       return
@@ -271,21 +271,21 @@ export class Map extends React.Component<Props, State> {
       return
     }
     this.setState({ center: { lat: center[0], lng: center[1] } })
-    this.setState({ zoom: zoom })
+    this.setState({ zoom })
   }
 
-  createMeshRects = (meshes: Array<Mesh>, color: string = '#00847e') =>
+  public createMeshRects = (meshes: Mesh[], color: string = '#00847e') =>
     meshes.map((mesh, index) => {
       const bounds = convertBoundsToWGS84IfNeeded(mesh.bounds, this.props.datum)
       return createMeshRect(bounds, index, mesh.code, color)
     })
 
-  createMarkers = (positions: Array<LatLng>, datum: string) =>
+  public createMarkers = (positions: LatLng[], datum: string) =>
     positions
       .map(position => convertLatLngToWGS84IfNeeded(position, datum))
       .map((position, idx) => <Marker key={idx} position={position} />)
 
-  render() {
+  public render() {
     const { meshes, markerPositions, datum } = this.props
     return (
       <div style={{ width: '100%', height: '100%' }}>

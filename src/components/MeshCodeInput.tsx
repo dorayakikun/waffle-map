@@ -4,11 +4,11 @@ import {
   DropdownItemProps,
   DropdownProps,
   Input,
-  Message,
   InputOnChangeData,
+  Message,
 } from 'semantic-ui-react'
 
-export type Props = {
+export interface Props {
   errorMessage: string
   meshCodes: string
   separator: string
@@ -34,7 +34,7 @@ const separatorOptions = [
 ]
 
 const fetchTextFrom = (
-  options: Array<DropdownItemProps>,
+  options: DropdownItemProps[],
   value: string
 ): string => {
   return options

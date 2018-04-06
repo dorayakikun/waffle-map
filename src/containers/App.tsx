@@ -1,29 +1,29 @@
 import * as React from 'react'
 import {
   Accordion,
+  AccordionTitleProps,
   Image,
   Menu,
   Sidebar,
-  AccordionTitleProps,
 } from 'semantic-ui-react'
 
 import { GeodeticInputContainer } from './GeodeticInputContainer'
-import { MarkerInputContainer } from './MarkerInputContainer'
-import { MeshCodeInputContainer } from './MeshInputContainer'
-import { MeshDetailsContainer } from './MeshDetailsContainer'
 import { MapContainer } from './MapContainer'
-import { TileToggleContainer } from './TileToggleContainer'
+import { MarkerInputContainer } from './MarkerInputContainer'
+import { MeshDetailsContainer } from './MeshDetailsContainer'
+import { MeshCodeInputContainer } from './MeshInputContainer'
 import { MeshToggleContainer } from './MeshToggleContainer'
+import { TileToggleContainer } from './TileToggleContainer'
 
-type Props = {
+interface Props {
   activeIndex: number
 }
 
-type State = {
+interface State {
   activeIndex: number
 }
 
-type AccordionMenuItemValue = {
+interface AccordionMenuItemValue {
   index: number
   title: string
   container: any
@@ -46,9 +46,9 @@ const ACCORDION_MENU_ITEM_VALUES: AccordionMenuItemValue[] = [
 ]
 
 export class AppContainer extends React.Component<Props, State> {
-  state = { activeIndex: 3 }
+  public state = { activeIndex: 3 }
 
-  handleClick = (
+  public handleClick = (
     e: React.MouseEvent<HTMLDivElement>,
     data: AccordionTitleProps
   ) => {
@@ -59,7 +59,7 @@ export class AppContainer extends React.Component<Props, State> {
     this.setState({ activeIndex: newIndex })
   }
 
-  render() {
+  public render() {
     const { activeIndex } = this.state
     return (
       <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.87)', height: '100%' }}>
