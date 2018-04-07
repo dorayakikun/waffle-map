@@ -17,12 +17,12 @@ export interface Mesh {
 }
 
 interface MeshCalculator {
+  SCALES: number[],
   toCenterLatLng: (meshCode: string) => LatLng
   toBounds: (meshCode: string) => Bounds
   toMeshCode: (lat: number, lng: number, scale: number) => string
   scaleFrom(zoom: number): number
   offset(meshCode: string, x: number, y: number): string
-  SCALES: number[]
 }
 
 const meshCalculator: () => MeshCalculator = () => {
