@@ -111,10 +111,7 @@ const calculateLeafletBoundsFrom = (
  * @param {number} redius
  * @returns {Array<string>} square meshe codes
  */
-const getSquareMeshCodes = (
-  meshCode: string,
-  redius: number
-): string[] => {
+const getSquareMeshCodes = (meshCode: string, redius: number): string[] => {
   const meshCodes: string[] = []
   for (let i = -redius; i <= redius; i++) {
     for (let j = -redius; j <= redius; j++) {

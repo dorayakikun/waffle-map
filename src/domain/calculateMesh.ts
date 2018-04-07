@@ -17,7 +17,7 @@ export interface Mesh {
 }
 
 interface MeshCalculator {
-  SCALES: number[],
+  SCALES: number[]
   toCenterLatLng: (meshCode: string) => LatLng
   toBounds: (meshCode: string) => Bounds
   toMeshCode: (lat: number, lng: number, scale: number) => string

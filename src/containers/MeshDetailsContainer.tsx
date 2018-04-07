@@ -11,7 +11,9 @@ import {
 } from '../domain/convertLatLng'
 import { State as RootState } from '../reducers'
 
-interface MeshDetailsContainerProps { meshes: Mesh[] }
+interface MeshDetailsContainerProps {
+  meshes: Mesh[]
+}
 
 const MeshContainer = ({ meshes }: MeshDetailsContainerProps) => (
   <div>{meshes.map((mesh, index) => <MeshDetail {...mesh} key={index} />)}</div>

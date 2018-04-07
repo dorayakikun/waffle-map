@@ -37,15 +37,14 @@ export class MarkerInput extends React.Component<Props, State> {
     }
   }
 
-  public handleClickRemoveAllMarkers = (event: React.SyntheticEvent<HTMLElement>) =>
-    this.props.removeAllMarkers()
+  public handleClickRemoveAllMarkers = (
+    event: React.SyntheticEvent<HTMLElement>
+  ) => this.props.removeAllMarkers()
 
   public render() {
     const { latLng } = this.state
     return (
-      <div
-        onKeyPress={this.handleClickPutAMarker}
-      >
+      <div onKeyPress={this.handleClickPutAMarker}>
         <Input
           error={this.props.errorMessage !== ''}
           inverted={true}

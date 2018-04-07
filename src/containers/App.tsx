@@ -31,7 +31,7 @@ interface AccordionMenuItemValue {
 
 const ACCORDION_MENU_ITEM_VALUES: AccordionMenuItemValue[] = [
   { container: <TileToggleContainer />, index: 0, title: 'Tile Grid' },
-  { container: <MeshToggleContainer />, index: 1, title: 'Mesh Grid'  },
+  { container: <MeshToggleContainer />, index: 1, title: 'Mesh Grid' },
   { container: <MarkerInputContainer />, index: 2, title: 'Marker' },
   {
     container: (

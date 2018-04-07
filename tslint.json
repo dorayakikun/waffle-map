@@ -8,10 +8,10 @@
       {
         "dev": true,
         "optional": true,
-        "allow": ["**/__tests__/*.+(ts|tsx|js)"] 
+        "allow": ["**/__tests__/*.+(ts|tsx|js)"]
       },
       "dev",
       "optional"
-     ]
+    ]
   }
 }
