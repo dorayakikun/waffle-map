@@ -9,17 +9,17 @@ const mapStateToProps = (state: RootState) => ({
   ...state.map,
   ...state.tileToggle,
   ...state.meshToggle,
-  meshes: state.meshes,
   datum: state.geodeticInput.datum,
+  meshes: state.meshes,
   unit: state.geodeticInput.unit,
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-  onContextmenu: (event: Event & { latlng: LatLng }) => {
-    dispatch(updateContextmenuPosition(event.latlng))
-  },
   onClose: () => {
     dispatch(updateContextmenuPosition(undefined))
+  },
+  onContextmenu: (event: Event & { latlng: LatLng }) => {
+    dispatch(updateContextmenuPosition(event.latlng))
   },
 })
 

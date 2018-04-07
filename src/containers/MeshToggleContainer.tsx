@@ -10,8 +10,8 @@ import {
 import { State as RootState } from '../reducers'
 
 const mapStateToProps = (state: RootState) => ({
-  title: 'Show meshes',
   isShowGrid: state.meshToggle.isShowMeshes,
+  title: 'Show meshes',
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({

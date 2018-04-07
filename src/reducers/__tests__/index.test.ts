@@ -6,11 +6,11 @@ test('Should handle PUT_MARKER', () => {
   const latLng = '35,139'
   expect(reducers(undefined, AppActions.putMarker(latLng))).toEqual({
     ...initialState,
-    markerInput: { latLng, errorMessage: '' },
     map: {
       contextmenuPosition: undefined,
       markerPositions: [{ lat: 35, lng: 139 }],
     },
+    markerInput: { latLng, errorMessage: '' },
   })
 })
 
@@ -19,10 +19,10 @@ test('Should handle PUT_MARKER when setting invalid latLng', () => {
   expect(reducers(undefined, AppActions.putMarker(latLng))).toEqual({
     ...initialState,
     markerInput: {
-      latLng,
       errorMessage: `Unexpected lat found.
 Only numbers are acceptable.
 Actual: A,139`,
+      latLng,
     },
   })
 })
@@ -53,9 +53,9 @@ test('Should handle INPUT_MESHES', () => {
     },
     meshes: [
       {
-        code: meshCodes,
-        center: MeshCalculator.toCenterLatLng(meshCodes),
         bounds: MeshCalculator.toBounds(meshCodes),
+        center: MeshCalculator.toCenterLatLng(meshCodes),
+        code: meshCodes,
       },
     ],
   })

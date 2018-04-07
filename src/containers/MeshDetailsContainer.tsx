@@ -19,15 +19,15 @@ const MeshContainer = ({ meshes }: MeshDetailsContainerProps) => (
 
 const mapStateToProps = (state: RootState) => ({
   meshes: state.meshes.map(mesh => ({
-    code: mesh.code,
-    center: convertLatLngToMillisecIfNeeded(
-      convertLatLngToTokyoIfNeeded(mesh.center, state.geodeticInput.datum),
-      state.geodeticInput.unit
-    ),
     bounds: convertBoundsToMillisecIfNeeded(
       convertBoundsToTokyoIfNeeded(mesh.bounds, state.geodeticInput.datum),
       state.geodeticInput.unit
     ),
+    center: convertLatLngToMillisecIfNeeded(
+      convertLatLngToTokyoIfNeeded(mesh.center, state.geodeticInput.datum),
+      state.geodeticInput.unit
+    ),
+    code: mesh.code,
   })),
 })
 

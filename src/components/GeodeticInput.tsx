@@ -37,7 +37,7 @@ const datums: DropdownItemProps[] = [
 export const GeodeticInput = (props: Props) => (
   <div>
     <Dropdown
-      fluid
+      fluid={true}
       onChange={props.changeUnit}
       options={units}
       style={{ marginTop: '10px', marginBottom: '10px' }}
@@ -45,7 +45,7 @@ export const GeodeticInput = (props: Props) => (
       value={props.unit}
     />
     <Dropdown
-      fluid
+      fluid={true}
       onChange={props.onDatumChanged}
       options={datums}
       style={{ marginTop: '10px', marginBottom: '10px' }}

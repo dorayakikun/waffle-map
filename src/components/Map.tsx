@@ -10,8 +10,7 @@ import {
   Tooltip,
 } from 'react-leaflet'
 import { Card } from 'semantic-ui-react'
-import { Bounds, LatLng, Mesh } from '../domain/calculateMesh'
-import meshCalculator from '../domain/calculateMesh'
+import meshCalculator, { Bounds, LatLng, Mesh } from '../domain/calculateMesh'
 import {
   convertBoundsToWGS84IfNeeded,
   convertLatLngToMillisecIfNeeded,
@@ -86,7 +85,7 @@ const calculateLeafletBoundsFrom = (
   markerPositions: LatLng[],
   datum: string
 ): Array<[number, number]> => {
-  if (meshes.length === 0 && markerPositions.length == 0) {
+  if (meshes.length === 0 && markerPositions.length === 0) {
     return initialLeafletBounds
   }
   const latsAndLngs = meshesToLatsAndLngs(meshes, datum)
@@ -132,9 +131,9 @@ const getSquareMeshCodes = (
  * @returns {Mesh} mesh
  */
 const createMesh = (code: string): Mesh => ({
-  code,
-  center: meshCalculator.toCenterLatLng(code),
   bounds: meshCalculator.toBounds(code),
+  center: meshCalculator.toCenterLatLng(code),
+  code,
 })
 
 /**

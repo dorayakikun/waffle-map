@@ -20,19 +20,19 @@ import {
 test(`Should throw an error when invalidValue`, () => {
   const testcases = [
     {
-      latLng: '1',
       errorValue: 'LatLng',
       expectedValueMessage: 'Expected: lat,lng',
+      latLng: '1',
     },
     {
-      latLng: 'a,135',
       errorValue: 'lat',
       expectedValueMessage: 'Only numbers are acceptable.',
+      latLng: 'a,135',
     },
     {
-      latLng: '35,b',
       errorValue: 'lng',
       expectedValueMessage: 'Only numbers are acceptable.',
+      latLng: '35,b',
     },
   ]
 
