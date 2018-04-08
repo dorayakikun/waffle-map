@@ -8,7 +8,10 @@ const propsShowMeshes = {
   title: 'Show grid',
   isShowGrid: true,
   // linkTo('MeshToggle', 'hide meshes')
-  onToggleChanged: (event: React.FormEvent<HTMLInputElement>, data: CheckboxProps) => {},
+  onToggleChanged: (
+    event: React.FormEvent<HTMLInputElement>,
+    data: CheckboxProps
+  ) => {},
 }
 
 storiesOf('MeshToggle', module).add('show meshes', () => (
@@ -19,7 +22,10 @@ const propsHideMeshes = {
   title: 'Show grid',
   isShowGrid: false,
   // linkTo('MeshToggle', 'show meshes')
-  onToggleChanged: (event: React.FormEvent<HTMLInputElement>, data: CheckboxProps) => {},
+  onToggleChanged: (
+    event: React.FormEvent<HTMLInputElement>,
+    data: CheckboxProps
+  ) => {},
 }
 storiesOf('MeshToggle', module).add('hide meshes', () => (
   <GridToggle {...propsHideMeshes} />

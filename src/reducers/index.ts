@@ -42,28 +42,28 @@ export interface State {
 const { toBounds, toCenterLatLng } = meshCalculator
 export const initialState: State = {
   geodeticInput: {
-    unit: 'degree',
     datum: 'WGS84',
+    unit: 'degree',
+  },
+  map: {
+    contextmenuPosition: undefined,
+    markerPositions: [],
   },
   markerInput: {
-    latLng: '',
     errorMessage: '',
+    latLng: '',
   },
   meshInput: {
     errorMessage: '',
     meshCodes: '',
     separator: '.',
   },
-  tileToggle: {
-    isShowDebugTiles: false,
-  },
   meshToggle: {
     isShowMeshes: false,
   },
   meshes: [],
-  map: {
-    contextmenuPosition: undefined,
-    markerPositions: [],
+  tileToggle: {
+    isShowDebugTiles: false,
   },
 }
 
@@ -73,11 +73,11 @@ const concatMarkerPositions = (state: State, latLng: string): State => {
   try {
     return {
       ...state,
-      markerInput: { ...state.markerInput, latLng, errorMessage: '' },
       map: {
         ...state.map,
         markerPositions: [...markerPositions, createLatLng(latLng, unit)],
       },
+      markerInput: { ...state.markerInput, latLng, errorMessage: '' },
     }
   } catch (e) {
     return {
@@ -103,9 +103,9 @@ const mapToMeshes = (meshCodes: string, separator: string): Mesh[] =>
     .filter(meshCode => meshCode !== '')
     .map(meshCode => {
       return {
-        code: meshCode,
-        center: toCenterLatLng(meshCode),
         bounds: toBounds(meshCode),
+        center: toCenterLatLng(meshCode),
+        code: meshCode,
       }
     })
 
@@ -122,7 +122,7 @@ const stateFrom = (meshCodes: string, state: State): State => {
   try {
     return {
       ...state,
-      meshInput: { ...state.meshInput, errorMessage: '', meshCodes: meshCodes },
+      meshInput: { ...state.meshInput, errorMessage: '', meshCodes },
       meshes: mapToMeshes(meshCodes, separator),
     }
   } catch (e) {
@@ -131,7 +131,7 @@ const stateFrom = (meshCodes: string, state: State): State => {
       meshInput: {
         ...state.meshInput,
         errorMessage: e.message,
-        meshCodes: meshCodes,
+        meshCodes,
       },
     }
   }

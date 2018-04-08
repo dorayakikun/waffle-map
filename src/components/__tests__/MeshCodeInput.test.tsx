@@ -7,9 +7,9 @@ import { MeshCodeInput, Props } from '../MeshCodeInput'
 const defaultProps: Props = {
   errorMessage: '',
   meshCodes: '',
-  separator: '.',
   onMeshesChanged: () => {},
   onSeparatorChanged: () => {},
+  separator: '.',
 }
 
 test('Should set props to MeshCodeInput', () => {
@@ -20,8 +20,8 @@ test('Should set props to MeshCodeInput', () => {
 test('Should render negative message when errorMessage is not blank', () => {
   const invalidProps = {
     ...defaultProps,
-    meshCodes: '5',
     errorMessage: 'It seems there was something wrong ...',
+    meshCodes: '5',
   }
   const tree = render.create(<MeshCodeInput {...invalidProps} />).toJSON()
   expect(tree).toMatchSnapshot()

@@ -4,8 +4,8 @@ import {
   Dropdown,
   DropdownProps,
   Input,
-  Message,
   InputOnChangeData,
+  Message,
 } from 'semantic-ui-react'
 
 export interface Props {
@@ -21,41 +21,39 @@ export interface State {
 }
 
 export class MarkerInput extends React.Component<Props, State> {
-  state = {
-    latLng: this.props.latLng || '',
+  public state = {
     errorMessage: this.props.errorMessage || '',
+    latLng: this.props.latLng || '',
   }
 
-  onChangedLatLng = (
+  public onChangedLatLng = (
     event: React.SyntheticEvent<HTMLElement>,
     data: InputOnChangeData
   ) => this.setState({ latLng: data.value })
 
-  handleClickPutAMarker = (event: React.SyntheticEvent<HTMLElement>) =>
-    this.props.putMarker(event, this.state)
+  public handleClickPutAMarker = (event: React.SyntheticEvent<HTMLElement>) => {
+    if ((event as React.KeyboardEvent<HTMLElement>).key === 'Enter') {
+      this.props.putMarker(event, this.state)
+    }
+  }
 
-  handleClickRemoveAllMarkers = (event: React.SyntheticEvent<HTMLElement>) =>
-    this.props.removeAllMarkers()
+  public handleClickRemoveAllMarkers = (
+    event: React.SyntheticEvent<HTMLElement>
+  ) => this.props.removeAllMarkers()
 
-  render() {
+  public render() {
     const { latLng } = this.state
     return (
-      <div
-        onKeyPress={(event: React.KeyboardEvent<HTMLElement>) => {
-          if (event.key === 'Enter') {
-            this.handleClickPutAMarker(event)
-          }
-        }}
-      >
+      <div onKeyPress={this.handleClickPutAMarker}>
         <Input
           error={this.props.errorMessage !== ''}
-          inverted
+          inverted={true}
           onChange={this.onChangedLatLng}
           placeholder="lat,lng"
           style={{
-            marginTop: '10px',
-            marginRight: '3px',
             marginBottom: '10px',
+            marginRight: '3px',
+            marginTop: '10px',
           }}
           value={latLng}
         />
@@ -67,7 +65,7 @@ export class MarkerInput extends React.Component<Props, State> {
         />
 
         {this.props.errorMessage !== '' && (
-          <Message negative>
+          <Message negative={true}>
             <Message.Header>Waffle Map Error</Message.Header>
             <p>{this.props.errorMessage}</p>
           </Message>

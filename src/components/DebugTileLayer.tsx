@@ -1,8 +1,8 @@
-import { GridLayer, GridLayerProps } from 'react-leaflet'
 import * as Leaflet from 'leaflet'
+import { GridLayer, GridLayerProps } from 'react-leaflet'
 
 class DebugTileLayer extends GridLayer {
-  createLeafletElement(props: GridLayerProps): Leaflet.GridLayer {
+  public createLeafletElement(props: GridLayerProps): Leaflet.GridLayer {
     const debugGridLayer = (Leaflet.GridLayer as any).extend({
       createTile: (coords: Leaflet.Coords): HTMLElement => {
         const tile = document.createElement('div')

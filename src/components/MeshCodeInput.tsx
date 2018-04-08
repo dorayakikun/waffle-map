@@ -4,11 +4,11 @@ import {
   DropdownItemProps,
   DropdownProps,
   Input,
-  Message,
   InputOnChangeData,
+  Message,
 } from 'semantic-ui-react'
 
-export type Props = {
+export interface Props {
   errorMessage: string
   meshCodes: string
   separator: string
@@ -33,10 +33,7 @@ const separatorOptions = [
   },
 ]
 
-const fetchTextFrom = (
-  options: Array<DropdownItemProps>,
-  value: string
-): string => {
+const fetchTextFrom = (options: DropdownItemProps[], value: string): string => {
   return options
     .filter(o => o.value === value)
     .map(o => o.text)
@@ -47,20 +44,20 @@ export const MeshCodeInput = (props: Props) => (
   <div>
     <Input
       error={props.errorMessage !== ''}
-      fluid
+      fluid={true}
       placeholder="5339-35-97.5339-35-98.5339-35-99"
       onChange={props.onMeshesChanged}
       style={{ marginTop: '10px', marginBottom: '10px' }}
       value={props.meshCodes}
     />
     {props.errorMessage !== '' && (
-      <Message negative>
+      <Message negative={true}>
         <Message.Header>Waffle Map Error</Message.Header>
         <p>{props.errorMessage}</p>
       </Message>
     )}
     <Dropdown
-      fluid
+      fluid={true}
       onChange={props.onSeparatorChanged}
       options={separatorOptions}
       style={{ marginTop: '10px', marginBottom: '10px' }}

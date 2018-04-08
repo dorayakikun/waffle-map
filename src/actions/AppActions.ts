@@ -60,8 +60,8 @@ export type Action =
   | UpdateContextmenuPositionAction
 
 export const putMarker = (latLng: string): PutMarkerAction => ({
-  type: ActionKeys.PUT_MARKER,
   payload: { latLng },
+  type: ActionKeys.PUT_MARKER,
 })
 
 export const removeAllMarkers = (): RemoveAllMarkerAction => ({
@@ -69,50 +69,40 @@ export const removeAllMarkers = (): RemoveAllMarkerAction => ({
 })
 
 export const changeUnit = (unit: string): ChangeUnitAction => ({
-  type: ActionKeys.CHANGE_UNIT,
   payload: { unit },
+  type: ActionKeys.CHANGE_UNIT,
 })
 
 export const inputMeshes = (meshCodes: string): InputMeshesAction => ({
-  type: ActionKeys.INPUT_MESHES,
   payload: { meshCodes },
+  type: ActionKeys.INPUT_MESHES,
 })
 
 export const selectDatum = (datum: string): SelectDatumAction => ({
+  payload: { datum },
   type: ActionKeys.SELECT_DATUM,
-  payload: {
-    datum,
-  },
 })
 
 export const selectSeparator = (separator: string): SelectSeparatorAction => ({
+  payload: { separator },
   type: ActionKeys.SELECT_SEPARATOR,
-  payload: {
-    separator,
-  },
 })
 
 export const toggleDebugTiles = (
   isShowDebugTiles: boolean
 ): ToggleDebugTilesAction => ({
+  payload: { isShowDebugTiles },
   type: ActionKeys.TOGGLE_DEBUG_TILES,
-  payload: {
-    isShowDebugTiles,
-  },
 })
 
 export const toggleMeshes = (isShowMeshes: boolean): ToggleMeshesAction => ({
+  payload: { isShowMeshes },
   type: ActionKeys.TOGGLE_MESHES,
-  payload: {
-    isShowMeshes,
-  },
 })
 
 export const updateContextmenuPosition = (
   latLng?: LatLng
 ): UpdateContextmenuPositionAction => ({
+  payload: { latLng },
   type: ActionKeys.UPDATE_CONTEXTMENU_POSITION,
-  payload: {
-    latLng,
-  },
 })

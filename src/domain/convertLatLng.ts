@@ -1,4 +1,4 @@
-import { LatLng, Bounds } from './calculateMesh'
+import { Bounds, LatLng } from './calculateMesh'
 
 const createFormatErrorMessage = (
   name: string,

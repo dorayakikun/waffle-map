@@ -1,0 +1,17 @@
+{
+  "extends": ["tslint:latest", "tslint-react", "tslint-config-prettier"],
+  "rules": {
+    "interface-name": [true, "never-prefix"],
+    "no-empty": false,
+    "no-implicit-dependencies": [
+      true,
+      {
+        "dev": true,
+        "optional": true,
+        "allow": ["**/__tests__/*.+(ts|tsx|js)"]
+      },
+      "dev",
+      "optional"
+    ]
+  }
+}

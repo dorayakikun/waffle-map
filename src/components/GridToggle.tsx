@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Checkbox, CheckboxProps } from 'semantic-ui-react'
 
-export type Props = {
+export interface Props {
   title: string
   isShowGrid: boolean
   onToggleChanged: (
@@ -17,7 +17,7 @@ export const GridToggle = (props: Props) => (
       <Checkbox
         checked={props.isShowGrid}
         onChange={props.onToggleChanged}
-        toggle
+        toggle={true}
       />
     </div>
   </div>
