@@ -1,0 +1,6 @@
+{
+  "outdir": "screenshots",
+  "storiesByKind": {
+    "GridToggle": [{ "name": "show meshes" }, { "name": "hide meshes" }]
+  }
+}
