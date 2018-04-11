@@ -14,7 +14,7 @@ const propsShowMeshes = {
   ) => {},
 }
 
-storiesOf('MeshToggle', module).add('show meshes', () => (
+storiesOf('GridToggle', module).add('show meshes', () => (
   <GridToggle {...propsShowMeshes} />
 ))
 
@@ -27,6 +27,6 @@ const propsHideMeshes = {
     data: CheckboxProps
   ) => {},
 }
-storiesOf('MeshToggle', module).add('hide meshes', () => (
+storiesOf('GridToggle', module).add('hide meshes', () => (
   <GridToggle {...propsHideMeshes} />
 ))
