@@ -68,3 +68,4 @@ public/bundle.js
 
 # snapshot diffs
 test/**/*.md
+.reg
