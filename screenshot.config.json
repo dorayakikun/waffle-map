@@ -1,5 +1,6 @@
 {
-  "outdir": "screenshots",
+  "outdir": "__screenshots__",
+  "storybookdir": "storybook-static",
   "storiesByKind": {
     "GridToggle": [{ "name": "show meshes" }, { "name": "hide meshes" }],
     "Map": [
