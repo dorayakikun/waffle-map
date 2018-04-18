@@ -6,3 +6,5 @@ flow-typed
 package.json
 package-lock.json
 public/bundle.js
+.reg
+storybook-static
