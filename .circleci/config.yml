@@ -24,3 +24,19 @@ jobs:
       - run: yarn build
       - run: yarn screenshot
       - run: yarn regression
+
+  deployment:
+    production:
+      branch: master
+      commands:
+        - git config --global user.name $USERNAME
+        - git config --global user.email $EMAIL
+        - npm run build
+        - |
+          cat <<EOF > ./public/circle.yml
+          general:
+            branches:
+              ignore:
+                - gh-pages
+          EOF
+        - npm run publish
