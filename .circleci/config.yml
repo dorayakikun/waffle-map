@@ -31,7 +31,6 @@ jobs:
       commands:
         - git config --global user.name $USERNAME
         - git config --global user.email $EMAIL
-        - npm run build
         - |
           cat <<EOF > ./public/circle.yml
           general:
@@ -39,4 +38,4 @@ jobs:
               ignore:
                 - gh-pages
           EOF
-        - npm run publish
+        - yarn pages
