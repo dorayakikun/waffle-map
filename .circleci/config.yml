@@ -19,23 +19,8 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
-
-      - run: yarn test
       - run: yarn build
-      - run: yarn screenshot
+      - run: yarn test
       - run: yarn regression
-
-    deployment:
-      production:
-        branch: master
-        commands:
-          - git config --global user.name $USERNAME
-          - git config --global user.email $EMAIL
-          - |
-            cat <<EOF > ./public/circle.yml
-            general:
-              branches:
-                ignore:
-                  - gh-pages
-            EOF
-          - yarn pages
+      - run: yarn add -D codeclimate-test-reporter
+      - run: yarn codeclimate-test-reporter < 'coverage/lcov.info'
