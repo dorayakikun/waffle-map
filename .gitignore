@@ -68,3 +68,8 @@ public/bundle.js
 
 # snapshot diffs
 test/**/*.md
+
+# for regression testing
+.reg
+__screenshots__
+storybook-static
