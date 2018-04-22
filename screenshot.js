@@ -12,7 +12,9 @@ const app = connect()
 app.use(serveStatic(config.storybookdir))
 server = app.listen(6006)
 ;(async () => {
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  })
   const page = await browser.newPage()
   try {
     for (const kind of Object.keys(config.storiesByKind)) {
