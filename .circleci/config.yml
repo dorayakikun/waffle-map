@@ -25,17 +25,17 @@ jobs:
       - run: yarn screenshot
       - run: yarn regression
 
-  deployment:
-    production:
-      branch: master
-      commands:
-        - git config --global user.name $USERNAME
-        - git config --global user.email $EMAIL
-        - |
-          cat <<EOF > ./public/circle.yml
-          general:
-            branches:
-              ignore:
-                - gh-pages
-          EOF
-        - yarn pages
+    deployment:
+      production:
+        branch: master
+        commands:
+          - git config --global user.name $USERNAME
+          - git config --global user.email $EMAIL
+          - |
+            cat <<EOF > ./public/circle.yml
+            general:
+              branches:
+                ignore:
+                  - gh-pages
+            EOF
+          - yarn pages
