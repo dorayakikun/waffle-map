@@ -22,7 +22,7 @@ server = app.listen(6006)
         const storyName = encodeURIComponent(story.name)
         await page.goto(
           `http://127.0.0.1:6006/iframe.html?selectedKind=${kind}&selectedStory=${storyName}`,
-          { waitUntil: 'networkidle2' }
+          { waitUntil: 'networkidle0' }
         )
         await page.screenshot({
           path: `./__screenshots__/${kind}-${story.name}.png`,
