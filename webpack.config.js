@@ -13,14 +13,7 @@ const BASE_PLUGINS = [
 
 console.log('env >', process.env.NODE_ENV)
 module.exports = {
-  entry:
-    process.env.NODE_ENV === 'production'
-      ? ['./src/index.tsx']
-      : [
-          'webpack-dev-server/client?http://localhost:9000',
-          'webpack/hot/only-dev-server',
-          './src/index.tsx',
-        ],
+  entry: './src/index.tsx',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'public'),
@@ -32,34 +25,11 @@ module.exports = {
     port: 9000,
     hot: true,
   },
-  plugins:
-    process.env.NODE_ENV === 'production'
-      ? BASE_PLUGINS.concat([
-          new UglifyJsPlugin({
-            sourceMap: true,
-            uglifyOptions: {
-              ecma: 8,
-              compress: {
-                warnings: false,
-              },
-            },
-          }),
-        ])
-      : BASE_PLUGINS.concat([
-          new webpack.NamedModulesPlugin(),
-          new webpack.NoEmitOnErrorsPlugin(),
-          new webpack.HotModuleReplacementPlugin(),
-        ]),
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: 'awesome-typescript-loader',
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.json$/,
-        use: 'json-loader',
         exclude: /node_modules/,
       },
     ],

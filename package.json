@@ -4,9 +4,9 @@
   "description": "Fantastic mesh renderer",
   "main": "public/bundle.js",
   "scripts": {
-    "build": "NODE_ENV=production webpack",
+    "build": "webpack --mode production",
     "build-storybook": "build-storybook",
-    "dev": "webpack-dev-server --progress",
+    "dev": "webpack-serve",
     "fmt": "prettier --write '**/*.{js,json,md,ts,tsx}'",
     "pages": "gh-pages -d public -m 'Auto publish'",
     "regression": "build-storybook && npm run screenshot && reg-suit sync-expected && reg-suit compare && reg-suit publish",
@@ -28,7 +28,7 @@
     "@types/react-test-renderer": "^16.0.1",
     "@types/storybook__addon-links": "^3.3.0",
     "@types/storybook__react": "^3.0.7",
-    "awesome-typescript-loader": "^4.0.1",
+    "awesome-typescript-loader": "^5.0.0",
     "connect": "^3.6.6",
     "del": "^3.0.0",
     "gh-pages": "^1.1.0",
@@ -50,8 +50,9 @@
     "typescript": "^2.7.2",
     "typings": "^2.1.1",
     "uglifyjs-webpack-plugin": "^1.2.3",
-    "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.7"
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.1.2",
+    "webpack-serve": "^0.3.2"
   },
   "dependencies": {
     "@types/leaflet": "^1.2.6",
