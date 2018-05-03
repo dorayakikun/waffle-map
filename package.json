@@ -67,7 +67,7 @@
     "react-leaflet": "^1.7.8",
     "react-redux": "^5.0.7",
     "redux": "^3.6.0",
-    "semantic-ui-react": "^0.79.0",
+    "semantic-ui-react": "^0.80.0",
     "waffle-map-mesh-calculator-basic": "^2.0.0"
   },
   "jest": {

@@ -16,6 +16,13 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
+"@babel/runtime@^7.0.0-beta.46":
+  version "7.0.0-beta.46"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.0.0-beta.46.tgz#466a9c0498f6d12d054a185981eef742d59d4871"
+  dependencies:
+    core-js "^2.5.3"
+    regenerator-runtime "^0.11.1"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -1654,7 +1661,7 @@ babel-register@^6.26.0, babel-register@^6.9.0:
     mkdirp "^0.5.1"
     source-map-support "^0.4.15"
 
-babel-runtime@6.x.x, babel-runtime@^6.11.6, babel-runtime@^6.18.0, babel-runtime@^6.22.0, babel-runtime@^6.23.0, babel-runtime@^6.25.0, babel-runtime@^6.26.0, babel-runtime@^6.5.0, babel-runtime@^6.9.2:
+babel-runtime@6.x.x, babel-runtime@^6.11.6, babel-runtime@^6.18.0, babel-runtime@^6.22.0, babel-runtime@^6.23.0, babel-runtime@^6.26.0, babel-runtime@^6.5.0, babel-runtime@^6.9.2:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
   dependencies:
@@ -5537,6 +5544,10 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
+keyboard-key@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/keyboard-key/-/keyboard-key-1.0.1.tgz#a946294fe59ad5431c63a3ea269f023e51fac6aa"
+
 keycode@^2.1.9:
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/keycode/-/keycode-2.1.9.tgz#964a23c54e4889405b4861a5c9f0480d45141dfa"
@@ -7361,7 +7372,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0, prop-types@^15.6.1:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"
   dependencies:
@@ -8281,15 +8292,16 @@ scoped-regex@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/scoped-regex/-/scoped-regex-1.0.0.tgz#a346bb1acd4207ae70bd7c0c7ca9e566b6baddb8"
 
-semantic-ui-react@^0.79.0:
-  version "0.79.0"
-  resolved "https://registry.yarnpkg.com/semantic-ui-react/-/semantic-ui-react-0.79.0.tgz#c3c0f7cb5416515bdedb6cc488dfe6ac95d329da"
+semantic-ui-react@^0.80.0:
+  version "0.80.0"
+  resolved "https://registry.yarnpkg.com/semantic-ui-react/-/semantic-ui-react-0.80.0.tgz#68c43661ba1c73798bb04c17e6c31df4b1bcb0cc"
   dependencies:
-    babel-runtime "^6.25.0"
+    "@babel/runtime" "^7.0.0-beta.46"
     classnames "^2.2.5"
     fbjs "^0.8.16"
-    lodash "^4.17.4"
-    prop-types "^15.5.10"
+    keyboard-key "^1.0.1"
+    lodash "^4.17.10"
+    prop-types "^15.6.1"
 
 semver-diff@^2.0.0:
   version "2.1.0"
