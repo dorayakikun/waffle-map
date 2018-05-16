@@ -15,8 +15,8 @@ const siteConfig = {
   footerIcon: 'img/wafflemap.svg', 
   favicon: 'img/favicon.png', 
   colors: {
-    primaryColor: '#2E8555',
-    secondaryColor: '#205C3B',
+    primaryColor: '#FF9100',
+    secondaryColor: '#FF6D00',
   },
   copyright:
     'Copyright © ' +
