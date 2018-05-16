@@ -11,9 +11,9 @@ const siteConfig = {
     {page: 'help', label: 'Help'},
     {blog: true, label: 'Blog'},
   ],
-  headerIcon: 'img/docusaurus.svg', // FIXME
-  footerIcon: 'img/docusaurus.svg', // FIXME
-  favicon: 'img/favicon.png',           // FIXME
+  headerIcon: 'img/wafflemap.svg', 
+  footerIcon: 'img/wafflemap.svg', 
+  favicon: 'img/favicon.png', 
   colors: {
     primaryColor: '#2E8555',
     secondaryColor: '#205C3B',
@@ -28,8 +28,8 @@ const siteConfig = {
   // FIXME Add the algolia settings
   scripts: ['https://buttons.github.io/buttons.js'],
   onPageNav: 'separate',
-  ogImage: 'img/docusaurus.png',
-  twitterImage: 'img/docusaurus.png',
+  ogImage: 'img/favicon.png',
+  twitterImage: 'img/favicon.png',
   repoUrl: 'https://github.com/dorayakikun/waffle-map',
 };
 
