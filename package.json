@@ -59,7 +59,7 @@
     "@types/react": "^16.0.40",
     "@types/react-dom": "^16.0.4",
     "@types/react-leaflet": "^1.1.5",
-    "@types/react-redux": "^5.0.15",
+    "@types/react-redux": "^6.0.0",
     "@types/redux": "^3.6.0",
     "leaflet": "^1.2.0",
     "react": "^16.2.0",
