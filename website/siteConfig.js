@@ -31,6 +31,8 @@ const siteConfig = {
   ogImage: 'img/favicon.png',
   twitterImage: 'img/favicon.png',
   repoUrl: 'https://github.com/dorayakikun/waffle-map',
+  CIRCLE_PROJECT_USERNAME: 'dorayakikun',
+  CIRCLE_PROJECT_REPONAME: 'waffle-map'
 };
 
 module.exports = siteConfig;
