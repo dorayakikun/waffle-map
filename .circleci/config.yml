@@ -24,4 +24,4 @@ jobs:
       - run: yarn regression
       - run: yarn add -D codeclimate-test-reporter
       - run: yarn codeclimate-test-reporter < 'coverage/lcov.info'
-      - run: GIT_USER=docusaurus-bot USE_SSH=true yarn run publish-gh-pages
+      - run: GIT_USER=docusaurus-bot USE_SSH=true cd website && yarn && yarn run publish-gh-pages
