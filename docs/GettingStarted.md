@@ -19,4 +19,4 @@ Waffle Mapは以下の機能を提供します。
 Yarnを利用してWaffle Mapをインストールしてください [Yarn](https://yarnpkg.com/):
 
     yarn
-    yarn start
+    yarn dev
