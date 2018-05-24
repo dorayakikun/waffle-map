@@ -4,6 +4,10 @@ jobs:
     docker:
       - image: regviz/node-xcb
 
+    branches:
+      ignore:
+        - gh-pages
+
     working_directory: ~/repo
 
     steps:
