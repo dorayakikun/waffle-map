@@ -1,2 +1,4 @@
 exclude_patterns:
 - "flow-typed/**/*.js"
+- "**__tests__/**/*.js"
+- "website/**/*.js"
