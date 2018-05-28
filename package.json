@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "build-storybook": "build-storybook",
-    "dev": "webpack-serve --open-path /public/",
+    "dev": "webpack-serve ./webpack.config.js --open-path /public/",
     "fmt": "prettier --write '**/*.{js,json,md,ts,tsx}'",
     "pages": "gh-pages -d public -m 'Auto publish'",
     "regression": "build-storybook && npm run screenshot && reg-suit sync-expected && reg-suit compare && reg-suit publish",
