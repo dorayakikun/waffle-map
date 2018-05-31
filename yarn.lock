@@ -9582,9 +9582,9 @@ w3c-hr-time@^1.0.1:
   dependencies:
     browser-process-hrtime "^0.1.2"
 
-waffle-map-mesh-calculator-basic@^2.0.0:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/waffle-map-mesh-calculator-basic/-/waffle-map-mesh-calculator-basic-2.1.1.tgz#e1dd54fdbe892629321b83aee37a6b6e239bb021"
+waffle-map-mesh-calculator-basic@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/waffle-map-mesh-calculator-basic/-/waffle-map-mesh-calculator-basic-2.2.0.tgz#6f769cf4d00c851cbb6e17bc421e0b19fd79e3cf"
 
 walker@~1.0.5:
   version "1.0.7"
