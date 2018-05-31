@@ -64,7 +64,7 @@ test('Should handle INPUT_MESHES', () => {
 test('Should handle INPUT_MESHES when setting invalid mesh code', () => {
   const errorMessage = `Invalid mesh code found.
 The length of the mesh code is 4, 6, or 8.
-The actual length is 3, the mesh code is 533.`
+The actual length is 3, the mesh code is "533".`
   const meshCodes = '533'
   expect(reducers(undefined, AppActions.inputMeshes(meshCodes))).toEqual({
     ...initialState,
