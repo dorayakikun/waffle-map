@@ -12,10 +12,8 @@ exports[`Should render negative message when errorMessage is not blank 1`] = `
     }
   >
     <input
-      disabled={undefined}
       onChange={[Function]}
       placeholder="5339-35-97.5339-35-98.5339-35-99"
-      tabIndex={undefined}
       type="text"
       value="5"
     />
@@ -33,10 +31,7 @@ exports[`Should render negative message when errorMessage is not blank 1`] = `
     </p>
   </div>
   <div
-    aria-busy={undefined}
-    aria-disabled={undefined}
     aria-expanded={false}
-    aria-multiselectable={undefined}
     className="ui fluid dropdown"
     onBlur={[Function]}
     onChange={[Function]}
@@ -69,7 +64,6 @@ exports[`Should render negative message when errorMessage is not blank 1`] = `
     >
       <div
         aria-checked={false}
-        aria-disabled={undefined}
         aria-selected={false}
         className="item"
         onClick={[Function]}
@@ -88,7 +82,6 @@ exports[`Should render negative message when errorMessage is not blank 1`] = `
       </div>
       <div
         aria-checked={true}
-        aria-disabled={undefined}
         aria-selected={true}
         className="active selected item"
         onClick={[Function]}
@@ -122,19 +115,14 @@ exports[`Should set props to MeshCodeInput 1`] = `
     }
   >
     <input
-      disabled={undefined}
       onChange={[Function]}
       placeholder="5339-35-97.5339-35-98.5339-35-99"
-      tabIndex={undefined}
       type="text"
       value=""
     />
   </div>
   <div
-    aria-busy={undefined}
-    aria-disabled={undefined}
     aria-expanded={false}
-    aria-multiselectable={undefined}
     className="ui fluid dropdown"
     onBlur={[Function]}
     onChange={[Function]}
@@ -167,7 +155,6 @@ exports[`Should set props to MeshCodeInput 1`] = `
     >
       <div
         aria-checked={false}
-        aria-disabled={undefined}
         aria-selected={false}
         className="item"
         onClick={[Function]}
@@ -186,7 +173,6 @@ exports[`Should set props to MeshCodeInput 1`] = `
       </div>
       <div
         aria-checked={true}
-        aria-disabled={undefined}
         aria-selected={true}
         className="active selected item"
         onClick={[Function]}
