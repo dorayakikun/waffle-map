@@ -29,18 +29,12 @@ exports[`Should call onToggleChanged when changed checked 1`] = `
       <input
         checked={false}
         className="hidden"
-        disabled={undefined}
-        id={undefined}
-        name={undefined}
         onClick={[Function]}
         readOnly={true}
         tabIndex={0}
         type="checkbox"
-        value={undefined}
       />
-      <label
-        htmlFor={undefined}
-      />
+      <label />
     </div>
   </div>
 </div>
@@ -75,18 +69,12 @@ exports[`Should set props to MeshToggle 1`] = `
       <input
         checked={false}
         className="hidden"
-        disabled={undefined}
-        id={undefined}
-        name={undefined}
         onClick={[Function]}
         readOnly={true}
         tabIndex={0}
         type="checkbox"
-        value={undefined}
       />
-      <label
-        htmlFor={undefined}
-      />
+      <label />
     </div>
   </div>
 </div>
