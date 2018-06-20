@@ -3,7 +3,6 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { applyMiddleware, createStore, Store } from 'redux'
 import createSagaMiddleware from 'redux-saga'
-import { Action } from './actions/AppActions'
 import { AppContainer } from './containers/App'
 import { reducers, State } from './reducers'
 const sagaMiddleware = createSagaMiddleware()
