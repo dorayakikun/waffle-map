@@ -43,7 +43,7 @@
     "reg-notify-github-plugin": "^0.7.2",
     "reg-publish-s3-plugin": "^0.7.2",
     "reg-suit": "^0.7.2",
-    "regenerator-runtime": "^0.11.1",
+    "regenerator-runtime": "^0.12.0",
     "serve-static": "^1.13.2",
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.10.0",
