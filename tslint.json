@@ -12,6 +12,7 @@
       },
       "dev",
       "optional"
-    ]
+    ],
+    "no-submodule-imports": false
   }
 }
