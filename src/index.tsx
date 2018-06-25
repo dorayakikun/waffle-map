@@ -5,8 +5,10 @@ import { applyMiddleware, createStore, Store } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { AppContainer } from './containers/App'
 import { reducers, State } from './reducers'
+import { rootSaga } from './sagas'
 const sagaMiddleware = createSagaMiddleware()
-const store: Store<State> = createStore(reducers, applyMiddleware(sagaMiddleware))
+const store = createStore(reducers, applyMiddleware(sagaMiddleware))
+sagaMiddleware.run(rootSaga)
 const root = document.getElementById('root')
 render(
   <Provider store={store}>

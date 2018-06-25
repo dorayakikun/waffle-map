@@ -4,13 +4,11 @@ import { Dispatch } from 'redux'
 import { DropdownProps, InputOnChangeData } from 'semantic-ui-react'
 import {
   Action,
-  inputMeshes,
-  selectDatum,
+  inputMeshCodes,
   selectSeparator,
 } from '../actions/AppActions'
 import {
   MeshCodeInput,
-  Props as MeshCodeInputProps,
 } from '../components/MeshCodeInput'
 import { State as RootState } from '../reducers'
 
@@ -20,7 +18,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   onMeshesChanged: (
     event: React.SyntheticEvent<HTMLInputElement>,
     data: InputOnChangeData
-  ) => dispatch(inputMeshes(data.value)),
+  ) => dispatch(inputMeshCodes(data.value)),
 
   onSeparatorChanged: (
     event: React.SyntheticEvent<HTMLElement>,

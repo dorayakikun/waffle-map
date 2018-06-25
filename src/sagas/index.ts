@@ -1,19 +1,21 @@
 import { all, call, fork, put, select, take, takeEvery } from 'redux-saga/effects'
-import { ActionKeys } from '../actions/AppActions'
+import * as Actions from '../actions/AppActions'
+import { getMeshCodesInput } from '../reducers'
 
 function* createMeshes() {
-  yield select()// select meshInput state
-  // select geodeticInput state
-  // yield put(ActionKeys.CREATE_MESHES)
+  const { meshCodes, separator } = yield select(getMeshCodesInput)
+  yield put(Actions.createMeshes(meshCodes, separator))
 }
 
-function* inputMeshCode() {
-  yield take(ActionKeys.INPUT_MESHES)// ActionKeys.INPUT_MESH_CODES
-  yield call(createMeshes)
+function* inputMeshCodes() {
+  while(true) {
+    yield take(Actions.ActionKeys.INPUT_MESH_CODES)
+    yield call(createMeshes)
+  }
 }
 
 export function* rootSaga() {
   yield all([
-    fork(inputMeshCode),
+    fork(inputMeshCodes),
   ])
 } 
