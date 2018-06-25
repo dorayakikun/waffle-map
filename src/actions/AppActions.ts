@@ -10,6 +10,8 @@ export enum ActionKeys {
   TOGGLE_DEBUG_TILES = 'TOGGLE_DEBUG_TILES',
   TOGGLE_MESHES = 'TOGGLE_MESHES',
   UPDATE_CONTEXTMENU_POSITION = 'UPDATE_CONTEXTMENU_POSITION',
+  INPUT_MESH_CODES = 'INPUT_MESH_CODES',
+  CREATE_MESHES = 'CREATE_MESHES',
 }
 
 interface PutMarkerAction {
@@ -40,12 +42,22 @@ interface ToggleDebugTilesAction {
   payload: { isShowDebugTiles: boolean }
 }
 interface ToggleMeshesAction {
-  type: ActionKeys.TOGGLE_MESHES
+  readonly type: ActionKeys.TOGGLE_MESHES
   payload: { isShowMeshes: boolean }
 }
 interface UpdateContextmenuPositionAction {
-  type: ActionKeys.UPDATE_CONTEXTMENU_POSITION
+  readonly type: ActionKeys.UPDATE_CONTEXTMENU_POSITION
   payload: { latLng?: LatLng }
+}
+
+interface InputMeshCodesAction {
+  readonly type: ActionKeys.INPUT_MESH_CODES
+  payload: { meshCodes: string }
+}
+
+interface CreateMeshesAction {
+  readonly type: ActionKeys.CREATE_MESHES
+  payload: { meshCodes: string, separator: string }
 }
 
 export type Action =
@@ -58,6 +70,8 @@ export type Action =
   | ToggleDebugTilesAction
   | ToggleMeshesAction
   | UpdateContextmenuPositionAction
+  | InputMeshCodesAction
+  | CreateMeshesAction
 
 export const putMarker = (latLng: string): PutMarkerAction => ({
   payload: { latLng },
@@ -105,4 +119,14 @@ export const updateContextmenuPosition = (
 ): UpdateContextmenuPositionAction => ({
   payload: { latLng },
   type: ActionKeys.UPDATE_CONTEXTMENU_POSITION,
+})
+
+export const inputMeshCodes = (meshCodes: string): InputMeshCodesAction => ({
+  payload: { meshCodes },
+  type: ActionKeys.INPUT_MESH_CODES
+})
+
+export const createMeshes = (meshCodes: string, separator: string): CreateMeshesAction => ({
+  payload: { meshCodes, separator},
+  type: ActionKeys.CREATE_MESHES
 })

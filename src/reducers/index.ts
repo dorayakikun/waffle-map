@@ -198,7 +198,15 @@ export const reducers = (
     case ActionKeys.UPDATE_CONTEXTMENU_POSITION:
       const { latLng } = action.payload
       return updateContextmenuPosition(state, latLng)
+    case ActionKeys.INPUT_MESH_CODES:
+      const mc = action.payload.meshCodes
+      console.log(`meshCodes: ${mc}`)
+      return {...state, meshInput: { ...state.meshInput, meshCodes: mc }}
+    case ActionKeys.CREATE_MESHES:
+      return { ...state, meshes: mapToMeshes(action.payload.meshCodes, action.payload.separator)}
     default:
       return state
   }
 }
+
+export const getMeshCodesInput = (state: State) => state.meshInput
