@@ -2,6 +2,7 @@ export enum ActionKeys {
   CHANGE_ERROR_MESSAGE = 'marker/change_error_message',
   INPUT_LAT_LNG = 'marker/input_lat_lng',
   PUT_MARKER = 'marker/put_marker',
+  REMOVE_ALL_MARKERS = 'marker/remove_all_markers'
 }
 
 interface ChangeErrorMessageAction {
@@ -14,9 +15,13 @@ interface InputLatLngAction {
   payload: { latLng: string }
 }
 
-interface PutMarkerAction {
+export interface PutMarkerAction {
   readonly type: ActionKeys.PUT_MARKER
   payload: { latLng: string }
+}
+
+interface RemoveAllMarkerAction {
+  readonly type: ActionKeys.REMOVE_ALL_MARKERS
 }
 
 export type Action =
@@ -39,4 +44,8 @@ export const inputLatLng = (latLng: string): InputLatLngAction => ({
 export const putMarker = (latLng: string): PutMarkerAction => ({
   payload: { latLng },
   type: ActionKeys.PUT_MARKER,
+})
+
+export const removeAllMarkers = (): RemoveAllMarkerAction => ({
+  type: ActionKeys.REMOVE_ALL_MARKERS,
 })
