@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { DropdownProps, InputOnChangeData } from 'semantic-ui-react'
-import { Action, inputMeshCodes, selectSeparator } from '../actions/AppActions'
+import { Action, changeSeparator, inputMeshCodes } from '../actions/meshCodes'
 import { MeshCodeInput } from '../components/MeshCodeInput'
 import { State as RootState } from '../reducers'
 
@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   onSeparatorChanged: (
     event: React.SyntheticEvent<HTMLElement>,
     data: DropdownProps
-  ) => dispatch(selectSeparator(data.value as string)),
+  ) => dispatch(changeSeparator(data.value as string)),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

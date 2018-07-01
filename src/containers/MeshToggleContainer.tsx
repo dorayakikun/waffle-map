@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { CheckboxProps } from 'semantic-ui-react'
-import { Action, toggleMeshes } from '../actions/AppActions'
+import { Action, toggleVisible } from '../actions/meshGrid'
 import {
   GridToggle as MeshToggle,
   Props as MeshToggleProps,
@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   onToggleChanged: (
     event: React.FormEvent<HTMLInputElement>,
     data: CheckboxProps
-  ) => dispatch(toggleMeshes(data.checked as boolean)),
+  ) => dispatch(toggleVisible(data.checked as boolean)),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

@@ -2,10 +2,9 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { CheckboxProps } from 'semantic-ui-react'
-import { Action, toggleDebugTiles } from '../actions/AppActions'
+import { Action, toggleVisible } from '../actions/tileGrid'
 import {
   GridToggle as TileToggle,
-  Props as TileToggleProps,
 } from '../components/GridToggle'
 import { State as RootState } from '../reducers'
 
@@ -18,7 +17,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   onToggleChanged: (
     event: React.FormEvent<HTMLInputElement>,
     data: CheckboxProps
-  ) => dispatch(toggleDebugTiles(data.checked as boolean)),
+  ) => dispatch(toggleVisible(data.checked as boolean)),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

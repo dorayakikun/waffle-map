@@ -1,7 +1,7 @@
 import { Connect, connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { DropdownProps } from 'semantic-ui-react'
-import { Action, changeUnit, selectDatum } from '../actions/AppActions'
+import { Action, changeDatum, changeUnit } from '../actions/geodetic'
 import {
   GeodeticInput,
   Props as GeodeticInputProps,
@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
     event: React.SyntheticEvent<HTMLElement>,
     data: DropdownProps
   ) => {
-    dispatch(selectDatum(data.value as string))
+    dispatch(changeDatum(data.value as string))
   },
 })
 

@@ -1,7 +1,7 @@
 import { Connect, connect } from 'react-redux'
 import { Dispatch } from 'redux'
-import { Action, updateContextmenuPosition } from '../actions/AppActions'
-import { Map, Props as MapProps } from '../components/Map'
+import { Action, updateContextmenuPosition } from '../actions/map'
+import { Map } from '../components/Map'
 import { LatLng } from '../domain/calculateMesh'
 import { State as RootState } from '../reducers'
 
