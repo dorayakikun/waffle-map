@@ -1,4 +1,12 @@
-import { all, call, fork, put, select, take, takeEvery } from 'redux-saga/effects'
+import {
+  all,
+  call,
+  fork,
+  put,
+  select,
+  take,
+  takeEvery,
+} from 'redux-saga/effects'
 import * as Actions from '../actions/AppActions'
 import { getMeshCodesInput } from '../reducers'
 
@@ -8,14 +16,12 @@ function* createMeshes() {
 }
 
 function* inputMeshCodes() {
-  while(true) {
+  while (true) {
     yield take(Actions.ActionKeys.INPUT_MESH_CODES)
     yield call(createMeshes)
   }
 }
 
 export function* rootSaga() {
-  yield all([
-    fork(inputMeshCodes),
-  ])
-} 
+  yield all([fork(inputMeshCodes)])
+}

@@ -2,14 +2,8 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { DropdownProps, InputOnChangeData } from 'semantic-ui-react'
-import {
-  Action,
-  inputMeshCodes,
-  selectSeparator,
-} from '../actions/AppActions'
-import {
-  MeshCodeInput,
-} from '../components/MeshCodeInput'
+import { Action, inputMeshCodes, selectSeparator } from '../actions/AppActions'
+import { MeshCodeInput } from '../components/MeshCodeInput'
 import { State as RootState } from '../reducers'
 
 const mapStateToProps = (state: RootState) => state.meshInput

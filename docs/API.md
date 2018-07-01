@@ -10,8 +10,8 @@ title: Waffle Map Mesh CalculatorのAPIについて
 
     const meshCode = toMeshCode(35, 139, 1)
     console.log(meshCode) // 5238
-   
-##  toBounds: (meshCode: string) => Bounds
+
+## toBounds: (meshCode: string) => Bounds
 
 指定されたメッシュコードから、バウンディングボックスを返します。
 

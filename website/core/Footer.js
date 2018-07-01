@@ -5,21 +5,21 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const React = require('react');
+const React = require('react')
 
 class Footer extends React.Component {
   docUrl(doc, language) {
-    const baseUrl = this.props.config.baseUrl;
-    return baseUrl + 'docs/' + (language ? language + '/' : '') + doc;
+    const baseUrl = this.props.config.baseUrl
+    return baseUrl + 'docs/' + (language ? language + '/' : '') + doc
   }
 
   pageUrl(doc, language) {
-    const baseUrl = this.props.config.baseUrl;
-    return baseUrl + (language ? language + '/' : '') + doc;
+    const baseUrl = this.props.config.baseUrl
+    return baseUrl + (language ? language + '/' : '') + doc
   }
 
   render() {
-    const currentYear = new Date().getFullYear();
+    const currentYear = new Date().getFullYear()
     return (
       <footer className="nav-footer" id="footer">
         <section className="sitemap">
@@ -35,15 +35,9 @@ class Footer extends React.Component {
           </a>
           <div>
             <h5>Docs</h5>
-            <a href={this.docUrl('getting-started.html')}>
-              Getting Started
-            </a>
-            <a href={this.docUrl('guides.html')}>
-              Guides
-            </a>
-            <a href={this.docUrl('api.html')}>
-              API Reference
-            </a>
+            <a href={this.docUrl('getting-started.html')}>Getting Started</a>
+            <a href={this.docUrl('guides.html')}>Guides</a>
+            <a href={this.docUrl('api.html')}>API Reference</a>
           </div>
           <div>
             <h5>More</h5>
@@ -56,15 +50,16 @@ class Footer extends React.Component {
               data-count-href="/facebook/docusaurus/stargazers"
               data-show-count={true}
               data-count-aria-label="# stargazers on GitHub"
-              aria-label="Star this project on GitHub">
+              aria-label="Star this project on GitHub"
+            >
               Star
             </a>
           </div>
         </section>
         <section className="copyright">{this.props.config.copyright}</section>
       </footer>
-    );
+    )
   }
 }
 
-module.exports = Footer;
+module.exports = Footer

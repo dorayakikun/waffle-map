@@ -57,7 +57,7 @@ interface InputMeshCodesAction {
 
 interface CreateMeshesAction {
   readonly type: ActionKeys.CREATE_MESHES
-  payload: { meshCodes: string, separator: string }
+  payload: { meshCodes: string; separator: string }
 }
 
 export type Action =
@@ -123,10 +123,13 @@ export const updateContextmenuPosition = (
 
 export const inputMeshCodes = (meshCodes: string): InputMeshCodesAction => ({
   payload: { meshCodes },
-  type: ActionKeys.INPUT_MESH_CODES
+  type: ActionKeys.INPUT_MESH_CODES,
 })
 
-export const createMeshes = (meshCodes: string, separator: string): CreateMeshesAction => ({
-  payload: { meshCodes, separator},
-  type: ActionKeys.CREATE_MESHES
+export const createMeshes = (
+  meshCodes: string,
+  separator: string
+): CreateMeshesAction => ({
+  payload: { meshCodes, separator },
+  type: ActionKeys.CREATE_MESHES,
 })
