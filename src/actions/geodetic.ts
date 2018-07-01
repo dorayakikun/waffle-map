@@ -12,9 +12,7 @@ interface ChangeUnitAction {
   payload: { unit: string }
 }
 
-export type Action =
-  | ChangeDatumAction
-  | ChangeUnitAction
+export type Action = ChangeDatumAction | ChangeUnitAction
 
 export const changeDatum = (datum: string): ChangeDatumAction => ({
   payload: { datum },

@@ -7,10 +7,9 @@ interface ToggleVisibleAction {
   payload: { isVisible: boolean }
 }
 
-export type Action =
-  | ToggleVisibleAction
+export type Action = ToggleVisibleAction
 
-export const toggleMeshes = (isVisible: boolean): ToggleVisibleAction => ({
+export const toggleVisible = (isVisible: boolean): ToggleVisibleAction => ({
   payload: { isVisible },
   type: ActionKeys.TOGGLE_VISIBLE,
 })

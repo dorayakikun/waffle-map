@@ -5,10 +5,10 @@ export interface State {
 }
 
 export const reducer = (state: State, action: Action) => {
-  switch(action.type) {
-  case ActionKeys.TOGGLE_VISIBLE:
-    return { ...state, isVisible: action.payload.isVisible }
-  default:
-    return state
+  switch (action.type) {
+    case ActionKeys.TOGGLE_VISIBLE:
+      return { ...state, isVisible: action.payload.isVisible }
+    default:
+      return state
   }
 }
