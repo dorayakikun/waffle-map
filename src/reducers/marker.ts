@@ -1,0 +1,17 @@
+import { Action, ActionKeys } from '../actions/marker'
+
+interface State {
+  latLng: string
+  errorMessage: string
+}
+
+export const reducer = (state: State, action: Action) => {
+  switch (action.type) {
+    case ActionKeys.CHANGE_ERROR_MESSAGE:
+      return { ...state, errorMessage: action.payload.errorMessage }
+    case ActionKeys.INPUT_LAT_LNG:
+      return { ...state, latLng: action.payload.latLng }
+    default:
+      return state
+  }
+}
