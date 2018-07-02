@@ -9,7 +9,7 @@ import {
 } from '../components/MarkerInput'
 import { State as RootState } from '../reducers'
 
-const mapStateToProps = (state: RootState) => state.markerInput
+const mapStateToProps = (state: RootState) => state.markers
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   putMarker: (

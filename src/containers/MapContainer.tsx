@@ -7,11 +7,11 @@ import { State as RootState } from '../reducers'
 
 const mapStateToProps = (state: RootState) => ({
   ...state.map,
-  ...state.tileToggle,
-  ...state.meshToggle,
-  datum: state.geodeticInput.datum,
+  datum: state.geodetic.datum,
+  isShowDebugTiles: state.tileGrid.isVisible,
+  isShowMeshes: state.meshGrid.isVisible,
   meshes: state.meshes,
-  unit: state.geodeticInput.unit,
+  unit: state.geodetic.unit,
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({

@@ -1,12 +1,10 @@
 import { Action, ActionKeys } from '../actions/meshes'
 import meshCalculator, { Mesh } from '../domain/calculateMesh'
 
-export interface State {
-  meshes: Mesh[]
-}
+export const initialState: Mesh[] = []
 
 const { toBounds, toCenterLatLng } = meshCalculator
-const mapToMeshes = (meshCodes: string, separator: string): Mesh[] =>
+export const mapToMeshes = (meshCodes: string, separator: string): Mesh[] =>
   meshCodes
     .split(separator)
     .filter(meshCode => meshCode !== '')
@@ -16,12 +14,10 @@ const mapToMeshes = (meshCodes: string, separator: string): Mesh[] =>
       code: meshCode,
     }))
 
-export const reducer = (state: State, action: Action) => {
+export const reducer = (state = initialState, action: Action) => {
   switch (action.type) {
-    case ActionKeys.CREATE_MESHES:
-      return {
-        meshes: mapToMeshes(action.payload.meshCodes, action.payload.separator),
-      }
+    case ActionKeys.CHANGE_MESHES:
+      return action.payload.meshes
     default:
       return state
   }

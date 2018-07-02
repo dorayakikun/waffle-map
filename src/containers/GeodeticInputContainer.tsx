@@ -8,7 +8,7 @@ import {
 } from '../components/GeodeticInput'
 import { State as RootState } from '../reducers'
 
-const mapStateToProps = (state: RootState) => state.geodeticInput
+const mapStateToProps = (state: RootState) => state.geodetic
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeUnit: (

@@ -6,7 +6,7 @@ import { Action, changeSeparator, inputMeshCodes } from '../actions/meshCodes'
 import { MeshCodeInput } from '../components/MeshCodeInput'
 import { State as RootState } from '../reducers'
 
-const mapStateToProps = (state: RootState) => state.meshInput
+const mapStateToProps = (state: RootState) => state.meshCodes
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   onMeshesChanged: (

@@ -10,7 +10,7 @@ import {
 import { State as RootState } from '../reducers'
 
 const mapStateToProps = (state: RootState) => ({
-  isShowGrid: state.meshToggle.isShowMeshes,
+  isShowGrid: state.meshGrid.isVisible,
   title: 'Show meshes',
 })
 

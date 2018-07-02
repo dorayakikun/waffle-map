@@ -6,6 +6,11 @@ export interface State {
   markerPositions: LatLng[]
 }
 
+export const initialState: State = {
+    contextmenuPosition: undefined,
+    markerPositions: [],
+}
+
 const updateMarkerPositions = (
   state: State,
   markerPositions: LatLng[]
@@ -24,7 +29,7 @@ const updateContextmenuPosition = (state: State, latLng?: LatLng): State => ({
   contextmenuPosition: latLng,
 })
 
-export const reducer = (state: State, action: Action) => {
+export const reducer = (state: State = initialState, action: Action) => {
   switch (action.type) {
     case ActionKeys.PUT_MARKER:
       return state // TODO saga ハンドル用 引数はいらない

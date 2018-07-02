@@ -60,7 +60,7 @@ export class MarkerInput extends React.Component<Props, State> {
 
         <Button icon="marker" onClick={this.handleClickPutAMarker} />
         <Button
-          icon="trash outline"
+          icon="trash"
           onClick={this.handleClickRemoveAllMarkers}
         />
 

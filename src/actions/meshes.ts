@@ -1,18 +1,19 @@
+import { Mesh } from '../domain/calculateMesh'
+
 export enum ActionKeys {
-  CREATE_MESHES = 'meshes/create_meshes',
+  CHANGE_MESHES = 'meshes/change_meshes',
 }
 
-interface CreateMeshesAction {
-  readonly type: ActionKeys.CREATE_MESHES
-  payload: { meshCodes: string; separator: string }
+interface ChangeMeshesAction {
+  readonly type: ActionKeys.CHANGE_MESHES
+  payload: { meshes: Mesh[] }
 }
 
-export type Action = CreateMeshesAction
+export type Action = ChangeMeshesAction
 
-export const createMeshes = (
-  meshCodes: string,
-  separator: string
-): CreateMeshesAction => ({
-  payload: { meshCodes, separator },
-  type: ActionKeys.CREATE_MESHES,
+export const changeMeshes = (
+meshes: Mesh[]
+): ChangeMeshesAction => ({
+  payload: { meshes },
+  type: ActionKeys.CHANGE_MESHES,
 })

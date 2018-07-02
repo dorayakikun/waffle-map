@@ -3,13 +3,11 @@ import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { CheckboxProps } from 'semantic-ui-react'
 import { Action, toggleVisible } from '../actions/tileGrid'
-import {
-  GridToggle as TileToggle,
-} from '../components/GridToggle'
+import { GridToggle as TileToggle } from '../components/GridToggle'
 import { State as RootState } from '../reducers'
 
 const mapStateToProps = (state: RootState) => ({
-  isShowGrid: state.tileToggle.isShowDebugTiles,
+  isShowGrid: state.tileGrid.isVisible,
   title: 'Show tiles',
 })
 

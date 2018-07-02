@@ -1,11 +1,16 @@
 import { Action, ActionKeys } from '../actions/marker'
 
-interface State {
+export interface State {
   latLng: string
   errorMessage: string
 }
 
-export const reducer = (state: State, action: Action) => {
+export const initialState: State = {
+    errorMessage: '',
+    latLng: '',
+}
+
+export const reducer = (state: State = initialState, action: Action) => {
   switch (action.type) {
     case ActionKeys.CHANGE_ERROR_MESSAGE:
       return { ...state, errorMessage: action.payload.errorMessage }

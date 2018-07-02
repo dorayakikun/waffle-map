@@ -6,7 +6,13 @@ export interface State {
   separator: string
 }
 
-export const reducer = (state: State, action: Action) => {
+export const initialState: State = {
+    errorMessage: '',
+    meshCodes: '',
+    separator: '.',
+}
+
+export const reducer = (state: State = initialState, action: Action) => {
   switch (action.type) {
     case ActionKeys.CHANGE_ERROR_MESSAGE:
       return { ...state, errorMessage: action.payload.errorMessage }
