@@ -7,7 +7,7 @@ import {
   take,
   takeEvery,
 } from 'redux-saga/effects'
-import { removeAllMarkers as _removeAllMarkers } from '../actions/map'
+import { concatMarkerPositions ,removeAllMarkers as _removeAllMarkers } from '../actions/map'
 import {
   ActionKeys as MarkerActionKeys,
   changeErrorMessage as changeMarkersErrorMessage,
@@ -22,9 +22,9 @@ import {
   ActionKeys as MeshesActionKeys,
   changeMeshes
 } from '../actions/meshes'
+import { createLatLng } from '../domain/convertLatLng'
 import { getMeshCodesInput } from '../reducers'
 import { mapToMeshes } from '../reducers/meshes'
-
 
 function* createMeshes() {
   const { meshCodes, separator } = yield select(getMeshCodesInput) // TODO fix to getMeshCodes
@@ -48,11 +48,12 @@ function* inputMeshCodes() {
 }
 
 function* putMarker(action: PutMarkerAction) {
-  yield put(inputLatLng(action.payload.latLng))
+  const { latLng } = action.payload
+  yield put(inputLatLng(latLng))
   // TODO 関連ファイルをmarkersにリネーム あと meshCodesも
   let errorMessage = ''
   try {
-    // yield put(concatMarkerPositions)
+    yield concatMarkerPositions(createLatLng(latLng, 'degree')) 
   } catch (e) {
     errorMessage = e.message
   }

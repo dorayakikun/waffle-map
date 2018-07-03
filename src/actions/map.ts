@@ -1,18 +1,14 @@
 import { LatLng } from '../domain/calculateMesh'
 
 export enum ActionKeys {
-  PUT_MARKER = 'map/put_marker',
-  UPDATE_MARKER_POSITIONS = 'map/update_marker_positions',
+  CONCAT_MARKER_POSITIONS = 'map/concat_marker_positions',
   REMOVE_ALL_MARKERS = 'map/remove_all_markers',
   UPDATE_CONTEXTMENU_POSITION = 'map/update_contextmenu_position',
 }
 
-interface PutMarkerAction {
-  readonly type: ActionKeys.PUT_MARKER
-}
-interface UpdateMarkerPositionsAction {
-  readonly type: ActionKeys.UPDATE_MARKER_POSITIONS
-  payload: { markerPositions: LatLng[] }
+interface ConcatMarkerPositionsAction {
+  readonly type: ActionKeys.CONCAT_MARKER_POSITIONS
+  payload: { position: LatLng }
 }
 interface RemoveAllMarkerAction {
   readonly type: ActionKeys.REMOVE_ALL_MARKERS
@@ -23,20 +19,15 @@ interface UpdateContextmenuPositionAction {
 }
 
 export type Action =
-  | PutMarkerAction
-  | UpdateMarkerPositionsAction
+  | ConcatMarkerPositionsAction
   | RemoveAllMarkerAction
   | UpdateContextmenuPositionAction
 
-export const putMarker = (latLng: string): PutMarkerAction => ({
-  type: ActionKeys.PUT_MARKER,
-})
-
-export const updateMarkerPositions = (
-  markerPositions: LatLng[]
-): UpdateMarkerPositionsAction => ({
-  payload: { markerPositions },
-  type: ActionKeys.UPDATE_MARKER_POSITIONS,
+export const concatMarkerPositions = (
+  position: LatLng
+): ConcatMarkerPositionsAction => ({
+  payload: { position },
+  type: ActionKeys.CONCAT_MARKER_POSITIONS,
 })
 
 export const removeAllMarkers = (): RemoveAllMarkerAction => ({

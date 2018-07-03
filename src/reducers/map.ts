@@ -11,12 +11,12 @@ export const initialState: State = {
     markerPositions: [],
 }
 
-const updateMarkerPositions = (
+const concatMarkerPositions = (
   state: State,
-  markerPositions: LatLng[]
+  position: LatLng
 ): State => ({
   ...state,
-  markerPositions,
+  markerPositions: [...state.markerPositions, position],
 })
 
 const removeAllMarkers = (state: State): State => ({
@@ -31,10 +31,8 @@ const updateContextmenuPosition = (state: State, latLng?: LatLng): State => ({
 
 export const reducer = (state: State = initialState, action: Action) => {
   switch (action.type) {
-    case ActionKeys.PUT_MARKER:
-      return state // TODO saga ハンドル用 引数はいらない
-    case ActionKeys.UPDATE_MARKER_POSITIONS:
-      return updateMarkerPositions(state, action.payload.markerPositions)
+    case ActionKeys.CONCAT_MARKER_POSITIONS:
+      return concatMarkerPositions(state, action.payload.position)
     case ActionKeys.REMOVE_ALL_MARKERS:
       return removeAllMarkers(state)
     case ActionKeys.UPDATE_CONTEXTMENU_POSITION:
