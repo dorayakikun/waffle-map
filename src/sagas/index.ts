@@ -53,7 +53,7 @@ function* putMarker(action: PutMarkerAction) {
   // TODO 関連ファイルをmarkersにリネーム あと meshCodesも
   let errorMessage = ''
   try {
-    yield concatMarkerPositions(createLatLng(latLng, 'degree')) 
+    yield put(concatMarkerPositions(createLatLng(latLng, 'degree')))
   } catch (e) {
     errorMessage = e.message
   }

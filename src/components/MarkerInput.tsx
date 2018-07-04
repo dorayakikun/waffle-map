@@ -31,8 +31,11 @@ export class MarkerInput extends React.Component<Props, State> {
     data: InputOnChangeData
   ) => this.setState({ latLng: data.value })
 
-  public handleClickPutAMarker = (event: React.SyntheticEvent<HTMLElement>) => {
+  public handleClickPutAMarker = (event: any) => {
     if ((event as React.KeyboardEvent<HTMLElement>).key === 'Enter') {
+      this.props.putMarker(event, this.state)
+    }
+    if ((event as React.MouseEvent<HTMLElement>).type === 'click') {
       this.props.putMarker(event, this.state)
     }
   }
