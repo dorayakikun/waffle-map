@@ -1,4 +1,4 @@
-import { Action, ActionKeys } from '../actions/marker'
+import { Action, ActionKeys } from '../actions/markers'
 
 export interface State {
   latLng: string

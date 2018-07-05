@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
-import { Action, putMarker, removeAllMarkers } from '../actions/marker'
+import { Action, putMarker, removeAllMarkers } from '../actions/markers'
 import {
   MarkerInput,
   State as MarkerInputState,

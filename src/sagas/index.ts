@@ -13,7 +13,7 @@ import {
   changeErrorMessage as changeMarkersErrorMessage,
   inputLatLng,
   PutMarkerAction,
-} from '../actions/marker'
+} from '../actions/markers'
 import {
   ActionKeys as MeshCodesActionKeys,
   changeErrorMessage as changeMeshCodesErrorMessage,
@@ -23,17 +23,14 @@ import {
   changeMeshes
 } from '../actions/meshes'
 import { createLatLng } from '../domain/convertLatLng'
-import { getMeshCodesInput } from '../reducers'
+import { getGeodetic, getMeshCodes } from '../reducers'
 import { mapToMeshes } from '../reducers/meshes'
 
 function* createMeshes() {
-  const { meshCodes, separator } = yield select(getMeshCodesInput) // TODO fix to getMeshCodes
+  const { meshCodes, separator } = yield select(getMeshCodes) // TODO fix to getMeshCodes
   let errorMessage = ''
   try {
-    const meshes = mapToMeshes(meshCodes, separator)
-    console.log('meshes: %o', meshes)
-    yield put(changeMeshes(meshes))
-    // TODO 基本的にErrorを含む処理はreducerに含めないほうが良さそう
+    yield put(changeMeshes(mapToMeshes(meshCodes, separator)))
   } catch (e) {
     errorMessage = e.message
   }
@@ -50,10 +47,10 @@ function* inputMeshCodes() {
 function* putMarker(action: PutMarkerAction) {
   const { latLng } = action.payload
   yield put(inputLatLng(latLng))
-  // TODO 関連ファイルをmarkersにリネーム あと meshCodesも
+  const { unit } = yield select(getGeodetic)
   let errorMessage = ''
   try {
-    yield put(concatMarkerPositions(createLatLng(latLng, 'degree')))
+    yield put(concatMarkerPositions(createLatLng(latLng, unit)))
   } catch (e) {
     errorMessage = e.message
   }
