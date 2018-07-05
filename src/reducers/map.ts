@@ -7,14 +7,11 @@ export interface State {
 }
 
 export const initialState: State = {
-    contextmenuPosition: undefined,
-    markerPositions: [],
+  contextmenuPosition: undefined,
+  markerPositions: [],
 }
 
-const concatMarkerPositions = (
-  state: State,
-  position: LatLng
-): State => ({
+const concatMarkerPositions = (state: State, position: LatLng): State => ({
   ...state,
   markerPositions: [...state.markerPositions, position],
 })

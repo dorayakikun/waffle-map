@@ -2,7 +2,7 @@ export enum ActionKeys {
   CHANGE_ERROR_MESSAGE = 'marker/change_error_message',
   INPUT_LAT_LNG = 'marker/input_lat_lng',
   PUT_MARKER = 'marker/put_marker',
-  REMOVE_ALL_MARKERS = 'marker/remove_all_markers'
+  REMOVE_ALL_MARKERS = 'marker/remove_all_markers',
 }
 
 interface ChangeErrorMessageAction {

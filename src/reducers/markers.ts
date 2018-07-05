@@ -6,8 +6,8 @@ export interface State {
 }
 
 export const initialState: State = {
-    errorMessage: '',
-    latLng: '',
+  errorMessage: '',
+  latLng: '',
 }
 
 export const reducer = (state: State = initialState, action: Action) => {

@@ -7,9 +7,9 @@ export interface State {
 }
 
 export const initialState: State = {
-    errorMessage: '',
-    meshCodes: '',
-    separator: '.',
+  errorMessage: '',
+  meshCodes: '',
+  separator: '.',
 }
 
 export const reducer = (state: State = initialState, action: Action) => {

@@ -7,7 +7,10 @@ import {
   take,
   takeEvery,
 } from 'redux-saga/effects'
-import { concatMarkerPositions ,removeAllMarkers as _removeAllMarkers } from '../actions/map'
+import {
+  concatMarkerPositions,
+  removeAllMarkers as _removeAllMarkers,
+} from '../actions/map'
 import {
   ActionKeys as MarkerActionKeys,
   changeErrorMessage as changeMarkersErrorMessage,
@@ -18,10 +21,7 @@ import {
   ActionKeys as MeshCodesActionKeys,
   changeErrorMessage as changeMeshCodesErrorMessage,
 } from '../actions/meshCodes'
-import {
-  ActionKeys as MeshesActionKeys,
-  changeMeshes
-} from '../actions/meshes'
+import { ActionKeys as MeshesActionKeys, changeMeshes } from '../actions/meshes'
 import { createLatLng } from '../domain/convertLatLng'
 import { getGeodetic, getMeshCodes } from '../reducers'
 import { mapToMeshes } from '../reducers/meshes'

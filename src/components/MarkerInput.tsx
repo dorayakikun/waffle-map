@@ -62,10 +62,7 @@ export class MarkerInput extends React.Component<Props, State> {
         />
 
         <Button icon="marker" onClick={this.handleClickPutAMarker} />
-        <Button
-          icon="trash"
-          onClick={this.handleClickRemoveAllMarkers}
-        />
+        <Button icon="trash" onClick={this.handleClickRemoveAllMarkers} />
 
         {this.props.errorMessage !== '' && (
           <Message negative={true}>

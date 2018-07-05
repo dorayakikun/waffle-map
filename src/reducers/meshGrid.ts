@@ -4,7 +4,7 @@ export interface State {
   isVisible: boolean
 }
 export const initialState: State = {
-    isVisible: false,
+  isVisible: false,
 }
 export const reducer = (state: State = initialState, action: Action) => {
   switch (action.type) {

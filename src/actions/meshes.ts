@@ -11,9 +11,7 @@ interface ChangeMeshesAction {
 
 export type Action = ChangeMeshesAction
 
-export const changeMeshes = (
-meshes: Mesh[]
-): ChangeMeshesAction => ({
+export const changeMeshes = (meshes: Mesh[]): ChangeMeshesAction => ({
   payload: { meshes },
   type: ActionKeys.CHANGE_MESHES,
 })
