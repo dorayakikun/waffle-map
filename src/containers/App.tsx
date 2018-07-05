@@ -10,8 +10,8 @@ import {
 import { GeodeticInputContainer } from './GeodeticInputContainer'
 import { MapContainer } from './MapContainer'
 import { MarkerInputContainer } from './MarkerInputContainer'
+import { MeshCodeInputContainer } from './MeshCodeInputContainer'
 import { MeshDetailsContainer } from './MeshDetailsContainer'
-import { MeshCodeInputContainer } from './MeshInputContainer'
 import { MeshToggleContainer } from './MeshToggleContainer'
 import { TileToggleContainer } from './TileToggleContainer'
 

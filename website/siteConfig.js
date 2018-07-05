@@ -6,22 +6,19 @@ const siteConfig = {
   projectName: 'waffle-map',
   organizationName: 'dorayakikun',
   headerLinks: [
-    {doc: 'getting-started', label: 'Docs'},
-    {doc: 'api', label: 'API'},
-    {page: 'help', label: 'Help'},
-    {blog: true, label: 'Blog'},
+    { doc: 'getting-started', label: 'Docs' },
+    { doc: 'api', label: 'API' },
+    { page: 'help', label: 'Help' },
+    { blog: true, label: 'Blog' },
   ],
-  headerIcon: 'img/wafflemap.svg', 
-  footerIcon: 'img/wafflemap.svg', 
-  favicon: 'img/favicon.png', 
+  headerIcon: 'img/wafflemap.svg',
+  footerIcon: 'img/wafflemap.svg',
+  favicon: 'img/favicon.png',
   colors: {
     primaryColor: '#FF9100',
     secondaryColor: '#FF6D00',
   },
-  copyright:
-    'Copyright © ' +
-    new Date().getFullYear() +
-    ' dorayakikun',
+  copyright: 'Copyright © ' + new Date().getFullYear() + ' dorayakikun',
   highlight: {
     theme: 'default',
   },
@@ -30,7 +27,7 @@ const siteConfig = {
   onPageNav: 'separate',
   ogImage: 'img/favicon.png',
   twitterImage: 'img/favicon.png',
-  repoUrl: 'https://github.com/dorayakikun/waffle-map'
-};
+  repoUrl: 'https://github.com/dorayakikun/waffle-map',
+}
 
-module.exports = siteConfig;
+module.exports = siteConfig
