@@ -14,7 +14,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
+          - v1-dependencies-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
           - v1-dependencies-
 
       - run: npm i
@@ -22,7 +22,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
+          key: v1-dependencies-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
 
       - run: 
           name: Run unit tests
@@ -39,4 +39,4 @@ jobs:
             git config --global user.email "dorayakikun@users.noreply.github.com"
             git config --global user.name dorayakikun
             echo "machine github.com login dorayakikun password $GITHUB_TOKEN" > ~/.netrc
-            cd website && yarn install && GIT_USER=dorayakikun yarn run publish-gh-pages
+            cd website && npm install && GIT_USER=dorayakikun npm run publish-gh-pages

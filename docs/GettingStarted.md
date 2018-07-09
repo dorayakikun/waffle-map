@@ -16,7 +16,7 @@ Waffle Map は以下の機能を提供します。
 
 ## インストール
 
-Yarn を利用して Waffle Map をインストールしてください [Yarn](https://yarnpkg.com/):
+npm を利用して Waffle Map をインストールしてください
 
-    yarn
-    yarn dev
+    npm i
+    npm run dev
