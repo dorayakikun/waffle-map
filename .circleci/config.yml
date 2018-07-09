@@ -17,7 +17,7 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
           - v1-dependencies-
 
-      - run: yarn
+      - run: npm i
 
       - save_cache:
           paths:
@@ -27,11 +27,11 @@ jobs:
       - run: 
           name: Run unit tests
           command: |
-            yarn build
-            yarn test
-            yarn regression
-            yarn add -D codeclimate-test-reporter
-            yarn codeclimate-test-reporter < 'coverage/lcov.info'
+            npm run build
+            npm test
+            npm run regression
+            npm i -D codeclimate-test-reporter
+            npm run codeclimate-test-reporter < 'coverage/lcov.info'
 
       - run: 
           name: Deploy to GitHub Pages

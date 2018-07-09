@@ -13,7 +13,7 @@ export interface Props {
 export const GridToggle = (props: Props) => (
   <div>
     <div style={{ marginTop: '10px', marginBottom: '10px' }}>
-      <span style={{ fontColor: 'white', marginRight: 5 }}>{props.title}</span>
+      <span style={{  color: 'white', marginRight: 5 }}>{props.title}</span>
       <Checkbox
         checked={props.isShowGrid}
         onChange={props.onToggleChanged}
