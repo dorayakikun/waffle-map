@@ -11,11 +11,10 @@
       "leaflet",
       "react",
       "react-dom",
-      "react-leaflet",
       "react-redux",
       "redux"
     ],
-    "typeRoots": ["node_modues/@types", "typings"]
+    "typeRoots": ["node_modues/@types"]
   },
   "exclude": ["node_modules", "public", "*/__tests__/*"]
 }

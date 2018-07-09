@@ -23,7 +23,7 @@ Mesh code is a very useful project, but it is not intuitive. Waffle Map generate
 
 ```console
 $ git clone https://github.com/dorayakikun/waffle-map.git
-$ yarn dev
+$ npm run dev
 ```
 
 ## Demo
