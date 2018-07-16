@@ -1,35 +1,35 @@
-import * as React from 'react'
 import { storiesOf } from '@storybook/react'
+import * as React from 'react'
 import { Map } from '../src/components/Map'
 import { LatLng } from '../src/domain/calculateMesh'
 
 const someMesh = {
-  code: '5031',
-  center: { lat: 33.66667, lng: 131.5 },
   bounds: {
     leftTop: { lat: 34, lng: 131 },
     rightBottom: { lat: 33.33334, lng: 132 },
   },
+  center: { lat: 33.66667, lng: 131.5 },
+  code: '5031',
 }
 const otherMesh = {
-  code: '6041',
-  center: { lat: 40.33334, lng: 141.5 },
   bounds: {
     leftTop: { lat: 40.66667, lng: 141 },
     rightBottom: { lat: 40, lng: 142 },
   },
+  center: { lat: 40.33334, lng: 141.5 },
+  code: '6041',
 }
 
 const propsDefault = {
-  meshes: [],
   contextmenuPosition: undefined,
+  datum: 'wgs84',
   isShowDebugTiles: false,
   isShowMeshes: false,
   markerPositions: [],
-  datum: 'wgs84',
-  unit: 'degree',
-  onContextmenu: (event: Event & { latlng: LatLng }) => {},
+  meshes: [],
   onClose: () => {},
+  onContextmenu: (event: Event & { latlng: LatLng }) => {},
+  unit: 'degree',
 }
 const propsSomeMesh = { ...propsDefault, meshes: [someMesh] }
 const propsMeshes = { ...propsDefault, meshes: [someMesh, otherMesh] }
