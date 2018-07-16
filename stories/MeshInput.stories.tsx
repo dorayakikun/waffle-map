@@ -4,10 +4,10 @@ import { DropdownProps, InputOnChangeData } from 'semantic-ui-react'
 import { MeshCodeInput } from '../src/components/MeshCodeInput'
 
 const defaultProps = {
+  datum: 'wgs84',
   errorMessage: '',
   meshCodes: '',
-  separator: '.',
-  datum: 'wgs84',
+  onDatumChanged: () => {},
   onMeshesChanged: (
     event: React.SyntheticEvent<HTMLInputElement>,
     data: InputOnChangeData
@@ -16,14 +16,14 @@ const defaultProps = {
     event: React.SyntheticEvent<HTMLElement>,
     data: DropdownProps
   ) => {},
-  onDatumChanged: () => {},
+  separator: '.',
 }
 
 storiesOf('MeshCodeInput', module).add('no mesh code', () => (
   <MeshCodeInput {...defaultProps} />
 ))
 
-const someMeshCode = Object.assign({}, { ...defaultProps, meshCodes: '5339' })
+const someMeshCode = { ...defaultProps, meshCodes: '5339' }
 storiesOf('MeshCodeInput', module).add('with valid mesh code', () => (
   <MeshCodeInput {...someMeshCode} />
 ))
@@ -37,7 +37,7 @@ storiesOf('MeshCodeInput', module).add('with invalid mesh code', () => (
   <MeshCodeInput {...someInvalidMeshCode} />
 ))
 
-const useCommas = Object.assign({}, { ...defaultProps, separator: ',' })
+const useCommas = { ...defaultProps, separator: ','}
 storiesOf('MeshCodeInput', module).add('select commas', () => (
   <MeshCodeInput {...useCommas} />
 ))

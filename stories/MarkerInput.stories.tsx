@@ -1,14 +1,14 @@
-import * as React from 'react'
 import { storiesOf } from '@storybook/react'
+import * as React from 'react'
 import { MarkerInput } from '../src/components/MarkerInput'
 
 const propsNoLatLng = {
-  latLng: '',
-  unit: 'degree',
+  changeUnit: () => {},
   errorMessage: '',
+  latLng: '',
   putMarker: () => {},
   removeAllMarkers: () => {},
-  changeUnit: () => {},
+  unit: 'degree',
 }
 
 storiesOf('MarkerInput', module).add('no latlng', () => (
