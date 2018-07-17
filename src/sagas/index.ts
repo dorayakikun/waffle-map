@@ -27,7 +27,7 @@ import { getGeodetic, getMeshCodes } from '../reducers'
 import { mapToMeshes } from '../reducers/meshes'
 
 function* createMeshes() {
-  const { meshCodes, separator } = yield select(getMeshCodes) // TODO fix to getMeshCodes
+  const { meshCodes, separator } = yield select(getMeshCodes)
   let errorMessage = ''
   try {
     yield put(changeMeshes(mapToMeshes(meshCodes, separator)))
