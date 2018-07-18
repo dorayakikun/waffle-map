@@ -9,7 +9,7 @@
 
 Mesh code is a very useful project, but it is not intuitive. Waffle Map generates a mesh from the mesh code and render it on the map. I would be happy if we can help everyone understand the mesh code !!
 
-# ![Waffle Map](media/header.png)
+# ![Waffle Map](media/header.gif)
 
 ## Contents
 
