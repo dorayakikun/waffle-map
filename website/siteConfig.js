@@ -24,10 +24,9 @@ const siteConfig = {
     theme: 'default',
   },
   algolia: {
-    apiKey: "",//
+    apiKey: "608c52525cab230bb2188506291b31",
     indexName: "waffle_map"
-},
-  // FIXME Add the algolia settings
+  },
   scripts: ['https://buttons.github.io/buttons.js'],
   onPageNav: 'separate',
   ogImage: 'img/favicon.png',
