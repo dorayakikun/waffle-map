@@ -24,7 +24,7 @@ const siteConfig = {
     theme: 'default',
   },
   algolia: {
-    apiKey: "608c52525cab230bb2188506291b31",
+    apiKey: "608c52525cab230bb2188506291b313b",
     indexName: "waffle_map"
   },
   scripts: ['https://buttons.github.io/buttons.js'],
