@@ -6,6 +6,7 @@ const siteConfig = {
   projectName: 'waffle-map',
   organizationName: 'dorayakikun',
   headerLinks: [
+    { search: true },
     { doc: 'getting-started', label: 'Docs' },
     { doc: 'api', label: 'API' },
     { page: 'help', label: 'Help' },
@@ -22,7 +23,10 @@ const siteConfig = {
   highlight: {
     theme: 'default',
   },
-  // FIXME Add the algolia settings
+  algolia: {
+    apiKey: "608c52525cab230bb2188506291b313b",
+    indexName: "waffle_map"
+  },
   scripts: ['https://buttons.github.io/buttons.js'],
   onPageNav: 'separate',
   ogImage: 'img/favicon.png',
