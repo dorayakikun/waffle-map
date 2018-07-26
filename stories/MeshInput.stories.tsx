@@ -37,7 +37,7 @@ storiesOf('MeshCodeInput', module).add('with invalid mesh code', () => (
   <MeshCodeInput {...someInvalidMeshCode} />
 ))
 
-const useCommas = { ...defaultProps, separator: ','}
+const useCommas = { ...defaultProps, separator: ',' }
 storiesOf('MeshCodeInput', module).add('select commas', () => (
   <MeshCodeInput {...useCommas} />
 ))

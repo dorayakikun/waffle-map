@@ -13,11 +13,11 @@ Mesh code is a very useful project, but it is not intuitive. Waffle Map generate
 
 ## Contents
 
-* [Usage](#usage)
-* [Demo](#demo)
-* [Documentation](#documentation)
-* [Extending Waffle Map](#extending-waffle-map)
-* [Author](#author)
+- [Usage](#usage)
+- [Demo](#demo)
+- [Documentation](#documentation)
+- [Extending Waffle Map](#extending-waffle-map)
+- [Author](#author)
 
 ## Usage
 
@@ -40,15 +40,15 @@ Please See https://dorayakikun.github.io/waffle-map/ for details.(Jpanese only)
 
 Prepare below modules
 
-* name: waffle-map-mesh-calculator-{your-logic-name}
-* functions:
-  * toMeshCode: (lat: number, lng: number, scale: number) => string
-  * toBounds: (meshCode: string) => Bounds
-  * toCenterLatLng: (meshCode: string) => LatLng
-  * scaleFrom(zoom: number): number
-  * offset(meshCode: string, x: number, y: number): string
-* constant
-  * SCALES: [number]
+- name: waffle-map-mesh-calculator-{your-logic-name}
+- functions:
+  - toMeshCode: (lat: number, lng: number, scale: number) => string
+  - toBounds: (meshCode: string) => Bounds
+  - toCenterLatLng: (meshCode: string) => LatLng
+  - scaleFrom(zoom: number): number
+  - offset(meshCode: string, x: number, y: number): string
+- constant
+  - SCALES: [number]
 
 Please see [here](https://github.com/dorayakikun/waffle-map-mesh-calculator-basic) as sample code.
 
@@ -64,4 +64,4 @@ Append wafflemap config in package.json.
 
 ## Author
 
-* dorayakikun
+- dorayakikun
