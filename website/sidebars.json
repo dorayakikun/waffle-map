@@ -1,10 +1,6 @@
 {
   "docs": {
-    "Introduction": [
-      "getting-started"
-    ],
-    "APIs": [
-      "api"
-    ]
+    "Introduction": ["getting-started"],
+    "APIs": ["api"]
   }
 }

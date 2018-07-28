@@ -25,6 +25,9 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   },
 })
 
-const connector = connect(mapStateToProps, mapDispatchToProps)
+const connector = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 
 export const GeodeticInputContainer = connector(GeodeticInput)

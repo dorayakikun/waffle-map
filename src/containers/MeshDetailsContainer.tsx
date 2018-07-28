@@ -33,6 +33,9 @@ const mapStateToProps = (state: RootState) => ({
   })),
 })
 
-const connector = connect(mapStateToProps, {})
+const connector = connect(
+  mapStateToProps,
+  {}
+)
 
 export const MeshDetailsContainer = connector(MeshContainer)
