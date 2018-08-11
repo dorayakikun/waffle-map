@@ -9,7 +9,7 @@
     "dev": "webpack-dev-server --hot --mode development",
     "fmt": "prettier --write '**/*.{js,json,md,ts,tsx}'",
     "pages": "gh-pages -d public -m 'Auto publish'",
-    "regression": "build-storybook && npm run screenshot && reg-suit sync-expected && reg-suit compare && reg-suit publish",
+    "regression": "build-storybook && npm run screenshot && reg-suit sync-expected && reg-suit run",
     "screenshot": "node screenshot.js",
     "storybook": "start-storybook -p 6006 -c .storybook -s public",
     "test": "jest"
