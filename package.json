@@ -9,7 +9,7 @@
     "dev": "webpack-dev-server --hot --mode development",
     "fmt": "prettier --write '**/*.{js,json,md,ts,tsx}'",
     "pages": "gh-pages -d public -m 'Auto publish'",
-    "regression": "build-storybook && npm run screenshot && reg-suit sync-expected && reg-suit compare && reg-suit publish",
+    "regression": "build-storybook && npm run screenshot && reg-suit sync-expected && reg-suit run",
     "screenshot": "node screenshot.js",
     "storybook": "start-storybook -p 6006 -c .storybook -s public",
     "test": "jest"
@@ -42,6 +42,7 @@
     "react-test-renderer": "^16.4.2",
     "reg-keygen-git-hash-plugin": "^0.7.1",
     "reg-notify-github-plugin": "^0.7.2",
+    "reg-notify-slack-plugin": "^0.7.5",
     "reg-publish-s3-plugin": "^0.7.10",
     "reg-suit": "^0.7.13",
     "regenerator-runtime": "^0.12.0",
