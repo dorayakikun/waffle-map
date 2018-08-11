@@ -16,6 +16,9 @@
     },
     "reg-publish-s3-plugin": {
       "bucketName": "reg-publish-bucket-0419119e-0fc7-4f0d-aced-f33b76f79420"
+    },
+    "reg-notify-slack-plugin": {
+      "webhookUrl": "your_incoming_webhook_url"
     }
   }
 }
