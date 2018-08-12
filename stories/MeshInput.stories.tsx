@@ -4,10 +4,8 @@ import { DropdownProps, InputOnChangeData } from 'semantic-ui-react'
 import { MeshCodeInput } from '../src/components/MeshCodeInput'
 
 const defaultProps = {
-  datum: 'wgs84',
   errorMessage: '',
   meshCodes: '',
-  onDatumChanged: () => {},
   onMeshesChanged: (
     event: React.SyntheticEvent<HTMLInputElement>,
     data: InputOnChangeData
