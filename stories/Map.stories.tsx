@@ -38,6 +38,7 @@ const propsSomeMeshAndContextPosition = {
   contextmenuPosition: { lat: 35.6896, lng: 139.6921 },
 }
 const propsShowDebugTile = { ...propsDefault, isShowDebugTiles: true }
+const propsShowMeshes = { ...propsDefault, isShowMeshes: true }
 
 storiesOf('Map', module).add('no mesh', () => <Map {...propsDefault} />)
 storiesOf('Map', module).add('with mesh', () => <Map {...propsSomeMesh} />)
@@ -47,4 +48,7 @@ storiesOf('Map', module).add('with meshes and contextMenuPosition', () => (
 ))
 storiesOf('Map', module).add('show Debug Tile', () => (
   <Map {...propsShowDebugTile} />
+))
+storiesOf('Map', module).add('show Grid Meshes', () => (
+  <Map {...propsShowMeshes} />
 ))
