@@ -2,21 +2,27 @@
   "outdir": "__screenshots__",
   "storybookdir": "storybook-static",
   "storiesByKind": {
+    "GeodeticInput": [
+      { "name": "default" },
+      { "name": "change datum" },
+      { "name": "change unit" }
+    ],
     "GridToggle": [{ "name": "show meshes" }, { "name": "hide meshes" }],
     "Map": [
       { "name": "no mesh" },
       { "name": "with mesh" },
       { "name": "with meshes" },
       { "name": "with meshes and contextMenuPosition" },
-      { "name": "show Debug Tile" }
+      { "name": "show Debug Tile" },
+      { "name": "show Grid Meshes" }
     ],
     "MarkerInput": [{ "name": "no latlng" }],
-    "Mesh Detail": [{ "name": "default" }],
     "MeshCodeInput": [
       { "name": "no mesh code" },
       { "name": "with valid mesh code" },
       { "name": "with invalid mesh code" },
       { "name": "select commas" }
-    ]
+    ],
+    "MeshDetail": [{ "name": "default" }]
   }
 }
