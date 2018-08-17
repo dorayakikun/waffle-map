@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should set props to MarkerInput 1`] = `
+<div
+  onKeyPress={[Function]}
+>
+  <div
+    className="ui inverted input"
+    style={
+      Object {
+        "marginBottom": "10px",
+        "marginRight": "3px",
+        "marginTop": "10px",
+      }
+    }
+  >
+    <input
+      onChange={[Function]}
+      placeholder="lat,lng"
+      type="text"
+      value=""
+    />
+  </div>
+  <button
+    className="ui icon button"
+    onClick={[Function]}
+    role="button"
+  >
+    <i
+      aria-hidden="true"
+      className="marker icon"
+    />
+  </button>
+  <button
+    className="ui icon button"
+    onClick={[Function]}
+    role="button"
+  >
+    <i
+      aria-hidden="true"
+      className="trash icon"
+    />
+  </button>
+</div>
+`;
+
+exports[`Should set props to MarkerInput(datum is Tokyo) 1`] = `
+<div
+  onKeyPress={[Function]}
+>
+  <div
+    className="ui error inverted input"
+    style={
+      Object {
+        "marginBottom": "10px",
+        "marginRight": "3px",
+        "marginTop": "10px",
+      }
+    }
+  >
+    <input
+      onChange={[Function]}
+      placeholder="lat,lng"
+      type="text"
+      value="lat,lng"
+    />
+  </div>
+  <button
+    className="ui icon button"
+    onClick={[Function]}
+    role="button"
+  >
+    <i
+      aria-hidden="true"
+      className="marker icon"
+    />
+  </button>
+  <button
+    className="ui icon button"
+    onClick={[Function]}
+    role="button"
+  >
+    <i
+      aria-hidden="true"
+      className="trash icon"
+    />
+  </button>
+  <div
+    className="ui negative message"
+  >
+    <div
+      className="header"
+    >
+      Waffle Map Error
+    </div>
+    <p>
+      It seems there was something wrong ...
+    </p>
+  </div>
+</div>
+`;
