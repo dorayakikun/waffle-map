@@ -1,10 +1,5 @@
 import * as React from 'react'
-import {
-  Button,
-  Input,
-  InputOnChangeData,
-  Message,
-} from 'semantic-ui-react'
+import { Button, Input, InputOnChangeData, Message } from 'semantic-ui-react'
 
 export interface Props {
   latLng: string
