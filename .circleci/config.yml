@@ -28,8 +28,9 @@ jobs:
       - run: 
           name: Run unit tests
           command: |
-            npm run build
+            npm run lint
             npm test
+            npm run build
             sed -i -e 's/your_incoming_webhook_url/${WEBHOOK_URL}/g' regconfig.json
             npm run regression
             npm i -D codeclimate-test-reporter
