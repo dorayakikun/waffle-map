@@ -8,6 +8,7 @@
     "build-storybook": "build-storybook",
     "dev": "webpack-dev-server --hot --mode development",
     "fmt": "prettier --write '**/*.{js,json,md,ts,tsx}'",
+    "lint": "prettier -l '**/*.{js,json,md,ts,tsx}' && tslint -p tsconfig.json",
     "pages": "gh-pages -d public -m 'Auto publish'",
     "regression": "build-storybook && npm run screenshot && reg-suit sync-expected && reg-suit run",
     "screenshot": "node screenshot.js",
