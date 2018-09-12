@@ -6,7 +6,7 @@
 [![Code Climate](https://codeclimate.com/github/dorayakikun/waffle-map/badges/gpa.svg)](https://codeclimate.com/github/dorayakikun/waffle-map)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
-[![Storybook](https://github.com/storybooks/press/blob/master/badges/storybook.svg)](link to site)
+![Storybook](https://github.com/storybooks/press/blob/master/badges/storybook.svg)
 
 Mesh code is a very useful project, but it is not intuitive. Waffle Map generates a mesh from the mesh code and render it on the map. I would be happy if we can help everyone understand the mesh code !!
 
