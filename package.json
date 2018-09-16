@@ -34,7 +34,7 @@
     "core-js": "^2.5.7",
     "del": "^3.0.0",
     "docusaurus-init": "^1.0.1",
-    "gh-pages": "^1.1.0",
+    "gh-pages": "^2.0.0",
     "jest": "^23.5.0",
     "json-loader": "^0.5.7",
     "prettier": "^1.14.2",
