@@ -4,7 +4,7 @@ import { GridLayer, withLeaflet } from 'react-leaflet'
 const DebugTileLayer = withLeaflet(
   class extends GridLayer {
     public createLeafletElement(props: any): Leaflet.GridLayer {
-      const debugGridLayer = (Leaflet.GridLayer as any).extend({
+      const DebugGridLayer = (Leaflet.GridLayer as any).extend({
         createTile: (coords: Leaflet.Coords): HTMLElement => {
           const tile = document.createElement('div')
           tile.style.backgroundColor = 'rgba(41, 98, 255, 0.2)'
@@ -23,7 +23,7 @@ const DebugTileLayer = withLeaflet(
           return tile
         },
       })
-      return new debugGridLayer(this.getOptions(props))
+      return new DebugGridLayer(this.getOptions(props))
     }
   }
 )
