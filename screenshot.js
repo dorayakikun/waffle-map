@@ -1,3 +1,5 @@
+'use strict'
+
 const puppeteer = require('puppeteer')
 const connect = require('connect')
 const serveStatic = require('serve-static')
@@ -10,7 +12,7 @@ fs.mkdirSync(config.outdir)
 
 const app = connect()
 app.use(serveStatic(config.storybookdir))
-server = app.listen(6006)
+const server = app.listen(6006)
 ;(async () => {
   const browser = await puppeteer.launch({
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
