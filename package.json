@@ -57,7 +57,7 @@
     "tslint-config-prettier": "^1.15.0",
     "tslint-react": "^3.5.1",
     "typescript": "^3.0.1",
-    "typescript-eslint-parser": "^19.0.1",
+    "typescript-eslint-parser": "^20.0.0",
     "uglifyjs-webpack-plugin": "^2.0.0",
     "webpack": "^4.17.0",
     "webpack-cli": "^3.1.0",
