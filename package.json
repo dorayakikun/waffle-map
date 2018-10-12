@@ -7,7 +7,6 @@
     "build": "webpack --mode production",
     "build-storybook": "build-storybook",
     "dev": "webpack-dev-server --hot --mode development",
-    "fmt": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
     "pages": "gh-pages -d public -m 'Auto publish'",
     "regression": "build-storybook && npm run screenshot && reg-suit sync-expected && reg-suit run",
