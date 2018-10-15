@@ -23,7 +23,7 @@ jobs:
       - run: 
           name: Run unit tests
           command: |
-            npm run lint
+            npm run lint -- --format junit -o $CIRCLE_TEST_REPORTS/eslint/eslint.xml
             npm test
             npm run build
             sed -i -e 's/your_incoming_webhook_url/${WEBHOOK_URL}/g' regconfig.json
