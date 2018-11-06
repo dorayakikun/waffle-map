@@ -28,7 +28,7 @@
     "@types/jest": "^23.3.1",
     "@types/react-test-renderer": "^16.0.2",
     "@types/storybook__addon-links": "^3.3.2",
-    "@types/storybook__react": "^3.0.9",
+    "@types/storybook__react": "^4.0.0",
     "awesome-typescript-loader": "^5.2.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.4",
