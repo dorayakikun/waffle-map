@@ -23,7 +23,7 @@
   },
   "homepage": "https://dorayakikun.github.io/waffle-map/",
   "devDependencies": {
-    "@storybook/react": "^4.0.0-alpha.16",
+    "@storybook/react": "^4.0.4",
     "@types/jest": "^23.3.1",
     "@types/react-test-renderer": "^16.0.2",
     "@types/storybook__addon-links": "^3.3.2",
