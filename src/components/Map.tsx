@@ -294,7 +294,7 @@ export class Map extends React.Component<Props, State> {
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           />
           {this.props.isShowDebugTiles && <DebugTileLayer />}
           {this.props.isShowMeshes &&
