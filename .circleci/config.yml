@@ -21,9 +21,14 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
 
       - run: 
+          name: Run lint
+          command: |
+            mkdir -p ~/reports
+            npm run lint -- --format junit -o ~/reports/eslint.xml
+
+      - run: 
           name: Run unit tests
           command: |
-            npm run lint -- --format junit -o $CIRCLE_TEST_REPORTS/eslint/eslint.xml
             npm test
             npm run build
             sed -i -e 's/your_incoming_webhook_url/${WEBHOOK_URL}/g' regconfig.json
@@ -38,3 +43,9 @@ jobs:
             git config --global user.name dorayakikun
             echo "machine github.com login dorayakikun password $GITHUB_TOKEN" > ~/.netrc
             cd website && npm install && GIT_USER=dorayakikun npm run publish-gh-pages
+
+      - store_test_results:
+                path: ~/reports
+
+      - store_artifacts:
+                path: ~/reports
