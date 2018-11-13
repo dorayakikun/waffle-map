@@ -23,8 +23,7 @@ jobs:
       - run: 
           name: Run lint
           command: |
-            mkdir -p ~/reports
-            npm run lint -- --format junit -o ~/reports/eslint.xml
+            npm run lint -- --format junit -o reports/eslint.xml
 
       - run: 
           name: Install JUnit coverage reporter
@@ -60,10 +59,7 @@ jobs:
             cd website && npm install && GIT_USER=dorayakikun npm run publish-gh-pages
 
       - store_test_results:
-                path: ~/reports
+                path: ./reports
 
       - store_artifacts:
-                path: ~/reports/eslint.xml
-
-      - store_artifacts:
-                path: "~/reports/js-test-results.xml"
+                path: ./reports
