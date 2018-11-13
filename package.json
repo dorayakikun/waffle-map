@@ -86,6 +86,7 @@
       "tsx",
       "js"
     ],
+    "reporters": [ "default", "jest-junit" ],
     "transform": {
       "^.+\\.(ts|tsx)$": "<rootDir>/preprocessor.js"
     },
