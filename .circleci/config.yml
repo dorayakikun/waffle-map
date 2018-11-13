@@ -63,4 +63,7 @@ jobs:
                 path: ~/reports
 
       - store_artifacts:
-                path: ~/reports
+                path: ~/reports/eslint.xml
+
+      - store_artifacts:
+                path: "~/reports/js-test-results.xml"
