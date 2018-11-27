@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: regviz/node-xcb
+      - image: circleci/node:10.13-browsers
 
     working_directory: ~/repo
 
@@ -13,7 +13,9 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
           - v1-dependencies-
 
-      - run: npm i
+      - run: 
+          name: Install dependencies
+          command: npm ci
 
       - save_cache:
           paths:
