@@ -24,7 +24,6 @@ exports[`Should set props to MarkerInput 1`] = `
   <button
     className="ui icon button"
     onClick={[Function]}
-    role="button"
   >
     <i
       aria-hidden="true"
@@ -34,7 +33,6 @@ exports[`Should set props to MarkerInput 1`] = `
   <button
     className="ui icon button"
     onClick={[Function]}
-    role="button"
   >
     <i
       aria-hidden="true"
@@ -68,7 +66,6 @@ exports[`Should set props to MarkerInput(datum is Tokyo) 1`] = `
   <button
     className="ui icon button"
     onClick={[Function]}
-    role="button"
   >
     <i
       aria-hidden="true"
@@ -78,7 +75,6 @@ exports[`Should set props to MarkerInput(datum is Tokyo) 1`] = `
   <button
     className="ui icon button"
     onClick={[Function]}
-    role="button"
   >
     <i
       aria-hidden="true"

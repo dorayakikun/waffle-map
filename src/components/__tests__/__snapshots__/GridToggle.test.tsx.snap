@@ -25,11 +25,11 @@ exports[`Should call onToggleChanged when changed checked 1`] = `
       onChange={[Function]}
       onClick={[Function]}
       onMouseDown={[Function]}
+      onMouseUp={[Function]}
     >
       <input
         checked={false}
         className="hidden"
-        onClick={[Function]}
         readOnly={true}
         tabIndex={0}
         type="checkbox"
@@ -65,11 +65,11 @@ exports[`Should set props to MeshToggle 1`] = `
       onChange={[Function]}
       onClick={[Function]}
       onMouseDown={[Function]}
+      onMouseUp={[Function]}
     >
       <input
         checked={false}
         className="hidden"
-        onClick={[Function]}
         readOnly={true}
         tabIndex={0}
         type="checkbox"
