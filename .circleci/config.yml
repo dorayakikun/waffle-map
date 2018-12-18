@@ -10,17 +10,12 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v2-dependencies-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
-          - v2-dependencies-
+            - v{{ .Environment.CIRCLE_CACHE_VERSION }}-{{ arch }}-npm-cache-{{ .Branch }}-{{ .Environment.CIRCLE_JOB }}
+            - v{{ .Environment.CIRCLE_CACHE_VERSION }}-{{ arch }}-npm-cache-master-{{ .Environment.CIRCLE_JOB }}
 
       - run: 
           name: Install dependencies
           command: npm ci
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v2-dependencies-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
 
       - run: 
           name: Run lint
@@ -61,7 +56,11 @@ jobs:
             cd website && npm install && GIT_USER=dorayakikun npm run publish-gh-pages
 
       - store_test_results:
-                path: ./reports
+          path: ./reports
 
       - store_artifacts:
-                path: ./reports
+          path: ./reports
+      - save_cache:
+          key: v{{ .Environment.CIRCLE_CACHE_VERSION }}-{{ arch }}-npm-cache-{{ .Branch }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm/_cacache
