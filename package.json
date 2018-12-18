@@ -2,7 +2,7 @@
   "name": "waffle-map",
   "version": "1.21.0",
   "description": "Fantastic mesh renderer",
-  "main": "public/bundle.js",
+  "private": true,
   "scripts": {
     "build": "webpack --mode production",
     "build-storybook": "build-storybook",
@@ -14,7 +14,6 @@
     "storybook": "start-storybook -p 6006 -c .storybook -s public",
     "test": "jest"
   },
-  "keywords": [],
   "author": "dorayakikun <amakunai.dorayaki@gmail.com>",
   "license": "MIT",
   "repository": {
