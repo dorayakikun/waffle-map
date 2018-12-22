@@ -3,6 +3,7 @@
 > Fantastic mesh renderer
 
 [![CircleCI](https://circleci.com/gh/dorayakikun/waffle-map.svg?style=svg)](https://circleci.com/gh/dorayakikun/waffle-map)
+[![Greenkeeper Enabledflat](https://badges.greenkeeper.io/dorayakikun/waffle-map.svg)](https://greenkeeper.io/)
 [![Code Climate](https://codeclimate.com/github/dorayakikun/waffle-map/badges/gpa.svg)](https://codeclimate.com/github/dorayakikun/waffle-map)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
