@@ -7,6 +7,7 @@
     "build": "webpack --mode production",
     "build-storybook": "build-storybook",
     "dev": "webpack-dev-server --hot --mode development",
+    "fmt": "eslint --ext --fix .js,.jsx,.ts,.tsx .",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
     "pages": "gh-pages -d public -m 'Auto publish'",
     "regression": "build-storybook && npm run screenshot && reg-suit sync-expected && reg-suit run",
@@ -28,7 +29,6 @@
     "@types/react-test-renderer": "^16.0.3",
     "@types/storybook__addon-links": "^3.3.3",
     "@types/storybook__react": "^4.0.0",
-    "awesome-typescript-loader": "^5.2.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.4",
     "connect": "^3.6.6",
@@ -77,6 +77,7 @@
     "redux": "^3.6.0",
     "redux-saga": "^0.16.2",
     "semantic-ui-react": "^0.84.0",
+    "ts-loader": "^5.3.2",
     "waffle-map-mesh-calculator-basic": "^2.3.0"
   },
   "jest": {
