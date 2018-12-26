@@ -22,12 +22,14 @@ export interface PutMarkerAction {
 
 interface RemoveAllMarkerAction {
   readonly type: ActionKeys.REMOVE_ALL_MARKERS
+  payload: {}
 }
 
 export type Action =
   | ChangeErrorMessageAction
   | InputLatLngAction
   | PutMarkerAction
+  | RemoveAllMarkerAction
 
 export const changeErrorMessage = (
   errorMessage: string
@@ -48,4 +50,5 @@ export const putMarker = (latLng: string): PutMarkerAction => ({
 
 export const removeAllMarkers = (): RemoveAllMarkerAction => ({
   type: ActionKeys.REMOVE_ALL_MARKERS,
+  payload: {},
 })
