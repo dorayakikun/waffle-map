@@ -1,18 +1,36 @@
 version: 2
-jobs:
-  build:
-    docker:
-      - image: circleci/node:10.13-browsers
 
-    working_directory: ~/repo
+base_image: &base_image
+  image: circleci/node:10.13-browsers
+
+build_image: &build_image
+  docker:
+    - <<: *base_image
+  working_directory: ~/repo
+
+save_cache: &save_cache
+  key: v{{ .Environment.CIRCLE_CACHE_VERSION }}-{{ arch }}-npm-cache-{{ .Branch }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "package-lock.json" }}
+  paths:
+    - ~/.npm/_cacache
+
+restore_cache: &restore_cache
+  keys:
+    - v{{ .Environment.CIRCLE_CACHE_VERSION }}-{{ arch }}-npm-cache-{{ .Branch }}-{{ .Environment.CIRCLE_JOB }}
+    - v{{ .Environment.CIRCLE_CACHE_VERSION }}-{{ arch }}-npm-cache-master-{{ .Environment.CIRCLE_JOB }}
+
+jobs:
+  upload_lock:
+    <<: *build_image
 
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v{{ .Environment.CIRCLE_CACHE_VERSION }}-{{ arch }}-npm-cache-{{ .Branch }}-{{ .Environment.CIRCLE_JOB }}
-            - v{{ .Environment.CIRCLE_CACHE_VERSION }}-{{ arch }}-npm-cache-master-{{ .Environment.CIRCLE_JOB }}
+      - run: npx --package greenkeeper-lockfile@2 greenkeeper-lockfile-upload
 
+  build:
+    <<: *build_image
+    steps:
+      - checkout
+      - <<: *restore_cache
       - run: 
           name: Install dependencies
           command: npm ci
@@ -60,7 +78,14 @@ jobs:
 
       - store_artifacts:
           path: ./reports
-      - save_cache:
-          key: v{{ .Environment.CIRCLE_CACHE_VERSION }}-{{ arch }}-npm-cache-{{ .Branch }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "package-lock.json" }}
-          paths:
-            - ~/.npm/_cacache
+
+      - <<: *save_cache
+
+workflows:
+  version: 2
+  circleci_example:
+    jobs:
+      - upload_lock
+      - build:
+          requires:
+            - upload_lock
