@@ -70,7 +70,7 @@ jobs:
     steps:
       - <<: *restore
       - <<: *restore_lock
-      - run: npm run lint --format junit -o reports/eslint.xml
+      - run: npm run lint -- --format junit -o reports/eslint.xml
 
   typecheck:
     <<: *build_image
