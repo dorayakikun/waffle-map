@@ -102,6 +102,18 @@ jobs:
           name: Send coverage to Code Climate
           command: npx --package codeclimate-test-reporter codeclimate-test-reporter < 'coverage/lcov.info'
 
+      - store_test_results:
+          path: ./reports
+
+      - store_artifacts:
+          path: ./reports
+  
+  visual_regression_test:
+    <<: *build_image
+
+    steps:
+      - <<: *restore
+      - <<: *restore_lock  
       - run: 
           name: Run regression tests
           command: |
@@ -109,19 +121,26 @@ jobs:
             sed -i -e 's/your_incoming_webhook_url/${WEBHOOK_URL}/g' regconfig.json
             npm run regression
 
+  deploy_pages:
+    <<: *build_image
+
+    working_directory: ~/repo/website
+
+    steps:
+      - <<: *restore
+      - <<: *restore_lock
       - run: 
-          name: Deploy to GitHub Pages
+          name: Creates Git Config
           command: |
             git config --global user.email "dorayakikun@users.noreply.github.com"
             git config --global user.name dorayakikun
-            echo "machine github.com login dorayakikun password $GITHUB_TOKEN" > ~/.netrc
-            cd website && npm install && GIT_USER=dorayakikun npm run publish-gh-pages
-
-      - store_test_results:
-          path: ./reports
-
-      - store_artifacts:
-          path: ./reports
+      - run: 
+          name: Creates .netrc
+          command: echo "machine github.com login dorayakikun password $GITHUB_TOKEN" > ~/.netrc
+      - run: npm install
+      - run: 
+          name: Publish GitHub Pages
+          command: GIT_USER=dorayakikun npm run publish-gh-pages
 
 workflows:
   version: 2
@@ -140,9 +159,16 @@ workflows:
       - test:
           requires:
             - install
+      - visual_regression_test:
+          requires:
+            - install
       - upload_lock:
           requires:
             - lint
             - typecheck
             - audit
             - test
+            - visual_regression_test
+      - deploy_pages:
+          requires:
+            - upload_lock
