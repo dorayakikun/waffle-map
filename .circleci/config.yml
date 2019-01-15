@@ -93,10 +93,10 @@ jobs:
       - <<: *restore
       - <<: *restore_lock
       - run: 
-        name: Run tests with JUnit as reporter
-        command: npm test -- --ci --reporters=default --reporters=jest-junit
-        environment:
-          JEST_JUNIT_OUTPUT: "reports/js-test-results.xml"
+          name: Run tests with JUnit as reporter
+          command: npm test -- --ci --reporters=default --reporters=jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT: "reports/js-test-results.xml"
             
       - run:
           name: Send coverage to Code Climate
