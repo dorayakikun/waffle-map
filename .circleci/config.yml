@@ -58,7 +58,7 @@ jobs:
 
     steps:
       - checkout
-      - <<: *restore_cache
+      - <<: *restore_lock
       - run: case $CIRCLE_BRANCH in greenkeeper*) npm i;; *) npm ci;; esac;
       - run: npx --package greenkeeper-lockfile@2 greenkeeper-lockfile-update
       - <<: *save_lock
