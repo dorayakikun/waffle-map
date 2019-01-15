@@ -8,58 +8,99 @@ build_image: &build_image
     - <<: *base_image
   working_directory: ~/repo
 
-save_cache: &save_cache
+save_lock: &save_lock
   save_cache:
-    key: v{{ .Environment.CIRCLE_CACHE_VERSION }}-{{ arch }}-npm-cache-{{ .Branch }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "package-lock.json" }}
+    key: node_modules-{{ checksum "package-lock.json" }}
     paths:
-      - ~/.npm/_cacache
+      - node_modules
 
-restore_cache: &restore_cache
+restore_lock: &restore_lock
   restore_cache:
-    keys:
-      - v{{ .Environment.CIRCLE_CACHE_VERSION }}-{{ arch }}-npm-cache-{{ .Branch }}-{{ .Environment.CIRCLE_JOB }}
-      - v{{ .Environment.CIRCLE_CACHE_VERSION }}-{{ arch }}-npm-cache-master-{{ .Environment.CIRCLE_JOB }}
+    keys: 
+      - node_modules-{{ checksum "package-lock.json" }}
+
+save: &save
+  save_cache:
+    key: code-{{ .Revision }}
+    paths:
+      - .
+      - ".git"
+      - "~/.ssh"
+      - "~/repo"
+
+restore: &restore
+  restore_cache:
+    keys: 
+      - code-{{ .Revision }}
 
 jobs:
   upload_lock:
     <<: *build_image
 
+    environment:
+      GIT_AUTHOR_NAME: greenkeeperio-bot
+      GIT_AUTHOR_EMAIL: support@greenkeeper.io
+      GIT_COMMITTER_NAME: greenkeeperio-bot
+      GIT_COMMITTER_EMAIL: support@greenkeeper.io
+
     steps:
       - checkout
       - run: npx --package greenkeeper-lockfile@2 greenkeeper-lockfile-upload
 
-  build:
+  install:
     <<: *build_image
-    
+
+    environment:
+      GIT_AUTHOR_NAME: greenkeeperio-bot
+      GIT_AUTHOR_EMAIL: support@greenkeeper.io
+      GIT_COMMITTER_NAME: greenkeeperio-bot
+      GIT_COMMITTER_EMAIL: support@greenkeeper.io
+
     steps:
       - checkout
       - <<: *restore_cache
-      - run: 
-          name: Install dependencies
-          command: npm ci
+      - run: case $CIRCLE_BRANCH in greenkeeper*) npm i;; *) npm ci;; esac;
+      - run: npx --package greenkeeper-lockfile@2 greenkeeper-lockfile-update
+      - <<: *save_lock
+      - <<: *save
 
-      - run: 
-          name: Run lint
-          command: |
-            npm run lint -- --format junit -o reports/eslint.xml
+  lint:
+    <<: *build_image
 
-      - run: 
-          name: Install JUnit coverage reporter
-          command: npm i -D jest-junit
+    steps:
+      - <<: *restore
+      - <<: *restore_lock
+      - run: npm run lint --format junit -o reports/eslint.xml
 
-      - run: 
-          name: Install Code Climate test reporter
-          command: npm i -D codeclimate-test-reporter
+  typecheck:
+    <<: *build_image
+    steps:
+      - <<: *restore
+      - <<: *restore_lock
+      - run: npm run typecheck
 
+  audit:
+    <<: *build_image
+    steps:
+      - <<: *restore
+      - <<: *restore_lock
+      - run: npm audit
+
+  test:
+    <<: *build_image
+
+    steps:
+      - <<: *restore
+      - <<: *restore_lock
       - run: 
-          name: Run tests with JUnit as reporter
-          command: npm test -- --ci --reporters=default --reporters=jest-junit
-          environment:
-            JEST_JUNIT_OUTPUT: "reports/js-test-results.xml"
+        name: Run tests with JUnit as reporter
+        command: npm test -- --ci --reporters=default --reporters=jest-junit
+        environment:
+          JEST_JUNIT_OUTPUT: "reports/js-test-results.xml"
             
       - run:
           name: Send coverage to Code Climate
-          command: npx codeclimate-test-reporter < 'coverage/lcov.info'
+          command: npx --package codeclimate-test-reporter codeclimate-test-reporter < 'coverage/lcov.info'
 
       - run: 
           name: Run regression tests
@@ -82,13 +123,26 @@ jobs:
       - store_artifacts:
           path: ./reports
 
-      - <<: *save_cache
-
 workflows:
   version: 2
   exec:
     jobs:
-      - upload_lock
-      - build:
+      - install
+      - lint:
           requires:
-            - upload_lock
+            - install
+      - typecheck:
+          requires:
+            - install
+      - audit:
+          requires:
+            - install
+      - test:
+          requires:
+            - install
+      - upload_lock:
+          requires:
+            - lint
+            - typecheck
+            - audit
+            - test
