@@ -44,6 +44,7 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
+    "file-loader": "^3.0.1",
     "gh-pages": "^2.0.1",
     "jest": "^23.6.0",
     "jest-junit": "^6.0.1",
@@ -56,6 +57,7 @@
     "reg-suit": "^0.7.17",
     "regenerator-runtime": "^0.13.1",
     "serve-static": "^1.13.2",
+    "style-loader": "^0.23.1",
     "typescript": "^3.2.2",
     "typescript-eslint-parser": "^21.0.2",
     "uglifyjs-webpack-plugin": "^2.1.1",
@@ -76,6 +78,7 @@
     "react-redux": "^6.0.0",
     "redux": "^4.0.1",
     "redux-saga": "^0.16.2",
+    "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.84.0",
     "ts-loader": "^5.3.3",
     "waffle-map-mesh-calculator-basic": "^2.3.0"
