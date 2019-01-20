@@ -62,7 +62,14 @@ export class AppContainer extends React.Component<Props, State> {
   public render() {
     const { activeIndex } = this.state
     return (
-      <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.87)', height: '100%' }}>
+      <div
+        style={{
+          backgroundColor: 'rgba(0, 0, 0, 0.87)',
+          height: '100vh',
+          margin: 0,
+          padding: 0,
+        }}
+      >
         <Sidebar.Pushable>
           <Sidebar visible={true} width="wide">
             <Accordion

@@ -1,11 +1,9 @@
-import { LatLngBoundsExpression } from 'leaflet'
 import * as React from 'react'
 import {
   Map as LeafletMap,
   Marker,
   Popup,
   Rectangle,
-  RectangleProps,
   TileLayer,
   Tooltip,
 } from 'react-leaflet'
@@ -284,13 +282,14 @@ export class Map extends React.Component<Props, State> {
   public render() {
     const { meshes, markerPositions, datum } = this.props
     return (
-      <div style={{ width: '100%', height: '100%' }}>
+      <div style={{ width: '100%', height: '100vh' }}>
         <LeafletMap
           bounds={calculateLeafletBoundsFrom(meshes, markerPositions, datum)}
           maxZoom={18}
           minZoom={7}
           onContextmenu={this.props.onContextmenu}
           onViewportChanged={throttleEvents(this.updateViewport, 100)}
+          style={{ width: '100%', height: '100vh' }}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
