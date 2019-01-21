@@ -45,7 +45,7 @@ jobs:
 
     steps:
       - checkout
-      - run: yarn global add greenkeeper-lockfile@2 
+      - run: sudo yarn global add greenkeeper-lockfile@2 
       - run: greenkeeper-lockfile-upload
 
   install:
@@ -61,7 +61,7 @@ jobs:
       - checkout
       - <<: *restore_lock
       - run: yarn;
-      - run: yarn global add greenkeeper-lockfile@2 
+      - run: sudo yarn global add greenkeeper-lockfile@2 
       - run: greenkeeper-lockfile-update
       - <<: *save_lock
       - <<: *save
