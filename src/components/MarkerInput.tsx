@@ -43,7 +43,7 @@ export class MarkerInput extends React.Component<Props, State> {
       <div onKeyPress={this.handleClickPutAMarker}>
         <Input
           error={this.props.errorMessage !== ''}
-          inverted={true}
+          inverted
           onChange={this.onChangedLatLng}
           placeholder="lat,lng"
           style={{
@@ -58,7 +58,7 @@ export class MarkerInput extends React.Component<Props, State> {
         <Button icon="trash" onClick={this.handleClickRemoveAllMarkers} />
 
         {this.props.errorMessage !== '' && (
-          <Message negative={true}>
+          <Message negative>
             <Message.Header>Waffle Map Error</Message.Header>
             <p>{this.props.errorMessage}</p>
           </Message>

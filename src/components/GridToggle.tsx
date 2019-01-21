@@ -17,7 +17,7 @@ export const GridToggle = (props: Props) => (
       <Checkbox
         checked={props.isShowGrid}
         onChange={props.onToggleChanged}
-        toggle={true}
+        toggle
       />
     </div>
   </div>

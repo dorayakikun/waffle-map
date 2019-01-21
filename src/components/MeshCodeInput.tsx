@@ -44,20 +44,20 @@ export const MeshCodeInput = (props: Props) => (
   <div>
     <Input
       error={props.errorMessage !== ''}
-      fluid={true}
+      fluid
       placeholder="5339-35-97.5339-35-98.5339-35-99"
       onChange={props.onMeshesChanged}
       style={{ marginTop: '10px', marginBottom: '10px' }}
       value={props.meshCodes}
     />
     {props.errorMessage !== '' && (
-      <Message negative={true}>
+      <Message negative>
         <Message.Header>Waffle Map Error</Message.Header>
         <p>{props.errorMessage}</p>
       </Message>
     )}
     <Dropdown
-      fluid={true}
+      fluid
       onChange={props.onSeparatorChanged}
       options={separatorOptions}
       style={{ marginTop: '10px', marginBottom: '10px' }}
