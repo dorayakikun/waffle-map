@@ -24,7 +24,7 @@ const mapPropsToTableRowValues = ({
 ]
 
 export const MeshDetail = (props: Props) => (
-  <Table inverted={true}>
+  <Table inverted>
     <Table.Body>
       <Table.Row>
         <Table.Cell>mesh code</Table.Cell>

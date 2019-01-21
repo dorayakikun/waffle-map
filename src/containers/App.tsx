@@ -71,16 +71,16 @@ export class AppContainer extends React.Component<Props, State> {
         }}
       >
         <Sidebar.Pushable>
-          <Sidebar visible={true} width="wide">
+          <Sidebar visible width="wide">
             <Accordion
               as={Menu}
-              fluid={true}
-              inverted={true}
-              vertical={true}
+              fluid
+              inverted
+              vertical
               style={{ height: '100%' }}
             >
               <Menu.Item name="waffleMap">
-                <Image src="./images/logo.png" size="mini" spaced={true} />
+                <Image src="./images/logo.png" size="mini" spaced />
                 <strong>Waffle Map</strong>
               </Menu.Item>
 

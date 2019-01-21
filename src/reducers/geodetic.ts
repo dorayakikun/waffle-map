@@ -1,4 +1,3 @@
-import { Reducer } from 'redux'
 import { Action, ActionKeys } from '../actions/geodetic'
 
 export interface State {

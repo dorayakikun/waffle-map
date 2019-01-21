@@ -1,7 +1,7 @@
 version: 2
 
 base_image: &base_image
-  image: circleci/node:10.13-browsers
+  image: circleci/node:lts-browsers
 
 build_image: &build_image
   docker:
@@ -45,7 +45,8 @@ jobs:
 
     steps:
       - checkout
-      - run: npx --package greenkeeper-lockfile@2 greenkeeper-lockfile-upload
+      - run: yarn global add greenkeeper-lockfile@2 
+      - run: greenkeeper-lockfile-upload
 
   install:
     <<: *build_image
@@ -59,8 +60,9 @@ jobs:
     steps:
       - checkout
       - <<: *restore_lock
-      - run: case $CIRCLE_BRANCH in greenkeeper*) npm i;; *) npm ci;; esac;
-      - run: npx --package greenkeeper-lockfile@2 greenkeeper-lockfile-update
+      - run: yarn;
+      - run: yarn global add greenkeeper-lockfile@2 
+      - run: greenkeeper-lockfile-update
       - <<: *save_lock
       - <<: *save
 
@@ -70,21 +72,21 @@ jobs:
     steps:
       - <<: *restore
       - <<: *restore_lock
-      - run: npm run lint -- --format junit -o reports/eslint.xml
+      - run: yarn lint -- --format junit -o reports/eslint.xml
 
   typecheck:
     <<: *build_image
     steps:
       - <<: *restore
       - <<: *restore_lock
-      - run: npm run typecheck
+      - run: yarn typecheck
 
   audit:
     <<: *build_image
     steps:
       - <<: *restore
       - <<: *restore_lock
-      - run: npm audit
+      - run: yarn audit
 
   test:
     <<: *build_image
@@ -94,7 +96,7 @@ jobs:
       - <<: *restore_lock
       - run: 
           name: Run tests with JUnit as reporter
-          command: npm test -- --ci --reporters=default --reporters=jest-junit
+          command: yarn test -- --ci --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT: "reports/js-test-results.xml"
             
@@ -117,9 +119,9 @@ jobs:
       - run: 
           name: Run regression tests
           command: |
-            npm run build
+            yarn build
             sed -i -e 's/your_incoming_webhook_url/${WEBHOOK_URL}/g' regconfig.json
-            npm run regression
+            yarn regression
 
   deploy_pages:
     <<: *build_image
@@ -137,10 +139,10 @@ jobs:
       - run: 
           name: Creates .netrc
           command: echo "machine github.com login dorayakikun password $GITHUB_TOKEN" > ~/.netrc
-      - run: npm install
+      - run: yarn install
       - run: 
           name: Publish GitHub Pages
-          command: GIT_USER=dorayakikun npm run publish-gh-pages
+          command: GIT_USER=dorayakikun yarn publish-gh-pages
 
 workflows:
   version: 2
