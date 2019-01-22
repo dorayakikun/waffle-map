@@ -110,6 +110,8 @@ jobs:
           name: Send coverage to Code Climate
           command: |
             ./cc-test-reporter after-build --exit-code $?
+          environment:
+            CC_TEST_REPORTER_ID: 3fe7d092eafbecae5628d6b7eac7c9304001b39c6e2a090e6bf043d259f2d018
 
       - store_test_results:
           path: ./reports
