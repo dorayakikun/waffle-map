@@ -4,15 +4,27 @@
     "next": "Next",
     "previous": "Previous",
     "tagline": "Fantastic mesh renderer",
-    "api": "Waffle Map Mesh CalculatorのAPIについて",
-    "getting-started": "Getting Started",
-    "guides": "Waffle Mapの機能について",
-    "Docs": "Docs",
-    "API": "API",
-    "Help": "Help",
-    "Blog": "Blog",
-    "Introduction": "Introduction",
-    "APIs": "APIs"
+    "docs": {
+      "api": {
+        "title": "Waffle Map Mesh CalculatorのAPIについて"
+      },
+      "getting-started": {
+        "title": "Getting Started"
+      },
+      "guides": {
+        "title": "Waffle Mapの機能について"
+      }
+    },
+    "links": {
+      "Docs": "Docs",
+      "API": "API",
+      "Help": "Help",
+      "Blog": "Blog"
+    },
+    "categories": {
+      "Introduction": "Introduction",
+      "APIs": "APIs"
+    }
   },
   "pages-strings": {
     "Help Translate|recruit community translators for your project": "Help Translate",
