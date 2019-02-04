@@ -23,7 +23,6 @@ exports[`Should call onToggleChanged when changed checked 1`] = `
     <div
       className="ui fitted toggle checkbox"
       onChange={[Function]}
-      onClick={[Function]}
       onMouseDown={[Function]}
       onMouseUp={[Function]}
     >
@@ -63,7 +62,6 @@ exports[`Should set props to MeshToggle 1`] = `
     <div
       className="ui fitted toggle checkbox"
       onChange={[Function]}
-      onClick={[Function]}
       onMouseDown={[Function]}
       onMouseUp={[Function]}
     >
