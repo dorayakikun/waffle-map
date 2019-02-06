@@ -54,7 +54,7 @@
     "jest-junit": "^6.0.1",
     "json-loader": "^0.5.7",
     "prettier": "^1.15.3",
-    "puppeteer": "^1.11.0",
+    "puppeteer": "^1.12.2",
     "react-test-renderer": "^16.7.0",
     "reg-keygen-git-hash-plugin": "^0.7.16",
     "reg-publish-s3-plugin": "^0.7.18",
