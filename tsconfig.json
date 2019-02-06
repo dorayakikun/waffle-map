@@ -4,6 +4,7 @@
     "lib": ["dom", "esnext"],
     "moduleResolution": "node",
     "outDir": "dist",
+    "skipLibCheck": true,
     "strict": true,
     "target": "es5",
     "types": ["jest", "leaflet", "react", "react-dom", "react-redux", "redux"],
