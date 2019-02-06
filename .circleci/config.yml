@@ -147,7 +147,7 @@ jobs:
             git config --global user.name dorayakikun
       - run: 
           name: Creates .netrc
-          command: echo "machine github.com login dorayakikun password $GITHUB_TOKEN" > ~/.netrc
+          command: echo "machine github.com login dorayakikun password $GH_TOKEN" > ~/.netrc
       - run: yarn install
       - run: 
           name: Publish GitHub Pages
