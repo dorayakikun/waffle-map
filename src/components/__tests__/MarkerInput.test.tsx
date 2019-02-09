@@ -1,11 +1,11 @@
 import * as React from 'react'
 import * as render from 'react-test-renderer'
-import { MarkerInput, Props, State } from '../MarkerInput'
+import { MarkerInput, Props } from '../MarkerInput'
 
 const props: Props = {
   errorMessage: '',
   latLng: '',
-  putMarker: (event: React.SyntheticEvent<HTMLElement>, state: State) => {},
+  putMarker: (latLng: string) => {},
   removeAllMarkers: () => {},
 }
 

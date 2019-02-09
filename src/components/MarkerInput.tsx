@@ -4,7 +4,7 @@ import { Button, Input, InputOnChangeData, Message } from 'semantic-ui-react'
 export interface Props {
   latLng: string
   errorMessage: string
-  putMarker: (event: React.SyntheticEvent<HTMLElement>, state: State) => void
+  putMarker: (latLng: string) => void
   removeAllMarkers: () => void
 }
 
@@ -13,57 +13,47 @@ export interface State {
   errorMessage: string
 }
 
-export class MarkerInput extends React.Component<Props, State> {
-  public state = {
-    errorMessage: this.props.errorMessage || '',
-    latLng: this.props.latLng || '',
-  }
+export function MarkerInput(props: Props) {
+  const [latLng, setLatLng] = React.useState<string>(props.latLng || '');
 
-  public onChangedLatLng = (
-    event: React.SyntheticEvent<HTMLElement>,
-    data: InputOnChangeData
-  ) => this.setState({ latLng: data.value })
+  const handleChange = React.useCallback((
+    _event: React.SyntheticEvent<HTMLElement>,
+    data: InputOnChangeData) => setLatLng(data.value), [])
 
-  public handleClickPutAMarker = (event: any) => {
-    if ((event as React.KeyboardEvent<HTMLElement>).key === 'Enter') {
-      this.props.putMarker(event, this.state)
+  const handleClickPutAMarker = React.useCallback((event: any) => {
+    if ((event as React.KeyboardEvent<HTMLElement>).key === 'Enter' || (event as React.MouseEvent<HTMLElement>).type === 'click') {
+      props.putMarker(latLng)
     }
-    if ((event as React.MouseEvent<HTMLElement>).type === 'click') {
-      this.props.putMarker(event, this.state)
-    }
-  }
-
-  public handleClickRemoveAllMarkers = (
+  }, [latLng]);
+  
+  const handleClickRemoveAllMarkers = React.useCallback((
     event: React.SyntheticEvent<HTMLElement>
-  ) => this.props.removeAllMarkers()
+  ) => props.removeAllMarkers(), []);
 
-  public render() {
-    const { latLng } = this.state
-    return (
-      <div onKeyPress={this.handleClickPutAMarker}>
-        <Input
-          error={this.props.errorMessage !== ''}
-          inverted
-          onChange={this.onChangedLatLng}
-          placeholder="lat,lng"
-          style={{
+  return (
+    <div onKeyPress={handleClickPutAMarker}>
+      <Input
+        error={props.errorMessage !== ''}
+        inverted
+        onChange={handleChange}
+        placeholder="lat,lng"
+        style={{
             marginBottom: '10px',
             marginRight: '3px',
             marginTop: '10px',
           }}
-          value={latLng}
+        value={latLng}
         />
 
-        <Button icon="marker" onClick={this.handleClickPutAMarker} />
-        <Button icon="trash" onClick={this.handleClickRemoveAllMarkers} />
+      <Button icon="marker" onClick={handleClickPutAMarker} />
+      <Button icon="trash" onClick={handleClickRemoveAllMarkers} />
 
-        {this.props.errorMessage !== '' && (
-          <Message negative>
-            <Message.Header>Waffle Map Error</Message.Header>
-            <p>{this.props.errorMessage}</p>
-          </Message>
+      {props.errorMessage !== '' && (
+      <Message negative>
+        <Message.Header>Waffle Map Error</Message.Header>
+        <p>{props.errorMessage}</p>
+      </Message>
         )}
-      </div>
-    )
-  }
+    </div>
+  )
 }

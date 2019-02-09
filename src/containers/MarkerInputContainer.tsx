@@ -12,11 +12,8 @@ import { State as RootState } from '../reducers'
 const mapStateToProps = (state: RootState) => state.markers
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-  putMarker: (
-    event: React.SyntheticEvent<HTMLElement>,
-    state: MarkerInputState
-  ) => {
-    dispatch(putMarker(state.latLng))
+  putMarker: (latLng: string) => {
+    dispatch(putMarker(latLng))
   },
   removeAllMarkers: () => {
     dispatch(removeAllMarkers())
