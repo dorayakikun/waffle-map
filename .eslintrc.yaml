@@ -12,3 +12,7 @@
     - "@typescript-eslint"
     - react
     - prettier
+  parserOptions:
+    sourceType: module
+    ecmaFeatures:
+      jsx: true
