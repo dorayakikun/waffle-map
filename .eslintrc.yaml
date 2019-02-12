@@ -1,20 +1,18 @@
 ---
   extends:
-    - standard
-    - standard-react
+    - plugin:@typescript-eslint/recommended
+    - plugin:react/recommended
     - prettier
+    - prettier/@typescript-eslint
   env:
     browser: true
     jest: true
   parser: "@typescript-eslint/parser"
   plugins:
     - "@typescript-eslint"
+    - react
     - prettier
-  overrides:
-    -
-      files:
-        - "**/*.ts"
-        - "**/*.tsx"
-      rules:
-        no-unused-vars: 0
-        no-undef: 0
+  parserOptions:
+    sourceType: module
+    ecmaFeatures:
+      jsx: true
