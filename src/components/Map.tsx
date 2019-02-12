@@ -40,7 +40,7 @@ interface Viewport {
   zoom?: number
 }
 
-const initialLeafletBounds: Array<[number, number]> = [[35, 139], [37, 140]]
+const initialLeafletBounds: [number, number][] = [[35, 139], [37, 140]]
 const { toMeshCode, SCALES } = meshCalculator
 
 /**
@@ -82,7 +82,7 @@ const calculateLeafletBoundsFrom = (
   meshes: Mesh[],
   markerPositions: LatLng[],
   datum: string
-): Array<[number, number]> => {
+): [number, number][] => {
   if (meshes.length === 0 && markerPositions.length === 0) {
     return initialLeafletBounds
   }
