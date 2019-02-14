@@ -3,7 +3,6 @@
   "version": "1.21.0",
   "description": "Fantastic mesh renderer",
   "private": true,
-  "engines" : { "node" : ">=10.0.0" },
   "scripts": {
     "build": "webpack --mode production",
     "build-storybook": "build-storybook",
