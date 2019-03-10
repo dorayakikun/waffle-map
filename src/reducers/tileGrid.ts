@@ -1,17 +1,17 @@
-import { Action, ActionKeys } from '../actions/tileGrid'
+import { Action, ActionKeys } from "../actions/tileGrid";
 
 export interface State {
-  isVisible: boolean
+  isVisible: boolean;
 }
 
 export const initialState: State = {
-  isVisible: false,
-}
+  isVisible: false
+};
 export const reducer = (state: State = initialState, action: Action) => {
   switch (action.type) {
     case ActionKeys.TOGGLE_VISIBLE:
-      return { ...state, isVisible: action.payload.isVisible }
+      return { ...state, isVisible: action.payload.isVisible };
     default:
-      return state
+      return state;
   }
-}
+};

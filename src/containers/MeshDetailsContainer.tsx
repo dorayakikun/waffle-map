@@ -1,18 +1,18 @@
-import * as React from 'react'
-import { connect } from 'react-redux'
+import * as React from "react";
+import { connect } from "react-redux";
 
-import { MeshDetail } from '../components/MeshDetail'
-import { Mesh } from '../domain/calculateMesh'
+import { MeshDetail } from "../components/MeshDetail";
+import { Mesh } from "../domain/calculateMesh";
 import {
   convertBoundsToMillisecIfNeeded,
   convertBoundsToTokyoIfNeeded,
   convertLatLngToMillisecIfNeeded,
-  convertLatLngToTokyoIfNeeded,
-} from '../domain/convertLatLng'
-import { State as RootState } from '../reducers'
+  convertLatLngToTokyoIfNeeded
+} from "../domain/convertLatLng";
+import { State as RootState } from "../reducers";
 
 interface MeshDetailsContainerProps {
-  meshes: Mesh[]
+  meshes: Mesh[];
 }
 
 const MeshContainer = ({ meshes }: MeshDetailsContainerProps) => (
@@ -21,7 +21,7 @@ const MeshContainer = ({ meshes }: MeshDetailsContainerProps) => (
       <MeshDetail {...mesh} key={index} />
     ))}
   </div>
-)
+);
 
 const mapStateToProps = (state: RootState) => ({
   meshes: state.meshes.map(mesh => ({
@@ -33,13 +33,13 @@ const mapStateToProps = (state: RootState) => ({
       convertLatLngToTokyoIfNeeded(mesh.center, state.geodetic.datum),
       state.geodetic.unit
     ),
-    code: mesh.code,
-  })),
-})
+    code: mesh.code
+  }))
+});
 
 const connector = connect(
   mapStateToProps,
   {}
-)
+);
 
-export const MeshDetailsContainer = connector(MeshContainer)
+export const MeshDetailsContainer = connector(MeshContainer);

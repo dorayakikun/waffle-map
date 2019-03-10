@@ -1,37 +1,38 @@
-declare const require: any
+declare const require: any;
+declare const process: any;
 
 export interface LatLng {
-  lat: number
-  lng: number
+  lat: number;
+  lng: number;
 }
 
 export interface Bounds {
-  leftTop: LatLng
-  rightBottom: LatLng
+  leftTop: LatLng;
+  rightBottom: LatLng;
 }
 
 export interface Mesh {
-  code: string
-  center: LatLng
-  bounds: Bounds
+  code: string;
+  center: LatLng;
+  bounds: Bounds;
 }
 
 interface MeshCalculator {
-  SCALES: number[]
-  toCenterLatLng: (meshCode: string) => LatLng
-  toBounds: (meshCode: string) => Bounds
-  toMeshCode: (lat: number, lng: number, scale: number) => string
-  scaleFrom(zoom: number): number
-  offset(meshCode: string, x: number, y: number): string
+  SCALES: number[];
+  toCenterLatLng: (meshCode: string) => LatLng;
+  toBounds: (meshCode: string) => Bounds;
+  toMeshCode: (lat: number, lng: number, scale: number) => string;
+  scaleFrom(zoom: number): number;
+  offset(meshCode: string, x: number, y: number): string;
 }
 
 const meshCalculator: () => MeshCalculator = () => {
   if (process.env.npm_package_wafflemap_meshcalculator) {
-    return require('../../node_modules/waffle-map-mesh-calculator-' +
+    return require("../../node_modules/waffle-map-mesh-calculator-" +
       process.env.npm_package_wafflemap_meshcalculator +
-      '/lib/meshCalculator.js')
+      "/lib/meshCalculator.js");
   }
-  return require('waffle-map-mesh-calculator-basic')
-}
+  return require("waffle-map-mesh-calculator-basic");
+};
 
-export default meshCalculator()
+export default meshCalculator();

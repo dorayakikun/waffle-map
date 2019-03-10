@@ -1,56 +1,56 @@
-import * as React from 'react'
+import * as React from "react";
 import {
   Dropdown,
   DropdownItemProps,
   DropdownProps,
   Input,
   InputOnChangeData,
-  Message,
-} from 'semantic-ui-react'
+  Message
+} from "semantic-ui-react";
 
 export interface Props {
-  errorMessage: string
-  meshCodes: string
-  separator: string
+  errorMessage: string;
+  meshCodes: string;
+  separator: string;
   onMeshesChanged: (
     event: React.SyntheticEvent<HTMLInputElement>,
     data: InputOnChangeData
-  ) => void
+  ) => void;
   onSeparatorChanged: (
     event: React.SyntheticEvent<HTMLElement>,
     data: DropdownProps
-  ) => void
+  ) => void;
 }
 
 const separatorOptions = [
   {
-    text: 'commas',
-    value: ',',
+    text: "commas",
+    value: ","
   },
   {
-    text: 'dots',
-    value: '.',
-  },
-]
+    text: "dots",
+    value: "."
+  }
+];
 
 const fetchTextFrom = (options: DropdownItemProps[], value: string): string => {
   return options
     .filter(o => o.value === value)
     .map(o => o.text)
-    .toString()
-}
+    .toString();
+};
 
 export const MeshCodeInput = (props: Props) => (
   <div>
     <Input
-      error={props.errorMessage !== ''}
+      error={props.errorMessage !== ""}
       fluid
       placeholder="5339-35-97.5339-35-98.5339-35-99"
       onChange={props.onMeshesChanged}
-      style={{ marginTop: '10px', marginBottom: '10px' }}
+      style={{ marginTop: "10px", marginBottom: "10px" }}
       value={props.meshCodes}
     />
-    {props.errorMessage !== '' && (
+    {props.errorMessage !== "" && (
       <Message negative>
         <Message.Header>Waffle Map Error</Message.Header>
         <p>{props.errorMessage}</p>
@@ -60,9 +60,9 @@ export const MeshCodeInput = (props: Props) => (
       fluid
       onChange={props.onSeparatorChanged}
       options={separatorOptions}
-      style={{ marginTop: '10px', marginBottom: '10px' }}
+      style={{ marginTop: "10px", marginBottom: "10px" }}
       text={`Split with ${fetchTextFrom(separatorOptions, props.separator)}`}
       value={props.separator}
     />
   </div>
-)
+);
