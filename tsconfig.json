@@ -6,9 +6,7 @@
     "outDir": "dist",
     "skipLibCheck": true,
     "strict": true,
-    "target": "es5",
-    "types": ["jest", "react", "node"],
-    "typeRoots": ["node_modues/@types"]
+    "target": "es5"
   },
   "exclude": ["node_modules", "public", "*/__tests__/*"]
 }
