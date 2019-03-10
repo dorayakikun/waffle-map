@@ -7,7 +7,7 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es5",
-    "types": ["jest", "leaflet", "react", "react-dom", "react-redux", "redux"],
+    "types": ["jest", "react", "node"],
     "typeRoots": ["node_modues/@types"]
   },
   "exclude": ["node_modules", "public", "*/__tests__/*"]

@@ -65,6 +65,7 @@ typings/
 
 # Distribution JavaScript
 public/bundle.js
+public/**/*.css
 
 # snapshot diffs
 test/**/*.md
