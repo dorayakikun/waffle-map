@@ -1,24 +1,24 @@
-import { Action, ActionKeys } from '../actions/meshes'
-import meshCalculator, { Mesh } from '../domain/calculateMesh'
+import { Action, ActionKeys } from "../actions/meshes";
+import meshCalculator, { Mesh } from "../domain/calculateMesh";
 
-export const initialState: Mesh[] = []
+export const initialState: Mesh[] = [];
 
-const { toBounds, toCenterLatLng } = meshCalculator
+const { toBounds, toCenterLatLng } = meshCalculator;
 export const mapToMeshes = (meshCodes: string, separator: string): Mesh[] =>
   meshCodes
     .split(separator)
-    .filter(meshCode => meshCode !== '')
+    .filter(meshCode => meshCode !== "")
     .map(meshCode => ({
       bounds: toBounds(meshCode),
       center: toCenterLatLng(meshCode),
-      code: meshCode,
-    }))
+      code: meshCode
+    }));
 
 export const reducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case ActionKeys.CHANGE_MESHES:
-      return action.payload.meshes
+      return action.payload.meshes;
     default:
-      return state
+      return state;
   }
-}
+};

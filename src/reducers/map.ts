@@ -1,41 +1,40 @@
-import { Action, ActionKeys } from '../actions/map'
-import { LatLng } from '../domain/calculateMesh'
+import { Action, ActionKeys } from "../actions/map";
+import { LatLng } from "../domain/calculateMesh";
 
 export interface State {
-  contextmenuPosition?: LatLng
-  markerPositions: LatLng[]
+  contextmenuPosition?: LatLng;
+  markerPositions: LatLng[];
 }
 
 export const initialState: State = {
   contextmenuPosition: undefined,
-  markerPositions: [],
-}
+  markerPositions: []
+};
 
 const concatMarkerPositions = (state: State, position: LatLng): State => ({
   ...state,
-  markerPositions: [...state.markerPositions, position],
-})
+  markerPositions: [...state.markerPositions, position]
+});
 
 const removeAllMarkers = (state: State): State => ({
   ...state,
-  markerPositions: [],
-})
+  markerPositions: []
+});
 
 const updateContextmenuPosition = (state: State, latLng?: LatLng): State => ({
   ...state,
-  contextmenuPosition: latLng,
-})
+  contextmenuPosition: latLng
+});
 
 export const reducer = (state: State = initialState, action: Action) => {
   switch (action.type) {
     case ActionKeys.CONCAT_MARKER_POSITIONS:
-      return concatMarkerPositions(state, action.payload.position)
+      return concatMarkerPositions(state, action.payload.position);
     case ActionKeys.REMOVE_ALL_MARKERS:
-      return removeAllMarkers(state)
+      return removeAllMarkers(state);
     case ActionKeys.UPDATE_CONTEXTMENU_POSITION:
-      const { latLng } = action.payload
-      return updateContextmenuPosition(state, latLng)
+      return updateContextmenuPosition(state, action.payload.latLng);
     default:
-      return state
+      return state;
   }
-}
+};

@@ -1,38 +1,38 @@
-import * as React from 'react'
+import * as React from "react";
 import {
   Accordion,
   AccordionTitleProps,
   Image,
   Menu,
-  Sidebar,
-} from 'semantic-ui-react'
+  Sidebar
+} from "semantic-ui-react";
 
-import { GeodeticInputContainer } from './GeodeticInputContainer'
-import { MapContainer } from './MapContainer'
-import { MarkerInputContainer } from './MarkerInputContainer'
-import { MeshCodeInputContainer } from './MeshCodeInputContainer'
-import { MeshDetailsContainer } from './MeshDetailsContainer'
-import { MeshToggleContainer } from './MeshToggleContainer'
-import { TileToggleContainer } from './TileToggleContainer'
+import { GeodeticInputContainer } from "./GeodeticInputContainer";
+import { MapContainer } from "./MapContainer";
+import { MarkerInputContainer } from "./MarkerInputContainer";
+import { MeshCodeInputContainer } from "./MeshCodeInputContainer";
+import { MeshDetailsContainer } from "./MeshDetailsContainer";
+import { MeshToggleContainer } from "./MeshToggleContainer";
+import { TileToggleContainer } from "./TileToggleContainer";
 
 interface Props {
-  activeIndex: number
+  activeIndex: number;
 }
 
 interface State {
-  activeIndex: number
+  activeIndex: number;
 }
 
 interface AccordionMenuItemValue {
-  index: number
-  title: string
-  container: any
+  index: number;
+  title: string;
+  container: any;
 }
 
 const ACCORDION_MENU_ITEM_VALUES: AccordionMenuItemValue[] = [
-  { container: <TileToggleContainer />, index: 0, title: 'Tile Grid' },
-  { container: <MeshToggleContainer />, index: 1, title: 'Mesh Grid' },
-  { container: <MarkerInputContainer />, index: 2, title: 'Marker' },
+  { container: <TileToggleContainer />, index: 0, title: "Tile Grid" },
+  { container: <MeshToggleContainer />, index: 1, title: "Mesh Grid" },
+  { container: <MarkerInputContainer />, index: 2, title: "Marker" },
   {
     container: (
       <div>
@@ -41,33 +41,33 @@ const ACCORDION_MENU_ITEM_VALUES: AccordionMenuItemValue[] = [
       </div>
     ),
     index: 3,
-    title: 'Mesh Code',
-  },
-]
+    title: "Mesh Code"
+  }
+];
 
 export class AppContainer extends React.Component<Props, State> {
-  public state = { activeIndex: 3 }
+  public state = { activeIndex: 3 };
 
   public handleClick = (
     e: React.MouseEvent<HTMLDivElement>,
     data: AccordionTitleProps
   ) => {
-    const index = data.index as number
-    const { activeIndex } = this.state
-    const newIndex = activeIndex === index ? -1 : index
+    const index = data.index as number;
+    const { activeIndex } = this.state;
+    const newIndex = activeIndex === index ? -1 : index;
 
-    this.setState({ activeIndex: newIndex })
-  }
+    this.setState({ activeIndex: newIndex });
+  };
 
   public render() {
-    const { activeIndex } = this.state
+    const { activeIndex } = this.state;
     return (
       <div
         style={{
-          backgroundColor: 'rgba(0, 0, 0, 0.87)',
-          height: '100vh',
+          backgroundColor: "rgba(0, 0, 0, 0.87)",
+          height: "100vh",
           margin: 0,
-          padding: 0,
+          padding: 0
         }}
       >
         <Sidebar.Pushable>
@@ -77,7 +77,7 @@ export class AppContainer extends React.Component<Props, State> {
               fluid
               inverted
               vertical
-              style={{ height: '100%' }}
+              style={{ height: "100%" }}
             >
               <Menu.Item name="waffleMap">
                 <Image src="./images/logo.png" size="mini" spaced />
@@ -111,6 +111,6 @@ export class AppContainer extends React.Component<Props, State> {
           </Sidebar.Pusher>
         </Sidebar.Pushable>
       </div>
-    )
+    );
   }
 }
