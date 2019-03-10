@@ -1,4 +1,0 @@
-exclude_patterns:
-- "**/__tests__/**/*.ts"
-- "**/__tests__/**/*.tsx"
-- "website/**/*.js"

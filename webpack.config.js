@@ -1,39 +1,59 @@
-const path = require('path')
-const webpack = require('webpack')
-
-const BASE_PLUGINS = [
-  new webpack.DefinePlugin({
-    'process.env.npm_package_wafflemap_meshcalculator': JSON.stringify(
-      process.env.npm_package_wafflemap_meshcalculator
-    ),
-  }),
-]
+const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
-  entry: './src/index.tsx',
+  entry: "./src/index.tsx",
   devServer: {
-    contentBase: 'public/',
-    historyApiFallback: true,
+    contentBase: "public/",
+    historyApiFallback: true
   },
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'public'),
-    publicPath: '/',
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "public"),
+    publicPath: "/"
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
+        use: "ts-loader",
+        exclude: /node_modules/
       },
       {
         test: /\.css$/,
-        use: [{ loader: "style-loader/url" }, { loader: "file-loader" }]
+        use: ["style-loader", "css-loader"]
       },
-    ],
+      {
+        test: /\.(png|svg|jpg|gif|ico|jpeg)$/i,
+        use: [
+          {
+            loader: "url-loader"
+          }
+        ]
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "url-loader?limit=10000&mimetype=application/font-woff"
+      },
+      {
+        test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "file-loader"
+      },
+      {
+        test: /\.otf(\?.*)?$/,
+        use:
+          "file-loader?name=/fonts/[name].  [ext]&mimetype=application/font-otf"
+      }
+    ]
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      "process.env.npm_package_wafflemap_meshcalculator": JSON.stringify(
+        process.env.npm_package_wafflemap_meshcalculator
+      )
+    })
+  ],
   resolve: {
-    extensions: ['.js', '.ts', '.tsx'],
-  },
-}
+    extensions: [".js", ".ts", ".tsx", ".css"]
+  }
+};

@@ -118,19 +118,6 @@ jobs:
 
       - store_artifacts:
           path: ./reports
-  
-  visual_regression_test:
-    <<: *build_image
-
-    steps:
-      - <<: *restore
-      - <<: *restore_lock  
-      - run: 
-          name: Run regression tests
-          command: |
-            yarn build
-            sed -i -e 's/your_incoming_webhook_url/${WEBHOOK_URL}/g' regconfig.json
-            yarn regression
 
   deploy_pages:
     <<: *build_image
@@ -168,9 +155,6 @@ workflows:
           requires:
             - install
       - test:
-          requires:
-            - install
-      - visual_regression_test:
           requires:
             - install
       - upload_lock:
