@@ -2,6 +2,8 @@
 
 > Fantastic mesh renderer
 
+[![Build Status](https://dev.azure.com/dorayakikun/OSS/_apis/build/status/dorayakikun.waffle-map?branchName=master)](https://dev.azure.com/dorayakikun/OSS/_build/latest?definitionId=3&branchName=master)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/798c58bf-4950-41de-9f4e-27b39fa16fed/deploy-status)](https://app.netlify.com/sites/waffle-map/deploys)
 [![Known Vulnerabilities](https://snyk.io/test/github/dorayakikun/waffle-map/badge.svg?style=flat-square)](https://snyk.io/test/github/dorayakikun/waffle-map)
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 
