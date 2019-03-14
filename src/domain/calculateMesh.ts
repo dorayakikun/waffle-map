@@ -1,23 +1,23 @@
 declare const require: any;
-declare const process: any;
+declare const LOGIC_TYPE: string;
 
-export interface LatLng {
+export type LatLng = {
   lat: number;
   lng: number;
 }
 
-export interface Bounds {
+export type Bounds = {
   leftTop: LatLng;
   rightBottom: LatLng;
 }
 
-export interface Mesh {
+export type Mesh = {
   code: string;
   center: LatLng;
   bounds: Bounds;
 }
 
-interface MeshCalculator {
+type MeshCalculator = {
   SCALES: number[];
   toCenterLatLng: (meshCode: string) => LatLng;
   toBounds: (meshCode: string) => Bounds;
@@ -27,10 +27,8 @@ interface MeshCalculator {
 }
 
 const meshCalculator: () => MeshCalculator = () => {
-  if (process.env.npm_package_wafflemap_meshcalculator) {
-    return require("../../node_modules/waffle-map-mesh-calculator-" +
-      process.env.npm_package_wafflemap_meshcalculator +
-      "/lib/meshCalculator.js");
+  if (LOGIC_TYPE) {
+    return require(`waffle-map-mesh-calculator-${LOGIC_TYPE}`);
   }
   return require("waffle-map-mesh-calculator-basic");
 };
