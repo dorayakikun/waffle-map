@@ -48,7 +48,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      "process.env.npm_package_wafflemap_meshcalculator": JSON.stringify(
+      LOGIC_TYPE: JSON.stringify(
         process.env.npm_package_wafflemap_meshcalculator
       )
     })
