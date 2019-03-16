@@ -1,5 +1,6 @@
 {
-  "name": "",
+  "short_name": "WM",
+  "name": "Waffle Map",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -12,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#FF9100",
+  "background_color": "#FF9100",
   "display": "standalone"
 }
