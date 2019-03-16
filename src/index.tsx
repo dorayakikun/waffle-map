@@ -4,7 +4,6 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { applyMiddleware, compose, createStore } from "redux";
 import createSagaMiddleware from "redux-saga";
-import "semantic-ui-css/semantic.min.css";
 import { AppContainer } from "./containers/App";
 import { reducers } from "./reducers";
 import { rootSaga } from "./sagas";
