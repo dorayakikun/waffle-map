@@ -1,54 +1,36 @@
 import { Bounds, LatLng } from "./calculateMesh";
 
-const createFormatErrorMessage = (
-  name: string,
-  value: string
-): string => `Unexpected ${name} found.
+function createFormatErrorMessage(name: string, value: string): string {
+  return `Unexpected ${name} found.
 Expected: lat,lng
 Actual: ${value}`;
+}
 
-const isNumber = (str: string): boolean =>
-  str.match(/^([1-9]\d*|0)(\.\d+)?$/) != null;
+function isNumber(str: string): boolean {
+  return /^([1-9]\d*|0)(\.\d+)?$/.test(str);
+}
 
-const createNumberErrorMessage = (
-  name: string,
-  value: string
-): string => `Unexpected ${name} found.
+function createNumberErrorMessage(name: string, value: string): string {
+  return `Unexpected ${name} found.
 Only numbers are acceptable.
 Actual: ${value}`;
+}
 
-/**
- * Creates a degree LatLng from string.
- * @param {string} latString
- * @param {string} lngString
- * @returns {LatLng} a degree LatLng
- */
-const createDegreeLatLng = (latString: string, lngString: string): LatLng => ({
-  lat: parseFloat(latString),
-  lng: parseFloat(lngString)
-});
+function createDegreeLatLng(latString: string, lngString: string): LatLng {
+  return {
+    lat: parseFloat(latString),
+    lng: parseFloat(lngString)
+  };
+}
 
-/**
- * Creates a millisec LatLng from string.
- * @param {string} latString
- * @param {string} lngString
- * @returns {LatLng} a millisec LatLng
- */
-const createMillisecLatLng = (
-  latString: string,
-  lngString: string
-): LatLng => ({
-  lat: parseInt(latString, 10) / 3600000,
-  lng: parseInt(lngString, 10) / 3600000
-});
+function createMillisecLatLng(latString: string, lngString: string): LatLng {
+  return {
+    lat: parseInt(latString, 10) / 3600000,
+    lng: parseInt(lngString, 10) / 3600000
+  };
+}
 
-/**
- * Creates a LatLng according to the unit.
- * @param {string} latLng
- * @param {string} unit
- * @returns {LatLng} a LatLng according to the unit.
- */
-export const createLatLng = (latLng: string, unit: string): LatLng => {
+export function createLatLng(latLng: string, unit: string): LatLng {
   const latLngArray = latLng.split(",");
 
   if (latLngArray.length !== 2) {
@@ -67,79 +49,92 @@ export const createLatLng = (latLng: string, unit: string): LatLng => {
   return unit === "degree"
     ? createDegreeLatLng(latString, lngString)
     : createMillisecLatLng(latString, lngString);
-};
+}
 
-export const convertLatLngToTokyo = (latLng: LatLng): LatLng => {
+export function convertLatLngToTokyo(latLng: LatLng): LatLng {
   const wx = latLng.lng;
   const wy = latLng.lat;
   return {
     lat: wy * 1.000106961 - wx * 0.000017467 - 0.004602017,
     lng: wx * 1.000083049 + wy * 0.000046047 - 0.010041046
   };
-};
+}
 
-export const convertBoundsToTokyo = (bounds: Bounds): Bounds => ({
-  leftTop: convertLatLngToTokyo(bounds.leftTop),
-  rightBottom: convertLatLngToTokyo(bounds.rightBottom)
-});
+export function convertBoundsToTokyo(bounds: Bounds): Bounds {
+  return {
+    leftTop: convertLatLngToTokyo(bounds.leftTop),
+    rightBottom: convertLatLngToTokyo(bounds.rightBottom)
+  };
+}
 
-export const convertLatLngToWGS84 = (latLng: LatLng): LatLng => {
+export function convertLatLngToWGS84(latLng: LatLng): LatLng {
   const jx = latLng.lng;
   const jy = latLng.lat;
   return {
     lat: jy - jy * 0.00010695 + jx * 0.000017464 + 0.0046017,
     lng: jx - jy * 0.000046038 - jx * 0.000083043 + 0.01004
   };
-};
+}
 
-export const convertBoundsToWGS84 = (bounds: Bounds): Bounds => ({
-  leftTop: convertLatLngToWGS84(bounds.leftTop),
-  rightBottom: convertLatLngToWGS84(bounds.rightBottom)
-});
+export function convertBoundsToWGS84(bounds: Bounds): Bounds {
+  return {
+    leftTop: convertLatLngToWGS84(bounds.leftTop),
+    rightBottom: convertLatLngToWGS84(bounds.rightBottom)
+  };
+}
 
-export const convertLatLngToMillisec = (latLng: LatLng): LatLng => ({
-  lat: Math.trunc(latLng.lat * 3600000),
-  lng: Math.trunc(latLng.lng * 3600000)
-});
+export function convertLatLngToMillisec(latLng: LatLng): LatLng {
+  return {
+    lat: Math.trunc(latLng.lat * 3600000),
+    lng: Math.trunc(latLng.lng * 3600000)
+  };
+}
 
-export const convertBoundsToMillisec = (bounds: Bounds): Bounds => ({
-  leftTop: convertLatLngToMillisec(bounds.leftTop),
-  rightBottom: convertLatLngToMillisec(bounds.rightBottom)
-});
+export function convertBoundsToMillisec(bounds: Bounds): Bounds {
+  return {
+    leftTop: convertLatLngToMillisec(bounds.leftTop),
+    rightBottom: convertLatLngToMillisec(bounds.rightBottom)
+  };
+}
 
-/**
- * Apply datum to bounds.
- *
- * @param {Bounds} bounds bounds
- * @param {string} datum datum(tokyo/wgs84)
- * @returns {Bounds} bounds
- */
-export const convertBoundsToWGS84IfNeeded = (
+export function convertBoundsToWGS84IfNeeded(
   bounds: Bounds,
   datum: string
-): Bounds => (datum === "Tokyo" ? convertBoundsToWGS84(bounds) : bounds);
+): Bounds {
+  return datum === "Tokyo" ? convertBoundsToWGS84(bounds) : bounds;
+}
 
-export const convertBoundsToTokyoIfNeeded = (
+export function convertBoundsToTokyoIfNeeded(
   bounds: Bounds,
   datum: string
-): Bounds => (datum === "Tokyo" ? convertBoundsToTokyo(bounds) : bounds);
+): Bounds {
+  return datum === "Tokyo" ? convertBoundsToTokyo(bounds) : bounds;
+}
 
-export const convertLatLngToTokyoIfNeeded = (
+export function convertLatLngToTokyoIfNeeded(
   latLng: LatLng,
   datum: string
-): LatLng => (datum === "Tokyo" ? convertLatLngToTokyo(latLng) : latLng);
+): LatLng {
+  return datum === "Tokyo" ? convertLatLngToTokyo(latLng) : latLng;
+}
 
-export const convertLatLngToWGS84IfNeeded = (
+export function convertLatLngToWGS84IfNeeded(
   latLng: LatLng,
   datum: string
-): LatLng => (datum === "Tokyo" ? convertLatLngToWGS84(latLng) : latLng);
+): LatLng {
+  return datum === "Tokyo" ? convertLatLngToWGS84(latLng) : latLng;
+}
 
-export const convertLatLngToMillisecIfNeeded = (
+export function convertLatLngToMillisecIfNeeded(
   latLng: LatLng,
   unit: string
-): LatLng => (unit === "millisec" ? convertLatLngToMillisec(latLng) : latLng);
+): LatLng {
+  return unit === "millisec" ? convertLatLngToMillisec(latLng) : latLng;
+}
 
-export const convertBoundsToMillisecIfNeeded = (
+export function convertBoundsToMillisecIfNeeded(
   bounds: Bounds,
   unit: string
-): Bounds => (unit === "millisec" ? convertBoundsToMillisec(bounds) : bounds);
+): Bounds {
+  return unit === "millisec" ? convertBoundsToMillisec(bounds) : bounds;
+}

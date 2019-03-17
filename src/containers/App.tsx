@@ -15,19 +15,19 @@ import { MeshDetailsContainer } from "./MeshDetailsContainer";
 import { MeshToggleContainer } from "./MeshToggleContainer";
 import { TileToggleContainer } from "./TileToggleContainer";
 
-interface Props {
+type Props = {
   activeIndex: number;
-}
+};
 
-interface State {
+type State = {
   activeIndex: number;
-}
+};
 
-interface AccordionMenuItemValue {
+type AccordionMenuItemValue = {
   index: number;
   title: string;
   container: any;
-}
+};
 
 const ACCORDION_MENU_ITEM_VALUES: AccordionMenuItemValue[] = [
   { container: <TileToggleContainer />, index: 0, title: "Tile Grid" },
@@ -45,6 +45,12 @@ const ACCORDION_MENU_ITEM_VALUES: AccordionMenuItemValue[] = [
   }
 ];
 
+const styles = {
+  backgroundColor: "rgba(0, 0, 0, 0.87)",
+  height: "100vh",
+  margin: 0,
+  padding: 0
+};
 export class AppContainer extends React.Component<Props, State> {
   public state = { activeIndex: 3 };
 
@@ -62,14 +68,7 @@ export class AppContainer extends React.Component<Props, State> {
   public render() {
     const { activeIndex } = this.state;
     return (
-      <div
-        style={{
-          backgroundColor: "rgba(0, 0, 0, 0.87)",
-          height: "100vh",
-          margin: 0,
-          padding: 0
-        }}
-      >
+      <div style={styles}>
         <Sidebar.Pushable>
           <Sidebar visible width="wide">
             <Accordion

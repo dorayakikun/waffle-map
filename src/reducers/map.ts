@@ -1,32 +1,38 @@
 import { Action, ActionKeys } from "../actions/map";
 import { LatLng } from "../domain/calculateMesh";
 
-export interface State {
+export type State = {
   contextmenuPosition?: LatLng;
   markerPositions: LatLng[];
-}
+};
 
 export const initialState: State = {
   contextmenuPosition: undefined,
   markerPositions: []
 };
 
-const concatMarkerPositions = (state: State, position: LatLng): State => ({
-  ...state,
-  markerPositions: [...state.markerPositions, position]
-});
+function concatMarkerPositions(state: State, position: LatLng): State {
+  return {
+    ...state,
+    markerPositions: [...state.markerPositions, position]
+  };
+}
 
-const removeAllMarkers = (state: State): State => ({
-  ...state,
-  markerPositions: []
-});
+function removeAllMarkers(state: State): State {
+  return {
+    ...state,
+    markerPositions: []
+  };
+}
 
-const updateContextmenuPosition = (state: State, latLng?: LatLng): State => ({
-  ...state,
-  contextmenuPosition: latLng
-});
+function updateContextmenuPosition(state: State, latLng?: LatLng): State {
+  return {
+    ...state,
+    contextmenuPosition: latLng
+  };
+}
 
-export const reducer = (state: State = initialState, action: Action) => {
+export function reducer(state: State = initialState, action: Action): State {
   switch (action.type) {
     case ActionKeys.CONCAT_MARKER_POSITIONS:
       return concatMarkerPositions(state, action.payload.position);
@@ -37,4 +43,4 @@ export const reducer = (state: State = initialState, action: Action) => {
     default:
       return state;
   }
-};
+}

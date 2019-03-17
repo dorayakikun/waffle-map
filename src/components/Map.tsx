@@ -18,7 +18,7 @@ import {
 import { round } from "../domain/roundPoint";
 import { DebugTileLayer } from "./DebugTileLayer";
 
-export interface Props {
+export type Props = {
   meshes: Mesh[];
   datum: string;
   unit: string;
@@ -28,31 +28,25 @@ export interface Props {
   markerPositions: LatLng[];
   onContextmenu: (event: Event & { latlng: LatLng }) => void;
   onClose: () => void;
-}
+};
 
-interface State {
+type State = {
   center: LatLng;
   zoom: number;
-}
+};
 
-interface Viewport {
+type Viewport = {
   center?: number[];
   zoom?: number;
-}
+};
 
 const initialLeafletBounds: [number, number][] = [[35, 139], [37, 140]];
 const { toMeshCode, SCALES } = meshCalculator;
 
-/**
- * Make the set of meshes a set of latitude and longitude.
- * @param {Array<Mesh>} meshes
- * @param {string} datum
- * @returns {{ lats: Array<number>, lngs: Array<number> }} lats and lngs
- */
-const meshesToLatsAndLngs = (
+function meshesToLatsAndLngs(
   meshes: Mesh[],
   datum: string
-): { lats: number[]; lngs: number[] } => {
+): { lats: number[]; lngs: number[] } {
   const lats: number[] = [];
   const lngs: number[] = [];
   meshes
@@ -68,21 +62,13 @@ const meshesToLatsAndLngs = (
     lats,
     lngs
   };
-};
+}
 
-/**
- * Calculate a LeafletBounds from mesh, the maker position and datum.
- *
- * @param {Array<Mesh>} meshes
- * @param {Array<LatLng>} markerPositions
- * @param {string} datum
- * @returns {Array<Array<number>>} LeafletBounds
- */
-const calculateLeafletBoundsFrom = (
+function calculateLeafletBoundsFrom(
   meshes: Mesh[],
   markerPositions: LatLng[],
   datum: string
-): [number, number][] => {
+): [number, number][] {
   if (meshes.length === 0 && markerPositions.length === 0) {
     return initialLeafletBounds;
   }
@@ -101,15 +87,9 @@ const calculateLeafletBoundsFrom = (
     [Math.min(...lats), Math.max(...lngs)],
     [Math.max(...lats), Math.min(...lngs)]
   ];
-};
+}
 
-/**
- * Get a square mesh codes from a mesh code and a redius.
- * @param {string} meshCode
- * @param {number} redius
- * @returns {Array<string>} square meshe codes
- */
-const getSquareMeshCodes = (meshCode: string, redius: number): string[] => {
+function getSquareMeshCodes(meshCode: string, redius: number): string[] {
   const meshCodes: string[] = [];
   for (let i = -redius; i <= redius; i++) {
     for (let j = -redius; j <= redius; j++) {
@@ -118,31 +98,17 @@ const getSquareMeshCodes = (meshCode: string, redius: number): string[] => {
     }
   }
   return meshCodes;
-};
+}
 
-/**
- * Create a mesh from code.
- * @param {string} code
- * @returns {Mesh} mesh
- */
-const createMesh = (code: string): Mesh => ({
-  bounds: meshCalculator.toBounds(code),
-  center: meshCalculator.toCenterLatLng(code),
-  code
-});
+function createMesh(code: string): Mesh {
+  return {
+    bounds: meshCalculator.toBounds(code),
+    center: meshCalculator.toCenterLatLng(code),
+    code
+  };
+}
 
-/**
- * Get a square mesh from LatLng, zoom and redius.
- * @param {LatLng} latlng
- * @param {number} zoom
- * @param {number} redius
- * @returns {Array<Mesh>} square meshes
- */
-const getSquareMeshes = (
-  latlng: LatLng,
-  zoom: number,
-  redius: number
-): Mesh[] => {
+function getSquareMeshes(latlng: LatLng, zoom: number, redius: number): Mesh[] {
   const scale: number = meshCalculator.scaleFrom(zoom);
   const centerMeshCode = meshCalculator.toMeshCode(
     latlng.lat,
@@ -151,18 +117,12 @@ const getSquareMeshes = (
   );
   const meshCodes: string[] = getSquareMeshCodes(centerMeshCode, redius);
   return meshCodes.map(createMesh);
-};
+}
 
-/**
- * Throttle listener events.
- * @param {Viewport => void} listener
- * @param {number} delay
- * @returns {Viewport => void} throttleEventListener
- */
-const throttleEvents = (
+function throttleEvents(
   listener: (viewport: Viewport) => void,
   delay: number
-): ((viewport: Viewport) => void) => {
+): (viewport: Viewport) => void {
   let timeout: number;
   const throttledListener = (viewport: Viewport) => {
     if (timeout) {
@@ -171,41 +131,35 @@ const throttleEvents = (
     timeout = setTimeout(listener, delay, viewport);
   };
   return throttledListener;
-};
+}
 
-/**
- * Create a mesh rectangle.
- * @param {Bounds} bounds
- * @param {number} index
- * @param {string} meshCode
- * @param {string} color
- * @returns {Rectangle} mesh rectangle
- */
-const createMeshRect = (
+function createMeshRect(
   bounds: Bounds,
   index: number,
   meshCode: string,
   color: string
-) => (
-  <Rectangle
-    bounds={[
-      [bounds.leftTop.lat, bounds.leftTop.lng],
-      [bounds.rightBottom.lat, bounds.rightBottom.lng]
-    ]}
-    key={index}
-    color={color}
-  >
-    <Tooltip>
-      <span>{meshCode}</span>
-    </Tooltip>
-  </Rectangle>
-);
+): React.ReactElement {
+  return (
+    <Rectangle
+      bounds={[
+        [bounds.leftTop.lat, bounds.leftTop.lng],
+        [bounds.rightBottom.lat, bounds.rightBottom.lng]
+      ]}
+      key={index}
+      color={color}
+    >
+      <Tooltip>
+        <span>{meshCode}</span>
+      </Tooltip>
+    </Rectangle>
+  );
+}
 
-const createPositionDescription = (
+function createPositionDescription(
   datum: string,
   unit: string,
   latLng?: LatLng
-): string => {
+): string {
   if (latLng == null) {
     throw new Error("latLng is missing.");
   }
@@ -213,50 +167,60 @@ const createPositionDescription = (
   const a = convertLatLngToTokyoIfNeeded(latLng, datum);
   const b = convertLatLngToMillisecIfNeeded(a, unit);
   return `position: ${round(b.lat, 5)}, ${round(b.lng, 5)}`;
-};
+}
 
-const createScaleDescription = (
+function createScaleDescription(
   scale: number,
   datum: string,
   latLng?: LatLng
-): string => {
-  if (latLng === undefined || latLng === null) {
+): string {
+  if (latLng == null) {
     throw new Error("Unexpected exception occured. Missing latlang.");
   }
   const { lat, lng } = convertLatLngToTokyoIfNeeded(latLng, datum);
   return `scale${scale}: ${toMeshCode(lat, lng, scale)}`;
-};
-const createScaleCardContents = (datum: string, latLng?: LatLng) =>
-  SCALES.map((scale, idx) => (
+}
+function createScaleCardContents(
+  datum: string,
+  latLng?: LatLng
+): React.ReactElement[] {
+  return SCALES.map((scale, idx) => (
     <Card.Content
       description={createScaleDescription(scale, datum, latLng)}
       key={idx}
     />
   ));
+}
 
-const CoordPopup = (props: Props) => (
-  <Popup position={props.contextmenuPosition} onClose={props.onClose}>
-    <Card>
-      <Card.Content header="Scales" />
-      <Card.Content
-        description={createPositionDescription(
-          props.datum,
-          props.unit,
-          props.contextmenuPosition
-        )}
-      />
-      {createScaleCardContents(props.datum, props.contextmenuPosition)}
-    </Card>
-  </Popup>
-);
-
+function CoordPopup(props: Props): React.ReactElement {
+  return (
+    <Popup position={props.contextmenuPosition} onClose={props.onClose}>
+      <Card>
+        <Card.Content header="Scales" />
+        <Card.Content
+          description={createPositionDescription(
+            props.datum,
+            props.unit,
+            props.contextmenuPosition
+          )}
+        />
+        {createScaleCardContents(props.datum, props.contextmenuPosition)}
+      </Card>
+    </Popup>
+  );
+}
 export class Map extends React.Component<Props, State> {
-  public state = {
+  state = {
     center: { lat: 36.01357, lng: 139.49891 },
     zoom: 6
   };
 
-  public updateViewport = (viewport: Viewport) => {
+  constructor(props: Props) {
+    super(props);
+    this.updateViewport = this.updateViewport.bind(this);
+  }
+
+  updateViewport(viewport: Viewport) {
     const { center, zoom } = viewport;
     if (!center) {
       return;
@@ -266,23 +230,28 @@ export class Map extends React.Component<Props, State> {
     }
     this.setState({ center: { lat: center[0], lng: center[1] } });
     this.setState({ zoom });
-  };
+  }
 
-  public createMeshRects = (meshes: Mesh[], color: string = "#00847e") =>
-    meshes.map((mesh, index) => {
+  createMeshRects(
+    meshes: Mesh[],
+    color: string = "#00847e"
+  ): React.ReactElement[] {
+    return meshes.map((mesh, index) => {
       const bounds = convertBoundsToWGS84IfNeeded(
         mesh.bounds,
         this.props.datum
       );
       return createMeshRect(bounds, index, mesh.code, color);
     });
+  }
 
-  public createMarkers = (positions: LatLng[], datum: string) =>
-    positions
+  createMarkers(positions: LatLng[], datum: string): React.ReactElement[] {
+    return positions
       .map(position => convertLatLngToWGS84IfNeeded(position, datum))
       .map((position, idx) => <Marker key={idx} position={position} />);
+  }
 
-  public render() {
+  render() {
     const { meshes, markerPositions, datum } = this.props;
     return (
       <div style={{ width: "100%", height: "100vh" }}>

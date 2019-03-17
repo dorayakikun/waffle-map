@@ -8,7 +8,7 @@ import { reducer as meshes } from "./meshes";
 import { reducer as meshGrid, State as MeshGridState } from "./meshGrid";
 import { reducer as tileGrid, State as TileGridState } from "./tileGrid";
 
-export interface State {
+export type State = {
   geodetic: GeodeticState;
   markers: MarkersState;
   meshCodes: MeshCodesState;
@@ -16,10 +16,14 @@ export interface State {
   meshGrid: MeshGridState;
   meshes: Mesh[];
   map: MapState;
-}
+};
 
-export const getGeodetic = (state: State) => state.geodetic;
-export const getMeshCodes = (state: State) => state.meshCodes;
+export function getGeodetic(state: State): GeodeticState {
+  return state.geodetic;
+}
+export function getMeshCodes(state: State): MeshCodesState {
+  return state.meshCodes;
+}
 
 export const reducers = combineReducers({
   geodetic,

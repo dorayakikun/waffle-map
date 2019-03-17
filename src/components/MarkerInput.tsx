@@ -1,17 +1,17 @@
 import * as React from "react";
 import { Button, Input, InputOnChangeData, Message } from "semantic-ui-react";
 
-export interface Props {
+export type Props = {
   latLng: string;
   errorMessage: string;
   putMarker: (latLng: string) => void;
   removeAllMarkers: () => void;
-}
+};
 
-export interface State {
+export type State = {
   latLng: string;
   errorMessage: string;
-}
+};
 
 export function MarkerInput(props: Props) {
   const [latLng, setLatLng] = React.useState<string>(props.latLng || "");

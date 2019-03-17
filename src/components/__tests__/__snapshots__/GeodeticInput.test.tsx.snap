@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Should set props to GeodeticInput 1`] = `
-<div>
+Array [
   <div
     aria-expanded={false}
     className="ui fluid dropdown"
@@ -71,7 +71,7 @@ exports[`Should set props to GeodeticInput 1`] = `
         </span>
       </div>
     </div>
-  </div>
+  </div>,
   <div
     aria-expanded={false}
     className="ui fluid dropdown"
@@ -141,12 +141,12 @@ exports[`Should set props to GeodeticInput 1`] = `
         </span>
       </div>
     </div>
-  </div>
-</div>
+  </div>,
+]
 `;
 
 exports[`Should set props to GeodeticInput(datum is Tokyo) 1`] = `
-<div>
+Array [
   <div
     aria-expanded={false}
     className="ui fluid dropdown"
@@ -216,7 +216,7 @@ exports[`Should set props to GeodeticInput(datum is Tokyo) 1`] = `
         </span>
       </div>
     </div>
-  </div>
+  </div>,
   <div
     aria-expanded={false}
     className="ui fluid dropdown"
@@ -286,12 +286,12 @@ exports[`Should set props to GeodeticInput(datum is Tokyo) 1`] = `
         </span>
       </div>
     </div>
-  </div>
-</div>
+  </div>,
+]
 `;
 
 exports[`Should set props to GeodeticInput(unit is millisec) 1`] = `
-<div>
+Array [
   <div
     aria-expanded={false}
     className="ui fluid dropdown"
@@ -361,7 +361,7 @@ exports[`Should set props to GeodeticInput(unit is millisec) 1`] = `
         </span>
       </div>
     </div>
-  </div>
+  </div>,
   <div
     aria-expanded={false}
     className="ui fluid dropdown"
@@ -431,6 +431,6 @@ exports[`Should set props to GeodeticInput(unit is millisec) 1`] = `
         </span>
       </div>
     </div>
-  </div>
-</div>
+  </div>,
+]
 `;

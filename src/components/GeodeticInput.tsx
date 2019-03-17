@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Dropdown, DropdownItemProps, DropdownProps } from "semantic-ui-react";
 
-export interface Props {
+export type Props = {
   unit: string;
   datum: string;
   changeUnit: (
@@ -12,7 +12,7 @@ export interface Props {
     event: React.SyntheticEvent<HTMLElement>,
     data: DropdownProps
   ) => void;
-}
+};
 const units: DropdownItemProps[] = [
   {
     text: "millisec",
@@ -34,23 +34,25 @@ const datums: DropdownItemProps[] = [
   }
 ];
 
-export const GeodeticInput = (props: Props) => (
-  <div>
-    <Dropdown
-      fluid
-      onChange={props.changeUnit}
-      options={units}
-      style={{ marginTop: "10px", marginBottom: "10px" }}
-      text={props.unit}
-      value={props.unit}
-    />
-    <Dropdown
-      fluid
-      onChange={props.onDatumChanged}
-      options={datums}
-      style={{ marginTop: "10px", marginBottom: "10px" }}
-      text={props.datum}
-      value={props.datum}
-    />
-  </div>
-);
+export function GeodeticInput(props: Props): React.ReactElement<Props> {
+  return (
+    <>
+      <Dropdown
+        fluid
+        onChange={props.changeUnit}
+        options={units}
+        style={{ marginTop: "10px", marginBottom: "10px" }}
+        text={props.unit}
+        value={props.unit}
+      />
+      <Dropdown
+        fluid
+        onChange={props.onDatumChanged}
+        options={datums}
+        style={{ marginTop: "10px", marginBottom: "10px" }}
+        text={props.datum}
+        value={props.datum}
+      />
+    </>
+  );
+}
