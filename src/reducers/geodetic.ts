@@ -1,25 +1,29 @@
 import { Action, ActionKeys } from "../actions/geodetic";
 
-export interface State {
+export type State = {
   unit: string;
   datum: string;
-}
+};
 export const initialState: State = {
   datum: "WGS84",
   unit: "degree"
 };
 
-const changeDatum = (state: State, datum: string): State => ({
-  ...state,
-  datum
-});
+function changeDatum(state: State, datum: string): State {
+  return {
+    ...state,
+    datum
+  };
+}
 
-const changeUnit = (state: State, unit: string): State => ({
-  ...state,
-  unit
-});
+function changeUnit(state: State, unit: string): State {
+  return {
+    ...state,
+    unit
+  };
+}
 
-export const reducer = (state: State = initialState, action: Action) => {
+export function reducer(state: State = initialState, action: Action): State {
   switch (action.type) {
     case ActionKeys.CHANGE_DATUM:
       return changeDatum(state, action.payload.datum);
@@ -28,4 +32,4 @@ export const reducer = (state: State = initialState, action: Action) => {
     default:
       return state;
   }
-};
+}

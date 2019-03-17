@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Should render negative message when errorMessage is not blank 1`] = `
-<div>
+Array [
   <div
     className="ui error fluid input"
     style={
@@ -17,7 +17,7 @@ exports[`Should render negative message when errorMessage is not blank 1`] = `
       type="text"
       value="5"
     />
-  </div>
+  </div>,
   <div
     className="ui negative message"
   >
@@ -29,7 +29,7 @@ exports[`Should render negative message when errorMessage is not blank 1`] = `
     <p>
       It seems there was something wrong ...
     </p>
-  </div>
+  </div>,
   <div
     aria-expanded={false}
     className="ui fluid dropdown"
@@ -99,12 +99,12 @@ exports[`Should render negative message when errorMessage is not blank 1`] = `
         </span>
       </div>
     </div>
-  </div>
-</div>
+  </div>,
+]
 `;
 
 exports[`Should set props to MeshCodeInput 1`] = `
-<div>
+Array [
   <div
     className="ui fluid input"
     style={
@@ -120,7 +120,7 @@ exports[`Should set props to MeshCodeInput 1`] = `
       type="text"
       value=""
     />
-  </div>
+  </div>,
   <div
     aria-expanded={false}
     className="ui fluid dropdown"
@@ -190,6 +190,6 @@ exports[`Should set props to MeshCodeInput 1`] = `
         </span>
       </div>
     </div>
-  </div>
-</div>
+  </div>,
+]
 `;
