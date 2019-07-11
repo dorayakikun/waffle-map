@@ -37,9 +37,8 @@ test(`Should throw an error when invalidValue`, () => {
   ];
 
   testcases.forEach(testcase => {
-    expect(() => createLatLng(testcase.latLng, "degree")).toThrow(`Unexpected ${
-      testcase.errorValue
-    } found.
+    expect(() => createLatLng(testcase.latLng, "degree"))
+      .toThrow(`Unexpected ${testcase.errorValue} found.
 ${testcase.expectedValueMessage}
 Actual: ${testcase.latLng}`);
   });
