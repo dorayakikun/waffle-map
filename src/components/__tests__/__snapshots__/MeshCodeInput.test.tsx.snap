@@ -48,6 +48,7 @@ Array [
     tabIndex={0}
   >
     <div
+      aria-atomic={true}
       aria-live="polite"
       className="text"
       role="alert"
@@ -139,6 +140,7 @@ Array [
     tabIndex={0}
   >
     <div
+      aria-atomic={true}
       aria-live="polite"
       className="text"
       role="alert"
