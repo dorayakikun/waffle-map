@@ -45,7 +45,7 @@
     "puppeteer": "^1.12.2",
     "react-test-renderer": "^16.8.1",
     "regenerator-runtime": "^0.13.1",
-    "style-loader": "^0.23.1",
+    "style-loader": "^1.0.0",
     "ts-jest": "^24.0.0",
     "ts-loader": "^6.0.0",
     "typescript": "^3.2.2",
