@@ -39,7 +39,7 @@
     "file-loader": "^4.0.0",
     "gh-pages": "^2.0.1",
     "jest": "^24.1.0",
-    "jest-junit": "^7.0.0",
+    "jest-junit": "^8.0.0",
     "json-loader": "^0.5.7",
     "prettier": "^1.15.3",
     "puppeteer": "^1.12.2",
