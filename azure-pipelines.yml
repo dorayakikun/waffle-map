@@ -5,7 +5,7 @@ jobs:
     steps:
       - task: NodeTool@0
         inputs:
-          versionSpec: "^10.10.0"
+          versionSpec: "^12.13.1"
         displayName: "Install Node.js"
       - script: |
           curl -o- -L https://yarnpkg.com/install.sh | bash
@@ -47,9 +47,9 @@ jobs:
       maxParallel: 3
       matrix:
         node-10:
-          node_version: ^10.10.0
+          node_version: ^12.13.1
         node-8:
-          node_version: ^8.12.0
+          node_version: ^10.16.3
     steps:
       - template: scripts/azure-run-tests.yml
   - job: macOS
@@ -61,8 +61,8 @@ jobs:
       maxParallel: 3
       matrix:
         node-10:
-          node_version: ^10.10.0
+          node_version: ^12.13.1
         node-8:
-          node_version: ^8.12.0
+          node_version: ^10.16.3
     steps:
       - template: scripts/azure-run-tests.yml
