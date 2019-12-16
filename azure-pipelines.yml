@@ -46,9 +46,9 @@ jobs:
     strategy:
       maxParallel: 3
       matrix:
-        node-10:
+        node-12.x:
           node_version: ^12.13.1
-        node-8:
+        node-10.x:
           node_version: ^10.16.3
     steps:
       - template: scripts/azure-run-tests.yml
@@ -60,9 +60,9 @@ jobs:
     strategy:
       maxParallel: 3
       matrix:
-        node-10:
+        node-12.x:
           node_version: ^12.13.1
-        node-8:
+        node-10.x:
           node_version: ^10.16.3
     steps:
       - template: scripts/azure-run-tests.yml
