@@ -20,9 +20,6 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   ) => dispatch(changeSeparator(data.value as string))
 });
 
-const connector = connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 export const MeshCodeInputContainer = connector(MeshCodeInput);

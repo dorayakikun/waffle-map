@@ -18,9 +18,6 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   ) => dispatch(toggleVisible(data.checked as boolean))
 });
 
-const connector = connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 export const TileToggleContainer = connector(TileToggle);

@@ -40,7 +40,10 @@ type Viewport = {
   zoom?: number;
 };
 
-const initialLeafletBounds: [number, number][] = [[35, 139], [37, 140]];
+const initialLeafletBounds: [number, number][] = [
+  [35, 139],
+  [37, 140]
+];
 const { toMeshCode, SCALES } = meshCalculator;
 
 function meshesToLatsAndLngs(
