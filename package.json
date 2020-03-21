@@ -41,7 +41,7 @@
     "jest": "^25.0.0",
     "jest-junit": "^10.0.0",
     "json-loader": "^0.5.7",
-    "prettier": "^1.15.3",
+    "prettier": "^2.0.0",
     "puppeteer": "^2.0.0",
     "react-test-renderer": "^16.8.1",
     "regenerator-runtime": "^0.13.1",
