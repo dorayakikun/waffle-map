@@ -4,7 +4,7 @@ import {
   AccordionTitleProps,
   Image,
   Menu,
-  Sidebar
+  Sidebar,
 } from "semantic-ui-react";
 
 import { GeodeticInputContainer } from "./GeodeticInputContainer";
@@ -41,15 +41,15 @@ const ACCORDION_MENU_ITEM_VALUES: AccordionMenuItemValue[] = [
       </div>
     ),
     index: 3,
-    title: "Mesh Code"
-  }
+    title: "Mesh Code",
+  },
 ];
 
 const styles = {
   backgroundColor: "rgba(0, 0, 0, 0.87)",
   height: "100vh",
   margin: 0,
-  padding: 0
+  padding: 0,
 };
 export class AppContainer extends React.Component<Props, State> {
   public state = { activeIndex: 3 };

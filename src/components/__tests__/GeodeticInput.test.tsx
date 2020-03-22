@@ -6,7 +6,7 @@ const props: Props = {
   changeUnit: () => {},
   datum: "WGS84",
   onDatumChanged: () => {},
-  unit: "degree"
+  unit: "degree",
 };
 
 test("Should set props to GeodeticInput", () => {

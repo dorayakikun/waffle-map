@@ -16,22 +16,22 @@ export type Props = {
 const units: DropdownItemProps[] = [
   {
     text: "millisec",
-    value: "millisec"
+    value: "millisec",
   },
   {
     text: "degree",
-    value: "degree"
-  }
+    value: "degree",
+  },
 ];
 const datums: DropdownItemProps[] = [
   {
     text: "Tokyo",
-    value: "Tokyo"
+    value: "Tokyo",
   },
   {
     text: "WGS84",
-    value: "WGS84"
-  }
+    value: "WGS84",
+  },
 ];
 
 export function GeodeticInput(props: Props): React.ReactElement<Props> {

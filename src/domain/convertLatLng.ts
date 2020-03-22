@@ -19,14 +19,14 @@ Actual: ${value}`;
 function createDegreeLatLng(latString: string, lngString: string): LatLng {
   return {
     lat: parseFloat(latString),
-    lng: parseFloat(lngString)
+    lng: parseFloat(lngString),
   };
 }
 
 function createMillisecLatLng(latString: string, lngString: string): LatLng {
   return {
     lat: parseInt(latString, 10) / 3600000,
-    lng: parseInt(lngString, 10) / 3600000
+    lng: parseInt(lngString, 10) / 3600000,
   };
 }
 
@@ -56,14 +56,14 @@ export function convertLatLngToTokyo(latLng: LatLng): LatLng {
   const wy = latLng.lat;
   return {
     lat: wy * 1.000106961 - wx * 0.000017467 - 0.004602017,
-    lng: wx * 1.000083049 + wy * 0.000046047 - 0.010041046
+    lng: wx * 1.000083049 + wy * 0.000046047 - 0.010041046,
   };
 }
 
 export function convertBoundsToTokyo(bounds: Bounds): Bounds {
   return {
     leftTop: convertLatLngToTokyo(bounds.leftTop),
-    rightBottom: convertLatLngToTokyo(bounds.rightBottom)
+    rightBottom: convertLatLngToTokyo(bounds.rightBottom),
   };
 }
 
@@ -72,28 +72,28 @@ export function convertLatLngToWGS84(latLng: LatLng): LatLng {
   const jy = latLng.lat;
   return {
     lat: jy - jy * 0.00010695 + jx * 0.000017464 + 0.0046017,
-    lng: jx - jy * 0.000046038 - jx * 0.000083043 + 0.01004
+    lng: jx - jy * 0.000046038 - jx * 0.000083043 + 0.01004,
   };
 }
 
 export function convertBoundsToWGS84(bounds: Bounds): Bounds {
   return {
     leftTop: convertLatLngToWGS84(bounds.leftTop),
-    rightBottom: convertLatLngToWGS84(bounds.rightBottom)
+    rightBottom: convertLatLngToWGS84(bounds.rightBottom),
   };
 }
 
 export function convertLatLngToMillisec(latLng: LatLng): LatLng {
   return {
     lat: Math.trunc(latLng.lat * 3600000),
-    lng: Math.trunc(latLng.lng * 3600000)
+    lng: Math.trunc(latLng.lng * 3600000),
   };
 }
 
 export function convertBoundsToMillisec(bounds: Bounds): Bounds {
   return {
     leftTop: convertLatLngToMillisec(bounds.leftTop),
-    rightBottom: convertLatLngToMillisec(bounds.rightBottom)
+    rightBottom: convertLatLngToMillisec(bounds.rightBottom),
   };
 }
 

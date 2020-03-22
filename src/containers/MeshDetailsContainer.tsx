@@ -7,7 +7,7 @@ import {
   convertBoundsToMillisecIfNeeded,
   convertBoundsToTokyoIfNeeded,
   convertLatLngToMillisecIfNeeded,
-  convertLatLngToTokyoIfNeeded
+  convertLatLngToTokyoIfNeeded,
 } from "../domain/convertLatLng";
 import { State as RootState } from "../reducers";
 
@@ -24,7 +24,7 @@ const MeshContainer = ({ meshes }: MeshDetailsContainerProps) => (
 );
 
 const mapStateToProps = (state: RootState) => ({
-  meshes: state.meshes.map(mesh => ({
+  meshes: state.meshes.map((mesh) => ({
     bounds: convertBoundsToMillisecIfNeeded(
       convertBoundsToTokyoIfNeeded(mesh.bounds, state.geodetic.datum),
       state.geodetic.unit
@@ -33,8 +33,8 @@ const mapStateToProps = (state: RootState) => ({
       convertLatLngToTokyoIfNeeded(mesh.center, state.geodetic.datum),
       state.geodetic.unit
     ),
-    code: mesh.code
-  }))
+    code: mesh.code,
+  })),
 });
 
 const connector = connect(mapStateToProps, {});

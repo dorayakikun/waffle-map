@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   },
   removeAllMarkers: () => {
     dispatch(removeAllMarkers());
-  }
+  },
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

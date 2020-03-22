@@ -16,11 +16,11 @@ type TableRowValue = {
 
 const mapPropsToTableRowValues = ({
   center,
-  bounds
+  bounds,
 }: Props): TableRowValue[] => [
   { latLng: center, title: "center" },
   { latLng: bounds.leftTop, title: "leftTop" },
-  { latLng: bounds.rightBottom, title: "rightBottom" }
+  { latLng: bounds.rightBottom, title: "rightBottom" },
 ];
 
 export function MeshDetail(props: Props): React.ReactElement<Props> {

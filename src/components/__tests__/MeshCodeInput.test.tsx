@@ -9,7 +9,7 @@ const defaultProps: Props = {
   meshCodes: "",
   onMeshesChanged: () => {},
   onSeparatorChanged: () => {},
-  separator: "."
+  separator: ".",
 };
 
 test("Should set props to MeshCodeInput", () => {
@@ -21,7 +21,7 @@ test("Should render negative message when errorMessage is not blank", () => {
   const invalidProps = {
     ...defaultProps,
     errorMessage: "It seems there was something wrong ...",
-    meshCodes: "5"
+    meshCodes: "5",
   };
   const tree = render.create(<MeshCodeInput {...invalidProps} />).toJSON();
   expect(tree).toMatchSnapshot();

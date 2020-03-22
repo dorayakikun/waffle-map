@@ -11,7 +11,7 @@ const mapStateToProps = (state: RootState) => ({
   isShowDebugTiles: state.tileGrid.isVisible,
   isShowMeshes: state.meshGrid.isVisible,
   meshes: state.meshes,
-  unit: state.geodetic.unit
+  unit: state.geodetic.unit,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   },
   onContextmenu: (event: Event & { latlng: LatLng }) => {
     dispatch(updateContextmenuPosition(event.latlng));
-  }
+  },
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
