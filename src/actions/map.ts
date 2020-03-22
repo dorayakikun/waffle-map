@@ -3,7 +3,7 @@ import { LatLng } from "../domain/calculateMesh";
 export enum ActionKeys {
   CONCAT_MARKER_POSITIONS = "map/concat_marker_positions",
   REMOVE_ALL_MARKERS = "map/remove_all_markers",
-  UPDATE_CONTEXTMENU_POSITION = "map/update_contextmenu_position"
+  UPDATE_CONTEXTMENU_POSITION = "map/update_contextmenu_position",
 }
 
 interface ConcatMarkerPositionsAction {
@@ -27,16 +27,16 @@ export const concatMarkerPositions = (
   position: LatLng
 ): ConcatMarkerPositionsAction => ({
   payload: { position },
-  type: ActionKeys.CONCAT_MARKER_POSITIONS
+  type: ActionKeys.CONCAT_MARKER_POSITIONS,
 });
 
 export const removeAllMarkers = (): RemoveAllMarkerAction => ({
-  type: ActionKeys.REMOVE_ALL_MARKERS
+  type: ActionKeys.REMOVE_ALL_MARKERS,
 });
 
 export const updateContextmenuPosition = (
   latLng?: LatLng
 ): UpdateContextmenuPositionAction => ({
   payload: { latLng },
-  type: ActionKeys.UPDATE_CONTEXTMENU_POSITION
+  type: ActionKeys.UPDATE_CONTEXTMENU_POSITION,
 });

@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
     data: DropdownProps
   ) => {
     dispatch(changeDatum(data.value as string));
-  }
+  },
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

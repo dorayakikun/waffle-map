@@ -6,20 +6,20 @@ export type State = {
 };
 export const initialState: State = {
   datum: "WGS84",
-  unit: "degree"
+  unit: "degree",
 };
 
 function changeDatum(state: State, datum: string): State {
   return {
     ...state,
-    datum
+    datum,
   };
 }
 
 function changeUnit(state: State, unit: string): State {
   return {
     ...state,
-    unit
+    unit,
   };
 }
 

@@ -6,7 +6,7 @@ const props: Props = {
   errorMessage: "",
   latLng: "",
   putMarker: () => {},
-  removeAllMarkers: () => {}
+  removeAllMarkers: () => {},
 };
 
 test("Should set props to MarkerInput", () => {

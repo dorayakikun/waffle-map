@@ -5,7 +5,7 @@ import {
   Popup,
   Rectangle,
   TileLayer,
-  Tooltip
+  Tooltip,
 } from "react-leaflet";
 import { Card } from "semantic-ui-react";
 import meshCalculator, { Bounds, LatLng, Mesh } from "../domain/calculateMesh";
@@ -13,7 +13,7 @@ import {
   convertBoundsToWGS84IfNeeded,
   convertLatLngToMillisecIfNeeded,
   convertLatLngToTokyoIfNeeded,
-  convertLatLngToWGS84IfNeeded
+  convertLatLngToWGS84IfNeeded,
 } from "../domain/convertLatLng";
 import { round } from "../domain/roundPoint";
 import { DebugTileLayer } from "./DebugTileLayer";
@@ -42,7 +42,7 @@ type Viewport = {
 
 const initialLeafletBounds: [number, number][] = [
   [35, 139],
-  [37, 140]
+  [37, 140],
 ];
 const { toMeshCode, SCALES } = meshCalculator;
 
@@ -53,17 +53,17 @@ function meshesToLatsAndLngs(
   const lats: number[] = [];
   const lngs: number[] = [];
   meshes
-    .map(mesh => mesh.bounds)
-    .map(bounds => convertBoundsToWGS84IfNeeded(bounds, datum))
-    .map(bounds => [bounds.leftTop, bounds.rightBottom])
+    .map((mesh) => mesh.bounds)
+    .map((bounds) => convertBoundsToWGS84IfNeeded(bounds, datum))
+    .map((bounds) => [bounds.leftTop, bounds.rightBottom])
     .reduce((accumrator, current) => accumrator.concat(current), [])
-    .forEach(latLng => {
+    .forEach((latLng) => {
       lats.push(latLng.lat);
       lngs.push(latLng.lng);
     });
   return {
     lats,
-    lngs
+    lngs,
   };
 }
 
@@ -80,15 +80,15 @@ function calculateLeafletBoundsFrom(
   const lngs: number[] = latsAndLngs.lngs;
 
   markerPositions
-    .map(position => convertLatLngToWGS84IfNeeded(position, datum))
-    .forEach(position => {
+    .map((position) => convertLatLngToWGS84IfNeeded(position, datum))
+    .forEach((position) => {
       lats.push(position.lat);
       lngs.push(position.lng);
     });
 
   return [
     [Math.min(...lats), Math.max(...lngs)],
-    [Math.max(...lats), Math.min(...lngs)]
+    [Math.max(...lats), Math.min(...lngs)],
   ];
 }
 
@@ -107,7 +107,7 @@ function createMesh(code: string): Mesh {
   return {
     bounds: meshCalculator.toBounds(code),
     center: meshCalculator.toCenterLatLng(code),
-    code
+    code,
   };
 }
 
@@ -146,7 +146,7 @@ function createMeshRect(
     <Rectangle
       bounds={[
         [bounds.leftTop.lat, bounds.leftTop.lng],
-        [bounds.rightBottom.lat, bounds.rightBottom.lng]
+        [bounds.rightBottom.lat, bounds.rightBottom.lng],
       ]}
       key={index}
       color={color}
@@ -215,7 +215,7 @@ function CoordPopup(props: Props): React.ReactElement {
 export class Map extends React.Component<Props, State> {
   state = {
     center: { lat: 36.01357, lng: 139.49891 },
-    zoom: 6
+    zoom: 6,
   };
 
   constructor(props: Props) {
@@ -250,7 +250,7 @@ export class Map extends React.Component<Props, State> {
 
   createMarkers(positions: LatLng[], datum: string): React.ReactElement[] {
     return positions
-      .map(position => convertLatLngToWGS84IfNeeded(position, datum))
+      .map((position) => convertLatLngToWGS84IfNeeded(position, datum))
       .map((position, idx) => <Marker key={idx} position={position} />);
   }
 

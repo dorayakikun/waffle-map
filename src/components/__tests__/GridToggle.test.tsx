@@ -7,7 +7,7 @@ test("Should set props to MeshToggle", () => {
   const props: Props = {
     isShowGrid,
     onToggleChanged: () => {},
-    title: "Show grid"
+    title: "Show grid",
   };
   const tree = render.create(<GridToggle {...props} />).toJSON();
   expect(tree).toMatchSnapshot();
@@ -19,7 +19,7 @@ test("Should call onToggleChanged when changed checked", () => {
   const props: Props = {
     isShowGrid,
     onToggleChanged,
-    title: "Show grid"
+    title: "Show grid",
   };
   const tree = render.create(<GridToggle {...props} />).toJSON();
   expect(tree).toMatchSnapshot();

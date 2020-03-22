@@ -5,7 +5,7 @@ import {
   DropdownProps,
   Input,
   InputOnChangeData,
-  Message
+  Message,
 } from "semantic-ui-react";
 
 export type Props = {
@@ -25,18 +25,18 @@ export type Props = {
 const separatorOptions = [
   {
     text: "commas",
-    value: ","
+    value: ",",
   },
   {
     text: "dots",
-    value: "."
-  }
+    value: ".",
+  },
 ];
 
 const fetchTextFrom = (options: DropdownItemProps[], value: string): string => {
   return options
-    .filter(o => o.value === value)
-    .map(o => o.text)
+    .filter((o) => o.value === value)
+    .map((o) => o.text)
     .toString();
 };
 

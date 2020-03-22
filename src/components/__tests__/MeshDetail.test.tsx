@@ -11,7 +11,7 @@ test("Should set props to MeshDetail", () => {
   const props: Props = {
     bounds,
     center,
-    code: meshCode
+    code: meshCode,
   };
   const tree = render.create(<MeshDetail {...props} />).toJSON();
   expect(tree).toMatchSnapshot();

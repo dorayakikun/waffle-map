@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   onSeparatorChanged: (
     event: React.SyntheticEvent<HTMLElement>,
     data: DropdownProps
-  ) => dispatch(changeSeparator(data.value as string))
+  ) => dispatch(changeSeparator(data.value as string)),
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

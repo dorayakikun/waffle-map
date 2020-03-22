@@ -32,5 +32,5 @@ export const reducers = combineReducers({
   meshCodes,
   meshGrid,
   meshes,
-  tileGrid
+  tileGrid,
 } as any);

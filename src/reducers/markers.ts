@@ -7,7 +7,7 @@ export type State = {
 
 export const initialState: State = {
   errorMessage: "",
-  latLng: ""
+  latLng: "",
 };
 
 export function reducer(state: State = initialState, action: Action): State {

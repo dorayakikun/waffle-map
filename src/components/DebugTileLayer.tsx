@@ -21,7 +21,7 @@ const DebugTileLayer = withLeaflet(
           ${[coords.x, coords.y, coords.z].join(", ")}
           </span>`;
           return tile;
-        }
+        },
       });
       return new DebugGridLayer(this.getOptions(props));
     }

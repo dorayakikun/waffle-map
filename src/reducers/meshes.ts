@@ -8,11 +8,11 @@ const { toBounds, toCenterLatLng } = meshCalculator;
 export function mapToMeshes(meshCodes: string, separator: string): Mesh[] {
   return meshCodes
     .split(separator)
-    .filter(meshCode => meshCode !== "")
-    .map(meshCode => ({
+    .filter((meshCode) => meshCode !== "")
+    .map((meshCode) => ({
       bounds: toBounds(meshCode),
       center: toCenterLatLng(meshCode),
-      code: meshCode
+      code: meshCode,
     }));
 }
 

@@ -8,27 +8,27 @@ export type State = {
 
 export const initialState: State = {
   contextmenuPosition: undefined,
-  markerPositions: []
+  markerPositions: [],
 };
 
 function concatMarkerPositions(state: State, position: LatLng): State {
   return {
     ...state,
-    markerPositions: [...state.markerPositions, position]
+    markerPositions: [...state.markerPositions, position],
   };
 }
 
 function removeAllMarkers(state: State): State {
   return {
     ...state,
-    markerPositions: []
+    markerPositions: [],
   };
 }
 
 function updateContextmenuPosition(state: State, latLng?: LatLng): State {
   return {
     ...state,
-    contextmenuPosition: latLng
+    contextmenuPosition: latLng,
   };
 }
 

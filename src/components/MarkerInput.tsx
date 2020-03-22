@@ -49,7 +49,7 @@ export function MarkerInput(props: Props) {
         style={{
           marginBottom: "10px",
           marginRight: "3px",
-          marginTop: "10px"
+          marginTop: "10px",
         }}
         value={latLng}
       />

@@ -5,21 +5,21 @@ import {
   put,
   select,
   take,
-  takeEvery
+  takeEvery,
 } from "redux-saga/effects";
 import {
   concatMarkerPositions,
-  removeAllMarkers as _removeAllMarkers
+  removeAllMarkers as _removeAllMarkers,
 } from "../actions/map";
 import {
   ActionKeys as MarkerActionKeys,
   changeErrorMessage as changeMarkersErrorMessage,
   inputLatLng,
-  PutMarkerAction
+  PutMarkerAction,
 } from "../actions/markers";
 import {
   ActionKeys as MeshCodesActionKeys,
-  changeErrorMessage as changeMeshCodesErrorMessage
+  changeErrorMessage as changeMeshCodesErrorMessage,
 } from "../actions/meshCodes";
 import { changeMeshes } from "../actions/meshes";
 import { createLatLng } from "../domain/convertLatLng";
@@ -65,6 +65,6 @@ export function* rootSaga() {
   yield all([
     fork(inputMeshCodes),
     takeEvery(MarkerActionKeys.PUT_MARKER, putMarker),
-    takeEvery(MarkerActionKeys.REMOVE_ALL_MARKERS, removeAllMarkers)
+    takeEvery(MarkerActionKeys.REMOVE_ALL_MARKERS, removeAllMarkers),
   ]);
 }
