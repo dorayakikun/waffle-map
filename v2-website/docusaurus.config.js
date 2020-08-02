@@ -18,7 +18,7 @@ module.exports={
       "@docusaurus/preset-classic",
       {
         "docs": {
-          "homePageId": "getting-started",
+          "homePageId": "/",
           "showLastUpdateAuthor": true,
           "showLastUpdateTime": true,
           "path": "../docs",
@@ -51,13 +51,18 @@ module.exports={
       },
       "items": [
         {
-          "to": "docs/",
+          "to": "docs/getting-started",
           "label": "Docs",
           "position": "left"
         },
         {
           "to": "docs/api",
           "label": "API",
+          "position": "left"
+        },
+        {
+          "to": "docs/guides",
+          "label": "Guides",
           "position": "left"
         }
       ]

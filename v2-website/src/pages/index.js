@@ -1,7 +1,23 @@
-import Layout from "@theme/Layout";
-import React from "react";
+import React from 'react';
+import Layout from '@theme/Layout';
 
-export default () => {
-  return <Layout />;
-};
-      
+function Index() {
+    return (
+        <Layout title="Hello">
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '50vh',
+                    fontSize: '20px',
+                }}>
+                <p>
+                    Waffle-Map
+                </p>
+            </div>
+        </Layout>
+    );
+}
+
+export default Index;
