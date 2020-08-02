@@ -1225,13 +1225,13 @@
     stringify-object "^3.3.0"
     unist-util-visit "^2.0.2"
 
-"@docusaurus/plugin-client-redirects@2.0.0-alpha.59":
-  version "2.0.0-alpha.59"
-  resolved "https://registry.yarnpkg.com/@docusaurus/plugin-client-redirects/-/plugin-client-redirects-2.0.0-alpha.59.tgz#95a41530e77d6c74880f84726370c2fbeee326dc"
-  integrity sha512-BMQSF1iPNLRR5+tzOby/k4F52PEgWTkM+TU2778wQnd8uA2T6eaTXMyAA1P9bnV3RiglSu1FSqj+TzQkf89WTA==
+"@docusaurus/plugin-client-redirects@2.0.0-alpha.61":
+  version "2.0.0-alpha.61"
+  resolved "https://registry.yarnpkg.com/@docusaurus/plugin-client-redirects/-/plugin-client-redirects-2.0.0-alpha.61.tgz#53dff9fa1d047435975fee035cd11dcf34fc613e"
+  integrity sha512-4YvU1gVH0USGdoBlJ8XJUs+1pUXxki7pY0DK8bKLn81ufwm69X5DRhlEEl//blZPGg4+M/v6Yjz31yPDlsDRyQ==
   dependencies:
-    "@docusaurus/types" "^2.0.0-alpha.59"
-    "@docusaurus/utils" "^2.0.0-alpha.59"
+    "@docusaurus/types" "^2.0.0-alpha.61"
+    "@docusaurus/utils" "^2.0.0-alpha.61"
     "@hapi/joi" "^17.1.1"
     "@types/hapi__joi" "^17.1.2"
     chalk "^3.0.0"
