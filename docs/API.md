@@ -1,11 +1,11 @@
 ---
 id: api
-title: Waffle Map Mesh CalculatorのAPIについて
+title: "Waffle Map Mesh CalculatorのAPIについて"
 ---
 
 ## toMeshCode: (lat: number, lng: number, scale: number) => string
 
-指定された緯度経度、スケールを元に対応するメッシュコードを返します。<br>
+指定された緯度経度、スケールを元に対応するメッシュコードを返します。<br />
 標準地域メッシュコードを例にとった場合、下記のような動きになります。
 
     const meshCode = toMeshCode(35, 139, 1)
