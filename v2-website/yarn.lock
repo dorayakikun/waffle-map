@@ -1298,16 +1298,6 @@
     clsx "^1.1.1"
     eta "^1.1.1"
 
-"@docusaurus/types@^2.0.0-alpha.59":
-  version "2.0.0-alpha.59"
-  resolved "https://registry.yarnpkg.com/@docusaurus/types/-/types-2.0.0-alpha.59.tgz#67cc39acb1c1882805bd3dc18a916a2416e1effe"
-  integrity sha512-DAfcOoiPEYXJLT0WfKGLKjBLBRkevFHB7qMqCUJo4xEWORjb4XU7FDRvGxGZl4fRPYOiCZ7oPvMlmapaMmDFNw==
-  dependencies:
-    "@types/webpack" "^4.41.0"
-    commander "^4.0.1"
-    querystring "0.2.0"
-    webpack-merge "^4.2.2"
-
 "@docusaurus/types@^2.0.0-alpha.61":
   version "2.0.0-alpha.61"
   resolved "https://registry.yarnpkg.com/@docusaurus/types/-/types-2.0.0-alpha.61.tgz#b2f5eaa18fb242100c0a8011edefe521b09e8375"
@@ -1324,18 +1314,6 @@
   integrity sha512-3QrJqZoR5eBz2XG0ijuTIp5AEOe1OHtuv7nkKArOCzFmjuBJLhUTRcECf0K+lcmdJ25zrRAWAYNgTvpVpBjaNg==
   dependencies:
     "@hapi/joi" "17.1.1"
-
-"@docusaurus/utils@^2.0.0-alpha.59":
-  version "2.0.0-alpha.59"
-  resolved "https://registry.yarnpkg.com/@docusaurus/utils/-/utils-2.0.0-alpha.59.tgz#55476599549f04aaaca343ca7370325b67758fa6"
-  integrity sha512-hubZiMe0PVeLW2s95k8mQwNThlgOn8F4OPxW2YzEbKHDgfiP0m0u1TSxP6BrkMmlDDc5LOPY2MyLM8UMhBiZig==
-  dependencies:
-    escape-string-regexp "^2.0.0"
-    fs-extra "^8.1.0"
-    gray-matter "^4.0.2"
-    lodash.camelcase "^4.3.0"
-    lodash.kebabcase "^4.1.1"
-    resolve-pathname "^3.0.0"
 
 "@docusaurus/utils@^2.0.0-alpha.61":
   version "2.0.0-alpha.61"
@@ -7663,9 +7641,9 @@ prism-react-renderer@^1.1.0:
   integrity sha512-MgMhSdHuHymNRqD6KM3eGS0PNqgK9q4QF5P0yoQQvpB6jNjeSAi3jcSAz0Sua/t9fa4xDOMar9HJbLa08gl9ug==
 
 prismjs@^1.20.0:
-  version "1.20.0"
-  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.20.0.tgz#9b685fc480a3514ee7198eac6a3bf5024319ff03"
-  integrity sha512-AEDjSrVNkynnw6A+B1DsFkd6AVdTnp+/WoUixFRULlCLZVRZlVQMVWio/16jv7G1FscUxQxOQhWwApgbnxr6kQ==
+  version "1.21.0"
+  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.21.0.tgz#36c086ec36b45319ec4218ee164c110f9fc015a3"
+  integrity sha512-uGdSIu1nk3kej2iZsLyDoJ7e9bnPzIgY0naW/HdknGj61zScaprVEVGHrPoXqI+M9sP0NDnTK2jpkvmldpuqDw==
   optionalDependencies:
     clipboard "^2.0.0"
 
