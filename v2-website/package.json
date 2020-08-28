@@ -18,6 +18,6 @@
     "clsx": "^1.1.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
-    "@docusaurus/plugin-client-redirects": "2.0.0-alpha.61"
+    "@docusaurus/plugin-client-redirects": "2.0.0-alpha.62"
   }
 }
