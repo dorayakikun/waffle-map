@@ -1242,15 +1242,15 @@
     unist-util-visit "^2.0.2"
     url-loader "^4.1.0"
 
-"@docusaurus/plugin-client-redirects@2.0.0-alpha.64":
-  version "2.0.0-alpha.64"
-  resolved "https://registry.yarnpkg.com/@docusaurus/plugin-client-redirects/-/plugin-client-redirects-2.0.0-alpha.64.tgz#ace31605240d278426a916862d4d72d8bda3354f"
-  integrity sha512-qk6fNwCM8Z1AtyMJRbd7xILSV3qd3BmptYiZb4Wi5qHUTlBVjqTTcFTvzvad0eApBg+yOIOW1HeYAokQILGJkA==
+"@docusaurus/plugin-client-redirects@2.0.0-alpha.65":
+  version "2.0.0-alpha.65"
+  resolved "https://registry.yarnpkg.com/@docusaurus/plugin-client-redirects/-/plugin-client-redirects-2.0.0-alpha.65.tgz#dc435c7ca3b678ebb8b240665089e88775faea42"
+  integrity sha512-Lv0ehOAFC6D9RpR9ThQUB4AZ/Z+tXe+Urx4CsTp/SC8QiHI5VeQ6Hhh59Jv2sujBD1pUet9YMQwPcqQxSQxWmw==
   dependencies:
-    "@docusaurus/core" "2.0.0-alpha.64"
-    "@docusaurus/types" "2.0.0-alpha.64"
-    "@docusaurus/utils" "2.0.0-alpha.64"
-    "@docusaurus/utils-validation" "2.0.0-alpha.64"
+    "@docusaurus/core" "2.0.0-alpha.65"
+    "@docusaurus/types" "2.0.0-alpha.65"
+    "@docusaurus/utils" "2.0.0-alpha.65"
+    "@docusaurus/utils-validation" "2.0.0-alpha.65"
     "@hapi/joi" "^17.1.1"
     "@types/hapi__joi" "^17.1.2"
     chalk "^3.0.0"
