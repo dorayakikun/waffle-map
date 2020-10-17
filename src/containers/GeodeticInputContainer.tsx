@@ -1,3 +1,4 @@
+import * as React from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { DropdownProps } from "semantic-ui-react";
