@@ -37,6 +37,7 @@ Array [
     onChange={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
+    onKeyDown={[Function]}
     onMouseDown={[Function]}
     role="listbox"
     style={
@@ -50,7 +51,7 @@ Array [
     <div
       aria-atomic={true}
       aria-live="polite"
-      className="text"
+      className="divider text"
       role="alert"
     >
       Split with dots
@@ -129,6 +130,7 @@ Array [
     onChange={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
+    onKeyDown={[Function]}
     onMouseDown={[Function]}
     role="listbox"
     style={
@@ -142,7 +144,7 @@ Array [
     <div
       aria-atomic={true}
       aria-live="polite"
-      className="text"
+      className="divider text"
       role="alert"
     >
       Split with dots
