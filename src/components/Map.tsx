@@ -270,7 +270,7 @@ export class Map extends React.Component<Props, State> {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           />
-          {/* {this.props.isShowDebugTiles && <DebugTileLayer />} */}
+          {this.props.isShowDebugTiles && <DebugTileLayer />}
           {this.props.isShowMeshes &&
             this.createMeshRects(
               getSquareMeshes(this.state.center, this.state.zoom, 10),
