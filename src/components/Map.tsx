@@ -1,6 +1,6 @@
 import * as React from "react";
 import {
-  MapContainer as LeafletMap,
+  Map as LeafletMap,
   Marker,
   Popup,
   Rectangle,
