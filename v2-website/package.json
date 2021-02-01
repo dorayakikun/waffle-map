@@ -13,11 +13,11 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "@docusaurus/core": "2.0.0-alpha.f48d435ce",
-    "@docusaurus/preset-classic": "2.0.0-alpha.f48d435ce",
+    "@docusaurus/core": "2.0.0-alpha.fd17476c3",
+    "@docusaurus/preset-classic": "2.0.0-alpha.fd17476c3",
     "clsx": "^1.1.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
-    "@docusaurus/plugin-client-redirects": "2.0.0-alpha.f48d435ce"
+    "@docusaurus/plugin-client-redirects": "2.0.0-alpha.fd17476c3"
   }
 }
