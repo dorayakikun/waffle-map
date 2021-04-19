@@ -29,7 +29,7 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.5",
     "connect": "^3.6.6",
-    "core-js": "^3.0.0",
+    "core-js": "^3.10.1",
     "css-loader": "^5.2.1",
     "docusaurus-init": "^1.0.1",
     "eslint": "^7.0.0",
