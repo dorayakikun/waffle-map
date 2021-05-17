@@ -14,7 +14,6 @@ Mesh code is a very useful project, but it is not intuitive. Waffle Map generate
 
 - [Usage](#usage)
 - [Demo](#demo)
-- [Documentation](#documentation)
 - [Extending Waffle Map](#extending-waffle-map)
 - [Author](#author)
 
@@ -29,10 +28,6 @@ $ yarn start
 ## Demo
 
 Please See https://waffle-map.netlify.com/
-
-## Documentation
-
-Please See https://dorayakikun.github.io/waffle-map/ for details.(Jpanese only)
 
 ## Extending Waffle Map
 
