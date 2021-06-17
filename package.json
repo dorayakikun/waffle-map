@@ -31,7 +31,6 @@
     "connect": "^3.6.6",
     "core-js": "^3.0.0",
     "css-loader": "^5.2.1",
-    "docusaurus-init": "^1.0.1",
     "eslint": "^7.0.0",
     "eslint-config-prettier": "^8.0.0",
     "eslint-plugin-prettier": "^3.0.1",
