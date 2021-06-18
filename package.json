@@ -37,7 +37,7 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
     "file-loader": "^6.0.0",
-    "jest": "^26.0.0",
+    "jest": "^27.0.0",
     "jest-junit": "^12.0.0",
     "json-loader": "^0.5.7",
     "prettier": "^2.0.0",
@@ -73,6 +73,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "jest": {
+    "testEnvironment": "jsdom",
     "collectCoverage": true,
     "moduleFileExtensions": [
       "ts",
