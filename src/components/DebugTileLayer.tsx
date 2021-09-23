@@ -1,16 +1,17 @@
-import * as Leaflet from "leaflet";
-import { GridLayer, withLeaflet } from "react-leaflet";
+import {
+  createLayerComponent,
+  updateGridLayer,
+  withPane,
+} from "@react-leaflet/core";
+import { Coords, GridLayer, GridLayerOptions } from "leaflet";
 
-const DebugTileLayer = withLeaflet(
-  class extends GridLayer {
-    public createLeafletElement(props: any): Leaflet.GridLayer {
-      const DebugGridLayer = (Leaflet.GridLayer as any).extend({
-        createTile: (coords: Leaflet.Coords): HTMLElement => {
-          const tile = document.createElement("div");
-          tile.style.backgroundColor = "rgba(41, 98, 255, 0.2)";
-          tile.style.outline = "2px solid";
-          tile.style.outlineColor = "#2962FF";
-          tile.innerHTML = `<span style="
+const _debugTileLayer = (GridLayer as any).extend({
+  createTile: (coords: Coords): HTMLElement => {
+    const tile = document.createElement("div");
+    tile.style.backgroundColor = "rgba(41, 98, 255, 0.2)";
+    tile.style.outline = "2px solid";
+    tile.style.outlineColor = "#2962FF";
+    tile.innerHTML = `<span style="
                                       font-family: Lato, 
                                       'Helvetica Neue', 
                                       Helvetica, 
@@ -20,11 +21,16 @@ const DebugTileLayer = withLeaflet(
                                       font-weight: 700;">
           ${[coords.x, coords.y, coords.z].join(", ")}
           </span>`;
-          return tile;
-        },
-      });
-      return new DebugGridLayer(this.getOptions(props));
-    }
-  }
+    return tile;
+  },
+});
+
+export const DebugTileLayer = createLayerComponent<GridLayer, GridLayerOptions>(
+  function createGridLayer({ ...options }, context) {
+    return {
+      instance: new _debugTileLayer(withPane(options, context)),
+      context,
+    };
+  },
+  updateGridLayer
 );
-export { DebugTileLayer };

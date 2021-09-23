@@ -1,8 +1,5 @@
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
-import { Action, updateContextmenuPosition } from "../actions/map";
 import { Map } from "../components/Map";
-import { LatLng } from "../domain/calculateMesh";
 import { State as RootState } from "../reducers";
 
 const mapStateToProps = (state: RootState) => ({
@@ -14,15 +11,6 @@ const mapStateToProps = (state: RootState) => ({
   unit: state.geodetic.unit,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-  onClose: () => {
-    dispatch(updateContextmenuPosition(undefined));
-  },
-  onContextmenu: (event: Event & { latlng: LatLng }) => {
-    dispatch(updateContextmenuPosition(event.latlng));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps, {});
 
 export const MapContainer = connector(Map);
