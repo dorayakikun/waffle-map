@@ -1,22 +1,28 @@
+import * as L from "leaflet";
+import "leaflet/dist/leaflet.css";
 import * as React from "react";
 import {
-  Map as LeafletMap,
-  Marker,
-  Popup,
-  Rectangle,
+  MapContainer as LeafletMap,
   TileLayer,
-  Tooltip,
+  MapConsumer,
 } from "react-leaflet";
-import { Card } from "semantic-ui-react";
-import meshCalculator, { Bounds, LatLng, Mesh } from "../domain/calculateMesh";
+import { CoordPopup } from "./CoordPopup";
+import { DebugTileLayer } from "./DebugTileLayer";
+import { MarkerLayer } from "./MarkerLayer";
+import { MeshLayer } from "./MeshLayer";
+import { LatLng, Mesh } from "../domain/calculateMesh";
 import {
   convertBoundsToWGS84IfNeeded,
-  convertLatLngToMillisecIfNeeded,
-  convertLatLngToTokyoIfNeeded,
   convertLatLngToWGS84IfNeeded,
 } from "../domain/convertLatLng";
-import { round } from "../domain/roundPoint";
-import { DebugTileLayer } from "./DebugTileLayer";
+import { MeshRectangle } from "./MeshRectangle";
+
+delete (L.Icon as any).Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+  iconUrl: require("leaflet/dist/images/marker-icon.png"),
+  shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+});
 
 export type Props = {
   meshes: Mesh[];
@@ -26,25 +32,12 @@ export type Props = {
   isShowDebugTiles: boolean;
   isShowMeshes: boolean;
   markerPositions: LatLng[];
-  onContextmenu: (event: Event & { latlng: LatLng }) => void;
-  onClose: () => void;
-};
-
-type State = {
-  center: LatLng;
-  zoom: number;
-};
-
-type Viewport = {
-  center?: number[];
-  zoom?: number;
 };
 
 const initialLeafletBounds: [number, number][] = [
   [35, 139],
   [37, 140],
 ];
-const { toMeshCode, SCALES } = meshCalculator;
 
 function meshesToLatsAndLngs(
   meshes: Mesh[],
@@ -67,7 +60,7 @@ function meshesToLatsAndLngs(
   };
 }
 
-function calculateLeafletBoundsFrom(
+function calculateLeafletBounds(
   meshes: Mesh[],
   markerPositions: LatLng[],
   datum: string
@@ -92,197 +85,54 @@ function calculateLeafletBoundsFrom(
   ];
 }
 
-function getSquareMeshCodes(meshCode: string, redius: number): string[] {
-  const meshCodes: string[] = [];
-  for (let i = -redius; i <= redius; i++) {
-    for (let j = -redius; j <= redius; j++) {
-      const code: string = meshCalculator.offset(meshCode, i, j);
-      meshCodes.push(code);
-    }
-  }
-  return meshCodes;
-}
-
-function createMesh(code: string): Mesh {
-  return {
-    bounds: meshCalculator.toBounds(code),
-    center: meshCalculator.toCenterLatLng(code),
-    code,
-  };
-}
-
-function getSquareMeshes(latlng: LatLng, zoom: number, redius: number): Mesh[] {
-  const scale: number = meshCalculator.scaleFrom(zoom);
-  const centerMeshCode = meshCalculator.toMeshCode(
-    latlng.lat,
-    latlng.lng,
-    scale
-  );
-  const meshCodes: string[] = getSquareMeshCodes(centerMeshCode, redius);
-  return meshCodes.map(createMesh);
-}
-
-function throttleEvents(
-  listener: (viewport: Viewport) => void,
-  delay: number
-): (viewport: Viewport) => void {
-  let timeout: number;
-  const throttledListener = (viewport: Viewport) => {
-    if (timeout) {
-      clearTimeout(timeout);
-    }
-    timeout = setTimeout(listener, delay, viewport);
-  };
-  return throttledListener;
-}
-
-function createMeshRect(
-  bounds: Bounds,
-  index: number,
-  meshCode: string,
-  color: string
-): React.ReactElement {
+export function Map(props: Props) {
+  const { meshes, markerPositions, datum } = props;
   return (
-    <Rectangle
-      bounds={[
-        [bounds.leftTop.lat, bounds.leftTop.lng],
-        [bounds.rightBottom.lat, bounds.rightBottom.lng],
-      ]}
-      key={index}
-      color={color}
-    >
-      <Tooltip>
-        <span>{meshCode}</span>
-      </Tooltip>
-    </Rectangle>
-  );
-}
-
-function createPositionDescription(
-  datum: string,
-  unit: string,
-  latLng?: LatLng
-): string {
-  if (latLng == null) {
-    throw new Error("latLng is missing.");
-  }
-
-  const a = convertLatLngToTokyoIfNeeded(latLng, datum);
-  const b = convertLatLngToMillisecIfNeeded(a, unit);
-  return `position: ${round(b.lat, 5)}, ${round(b.lng, 5)}`;
-}
-
-function createScaleDescription(
-  scale: number,
-  datum: string,
-  latLng?: LatLng
-): string {
-  if (latLng == null) {
-    throw new Error("Unexpected exception occured. Missing latlang.");
-  }
-  const { lat, lng } = convertLatLngToTokyoIfNeeded(latLng, datum);
-  return `scale${scale}: ${toMeshCode(lat, lng, scale)}`;
-}
-function createScaleCardContents(
-  datum: string,
-  latLng?: LatLng
-): React.ReactElement[] {
-  return SCALES.map((scale, idx) => (
-    <Card.Content
-      description={createScaleDescription(scale, datum, latLng)}
-      key={idx}
-    />
-  ));
-}
-
-function CoordPopup(props: Props): React.ReactElement {
-  return (
-    <Popup position={props.contextmenuPosition} onClose={props.onClose}>
-      <Card>
-        <Card.Content header="Scales" />
-        <Card.Content
-          description={createPositionDescription(
-            props.datum,
-            props.unit,
-            props.contextmenuPosition
-          )}
+    <div style={{ width: "100%", height: "100vh" }}>
+      <LeafletMap
+        bounds={calculateLeafletBounds(meshes, markerPositions, datum)}
+        maxZoom={18}
+        minZoom={5}
+        style={{ width: "100%", height: "100vh" }}
+      >
+        <MapConsumer>
+          {(map) => {
+            React.useEffect(() => {
+              map.fitBounds(
+                calculateLeafletBounds(meshes, markerPositions, datum)
+              );
+            });
+            return null;
+          }}
+        </MapConsumer>
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
-        {createScaleCardContents(props.datum, props.contextmenuPosition)}
-      </Card>
-    </Popup>
+        {props.isShowDebugTiles && <DebugTileLayer />}
+        {props.isShowMeshes && (
+          <MeshLayer color={"#9C27B0"} datum={props.datum} />
+        )}
+        <>
+          {meshes.map((mesh, index) => {
+            const bounds = convertBoundsToWGS84IfNeeded(
+              mesh.bounds,
+              props.datum
+            );
+            return (
+              <MeshRectangle
+                key={`mesh_rectangle_${mesh.code}`}
+                bounds={bounds}
+                index={index}
+                meshCode={mesh.code}
+                color={"#00847e"}
+              />
+            );
+          })}
+        </>
+        <MarkerLayer datum={props.datum} positions={markerPositions} />
+        <CoordPopup {...props} />
+      </LeafletMap>
+    </div>
   );
-}
-export class Map extends React.Component<Props, State> {
-  state = {
-    center: { lat: 36.01357, lng: 139.49891 },
-    zoom: 6,
-  };
-
-  constructor(props: Props) {
-    super(props);
-    this.updateViewport = this.updateViewport.bind(this);
-  }
-
-  updateViewport(viewport: Viewport) {
-    const { center, zoom } = viewport;
-    if (!center) {
-      return;
-    }
-    if (zoom === undefined || zoom === null) {
-      return;
-    }
-    this.setState({ center: { lat: center[0], lng: center[1] } });
-    this.setState({ zoom });
-  }
-
-  createMeshRects(
-    meshes: Mesh[],
-    color: string = "#00847e"
-  ): React.ReactElement[] {
-    return meshes.map((mesh, index) => {
-      const bounds = convertBoundsToWGS84IfNeeded(
-        mesh.bounds,
-        this.props.datum
-      );
-      return createMeshRect(bounds, index, mesh.code, color);
-    });
-  }
-
-  createMarkers(positions: LatLng[], datum: string): React.ReactElement[] {
-    return positions
-      .map((position) => convertLatLngToWGS84IfNeeded(position, datum))
-      .map((position, idx) => <Marker key={idx} position={position} />);
-  }
-
-  render() {
-    const { meshes, markerPositions, datum } = this.props;
-    return (
-      <div style={{ width: "100%", height: "100vh" }}>
-        <LeafletMap
-          bounds={calculateLeafletBoundsFrom(meshes, markerPositions, datum)}
-          maxZoom={18}
-          minZoom={7}
-          onContextmenu={this.props.onContextmenu}
-          onViewportChanged={throttleEvents(this.updateViewport, 100)}
-          style={{ width: "100%", height: "100vh" }}
-        >
-          <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          />
-          {this.props.isShowDebugTiles && <DebugTileLayer />}
-          {this.props.isShowMeshes &&
-            this.createMeshRects(
-              getSquareMeshes(this.state.center, this.state.zoom, 10),
-              "#9C27B0"
-            )}
-          {this.createMeshRects(this.props.meshes)}
-          {this.createMarkers(this.props.markerPositions, this.props.datum)}
-          {this.props.contextmenuPosition != null && (
-            <CoordPopup {...this.props} />
-          )}
-        </LeafletMap>
-      </div>
-    );
-  }
 }

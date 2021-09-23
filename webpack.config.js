@@ -5,10 +5,11 @@ const TerserPlugin = require('terser-webpack-plugin');
 module.exports = {
   entry: "./src/index.tsx",
   devServer: {
-    contentBase: "public/",
-    historyApiFallback: true
+    historyApiFallback: true,
+    static: true,
   },
   output: {
+    assetModuleFilename: "[hash][ext]",
     filename: "bundle.js",
     path: path.resolve(__dirname, "public"),
     publicPath: "/"
@@ -26,39 +27,21 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|gif|ico|jpeg)$/i,
-        use: [
-          {
-            loader: "url-loader"
-          }
-        ]
+        type: "asset/resource"
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use:[
-          {
-            loader: "url-loader",
-            options: {
-              limit: 10000,
-              mimetype: "application/font-woff",
-            }
-          }
-        ]
+        type: "asset/resource",
+        mimetype: "application/font-woff"
       },
       {
         test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "file-loader"
+        type: "asset/resource"
       },
       {
         test: /\.otf(\?.*)?$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "name=/fonts/[name].[ext]",
-              mimetype: "application/font-otf",
-            }
-          }
-        ]
+        type: "asset/resource",
+        mimetype: "application/font-otf"
       }
     ]
   },
