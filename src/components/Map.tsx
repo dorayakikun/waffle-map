@@ -90,7 +90,7 @@ export function Map(props: Props) {
   return (
     <div style={{ width: "100%", height: "100vh" }}>
       <LeafletMap
-        bounds={calculateLeafletBounds(meshes, markerPositions, datum)}
+        bounds={initialLeafletBounds}
         maxZoom={18}
         minZoom={5}
         style={{ width: "100%", height: "100vh" }}
