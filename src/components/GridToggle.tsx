@@ -2,14 +2,15 @@ import { FormControl, FormLabel, Switch } from "@chakra-ui/react";
 import * as React from "react";
 
 export type Props = {
-  title: string;
+  id: string;
   isShowGrid: boolean;
   onToggleChanged: (event: React.FormEvent<HTMLInputElement>) => void;
+  title: string;
 };
 
 export function GridToggle(props: Props): React.ReactElement<Props> {
   return (
-    <FormControl display={"flex"} alignItems={"center"}>
+    <FormControl id={props.id} display={"flex"} alignItems={"center"}>
       <FormLabel htmlFor={props.title} mb={"0"}>
         {props.title}
       </FormLabel>

@@ -10,6 +10,7 @@ import {
 import * as React from "react";
 
 export type Props = {
+  id: string;
   latLng: string;
   errorMessage: string;
   putMarker: (latLng: string) => void;
@@ -49,8 +50,9 @@ export function MarkerInput(props: Props) {
 
   return (
     <FormControl
-      onKeyPress={handleClickPutAMarker}
+      id={props.id}
       isInvalid={props.errorMessage !== ""}
+      onKeyPress={handleClickPutAMarker}
     >
       <HStack spacing={3}>
         <Input onChange={handleChange} placeholder="lat,lng" value={latLng} />

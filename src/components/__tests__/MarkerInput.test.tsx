@@ -4,6 +4,7 @@ import { MarkerInput, Props } from "../MarkerInput";
 
 const props: Props = {
   errorMessage: "",
+  id: "markerInput",
   latLng: "",
   putMarker: () => {},
   removeAllMarkers: () => {},

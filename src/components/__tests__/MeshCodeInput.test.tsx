@@ -1,11 +1,12 @@
-// @flow
-
 import * as React from "react";
+/** @jsx jsx */
+import { jsx } from "@emotion/react";
 import * as render from "react-test-renderer";
 import { MeshCodeInput, Props } from "../MeshCodeInput";
 
 const defaultProps: Props = {
   errorMessage: "",
+  id: "meshCodeInput",
   meshCodes: "",
   onMeshesChanged: () => {},
   onSeparatorChanged: () => {},

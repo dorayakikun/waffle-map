@@ -42,7 +42,7 @@ export function AppContainer() {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                <TileToggleContainer />
+                <TileToggleContainer id={"tileToggle"} />
               </AccordionPanel>
             </AccordionItem>
             <AccordionItem>
@@ -55,7 +55,7 @@ export function AppContainer() {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                <MeshToggleContainer />
+                <MeshToggleContainer id={"meshToggle"} />
               </AccordionPanel>
             </AccordionItem>
             <AccordionItem>
@@ -68,7 +68,7 @@ export function AppContainer() {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                <MarkerInputContainer />
+                <MarkerInputContainer id={"markerInput"} />
               </AccordionPanel>
             </AccordionItem>
             <AccordionItem>
@@ -81,7 +81,7 @@ export function AppContainer() {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                <MeshCodeInputContainer />
+                <MeshCodeInputContainer id={"meshCodeInput"} />
                 <MeshDetailsContainer />
               </AccordionPanel>
             </AccordionItem>

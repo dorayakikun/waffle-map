@@ -5,6 +5,7 @@ import { GridToggle, Props } from "../GridToggle";
 test("Should set props to MeshToggle", () => {
   const isShowGrid = false;
   const props: Props = {
+    id: "gridToggle",
     isShowGrid,
     onToggleChanged: () => {},
     title: "Show grid",
@@ -17,6 +18,7 @@ test("Should call onToggleChanged when changed checked", () => {
   const isShowGrid = false;
   const onToggleChanged = () => {};
   const props: Props = {
+    id: "gridToggle",
     isShowGrid,
     onToggleChanged,
     title: "Show grid",

@@ -9,6 +9,7 @@ import * as React from "react";
 
 export type Props = {
   errorMessage: string;
+  id: string;
   meshCodes: string;
   separator: string;
   onMeshesChanged: (e: React.SyntheticEvent<HTMLInputElement>) => void;
@@ -38,7 +39,7 @@ const fetchTextFrom = (
 
 export function MeshCodeInput(props: Props): React.ReactElement<Props> {
   return (
-    <FormControl isInvalid={props.errorMessage !== ""}>
+    <FormControl id={props.id} isInvalid={props.errorMessage !== ""}>
       <Stack spacing={3}>
         <Input
           placeholder="5339-35-97.5339-35-98.5339-35-99"

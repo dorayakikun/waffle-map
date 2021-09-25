@@ -939,6 +939,14 @@
     "@emotion/weak-memoize" "^0.2.5"
     stylis "^4.0.3"
 
+"@emotion/css-prettifier@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@emotion/css-prettifier/-/css-prettifier-1.0.0.tgz#3ed4240d93c9798c001cedf27dd0aa960bdddd1a"
+  integrity sha512-efxSrRTiTqHTQVKW15Gz5H4pNAw8OqcG8NaiwkJIkqIdNXTD4Qr1zC1Ou6r2acd1oJJ2s56nb1ClnXMiWoj6gQ==
+  dependencies:
+    "@emotion/memoize" "^0.7.4"
+    stylis "^4.0.3"
+
 "@emotion/hash@^0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.8.0.tgz#bbbff68978fefdbe68ccb533bc8cbe1d1afb5413"
@@ -957,6 +965,17 @@
   integrity sha512-9RkilvXAufQHsSsjQ3PIzSns+pxuX4EW8EbGeSPjZMHuMx6z/MOzb9LpqNieQX4F3mre3NWS2+X3JNRHTQztUQ==
   dependencies:
     "@emotion/memoize" "^0.7.4"
+
+"@emotion/jest@^11.3.0":
+  version "11.3.0"
+  resolved "https://registry.yarnpkg.com/@emotion/jest/-/jest-11.3.0.tgz#43bed6dcb47c8691b346cee231861ebc8f9b0016"
+  integrity sha512-LZqYc3yerhic1IvAcEwBLRs1DsUt3oY7Oz6n+e+HU32iYOK/vpfzlhgmQURE94BHfv6eCOj6DV38f3jSnIkBkQ==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@emotion/css-prettifier" "^1.0.0"
+    chalk "^4.1.0"
+    specificity "^0.4.1"
+    stylis "^4.0.3"
 
 "@emotion/memoize@0.7.4":
   version "0.7.4"
@@ -5845,6 +5864,11 @@ spdy@^4.0.2:
     http-deceiver "^1.2.7"
     select-hose "^2.0.0"
     spdy-transport "^3.0.0"
+
+specificity@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/specificity/-/specificity-0.4.1.tgz#aab5e645012db08ba182e151165738d00887b019"
+  integrity sha512-1klA3Gi5PD1Wv9Q0wUoOQN1IWAuPu0D1U03ThXTr0cJ20+/iq2tHSDnK7Kk/0LXJ1ztUB2/1Os0wKmfyNgUQfg==
 
 sprintf-js@~1.0.2:
   version "1.0.3"
