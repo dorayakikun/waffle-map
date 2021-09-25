@@ -1,3 +1,4 @@
+import { ChakraProvider } from "@chakra-ui/react";
 import "leaflet/dist/leaflet.css";
 import * as React from "react";
 import { render } from "react-dom";
@@ -21,7 +22,9 @@ sagaMiddleware.run(rootSaga);
 const root = document.getElementById("root");
 render(
   <Provider store={store}>
-    <AppContainer activeIndex={2} />
+    <ChakraProvider>
+      <AppContainer />
+    </ChakraProvider>
   </Provider>,
   root
 );

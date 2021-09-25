@@ -1,5 +1,5 @@
+import { Table, Tbody, Tr, Td } from "@chakra-ui/react";
 import * as React from "react";
-import { Table } from "semantic-ui-react";
 import { Bounds, LatLng } from "../domain/calculateMesh";
 import { round } from "../domain/roundPoint";
 
@@ -26,24 +26,24 @@ const mapPropsToTableRowValues = ({
 export function MeshDetail(props: Props): React.ReactElement<Props> {
   return (
     <Table inverted>
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell>mesh code</Table.Cell>
-          <Table.Cell>{props.code}</Table.Cell>
-        </Table.Row>
+      <Tbody>
+        <Tr>
+          <Td>mesh code</Td>
+          <Td>{props.code}</Td>
+        </Tr>
         {mapPropsToTableRowValues(props).map(
           (value: TableRowValue, key: number) => (
-            <Table.Row key={key}>
-              <Table.Cell>{value.title}</Table.Cell>
-              <Table.Cell>
+            <Tr key={key}>
+              <Td>{value.title}</Td>
+              <Td>
                 {round(value.latLng.lat, 5)}
                 <br />
                 {round(value.latLng.lng, 5)}
-              </Table.Cell>
-            </Table.Row>
+              </Td>
+            </Tr>
           )
         )}
-      </Table.Body>
+      </Tbody>
     </Table>
   );
 }

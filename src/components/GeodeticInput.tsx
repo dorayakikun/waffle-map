@@ -1,58 +1,24 @@
+import { Select, Stack } from "@chakra-ui/react";
 import * as React from "react";
-import { Dropdown, DropdownItemProps, DropdownProps } from "semantic-ui-react";
 
 export type Props = {
   unit: string;
   datum: string;
-  changeUnit: (
-    event: React.SyntheticEvent<HTMLElement>,
-    data: DropdownProps
-  ) => void;
-  onDatumChanged: (
-    event: React.SyntheticEvent<HTMLElement>,
-    data: DropdownProps
-  ) => void;
+  changeUnit: (event: React.SyntheticEvent<HTMLElement>) => void;
+  onDatumChanged: (event: React.SyntheticEvent<HTMLElement>) => void;
 };
-const units: DropdownItemProps[] = [
-  {
-    text: "millisec",
-    value: "millisec",
-  },
-  {
-    text: "degree",
-    value: "degree",
-  },
-];
-const datums: DropdownItemProps[] = [
-  {
-    text: "Tokyo",
-    value: "Tokyo",
-  },
-  {
-    text: "WGS84",
-    value: "WGS84",
-  },
-];
 
 export function GeodeticInput(props: Props): React.ReactElement<Props> {
   return (
-    <>
-      <Dropdown
-        fluid
-        onChange={props.changeUnit}
-        options={units}
-        style={{ marginTop: "10px", marginBottom: "10px" }}
-        text={props.unit}
-        value={props.unit}
-      />
-      <Dropdown
-        fluid
-        onChange={props.onDatumChanged}
-        options={datums}
-        style={{ marginTop: "10px", marginBottom: "10px" }}
-        text={props.datum}
-        value={props.datum}
-      />
-    </>
+    <Stack spacing={3}>
+      <Select onChange={props.changeUnit} size="md" value={props.unit}>
+        <option value={"millisec"}>millisec</option>
+        <option value={"degree"}>degree</option>
+      </Select>
+      <Select onChange={props.onDatumChanged} size="md" value={props.datum}>
+        <option value={"Tokyo"}>Tokyo</option>
+        <option value={"WGS84"}>WGS84</option>
+      </Select>
+    </Stack>
   );
 }

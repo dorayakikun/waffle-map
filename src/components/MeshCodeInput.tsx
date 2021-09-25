@@ -1,25 +1,19 @@
-import * as React from "react";
 import {
-  Dropdown,
-  DropdownItemProps,
-  DropdownProps,
+  FormControl,
+  FormErrorMessage,
   Input,
-  InputOnChangeData,
-  Message,
-} from "semantic-ui-react";
+  Select,
+  Stack,
+} from "@chakra-ui/react";
+import * as React from "react";
 
 export type Props = {
   errorMessage: string;
+  id: string;
   meshCodes: string;
   separator: string;
-  onMeshesChanged: (
-    event: React.SyntheticEvent<HTMLInputElement>,
-    data: InputOnChangeData
-  ) => void;
-  onSeparatorChanged: (
-    event: React.SyntheticEvent<HTMLElement>,
-    data: DropdownProps
-  ) => void;
+  onMeshesChanged: (e: React.SyntheticEvent<HTMLInputElement>) => void;
+  onSeparatorChanged: (e: React.SyntheticEvent<HTMLElement>) => void;
 };
 
 const separatorOptions = [
@@ -33,7 +27,10 @@ const separatorOptions = [
   },
 ];
 
-const fetchTextFrom = (options: DropdownItemProps[], value: string): string => {
+const fetchTextFrom = (
+  options: { text: string; value: string }[],
+  value: string
+): string => {
   return options
     .filter((o) => o.value === value)
     .map((o) => o.text)
@@ -42,29 +39,26 @@ const fetchTextFrom = (options: DropdownItemProps[], value: string): string => {
 
 export function MeshCodeInput(props: Props): React.ReactElement<Props> {
   return (
-    <>
-      <Input
-        error={props.errorMessage !== ""}
-        fluid
-        placeholder="5339-35-97.5339-35-98.5339-35-99"
-        onChange={props.onMeshesChanged}
-        style={{ marginTop: "10px", marginBottom: "10px" }}
-        value={props.meshCodes}
-      />
-      {props.errorMessage !== "" && (
-        <Message negative>
-          <Message.Header>Waffle Map Error</Message.Header>
-          <p>{props.errorMessage}</p>
-        </Message>
-      )}
-      <Dropdown
-        fluid
-        onChange={props.onSeparatorChanged}
-        options={separatorOptions}
-        style={{ marginTop: "10px", marginBottom: "10px" }}
-        text={`Split with ${fetchTextFrom(separatorOptions, props.separator)}`}
-        value={props.separator}
-      />
-    </>
+    <FormControl id={props.id} isInvalid={props.errorMessage !== ""}>
+      <Stack spacing={3}>
+        <Input
+          placeholder="5339-35-97.5339-35-98.5339-35-99"
+          onChange={props.onMeshesChanged}
+          value={props.meshCodes}
+        />
+        <FormErrorMessage>{props.errorMessage}</FormErrorMessage>
+        <Select
+          onChange={props.onSeparatorChanged}
+          placeholder={`Split with ${fetchTextFrom(
+            separatorOptions,
+            props.separator
+          )}`}
+          value={props.separator}
+        >
+          <option value={","}>commas</option>
+          <option value={"."}>dots</option>
+        </Select>
+      </Stack>
+    </FormControl>
   );
 }

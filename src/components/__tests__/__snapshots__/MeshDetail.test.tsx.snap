@@ -2,35 +2,43 @@
 
 exports[`Should set props to MeshDetail 1`] = `
 <table
-  className="ui inverted table"
+  className="chakra-table emotion-0"
+  inverted={true}
+  role="table"
 >
   <tbody
-    className=""
+    className="emotion-0"
   >
     <tr
-      className=""
+      className="emotion-0"
+      role="row"
     >
       <td
-        className=""
+        className="emotion-0"
+        role="gridcell"
       >
         mesh code
       </td>
       <td
-        className=""
+        className="emotion-0"
+        role="gridcell"
       >
         5339
       </td>
     </tr>
     <tr
-      className=""
+      className="emotion-0"
+      role="row"
     >
       <td
-        className=""
+        className="emotion-0"
+        role="gridcell"
       >
         center
       </td>
       <td
-        className=""
+        className="emotion-0"
+        role="gridcell"
       >
         35.66667
         <br />
@@ -38,15 +46,18 @@ exports[`Should set props to MeshDetail 1`] = `
       </td>
     </tr>
     <tr
-      className=""
+      className="emotion-0"
+      role="row"
     >
       <td
-        className=""
+        className="emotion-0"
+        role="gridcell"
       >
         leftTop
       </td>
       <td
-        className=""
+        className="emotion-0"
+        role="gridcell"
       >
         36
         <br />
@@ -54,15 +65,18 @@ exports[`Should set props to MeshDetail 1`] = `
       </td>
     </tr>
     <tr
-      className=""
+      className="emotion-0"
+      role="row"
     >
       <td
-        className=""
+        className="emotion-0"
+        role="gridcell"
       >
         rightBottom
       </td>
       <td
-        className=""
+        className="emotion-0"
+        role="gridcell"
       >
         35.33334
         <br />

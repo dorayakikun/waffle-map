@@ -1,7 +1,16 @@
+import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
+import {
+  Button,
+  FormControl,
+  FormErrorMessage,
+  HStack,
+  Input,
+  Stack,
+} from "@chakra-ui/react";
 import * as React from "react";
-import { Button, Input, InputOnChangeData, Message } from "semantic-ui-react";
 
 export type Props = {
+  id: string;
   latLng: string;
   errorMessage: string;
   putMarker: (latLng: string) => void;
@@ -17,8 +26,8 @@ export function MarkerInput(props: Props) {
   const [latLng, setLatLng] = React.useState<string>(props.latLng || "");
 
   const handleChange = React.useCallback(
-    (_event: React.SyntheticEvent<HTMLElement>, data: InputOnChangeData) =>
-      setLatLng(data.value),
+    (e: React.SyntheticEvent<HTMLElement>) =>
+      setLatLng((e.target as any).value),
     []
   );
 
@@ -40,29 +49,35 @@ export function MarkerInput(props: Props) {
   );
 
   return (
-    <div onKeyPress={handleClickPutAMarker}>
-      <Input
-        error={props.errorMessage !== ""}
-        inverted
-        onChange={handleChange}
-        placeholder="lat,lng"
-        style={{
-          marginBottom: "10px",
-          marginRight: "3px",
-          marginTop: "10px",
-        }}
-        value={latLng}
-      />
-
-      <Button icon="marker" onClick={handleClickPutAMarker} />
-      <Button icon="trash" onClick={handleClickRemoveAllMarkers} />
-
-      {props.errorMessage !== "" && (
-        <Message negative>
-          <Message.Header>Waffle Map Error</Message.Header>
-          <p>{props.errorMessage}</p>
-        </Message>
-      )}
-    </div>
+    <FormControl
+      id={props.id}
+      isInvalid={props.errorMessage !== ""}
+      onKeyPress={handleClickPutAMarker}
+    >
+      <HStack spacing={3}>
+        <Input onChange={handleChange} placeholder="lat,lng" value={latLng} />
+        <Stack direction="row" spacing={3}>
+          <Button
+            leftIcon={<AddIcon />}
+            colorScheme={"teal"}
+            onClick={handleClickPutAMarker}
+            width="128px"
+            variant="outline"
+          >
+            Put
+          </Button>
+          <Button
+            leftIcon={<DeleteIcon />}
+            colorScheme={"teal"}
+            onClick={handleClickRemoveAllMarkers}
+            width="128px"
+            variant="outline"
+          >
+            Remove
+          </Button>
+        </Stack>
+      </HStack>
+      <FormErrorMessage>{props.errorMessage}</FormErrorMessage>
+    </FormControl>
   );
 }
