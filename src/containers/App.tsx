@@ -1,11 +1,17 @@
-import * as React from "react";
 import {
   Accordion,
-  AccordionTitleProps,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  Box,
+  Grid,
+  GridItem,
   Image,
-  Menu,
-  Sidebar,
-} from "semantic-ui-react";
+  Stack,
+  Text,
+} from "@chakra-ui/react";
+import * as React from "react";
 
 import { GeodeticInputContainer } from "./GeodeticInputContainer";
 import { MapContainer } from "./MapContainer";
@@ -15,101 +21,76 @@ import { MeshDetailsContainer } from "./MeshDetailsContainer";
 import { MeshToggleContainer } from "./MeshToggleContainer";
 import { TileToggleContainer } from "./TileToggleContainer";
 
-type Props = {
-  activeIndex: number;
-};
-
-type State = {
-  activeIndex: number;
-};
-
-type AccordionMenuItemValue = {
-  index: number;
-  title: string;
-  container: any;
-};
-
-const ACCORDION_MENU_ITEM_VALUES: AccordionMenuItemValue[] = [
-  { container: <TileToggleContainer />, index: 0, title: "Tile Grid" },
-  { container: <MeshToggleContainer />, index: 1, title: "Mesh Grid" },
-  { container: <MarkerInputContainer />, index: 2, title: "Marker" },
-  {
-    container: (
-      <div>
-        <MeshCodeInputContainer />
-        <MeshDetailsContainer />
-      </div>
-    ),
-    index: 3,
-    title: "Mesh Code",
-  },
-];
-
-const styles = {
-  backgroundColor: "rgba(0, 0, 0, 0.87)",
-  height: "100vh",
-  margin: 0,
-  padding: 0,
-};
-export class AppContainer extends React.Component<Props, State> {
-  public state = { activeIndex: 3 };
-
-  public handleClick = (
-    e: React.MouseEvent<HTMLDivElement>,
-    data: AccordionTitleProps
-  ) => {
-    const index = data.index as number;
-    const { activeIndex } = this.state;
-    const newIndex = activeIndex === index ? -1 : index;
-
-    this.setState({ activeIndex: newIndex });
-  };
-
-  public render() {
-    const { activeIndex } = this.state;
-    return (
-      <div style={styles}>
-        <Sidebar.Pushable>
-          <Sidebar visible width="wide">
-            <Accordion
-              as={Menu}
-              fluid
-              inverted
-              vertical
-              style={{ height: "100%" }}
-            >
-              <Menu.Item name="waffleMap">
-                <Image src="./images/logo.png" size="mini" spaced />
-                <strong>Waffle Map</strong>
-              </Menu.Item>
-
-              <Menu.Item name="Geodetic">
-                <GeodeticInputContainer />
-              </Menu.Item>
-
-              {ACCORDION_MENU_ITEM_VALUES.map(
-                (value: AccordionMenuItemValue, key: number) => (
-                  <Menu.Item name="meshInput" key={key}>
-                    <Accordion.Title
-                      active={activeIndex === value.index}
-                      index={value.index}
-                      onClick={this.handleClick}
-                    >
-                      {value.title}
-                    </Accordion.Title>
-                    <Accordion.Content active={activeIndex === value.index}>
-                      {value.container}
-                    </Accordion.Content>
-                  </Menu.Item>
-                )
-              )}
-            </Accordion>
-          </Sidebar>
-          <Sidebar.Pusher>
-            <MapContainer />
-          </Sidebar.Pusher>
-        </Sidebar.Pushable>
-      </div>
-    );
-  }
+export function AppContainer() {
+  return (
+    <Grid templateColumns="repeat(5, 1fr)" gap={4}>
+      <GridItem colSpan={1}>
+        <Stack spacing={3}>
+          <Stack direction="row" ml={3} mt={3} spacing={3}>
+            <Image src={"/images/logo.png"} alt={"wafflemap"} />
+            <Text fontSize={"3xl"}>wafflemap</Text>
+          </Stack>
+          <GeodeticInputContainer />
+          <Accordion>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box flex={"1"} textAlign={"left"}>
+                    Tile Grid
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <TileToggleContainer />
+              </AccordionPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box flex={"1"} textAlign={"left"}>
+                    Mesh Grid
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <MeshToggleContainer />
+              </AccordionPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box flex={"1"} textAlign={"left"}>
+                    Marker
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <MarkerInputContainer />
+              </AccordionPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box flex={"1"} textAlign={"left"}>
+                    Mesh Code
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <MeshCodeInputContainer />
+                <MeshDetailsContainer />
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
+        </Stack>
+      </GridItem>
+      <GridItem colSpan={4}>
+        <MapContainer />
+      </GridItem>
+    </Grid>
+  );
 }

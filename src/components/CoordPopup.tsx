@@ -1,13 +1,24 @@
+import {
+  Box,
+  Text,
+  Stack,
+  List,
+  ListItem,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import * as React from "react";
 import { Popup, useMapEvents } from "react-leaflet";
-import { Card } from "semantic-ui-react";
-import { Props } from "./Map";
 import meshCalculator, { LatLng } from "../domain/calculateMesh";
 import {
   convertLatLngToMillisecIfNeeded,
   convertLatLngToTokyoIfNeeded,
 } from "../domain/convertLatLng";
 import { round } from "../domain/roundPoint";
+
+type Props = {
+  datum: string;
+  unit: string;
+};
 
 function createPositionDescription(
   datum: string,
@@ -40,10 +51,9 @@ function createScaleCardContents(
   latLng?: LatLng
 ): React.ReactElement[] {
   return meshCalculator.SCALES.map((scale, idx) => (
-    <Card.Content
-      description={createScaleDescription(scale, datum, latLng)}
-      key={idx}
-    />
+    <ListItem key={`coord_popup_item_${idx}`}>
+      {createScaleDescription(scale, datum, latLng)}
+    </ListItem>
   ));
 }
 
@@ -56,17 +66,38 @@ export function CoordPopup(props: Props): React.ReactElement | null {
   });
   return position === undefined ? null : (
     <Popup position={position}>
-      <Card>
-        <Card.Content header="Scales" />
-        <Card.Content
-          description={createPositionDescription(
-            props.datum,
-            props.unit,
-            position
-          )}
-        />
-        {createScaleCardContents(props.datum, position)}
-      </Card>
+      <Box
+        w={"full"}
+        bg={useColorModeValue("white", "gray.800")}
+        rounded={"md"}
+        overflow={"hidden"}
+      >
+        <Stack
+          textAlign={"center"}
+          p={6}
+          color={useColorModeValue("gray.800", "white")}
+          align={"center"}
+        >
+          <Text
+            fontSize={"3xl"}
+            bg={useColorModeValue("green.50", "green.900")}
+            p={2}
+            px={3}
+            color={"green.500"}
+            rounded={"full"}
+          >
+            Scales
+          </Text>
+        </Stack>
+        <Box bg={useColorModeValue("gray.50", "gray.900")} px={6} py={10}>
+          <List spacing={3}>
+            <ListItem>
+              {createPositionDescription(props.datum, props.unit, position)}
+            </ListItem>
+            {createScaleCardContents(props.datum, position)}
+          </List>
+        </Box>
+      </Box>
     </Popup>
   );
 }
