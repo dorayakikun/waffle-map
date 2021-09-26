@@ -40,12 +40,12 @@ export function MarkerInput(props: Props) {
         props.putMarker(latLng);
       }
     },
-    [latLng]
+    [latLng, props]
   );
 
   const handleClickRemoveAllMarkers = React.useCallback(
     () => props.removeAllMarkers(),
-    []
+    [props]
   );
 
   return (
