@@ -56,16 +56,14 @@ function createScaleCardContents(
     </ListItem>
   ));
 }
-
-export function CoordPopup(props: Props): React.ReactElement | null {
-  const [position, setPosition] = React.useState<LatLng | undefined>(undefined);
-  useMapEvents({
-    contextmenu(e) {
-      setPosition(e.latlng);
-    },
-  });
-  return position === undefined ? null : (
-    <Popup position={position}>
+type _Props = {
+  position: LatLng;
+  datum: string;
+  unit: string;
+};
+function CoordPopup(props: _Props) {
+  return (
+    <Popup position={props.position}>
       <Box
         w={"full"}
         bg={useColorModeValue("white", "gray.800")}
@@ -92,12 +90,28 @@ export function CoordPopup(props: Props): React.ReactElement | null {
         <Box bg={useColorModeValue("gray.50", "gray.900")} px={6} py={10}>
           <List spacing={3}>
             <ListItem>
-              {createPositionDescription(props.datum, props.unit, position)}
+              {createPositionDescription(
+                props.datum,
+                props.unit,
+                props.position
+              )}
             </ListItem>
-            {createScaleCardContents(props.datum, position)}
+            {createScaleCardContents(props.datum, props.position)}
           </List>
         </Box>
       </Box>
     </Popup>
+  );
+}
+
+export function CoordPopupLayer(props: Props): React.ReactElement | null {
+  const [position, setPosition] = React.useState<LatLng | undefined>(undefined);
+  useMapEvents({
+    contextmenu(e) {
+      setPosition(e.latlng);
+    },
+  });
+  return position === undefined ? null : (
+    <CoordPopup position={position} datum={props.datum} unit={props.unit} />
   );
 }
