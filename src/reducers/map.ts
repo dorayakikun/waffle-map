@@ -1,5 +1,16 @@
 import { Action, ActionKeys } from "../actions/map";
-import { LatLng } from "../domain/calculateMesh";
+import { LatLng, Mesh } from "../domain/calculateMesh";
+import { Datum, LatLngString, Meshcode } from "../types";
+
+type Hoge = {
+  userInputMeshes: Record<Datum, Record<Meshcode, Mesh>>;
+  meshes: Record<Datum, Record<Meshcode, Mesh>>;
+  meshDetails: Record<
+    Datum,
+    Record<Meshcode, { center: number; bounds: Mesh }>
+  >;
+  markerPositions: Record<Datum, Record<LatLngString, LatLng>>;
+};
 
 export type State = {
   contextmenuPosition?: LatLng;

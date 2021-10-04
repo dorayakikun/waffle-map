@@ -13,12 +13,12 @@ import {
 } from "@chakra-ui/react";
 import * as React from "react";
 
-import { GeodeticInputContainer } from "./GeodeticInputContainer";
-import { MapContainer } from "./MapContainer";
+import { GeodeticInputContainer } from "../components/geodeticInput/";
+import { MapContainer } from "../components/map/";
 import { MarkerInputContainer } from "./MarkerInputContainer";
-import { MeshCodeInputContainer } from "./MeshCodeInputContainer";
-import { MeshDetailsContainer } from "./MeshDetailsContainer";
-import { MeshToggleContainer } from "./MeshToggleContainer";
+import { MeshcodesInputContainer } from "../components/meshcodeinput/index";
+import { MeshDetailsContainer } from "../components/meshdetails";
+import { MeshToggleContainer } from "../components/meshtoggle/";
 import { TileToggleContainer } from "./TileToggleContainer";
 
 export function AppContainer() {
@@ -81,7 +81,7 @@ export function AppContainer() {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                <MeshCodeInputContainer id={"meshCodeInput"} />
+                <MeshcodesInputContainer id={"meshCodeInput"} />
                 <MeshDetailsContainer />
               </AccordionPanel>
             </AccordionItem>
