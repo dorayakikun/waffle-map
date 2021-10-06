@@ -15,7 +15,7 @@ export function MarkerInputContainer(props: Props) {
     useMarkerInputDispatchContext();
 
   const handleLatLngStringChanged = React.useCallback(
-    (e: any) => {
+    (e: React.ChangeEvent<HTMLInputElement>) => {
       inputLatLng(e.target.value);
     },
     [inputLatLng]
