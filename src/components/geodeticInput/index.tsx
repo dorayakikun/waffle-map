@@ -11,7 +11,7 @@ export const GeodeticInputContainer = () => {
     (e: React.SyntheticEvent<HTMLElement>) => {
       changeDatum((e.target as any).value);
     },
-    [changeUnit]
+    [changeDatum]
   );
 
   const handleUnitChanged = React.useCallback(

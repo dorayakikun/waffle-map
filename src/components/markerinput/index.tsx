@@ -23,7 +23,7 @@ export function MarkerInputContainer(props: Props) {
 
   const handleClickPutAMarker = React.useCallback(() => {
     putMarker(unit);
-  }, [putMarker]);
+  }, [putMarker, unit]);
 
   const handleClickRemoveAllMarkers = React.useCallback(
     () => removeAllMarkers(),

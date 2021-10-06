@@ -19,7 +19,6 @@ export type Props = {
 };
 
 export function MarkerInput(props: Props) {
-
   return (
     <FormControl
       id={props.id}
