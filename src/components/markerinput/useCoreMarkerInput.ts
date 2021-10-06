@@ -87,7 +87,7 @@ export const useCoreMarkerInput = (initialState?: Partial<State>) => {
   );
 
   const putMarker = useCallback(
-    (latLng: string, unit: string) => {
+    (unit: string) => {
       dispatch({
         payload: { unit },
         type: ActionKeys.PUT_MARKER,
