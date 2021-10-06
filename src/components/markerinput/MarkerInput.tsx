@@ -12,31 +12,25 @@ import * as React from "react";
 export type Props = {
   errorMessage: string;
   latLngString: string;
-  onPutMarkerClicked: (e: any) => void;
+  id: string;
+  handleLatLangStringChanged: (e: any) => void;
+  onPutMarkerClicked: () => void;
   onRemoveAllMarkersClicked: () => void;
 };
 
 export function MarkerInput(props: Props) {
-  const [latLngString, setLatLngString] = React.useState<string>(
-    props.latLngString || ""
-  );
-
-  const handleChange = React.useCallback(
-    (e: React.SyntheticEvent<HTMLElement>) =>
-      setLatLngString((e.target as any).value),
-    []
-  );
 
   return (
     <FormControl
+      id={props.id}
       isInvalid={props.errorMessage !== ""}
       onKeyPress={props.onPutMarkerClicked}
     >
       <HStack spacing={3}>
         <Input
-          onChange={handleChange}
+          onChange={props.handleLatLangStringChanged}
           placeholder="lat,lng"
-          value={latLngString}
+          value={props.latLngString}
         />
         <Stack direction="row" spacing={3}>
           <Button

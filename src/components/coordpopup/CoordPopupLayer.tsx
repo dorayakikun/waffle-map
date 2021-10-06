@@ -11,7 +11,6 @@ import { Popup } from "react-leaflet";
 import meshCalculator, { LatLng } from "../../domain/calculateMesh";
 import { convertLatLngToTokyoIfNeeded } from "../../domain/convertLatLng";
 
-// FIXME
 function createScaleDescription(
   scale: number,
   datum: string,
@@ -30,7 +29,9 @@ function createScaleCardContents(
 ): React.ReactElement[] {
   return meshCalculator.SCALES.map((scale, idx) => (
     <ListItem key={`coord_popup_item_${idx}`}>
-      {createScaleDescription(scale, datum, latLng)}
+      <Text fontSize={"md"}>
+        {createScaleDescription(scale, datum, latLng)}
+      </Text>
     </ListItem>
   ));
 }
@@ -66,9 +67,11 @@ export function CoordPopupLayer(props: Props) {
             Scales
           </Text>
         </Stack>
-        <Box bg={useColorModeValue("gray.50", "gray.900")} px={6} py={10}>
+        <Box bg={useColorModeValue("gray.50", "gray.900")} px={6} py={6}>
           <List spacing={3}>
-            <ListItem>{props.positionDescription}</ListItem>
+            <ListItem>
+              <Text fontSize="md">{props.positionDescription}</Text>
+            </ListItem>
             {createScaleCardContents(props.datum, props.position)}
           </List>
         </Box>

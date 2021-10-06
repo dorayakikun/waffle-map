@@ -7,9 +7,11 @@ type Props = {
 
 export function BoundsFitter(props: Props) {
   const { bounds } = props;
+
   const map = useMap();
   useEffect(() => {
     map.fitBounds(bounds);
   });
+
   return null;
 }

@@ -4,23 +4,26 @@ import { useMarkerInputDispatchContext } from "./MarkerInputDispatchContext";
 import { useMarkerInputStateContext } from "./MarkerInputStateContext";
 import { useGeodeticInputStateContext } from "../geodeticInput/GeodeticInputStateContext";
 
-export function MarkerInputContainer() {
-  const { unit } = useGeodeticInputStateContext();
-  // FIXME: latLng => latLngString
-  const { errorMessage, latLng } = useMarkerInputStateContext();
-  const { putMarker, removeAllMarkers } = useMarkerInputDispatchContext();
+type Props = {
+  id: string;
+};
 
-  const handleClickPutAMarker = React.useCallback(
+export function MarkerInputContainer(props: Props) {
+  const { unit } = useGeodeticInputStateContext();
+  const { errorMessage, latLngString } = useMarkerInputStateContext();
+  const { inputLatLng, putMarker, removeAllMarkers } =
+    useMarkerInputDispatchContext();
+
+  const handleLatLngStringChanged = React.useCallback(
     (e: any) => {
-      if (
-        (e as React.KeyboardEvent<HTMLElement>).key === "Enter" ||
-        (e as React.MouseEvent<HTMLElement>).type === "click"
-      ) {
-        putMarker(e.target.value, unit);
-      }
+      inputLatLng(e.target.value);
     },
-    [putMarker]
+    [inputLatLng]
   );
+
+  const handleClickPutAMarker = React.useCallback(() => {
+    putMarker(unit);
+  }, [putMarker]);
 
   const handleClickRemoveAllMarkers = React.useCallback(
     () => removeAllMarkers(),
@@ -29,8 +32,10 @@ export function MarkerInputContainer() {
 
   return (
     <MarkerInput
+      id={props.id}
       errorMessage={errorMessage}
-      latLngString={latLng}
+      latLngString={latLngString}
+      handleLatLangStringChanged={handleLatLngStringChanged}
       onPutMarkerClicked={handleClickPutAMarker}
       onRemoveAllMarkersClicked={handleClickRemoveAllMarkers}
     />

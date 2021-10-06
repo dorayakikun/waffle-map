@@ -10,7 +10,7 @@ export type Props = {
 
 export function MeshDetail(props: Props): React.ReactElement<Props> {
   return (
-    <Table inverted>
+    <Table>
       <Tbody>
         <Tr>
           <Td>mesh code</Td>

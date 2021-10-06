@@ -15,11 +15,11 @@ import * as React from "react";
 
 import { GeodeticInputContainer } from "../components/geodeticInput/";
 import { MapContainer } from "../components/map/";
-import { MarkerInputContainer } from "./MarkerInputContainer";
+import { MarkerInputContainer } from "../components/markerinput";
 import { MeshcodesInputContainer } from "../components/meshcodeinput/index";
 import { MeshDetailsContainer } from "../components/meshdetails";
 import { MeshToggleContainer } from "../components/meshtoggle/";
-import { TileToggleContainer } from "./TileToggleContainer";
+import { TileToggleContainer } from "../components/tileToggle";
 
 export function AppContainer() {
   return (

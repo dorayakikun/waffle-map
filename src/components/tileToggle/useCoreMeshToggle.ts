@@ -1,26 +1,26 @@
 import { useCallback, useReducer } from "react";
 
 enum ActionKeys {
-  SET_ENABLE_MESH_GRID = "mesh_toggle/set_enable_mesh_grid",
+  SET_ENABLE_TILE_GRID = "tile_toggle/set_enable_tile_grid",
 }
 
 type ToggleVisibleAction = {
-  type: ActionKeys.SET_ENABLE_MESH_GRID;
-  payload: { enableMeshGrid: boolean };
+  type: ActionKeys.SET_ENABLE_TILE_GRID;
+  payload: { enableTileGrid: boolean };
 };
 
 type Action = ToggleVisibleAction;
 
 export type State = {
-  enableMeshGrid: boolean;
+  enableTileGrid: boolean;
 };
 
 export function reducer(state: State, action: Action): State {
   switch (action.type) {
-    case ActionKeys.SET_ENABLE_MESH_GRID:
+    case ActionKeys.SET_ENABLE_TILE_GRID:
       return {
         ...state,
-        enableMeshGrid: !state.enableMeshGrid,
+        enableTileGrid: !state.enableTileGrid,
       };
     default:
       return state;
@@ -28,7 +28,7 @@ export function reducer(state: State, action: Action): State {
 }
 
 const initialStateFactory = (initialState?: Partial<State>): State => ({
-  enableMeshGrid: false,
+  enableTileGrid: false,
   ...initialState,
 });
 
@@ -38,11 +38,11 @@ export const useCoreMeshToggle = (initialState?: Partial<State>) => {
     initialStateFactory(initialState)
   );
 
-  const setEnableMeshGrid = useCallback(
-    (enableMeshGrid: boolean) => {
+  const setEnableTileGrid = useCallback(
+    (enableTileGrid: boolean) => {
       dispatch({
-        type: ActionKeys.SET_ENABLE_MESH_GRID,
-        payload: { enableMeshGrid },
+        type: ActionKeys.SET_ENABLE_TILE_GRID,
+        payload: { enableTileGrid },
       });
     },
     [dispatch]
@@ -50,6 +50,6 @@ export const useCoreMeshToggle = (initialState?: Partial<State>) => {
 
   return {
     state,
-    setEnableMeshGrid,
+    setEnableTileGrid,
   };
 };

@@ -30,13 +30,13 @@ export type State = {
 const { toBounds, toCenterLatLng } = meshCalculator;
 function mapToMeshes(meshcodes: Meshcode[]): Record<Meshcode, Mesh> {
   return Object.fromEntries(
-    meshcodes.map((meshCode) => {
+    meshcodes.map((meshcode) => {
       return [
-        meshCode,
+        meshcode,
         {
-          bounds: toBounds(meshCode),
-          center: toCenterLatLng(meshCode),
-          code: meshCode,
+          bounds: toBounds(meshcode),
+          center: toCenterLatLng(meshcode),
+          code: meshcode,
         },
       ];
     })

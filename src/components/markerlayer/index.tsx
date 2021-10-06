@@ -6,5 +6,6 @@ import { useMarkerInputStateContext } from "../markerinput/MarkerInputStateConte
 export const MarkerlayerContainer = () => {
   const { datum } = useGeodeticInputStateContext();
   const { positions } = useMarkerInputStateContext();
+  console.log(datum, positions);
   return <MarkerLayer datum={datum} positions={positions} />;
 };

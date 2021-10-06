@@ -4,7 +4,7 @@ import * as React from "react";
 export type Props = {
   enableGrid: boolean;
   id: string;
-  onToggleChanged: (event: React.FormEvent<HTMLInputElement>) => void;
+  handleChanged: (event: React.FormEvent<HTMLInputElement>) => void;
   title: string;
 };
 
@@ -17,7 +17,7 @@ export const GridToggle = (props: Props) => {
       <Switch
         id={props.title}
         isChecked={props.enableGrid}
-        onChange={props.onToggleChanged}
+        onChange={props.handleChanged}
       />
     </FormControl>
   );

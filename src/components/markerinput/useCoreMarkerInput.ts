@@ -10,12 +10,12 @@ enum ActionKeys {
 
 type InputLatLngAction = {
   type: ActionKeys.INPUT_LAT_LNG;
-  payload: { latLng: string };
+  payload: { latLngString: string };
 };
 
 type PutMarkerAction = {
   readonly type: ActionKeys.PUT_MARKER;
-  payload: { latLng: string; unit: string };
+  payload: { unit: string };
 };
 
 type RemoveAllMarkerAction = {
@@ -26,22 +26,27 @@ type RemoveAllMarkerAction = {
 type Action = InputLatLngAction | PutMarkerAction | RemoveAllMarkerAction;
 
 export type State = {
-  latLng: string;
+  latLngString: string;
   errorMessage: string;
   positions: LatLng[];
 };
 
 export function reducer(state: State, action: Action): State {
   switch (action.type) {
-    case ActionKeys.INPUT_LAT_LNG:
-      return { ...state, latLng: action.payload.latLng };
+    case ActionKeys.INPUT_LAT_LNG: {
+      const { latLngString } = action.payload;
+      return { ...state, latLngString };
+    }
     case ActionKeys.PUT_MARKER: {
-      const { latLng, unit } = action.payload;
+      const { unit } = action.payload;
       try {
         return {
           ...state,
           errorMessage: "",
-          positions: [...state.positions, createLatLng(latLng, unit)],
+          positions: [
+            ...state.positions,
+            createLatLng(state.latLngString, unit),
+          ],
         };
       } catch (e) {
         return {
@@ -50,8 +55,9 @@ export function reducer(state: State, action: Action): State {
         };
       }
     }
-    case ActionKeys.REMOVE_ALL_MARKERS:
+    case ActionKeys.REMOVE_ALL_MARKERS: {
       return { ...state, positions: [] };
+    }
     default:
       return state;
   }
@@ -59,7 +65,7 @@ export function reducer(state: State, action: Action): State {
 
 const initialStateFactory = (initialState?: Partial<State>): State => ({
   errorMessage: "",
-  latLng: "",
+  latLngString: "",
   positions: [],
   ...initialState,
 });
@@ -71,28 +77,31 @@ export const useCoreMarkerInput = (initialState?: Partial<State>) => {
   );
 
   const inputLatLng = useCallback(
-    (latLng: string) => ({
-      payload: { latLng },
-      type: ActionKeys.INPUT_LAT_LNG,
-    }),
+    (latLngString: string) => {
+      dispatch({
+        payload: { latLngString },
+        type: ActionKeys.INPUT_LAT_LNG,
+      });
+    },
     [dispatch]
   );
 
   const putMarker = useCallback(
-    (latLng: string, unit: string) => ({
-      payload: { latLng, unit },
-      type: ActionKeys.PUT_MARKER,
-    }),
+    (latLng: string, unit: string) => {
+      dispatch({
+        payload: { unit },
+        type: ActionKeys.PUT_MARKER,
+      });
+    },
     [dispatch]
   );
 
-  const removeAllMarkers = useCallback(
-    () => ({
+  const removeAllMarkers = useCallback(() => {
+    dispatch({
       type: ActionKeys.REMOVE_ALL_MARKERS,
       payload: {},
-    }),
-    [dispatch]
-  );
+    });
+  }, [dispatch]);
 
   return {
     state,

@@ -5,12 +5,10 @@ import * as React from "react";
 import { MapContainer as LeafletMap, TileLayer } from "react-leaflet";
 import { BoundFitterContainer } from "../boundsfitter/";
 import { CoordPopupLayerContainer } from "../coordpopup/";
-import { DebugTileLayer } from "../DebugTileLayer";
+import { DebugtilelayerContainer } from "../debugtilelayer/";
 import { MarkerlayerContainer } from "../markerlayer/index";
-import { MeshLayer } from "../MeshLayer";
-import { Mesh } from "../../domain/calculateMesh";
-import { convertBoundsToWGS84IfNeeded } from "../../domain/convertLatLng";
-import { MeshRectangle } from "../MeshRectangle";
+import { MeshLayerContainer } from "../meshlayer/index";
+import { UserInputMeshLayerContainer } from "../userinputmeshlayer/index";
 
 delete (L.Icon as any).Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -24,11 +22,6 @@ export const initialLeafletBounds: [number, number][] = [
 ];
 
 export function Map() {
-  // FIXME
-  const meshes: Mesh[] = [];
-  const datum = "";
-  const isShowDebugTiles = false;
-  const isShowMeshes = false;
   return (
     <Box>
       <LeafletMap
@@ -41,22 +34,9 @@ export function Map() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
-        {isShowDebugTiles && <DebugTileLayer />}
-        {isShowMeshes && <MeshLayer color={"#9C27B0"} datum={datum} />}
-        <>
-          {meshes.map((mesh, index) => {
-            const bounds = convertBoundsToWGS84IfNeeded(mesh.bounds, datum);
-            return (
-              <MeshRectangle
-                key={`mesh_rectangle_${mesh.code}`}
-                bounds={bounds}
-                index={index}
-                meshCode={mesh.code}
-                color={"#00847e"}
-              />
-            );
-          })}
-        </>
+        <DebugtilelayerContainer />
+        <MeshLayerContainer />
+        <UserInputMeshLayerContainer />
         <MarkerlayerContainer />
         <CoordPopupLayerContainer />
         <BoundFitterContainer />

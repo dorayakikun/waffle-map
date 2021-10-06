@@ -10,17 +10,19 @@ type Props = {
 export const MeshToggleContainer = (props: Props) => {
   const { enableMeshGrid } = useMeshToggleStateContext();
   const { setEnableMeshGrid } = useMeshToggleDispatchContext();
+
   const handleToggleChanged = React.useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
-      setEnableMeshGrid((e.target as any).value);
+      setEnableMeshGrid((e.target as any).checked);
     },
     [setEnableMeshGrid]
   );
+
   return (
     <GridToggle
       id={props.id}
       enableGrid={enableMeshGrid}
-      onToggleChanged={handleToggleChanged}
+      handleChanged={handleToggleChanged}
       title={"Show meshes"}
     />
   );

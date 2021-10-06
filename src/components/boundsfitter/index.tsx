@@ -4,11 +4,13 @@ import {
   convertBoundsToWGS84IfNeeded,
   convertLatLngToWGS84IfNeeded,
 } from "../../domain/convertLatLng";
-import { initialLeafletBounds } from "../Map";
+// FIXME initialLeafletBounds を constans に移動する
+import { initialLeafletBounds } from "../map/Map";
 import { BoundsFitter } from "./BoundsFitter";
 import { useMeshCodeInputStateContext } from "../meshcodeinput/MeshcodesInputStateContext";
 import { Meshcode } from "../../types";
 import { useGeodeticInputStateContext } from "../geodeticInput/GeodeticInputStateContext";
+import { useMarkerInputStateContext } from "../markerinput/MarkerInputStateContext";
 
 function meshesToLatsAndLngs(
   meshes: Record<Meshcode, Mesh>,
@@ -60,13 +62,12 @@ function calculateLeafletBounds(
 
 export function BoundFitterContainer() {
   const { userInputMeshes, meshcodes } = useMeshCodeInputStateContext();
-  // FIXME: useContext で markerPositions, datum を取得
-  const markerPositions: LatLng[] = [];
+  const { positions } = useMarkerInputStateContext();
   const { datum } = useGeodeticInputStateContext();
   const bounds = calculateLeafletBounds(
     userInputMeshes,
     meshcodes,
-    markerPositions,
+    positions,
     datum
   );
   return <BoundsFitter bounds={bounds} />;

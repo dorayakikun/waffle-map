@@ -30,12 +30,13 @@ export function CoordPopupLayerContainer(): React.ReactElement | null {
   const { setPosition } = useCoordPopupLayerDispatchContext();
   const { datum, unit } = useGeodeticInputStateContext();
   const positionDescription = createPositionDescription(datum, unit, position);
+
   useMapEvents({
     contextmenu(e) {
       setPosition(e.latlng);
     },
   });
-  console.log("position: ", position);
+
   return position === undefined ? null : (
     <CoordPopupLayer
       position={position}
