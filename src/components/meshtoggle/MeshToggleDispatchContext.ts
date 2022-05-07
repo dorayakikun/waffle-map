@@ -4,7 +4,7 @@ type State = {
   setEnableMeshGrid: (enableMeshGrid: boolean) => void;
 };
 
-export const MeshToggleDispatchContext = createContext<State | {}>({});
+export const MeshToggleDispatchContext = createContext<State | Record<never, never>>({});
 export const useMeshToggleDispatchContext = () => {
   return useContext(MeshToggleDispatchContext) as State;
 };

@@ -1,7 +1,0 @@
-**/node_modules
-coverage
-public
-storybook-static
-website
-
-webpack.config.js

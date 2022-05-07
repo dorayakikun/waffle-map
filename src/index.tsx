@@ -27,5 +27,5 @@ render(
       </GeodeticInputProvider>
     </CoordPopupLayerProvider>
   </ChakraProvider>,
-  root
+  root,
 );

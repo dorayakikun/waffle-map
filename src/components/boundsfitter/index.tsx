@@ -15,7 +15,7 @@ import { useMarkerInputStateContext } from "../markerinput/MarkerInputStateConte
 function meshesToLatsAndLngs(
   meshes: Record<Meshcode, Mesh>,
   meshcodes: Meshcode[],
-  datum: string
+  datum: string,
 ): { lats: number[]; lngs: number[] } {
   const lats: number[] = [];
   const lngs: number[] = [];
@@ -38,7 +38,7 @@ function calculateLeafletBounds(
   meshes: Record<Meshcode, Mesh>,
   meshcodes: Meshcode[],
   markerPositions: LatLng[],
-  datum: string
+  datum: string,
 ): [number, number][] {
   if (meshcodes.length === 0 && markerPositions.length === 0) {
     return initialLeafletBounds;
@@ -68,7 +68,7 @@ export function BoundFitterContainer() {
     userInputMeshes,
     meshcodes,
     positions,
-    datum
+    datum,
   );
   return <BoundsFitter bounds={bounds} />;
 }

@@ -9,10 +9,13 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x]
+        node-version: [16.x]
 
     steps:
     - uses: actions/checkout@v3
+    - uses: denoland/setup-deno@v1
+      with:
+        deno-version: v1.21.2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
@@ -22,6 +25,4 @@ jobs:
         npm ci
         npm run build
         npm run lint
-        npm run test
-      env:
-        CI: true
+        npm test

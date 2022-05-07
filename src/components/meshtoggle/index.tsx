@@ -15,7 +15,7 @@ export const MeshToggleContainer = (props: Props) => {
     (e: React.FormEvent<HTMLInputElement>) => {
       setEnableMeshGrid((e.target as any).checked);
     },
-    [setEnableMeshGrid]
+    [setEnableMeshGrid],
   );
 
   return (

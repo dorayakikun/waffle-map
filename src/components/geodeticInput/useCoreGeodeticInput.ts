@@ -51,7 +51,7 @@ const initialStateFactory = (initialState?: Partial<State>): State => ({
 export const useCoreGeodeticInput = (initialState?: Partial<State>) => {
   const [state, dispatch] = useReducer(
     reducer,
-    initialStateFactory(initialState)
+    initialStateFactory(initialState),
   );
 
   const changeDatum = useCallback(
@@ -61,7 +61,7 @@ export const useCoreGeodeticInput = (initialState?: Partial<State>) => {
         payload: { datum },
       });
     },
-    [dispatch]
+    [dispatch],
   );
 
   const changeUnit = useCallback(
@@ -71,7 +71,7 @@ export const useCoreGeodeticInput = (initialState?: Partial<State>) => {
         payload: { unit },
       });
     },
-    [dispatch]
+    [dispatch],
   );
 
   return {

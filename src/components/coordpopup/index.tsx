@@ -14,7 +14,7 @@ import { useGeodeticInputStateContext } from "../geodeticInput/GeodeticInputStat
 function createPositionDescription(
   datum: string,
   unit: string,
-  latLng?: LatLng
+  latLng?: LatLng,
 ): string {
   if (latLng == null) {
     return "";

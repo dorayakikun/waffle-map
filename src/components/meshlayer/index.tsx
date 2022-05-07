@@ -30,7 +30,7 @@ function getSquareMeshes(latlng: LatLng, zoom: number, redius: number): Mesh[] {
   const centerMeshCode = meshCalculator.toMeshCode(
     latlng.lat,
     latlng.lng,
-    scale
+    scale,
   );
   const meshCodes: string[] = getSquareMeshCodes(centerMeshCode, redius);
   return meshCodes.map(createMesh);

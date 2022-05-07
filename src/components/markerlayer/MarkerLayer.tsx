@@ -13,9 +13,7 @@ export function MarkerLayer(props: Props): React.ReactElement {
     <>
       {props.positions
         .map((position) => convertLatLngToWGS84IfNeeded(position, props.datum))
-        .map((position, idx) => (
-          <Marker key={idx} position={position} />
-        ))}
+        .map((position, idx) => <Marker key={idx} position={position} />)}
     </>
   );
 }

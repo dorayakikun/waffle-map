@@ -8,10 +8,10 @@ type Props = {
 };
 
 export const GeodeticInputProvider = (
-  props: React.PropsWithChildren<Props>
+  props: React.PropsWithChildren<Props>,
 ) => {
   const { state, changeDatum, changeUnit } = useCoreGeodeticInput(
-    props.initialState
+    props.initialState,
   );
 
   return (

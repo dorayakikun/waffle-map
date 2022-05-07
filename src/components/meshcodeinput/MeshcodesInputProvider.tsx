@@ -8,10 +8,11 @@ type Props = {
 };
 
 export const MeshcodesInputProvider = (
-  props: React.PropsWithChildren<Props>
+  props: React.PropsWithChildren<Props>,
 ) => {
-  const { state, inputMeshcodesString, changeSeparator } =
-    useCoreMeshcodesInput(props.initialState);
+  const { state, inputMeshcodesString, changeSeparator } = useCoreMeshcodesInput(
+    props.initialState,
+  );
 
   return (
     <MeshcodesInputStateContext.Provider value={state}>

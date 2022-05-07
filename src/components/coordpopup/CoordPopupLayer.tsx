@@ -1,11 +1,4 @@
-import {
-  Box,
-  Text,
-  Stack,
-  List,
-  ListItem,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, List, ListItem, Stack, Text, useColorModeValue } from "@chakra-ui/react";
 import * as React from "react";
 import { Popup } from "react-leaflet";
 import meshCalculator, { LatLng } from "../../domain/calculateMesh";
@@ -14,7 +7,7 @@ import { convertLatLngToTokyoIfNeeded } from "../../domain/convertLatLng";
 function createScaleDescription(
   scale: number,
   datum: string,
-  latLng?: LatLng
+  latLng?: LatLng,
 ): string {
   if (latLng == null) {
     throw new Error("Unexpected exception occured. Missing latlang.");
@@ -25,7 +18,7 @@ function createScaleDescription(
 
 function createScaleCardContents(
   datum: string,
-  latLng?: LatLng
+  latLng?: LatLng,
 ): React.ReactElement[] {
   return meshCalculator.SCALES.map((scale, idx) => (
     <ListItem key={`coord_popup_item_${idx}`}>

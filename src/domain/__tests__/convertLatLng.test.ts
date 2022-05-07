@@ -111,19 +111,19 @@ test("Should convert bounds to millisec", () => {
 
 test("Should convert bounds to WGS84 if needed", () => {
   expect(convertBoundsToWGS84IfNeeded(boundsDegree, "Tokyo")).toEqual(
-    convertBoundsToWGS84(boundsDegree)
+    convertBoundsToWGS84(boundsDegree),
   );
   expect(convertBoundsToWGS84IfNeeded(boundsDegree, "WGS84")).toEqual(
-    boundsDegree
+    boundsDegree,
   );
 });
 
 test("Should convert bounds to Tokyo if needed", () => {
   expect(convertBoundsToTokyoIfNeeded(boundsDegree, "Tokyo")).toEqual(
-    convertBoundsToTokyo(boundsDegree)
+    convertBoundsToTokyo(boundsDegree),
   );
   expect(convertBoundsToTokyoIfNeeded(boundsDegree, "WGS84")).toEqual(
-    boundsDegree
+    boundsDegree,
   );
 });
 
@@ -131,7 +131,7 @@ const latLng = { lat: 35, lng: 139 };
 
 test("Should convert LatLng to Tokyo if needed", () => {
   expect(convertLatLngToTokyoIfNeeded(latLng, "Tokyo")).toEqual(
-    convertLatLngToTokyo(latLng)
+    convertLatLngToTokyo(latLng),
   );
 
   expect(convertLatLngToTokyoIfNeeded(latLng, "WGS84")).toEqual(latLng);
@@ -139,7 +139,7 @@ test("Should convert LatLng to Tokyo if needed", () => {
 
 test("Should convert LatLng to WGS84 if needed", () => {
   expect(convertLatLngToWGS84IfNeeded(latLng, "Tokyo")).toEqual(
-    convertLatLngToWGS84(latLng)
+    convertLatLngToWGS84(latLng),
   );
 
   expect(convertLatLngToWGS84IfNeeded(latLng, "WGS84")).toEqual(latLng);
@@ -147,7 +147,7 @@ test("Should convert LatLng to WGS84 if needed", () => {
 
 test("Should convert LatLng to millisec if needed", () => {
   expect(convertLatLngToMillisecIfNeeded(latLng, "millisec")).toEqual(
-    convertLatLngToMillisec(latLng)
+    convertLatLngToMillisec(latLng),
   );
 
   expect(convertLatLngToMillisecIfNeeded(latLng, "degree")).toEqual(latLng);
@@ -155,10 +155,10 @@ test("Should convert LatLng to millisec if needed", () => {
 
 test("Should convert bounds to millisec if needed", () => {
   expect(convertBoundsToMillisecIfNeeded(boundsDegree, "millisec")).toEqual(
-    convertBoundsToMillisec(boundsDegree)
+    convertBoundsToMillisec(boundsDegree),
   );
 
   expect(convertBoundsToMillisecIfNeeded(boundsDegree, "degree")).toEqual(
-    boundsDegree
+    boundsDegree,
   );
 });

@@ -99,42 +99,42 @@ export function convertBoundsToMillisec(bounds: Bounds): Bounds {
 
 export function convertBoundsToWGS84IfNeeded(
   bounds: Bounds,
-  datum: string
+  datum: string,
 ): Bounds {
   return datum === "Tokyo" ? convertBoundsToWGS84(bounds) : bounds;
 }
 
 export function convertBoundsToTokyoIfNeeded(
   bounds: Bounds,
-  datum: string
+  datum: string,
 ): Bounds {
   return datum === "Tokyo" ? convertBoundsToTokyo(bounds) : bounds;
 }
 
 export function convertLatLngToTokyoIfNeeded(
   latLng: LatLng,
-  datum: string
+  datum: string,
 ): LatLng {
   return datum === "Tokyo" ? convertLatLngToTokyo(latLng) : latLng;
 }
 
 export function convertLatLngToWGS84IfNeeded(
   latLng: LatLng,
-  datum: string
+  datum: string,
 ): LatLng {
   return datum === "Tokyo" ? convertLatLngToWGS84(latLng) : latLng;
 }
 
 export function convertLatLngToMillisecIfNeeded(
   latLng: LatLng,
-  unit: string
+  unit: string,
 ): LatLng {
   return unit === "millisec" ? convertLatLngToMillisec(latLng) : latLng;
 }
 
 export function convertBoundsToMillisecIfNeeded(
   bounds: Bounds,
-  unit: string
+  unit: string,
 ): Bounds {
   return unit === "millisec" ? convertBoundsToMillisec(bounds) : bounds;
 }

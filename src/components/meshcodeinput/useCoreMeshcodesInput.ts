@@ -39,7 +39,7 @@ function mapToMeshes(meshcodes: Meshcode[]): Record<Meshcode, Mesh> {
           code: meshcode,
         },
       ];
-    })
+    }),
   );
 }
 
@@ -87,7 +87,7 @@ const initialStateFactory = (initialState?: Partial<State>): State => ({
 export function useCoreMeshcodesInput(initialState?: Partial<State>) {
   const [state, dispatch] = useReducer(
     reducer,
-    initialStateFactory(initialState)
+    initialStateFactory(initialState),
   );
 
   const inputMeshcodesString = useCallback(
@@ -97,7 +97,7 @@ export function useCoreMeshcodesInput(initialState?: Partial<State>) {
         payload: { meshcodesString },
       });
     },
-    [dispatch]
+    [dispatch],
   );
 
   const changeSeparator = useCallback(
@@ -107,7 +107,7 @@ export function useCoreMeshcodesInput(initialState?: Partial<State>) {
         payload: { separator },
       });
     },
-    [dispatch]
+    [dispatch],
   );
 
   return {

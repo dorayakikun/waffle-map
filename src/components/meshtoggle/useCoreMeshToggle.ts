@@ -35,7 +35,7 @@ const initialStateFactory = (initialState?: Partial<State>): State => ({
 export const useCoreMeshToggle = (initialState?: Partial<State>) => {
   const [state, dispatch] = useReducer(
     reducer,
-    initialStateFactory(initialState)
+    initialStateFactory(initialState),
   );
 
   const setEnableMeshGrid = useCallback(
@@ -45,7 +45,7 @@ export const useCoreMeshToggle = (initialState?: Partial<State>) => {
         payload: { enableMeshGrid },
       });
     },
-    [dispatch]
+    [dispatch],
   );
 
   return {

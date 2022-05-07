@@ -1,8 +1,4 @@
-import {
-  createLayerComponent,
-  updateGridLayer,
-  withPane,
-} from "@react-leaflet/core";
+import { createLayerComponent, updateGridLayer, withPane } from "@react-leaflet/core";
 import { Coords, GridLayer, GridLayerOptions } from "leaflet";
 
 const _debugTileLayer = (GridLayer as any).extend({
@@ -32,5 +28,5 @@ export const DebugTileLayer = createLayerComponent<GridLayer, GridLayerOptions>(
       context,
     };
   },
-  updateGridLayer
+  updateGridLayer,
 );

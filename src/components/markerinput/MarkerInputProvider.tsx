@@ -7,8 +7,9 @@ type Props = {
 };
 
 export const MarkerInputProvider = (props: React.PropsWithChildren<Props>) => {
-  const { state, inputLatLng, putMarker, removeAllMarkers } =
-    useCoreMarkerInput(props.initialState);
+  const { state, inputLatLng, putMarker, removeAllMarkers } = useCoreMarkerInput(
+    props.initialState,
+  );
 
   return (
     <MarkerInputStateContext.Provider value={state}>

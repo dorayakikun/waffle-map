@@ -27,11 +27,11 @@ export const MeshDetailsContainer = () => {
 
         const center = convertLatLngToMillisecIfNeeded(
           convertLatLngToTokyoIfNeeded(mesh.center, datum),
-          unit
+          unit,
         );
         const bounds = convertBoundsToMillisecIfNeeded(
           convertBoundsToTokyoIfNeeded(mesh.bounds, datum),
-          unit
+          unit,
         );
 
         const rows = createRows(center, bounds);

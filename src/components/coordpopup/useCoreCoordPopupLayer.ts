@@ -38,7 +38,7 @@ const initialStateFactory = (initialState?: Partial<State>): State => ({
 export const useCoreCoordPopupLayer = (initialState?: Partial<State>) => {
   const [state, dispatch] = useReducer(
     reducer,
-    initialStateFactory(initialState)
+    initialStateFactory(initialState),
   );
 
   const setPosition = useCallback(
@@ -48,7 +48,7 @@ export const useCoreCoordPopupLayer = (initialState?: Partial<State>) => {
         payload: { position },
       });
     },
-    [dispatch]
+    [dispatch],
   );
 
   return {

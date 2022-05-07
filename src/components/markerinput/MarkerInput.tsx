@@ -1,12 +1,5 @@
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
-import {
-  Button,
-  FormControl,
-  FormErrorMessage,
-  HStack,
-  Input,
-  Stack,
-} from "@chakra-ui/react";
+import { Button, FormControl, FormErrorMessage, HStack, Input, Stack } from "@chakra-ui/react";
 import * as React from "react";
 
 export type Props = {
