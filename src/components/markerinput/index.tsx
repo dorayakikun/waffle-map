@@ -11,14 +11,13 @@ type Props = {
 export function MarkerInputContainer(props: Props) {
   const { unit } = useGeodeticInputStateContext();
   const { errorMessage, latLngString } = useMarkerInputStateContext();
-  const { inputLatLng, putMarker, removeAllMarkers } =
-    useMarkerInputDispatchContext();
+  const { inputLatLng, putMarker, removeAllMarkers } = useMarkerInputDispatchContext();
 
   const handleLatLngStringChanged = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       inputLatLng(e.target.value);
     },
-    [inputLatLng]
+    [inputLatLng],
   );
 
   const handleClickPutAMarker = React.useCallback(() => {
@@ -27,7 +26,7 @@ export function MarkerInputContainer(props: Props) {
 
   const handleClickRemoveAllMarkers = React.useCallback(
     () => removeAllMarkers(),
-    [removeAllMarkers]
+    [removeAllMarkers],
   );
 
   return (

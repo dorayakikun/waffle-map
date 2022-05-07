@@ -8,23 +8,21 @@ type Props = {
 };
 
 export const MeshcodesInputContainer = (props: Props) => {
-  const { meshcodesString, errorMessage, separator } =
-    useMeshCodeInputStateContext();
-  const { inputMeshcodesString, changeSeparator } =
-    useMeshCodeInputDispatchContext();
+  const { meshcodesString, errorMessage, separator } = useMeshCodeInputStateContext();
+  const { inputMeshcodesString, changeSeparator } = useMeshCodeInputDispatchContext();
 
   const handleMeshcodesStringChanged = React.useCallback(
     (e: React.SyntheticEvent<HTMLInputElement>) => {
       inputMeshcodesString((e.target as any).value);
     },
-    [inputMeshcodesString]
+    [inputMeshcodesString],
   );
 
   const handleSeparateChanged = React.useCallback(
     (e: React.SyntheticEvent<HTMLElement>) => {
       changeSeparator((e.target as any).value);
     },
-    [changeSeparator]
+    [changeSeparator],
   );
 
   return (

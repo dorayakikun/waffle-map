@@ -8,7 +8,7 @@ type Props = {
 };
 
 export const CoordPopupLayerProvider = (
-  props: React.PropsWithChildren<Props>
+  props: React.PropsWithChildren<Props>,
 ) => {
   const { state, setPosition } = useCoreCoordPopupLayer(props.initialState);
   return (

@@ -20,7 +20,7 @@ type PutMarkerAction = {
 
 type RemoveAllMarkerAction = {
   readonly type: ActionKeys.REMOVE_ALL_MARKERS;
-  payload: {};
+  payload: Record<never, never>;
 };
 
 type Action = InputLatLngAction | PutMarkerAction | RemoveAllMarkerAction;
@@ -73,7 +73,7 @@ const initialStateFactory = (initialState?: Partial<State>): State => ({
 export const useCoreMarkerInput = (initialState?: Partial<State>) => {
   const [state, dispatch] = useReducer(
     reducer,
-    initialStateFactory(initialState)
+    initialStateFactory(initialState),
   );
 
   const inputLatLng = useCallback(
@@ -83,7 +83,7 @@ export const useCoreMarkerInput = (initialState?: Partial<State>) => {
         type: ActionKeys.INPUT_LAT_LNG,
       });
     },
-    [dispatch]
+    [dispatch],
   );
 
   const putMarker = useCallback(
@@ -93,7 +93,7 @@ export const useCoreMarkerInput = (initialState?: Partial<State>) => {
         type: ActionKeys.PUT_MARKER,
       });
     },
-    [dispatch]
+    [dispatch],
   );
 
   const removeAllMarkers = useCallback(() => {

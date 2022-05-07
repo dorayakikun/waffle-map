@@ -1,10 +1,4 @@
-import {
-  FormControl,
-  FormErrorMessage,
-  Input,
-  Select,
-  Stack,
-} from "@chakra-ui/react";
+import { FormControl, FormErrorMessage, Input, Select, Stack } from "@chakra-ui/react";
 import * as React from "react";
 
 export type Props = {
@@ -13,7 +7,7 @@ export type Props = {
   meshCodes: string;
   separator: string;
   onMeshecodesStringChanged: (
-    e: React.SyntheticEvent<HTMLInputElement>
+    e: React.SyntheticEvent<HTMLInputElement>,
   ) => void;
   onSeparatorChanged: (e: React.SyntheticEvent<HTMLElement>) => void;
 };

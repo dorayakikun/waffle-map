@@ -1,4 +1,4 @@
-import { Table, Tbody, Tr, Td } from "@chakra-ui/react";
+import { Table, Tbody, Td, Tr } from "@chakra-ui/react";
 import * as React from "react";
 import { LatLng } from "../../../domain/calculateMesh";
 import { round } from "../../../domain/roundPoint";

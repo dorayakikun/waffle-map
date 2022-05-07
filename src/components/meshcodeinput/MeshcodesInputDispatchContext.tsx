@@ -5,7 +5,7 @@ type State = {
   changeSeparator: (separator: string) => void;
 };
 
-export const MeshcodesInputDispatchContext = createContext<State | {}>({});
+export const MeshcodesInputDispatchContext = createContext<State | Record<never, never>>({});
 export const useMeshCodeInputDispatchContext = () => {
   return useContext(MeshcodesInputDispatchContext) as State;
 };

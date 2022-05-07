@@ -5,7 +5,7 @@ type State = {
   changeUnit: (unit: string) => void;
 };
 
-export const GeodeticInputDispatchContext = createContext<State | {}>({});
+export const GeodeticInputDispatchContext = createContext<State | Record<never, never>>({});
 export const useGeodeticInputDispatchContext = () => {
   return useContext(GeodeticInputDispatchContext) as State;
 };

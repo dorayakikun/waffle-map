@@ -6,7 +6,7 @@ type State = {
   removeAllMarkers: () => void;
 };
 
-export const MarkerInputDispatchContext = createContext<State | {}>({});
+export const MarkerInputDispatchContext = createContext<State | Record<never, never>>({});
 export const useMarkerInputDispatchContext = () => {
   return useContext(MarkerInputDispatchContext) as State;
 };
