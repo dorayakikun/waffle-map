@@ -42,8 +42,8 @@
     "webpack-cli": "^4.0.0"
   },
   "dependencies": {
-    "@chakra-ui/icons": "^1.0.15",
-    "@chakra-ui/react": "^1.6.8",
+    "@chakra-ui/icons": "^2.0.0",
+    "@chakra-ui/react": "^2.0.0",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@types/leaflet": "^1.4.1",
