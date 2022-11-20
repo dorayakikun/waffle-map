@@ -29,7 +29,7 @@
     "css-loader": "^6.0.0",
     "jest": "^28.0.0",
     "jest-environment-jsdom": "^28.1.0",
-    "jest-junit": "^13.0.0",
+    "jest-junit": "^15.0.0",
     "json-loader": "^0.5.7",
     "react-test-renderer": "^18.0.0",
     "regenerator-runtime": "^0.13.1",
