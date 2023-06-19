@@ -52,7 +52,7 @@
     "@types/react-dom": "^18.0.0",
     "@types/react-redux": "^7.0.0",
     "@types/redux": "^3.6.0",
-    "framer-motion": "^6.0.0",
+    "framer-motion": "^10.0.0",
     "leaflet": "^1.7.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
