@@ -4,12 +4,10 @@
     "strict": true
   },
   "lint": {
-    "files": {
-      "include": [
-        "src"
-      ],
-      "exclude": ["node_modules"]
-    },
+    "include": [
+      "src"
+    ],
+    "exclude": ["node_modules", "dist"],
     "rules": {
       "tags": ["recommended"],
       "exclude": [
@@ -22,13 +20,11 @@
     }
   },
   "fmt": {
-    "files": {
-      "include": [
-        "src",
-        "deno.jsonc"
-      ],
-      "exclude": ["node_modules"]
-    },
+    "include": [
+      "src",
+      "deno.jsonc"
+    ],
+    "exclude": ["node_modules", "dist"],
     "options": {
       "useTabs": false,
       "lineWidth": 100,

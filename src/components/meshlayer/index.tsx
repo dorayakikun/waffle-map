@@ -68,7 +68,7 @@ export const MeshLayerContainer = () => {
             bounds={bounds}
             index={index}
             meshCode={mesh.code}
-            color={"#9C27B0"}
+            color="#9C27B0"
           />
         );
       })}

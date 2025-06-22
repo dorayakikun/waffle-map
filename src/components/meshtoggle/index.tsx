@@ -22,7 +22,7 @@ export const MeshToggleContainer = (props: Props) => {
       id={props.id}
       enableGrid={enableMeshGrid}
       handleChanged={handleToggleChanged}
-      title={"Show meshes"}
+      title="Show meshes"
     />
   );
 };

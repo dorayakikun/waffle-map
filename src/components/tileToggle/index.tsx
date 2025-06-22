@@ -22,7 +22,7 @@ export const TileToggleContainer = (props: Props) => {
       id={props.id}
       enableGrid={enableTileGrid}
       handleChanged={handleToggleChanged}
-      title={"Show tiles"}
+      title="Show tiles"
     />
   );
 };

@@ -51,12 +51,12 @@ export function MeshcodesInput(props: Props): React.ReactElement<Props> {
             Separator
           </label>
           <Select value={props.separator} onValueChange={props.onSeparatorChanged}>
-            <SelectTrigger className="w-full bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 border-slate-300 dark:border-slate-600 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-600 focus:ring-2 focus:ring-slate-500 dark:focus:ring-slate-400 focus:border-slate-500 dark:focus:border-slate-400">
+            <SelectTrigger className="w-full bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 border-slate-300 dark:border-slate-600 shadow-sm hover:bg-slate-100 hover:border-slate-400 dark:hover:bg-slate-600 dark:hover:border-slate-500 focus:ring-2 focus:ring-slate-500 dark:focus:ring-slate-400 focus:border-slate-500 dark:focus:border-slate-400">
               <SelectValue placeholder="Select separator" />
             </SelectTrigger>
             <SelectContent className="bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600">
-              <SelectItem value="," className="text-slate-900 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-600 focus:bg-slate-100 dark:focus:bg-slate-600">Commas (,)</SelectItem>
-              <SelectItem value="." className="text-slate-900 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-600 focus:bg-slate-100 dark:focus:bg-slate-600">Dots (.)</SelectItem>
+              <SelectItem value="," className="text-slate-900 dark:text-slate-100 hover:bg-slate-200 hover:text-slate-900 dark:hover:bg-slate-500 dark:hover:text-white focus:bg-slate-200 focus:text-slate-900 dark:focus:bg-slate-500 dark:focus:text-white">Commas (,)</SelectItem>
+              <SelectItem value="." className="text-slate-900 dark:text-slate-100 hover:bg-slate-200 hover:text-slate-900 dark:hover:bg-slate-500 dark:hover:text-white focus:bg-slate-200 focus:text-slate-900 dark:focus:bg-slate-500 dark:focus:text-white">Dots (.)</SelectItem>
             </SelectContent>
           </Select>
         </div>

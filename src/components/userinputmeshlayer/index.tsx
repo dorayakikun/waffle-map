@@ -19,7 +19,7 @@ export const UserInputMeshLayerContainer = () => {
             bounds={bounds}
             index={index}
             meshCode={mesh.code}
-            color={"#00847e"}
+            color="#00847e"
           />
         );
       })}
