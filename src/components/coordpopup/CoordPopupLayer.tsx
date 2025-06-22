@@ -10,25 +10,12 @@ import { round } from "../../domain/roundPoint";
 function createScaleDescription(
   scale: number,
   datum: string,
-  latLng?: LatLng,
+  latLng: LatLng,
 ): string {
-  if (latLng == null) {
-    throw new Error("Unexpected exception occured. Missing latlang.");
-  }
   const { lat, lng } = convertLatLngToTokyoIfNeeded(latLng, datum);
   return `scale${scale}: ${meshCalculator.toMeshCode(lat, lng, scale)}`;
 }
 
-function createScaleCardContents(
-  datum: string,
-  latLng?: LatLng,
-): React.ReactElement[] {
-  return meshCalculator.SCALES.map((scale, idx) => (
-    <li key={`coord_popup_item_${idx}`} className="text-sm">
-      {createScaleDescription(scale, datum, latLng)}
-    </li>
-  ));
-}
 
 type Props = {
   position: LatLng;

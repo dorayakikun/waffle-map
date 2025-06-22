@@ -1,28 +1,78 @@
 name: Node CI
 
-on: [push]
+on: 
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [20.x, 22.x]
 
     steps:
-    - uses: actions/checkout@v3
-    - uses: denoland/setup-deno@v1
+    - uses: actions/checkout@v4
+    - name: Setup Deno
+      uses: denoland/setup-deno@v2
       with:
-        deno-version: v1.21.2
+        deno-version: v2.x
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - name: npm install, build, and test
-      run: |
-        npm ci
-        npm run build
-        npm run lint
-        npm test
+        cache: 'npm'
+    - name: Install dependencies
+      run: npm ci
+    - name: Format code
+      run: npm run fmt
+    - name: Lint code
+      run: npm run lint
+    - name: Type check
+      run: npm run typecheck
+    - name: Run tests
+      run: npm test
+    - name: Build project
+      run: npm run build
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup Deno
+      uses: denoland/setup-deno@v2
+      with:
+        deno-version: v2.x
+    - name: Use Node.js 22.x
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22.x
+        cache: 'npm'
+    - name: Install dependencies
+      run: npm ci
+    - name: Build project
+      run: npm run build
+    - name: Setup Pages
+      uses: actions/configure-pages@v5
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: './dist'
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4

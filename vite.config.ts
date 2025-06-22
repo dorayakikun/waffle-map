@@ -11,16 +11,30 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsDir: '',
+    target: 'es2022',
+    minify: 'esbuild',
+    sourcemap: true,
   },
   server: {
     port: 3000,
     open: true,
+  },
+  preview: {
+    port: 4173,
   },
   publicDir: 'public',
   assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.svg'],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+    },
+  },
+  esbuild: {
+    target: 'es2022',
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'es2022',
     },
   },
 })

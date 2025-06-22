@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { LatLng } from '../domain/calculateMesh';
 
 export type CoordPopupLayerState = {
-  position?: LatLng;
+  position: LatLng | null;
 };
 
 export type CoordPopupLayerActions = {
@@ -12,7 +12,7 @@ export type CoordPopupLayerActions = {
 export type CoordPopupLayerStore = CoordPopupLayerState & CoordPopupLayerActions;
 
 const initialState: CoordPopupLayerState = {
-  position: undefined,
+  position: null,
 };
 
 export const useCoordPopupLayerStore = create<CoordPopupLayerStore>((set) => ({

@@ -37,7 +37,7 @@ export function MeshcodesInput(props: Props): React.ReactElement<Props> {
             placeholder={placeholder()}
             onChange={props.onMeshecodesStringChanged}
             value={props.meshCodes}
-            className={`text-base bg-white dark:bg-slate-100 text-slate-900 dark:text-slate-900 shadow-sm placeholder:text-slate-400 hover:bg-slate-50 hover:border-slate-400 dark:hover:bg-slate-200 dark:hover:border-slate-400 focus:ring-2 focus:ring-slate-500 focus:border-slate-500 ${props.errorMessage ? "border-red-500 focus:ring-red-500 hover:border-red-600" : "border-slate-300 dark:border-slate-300"}`}
+            className={`text-base bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-sm placeholder:text-slate-400 dark:placeholder:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-600 focus:ring-2 focus:ring-slate-500 dark:focus:ring-slate-400 ${props.errorMessage ? "border-red-500 focus:ring-red-500 hover:border-red-600 dark:border-red-400 dark:focus:ring-red-400" : "border-slate-300 dark:border-slate-600 focus:border-slate-500 dark:focus:border-slate-400 hover:border-slate-400 dark:hover:border-slate-500"}`}
           />
           {props.errorMessage && (
             <div className="mt-2 p-3 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-lg">
@@ -51,12 +51,12 @@ export function MeshcodesInput(props: Props): React.ReactElement<Props> {
             Separator
           </label>
           <Select value={props.separator} onValueChange={props.onSeparatorChanged}>
-            <SelectTrigger className="bg-white dark:bg-slate-100 text-slate-900 dark:text-slate-900 text-base border-slate-300 dark:border-slate-300 shadow-sm hover:bg-slate-50 hover:border-slate-400 dark:hover:bg-slate-200 dark:hover:border-slate-400 focus:ring-2 focus:ring-slate-500 focus:border-slate-500">
+            <SelectTrigger className="w-full bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 border-slate-300 dark:border-slate-600 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-600 focus:ring-2 focus:ring-slate-500 dark:focus:ring-slate-400 focus:border-slate-500 dark:focus:border-slate-400">
               <SelectValue placeholder="Select separator" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value=",">Commas (,)</SelectItem>
-              <SelectItem value=".">Dots (.)</SelectItem>
+            <SelectContent className="bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600">
+              <SelectItem value="," className="text-slate-900 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-600 focus:bg-slate-100 dark:focus:bg-slate-600">Commas (,)</SelectItem>
+              <SelectItem value="." className="text-slate-900 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-600 focus:bg-slate-100 dark:focus:bg-slate-600">Dots (.)</SelectItem>
             </SelectContent>
           </Select>
         </div>

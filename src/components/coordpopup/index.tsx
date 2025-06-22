@@ -13,7 +13,7 @@ import { useGeodeticInputState } from "../../stores/geodeticInputStore";
 function createPositionDescription(
   datum: string,
   unit: string,
-  latLng?: LatLng,
+  latLng: LatLng | null,
 ): string {
   if (latLng == null) {
     return "";
@@ -36,7 +36,7 @@ export function CoordPopupLayerContainer(): React.ReactElement | null {
     },
   });
 
-  return position === undefined ? null : (
+  return position === null ? null : (
     <CoordPopupLayer
       position={position}
       datum={datum}

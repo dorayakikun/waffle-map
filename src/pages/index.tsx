@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ChevronDown } from "lucide-react";
+import { useParams } from "react-router-dom";
 import {
   Accordion,
   AccordionContent,
@@ -14,8 +14,43 @@ import { MeshcodesInputContainer } from "../components/meshcodeinput/index";
 import { MeshDetailsContainer } from "../components/meshdetails";
 import { MeshToggleContainer } from "../components/meshtoggle/";
 import { TileToggleContainer } from "../components/tileToggle";
+import { useMeshcodesInputStore } from "../stores/meshcodesInputStore";
 
 export function AppContainer() {
+  const { meshCodes } = useParams<{ meshCodes?: string }>();
+  const { changeSeparator, inputMeshcodesString } = useMeshcodesInputStore();
+  const [defaultOpenAccordions, setDefaultOpenAccordions] = React.useState<string[]>([]);
+  
+  React.useEffect(() => {
+    if (meshCodes) {
+      // Detect separator type from URL
+      const hasDots = meshCodes.includes('.');
+      const hasCommas = meshCodes.includes(',');
+      
+      let finalMeshCodes = meshCodes;
+      
+      // Set separator based on what's found in URL
+      if (hasDots && !hasCommas) {
+        changeSeparator('.');
+      } else if (hasCommas && !hasDots) {
+        changeSeparator(',');
+      } else if (hasDots && hasCommas) {
+        // If both are present, prefer comma and convert dots
+        changeSeparator(',');
+        finalMeshCodes = meshCodes.replace(/\./g, ',');
+      } else {
+        // Default to comma separator
+        changeSeparator(',');
+      }
+      
+      // Set mesh codes - this will automatically process them through the store
+      inputMeshcodesString(finalMeshCodes);
+      
+      // Open the mesh-code accordion
+      setDefaultOpenAccordions(['mesh-code']);
+    }
+  }, [meshCodes, changeSeparator, inputMeshcodesString]);
+
   return (
     <div className="h-screen bg-gray-50 dark:bg-gray-900 overflow-hidden">
       <div className="grid grid-cols-5 gap-6 p-4 h-full">
@@ -35,7 +70,7 @@ export function AppContainer() {
                   <GeodeticInputContainer />
                 </div>
                 
-                <Accordion type="multiple" className="w-full space-y-3">
+                <Accordion type="multiple" className="w-full space-y-3" defaultValue={defaultOpenAccordions}>
                 <AccordionItem value="tile-grid" className="border border-slate-200 dark:border-slate-600 rounded-lg overflow-hidden">
                   <AccordionTrigger className="px-4 py-4 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
                     <div className="flex-1 text-left font-bold text-slate-800 dark:text-slate-100">🌐 Tile Grid</div>

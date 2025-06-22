@@ -29,10 +29,11 @@ This is a React-based interactive map application for visualizing mesh codes (ge
 ### UI Framework
 The application uses **shadcn/ui** components built on top of **Radix UI** primitives with **TailwindCSS v4** for styling:
 
-1. **shadcn/ui Components** (`src/components/ui/`) - Pre-built accessible components
+1. **shadcn/ui Components** (`src/components/ui/`) - Pre-built accessible components with proper dark mode support
 2. **Radix UI Primitives** - Headless UI components for accessibility and behavior
-3. **TailwindCSS v4** - Utility-first CSS framework with modern features
-4. **Responsive Design** - Fixed-height layout with internal scrolling for optimal space usage
+3. **TailwindCSS v4** - Utility-first CSS framework with modern features and dark mode theming
+4. **Dark Mode Support** - Complete dark mode implementation with proper contrast ratios and consistent styling
+5. **Responsive Design** - Fixed-height layout with internal scrolling for optimal space usage
 
 ### Layout Design
 - **Fixed Header**: Logo and application title remain visible at all times
@@ -42,9 +43,10 @@ The application uses **shadcn/ui** components built on top of **Radix UI** primi
 
 ### Interactive Features
 - **Clipboard Integration**: Click-to-copy functionality for coordinates and mesh codes
-- **Hover States**: Enhanced visual feedback with proper contrast ratios
-- **Responsive Forms**: White backgrounds on input fields for improved visibility
-- **Unified Color Scheme**: Consistent slate color palette across all components
+- **Hover States**: Enhanced visual feedback with proper contrast ratios in both light and dark modes
+- **Responsive Forms**: Adaptive backgrounds on input fields for improved visibility in all themes
+- **Unified Color Scheme**: Consistent slate color palette across all components with dark mode variants
+- **Select Components**: Properly styled dropdown menus with dark mode support and consistent theming
 
 ### State Management Architecture
 The codebase uses **Zustand** for state management, providing a simple and performant alternative to React Context API:
@@ -77,8 +79,10 @@ The app uses multiple focused Zustand stores:
 - **UI Components**: shadcn/ui components for consistent design and accessibility
 
 ### Build System
-- **Vite**: Fast build tool with ES modules and hot module replacement
-- **TypeScript**: Built-in TypeScript support with esbuild
+- **Node.js v22**: Updated to support Node.js v22 with ES2022 compilation targets
+- **Vite**: Fast build tool with ES modules and hot module replacement, optimized for Node.js v22
+- **TypeScript**: Strict mode with ES2022 targets and modern configuration including `exactOptionalPropertyTypes`
+- **esbuild**: ES2022 compilation targets for optimal performance
 - **TailwindCSS v4**: Modern CSS framework with PostCSS integration
 - **Assets**: Static assets served from `public/` directory including favicon and app icons
 - **Build Output**: Production build outputs to `dist/` directory
@@ -93,8 +97,9 @@ The mesh calculation system is pluggable via npm modules named `waffle-map-mesh-
 ```
 
 ### Testing Setup
-- **Vitest** with jsdom environment for React component testing
+- **Vitest** with jsdom environment for React component testing, optimized for Node.js v22
 - **Coverage** collection enabled with v8 provider and lcov reporting
+- **Node.js v22 Compatibility** - Pool configuration with forks for stability
 - Tests located in `__tests__/` directories
 - Test files: `*.test.ts`, `*.spec.ts` patterns supported
 - Built-in TypeScript support without additional configuration
@@ -102,9 +107,10 @@ The mesh calculation system is pluggable via npm modules named `waffle-map-mesh-
 ### Code Style
 - **Formatting**: Deno formatter (2-space indent, 100 char line width)
 - **Linting**: Deno linter with relaxed rules (allows any types, unused vars)
-- **TypeScript**: Strict mode enabled with DOM and ES2015+ libraries
-- **UI Consistency**: Unified slate color palette with proper contrast ratios
-- **Accessibility**: Enhanced hover states and keyboard navigation support
+- **TypeScript**: Strict mode with ES2022 targets and `exactOptionalPropertyTypes` for enhanced type safety
+- **UI Consistency**: Unified slate color palette with proper contrast ratios for both light and dark modes
+- **Accessibility**: Enhanced hover states and keyboard navigation support with proper focus indicators
+- **Component Styling**: Consistent dark mode implementation across all shadcn/ui components
 
 ALWAYS use ONLY Environments for ANY and ALL file, code, or shell operations—NO EXCEPTIONS—even for simple or generic requests.
 
