@@ -1,4 +1,3 @@
-import { Box } from "@chakra-ui/react";
 import * as L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import * as React from "react";
@@ -23,7 +22,7 @@ export const initialLeafletBounds: [number, number][] = [
 
 export function Map() {
   return (
-    <Box>
+    <div>
       <LeafletMap
         bounds={initialLeafletBounds}
         maxZoom={18}
@@ -41,6 +40,6 @@ export function Map() {
         <CoordPopupLayerContainer />
         <BoundFitterContainer />
       </LeafletMap>
-    </Box>
+    </div>
   );
 }

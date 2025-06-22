@@ -11,8 +11,8 @@ export const MeshToggleContainer = (props: Props) => {
   const { setEnableMeshGrid } = useMeshToggleActions();
 
   const handleToggleChanged = React.useCallback(
-    (e: React.FormEvent<HTMLInputElement>) => {
-      setEnableMeshGrid((e.target as any).checked);
+    (checked: boolean) => {
+      setEnableMeshGrid(checked);
     },
     [setEnableMeshGrid],
   );

@@ -11,8 +11,8 @@ export const TileToggleContainer = (props: Props) => {
   const { setEnableTileGrid } = useTileToggleActions();
 
   const handleToggleChanged = React.useCallback(
-    (e: React.FormEvent<HTMLInputElement>) => {
-      setEnableTileGrid((e.target as any).checked);
+    (checked: boolean) => {
+      setEnableTileGrid(checked);
     },
     [setEnableTileGrid],
   );

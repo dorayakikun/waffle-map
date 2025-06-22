@@ -18,8 +18,8 @@ export const MeshcodesInputContainer = (props: Props) => {
   );
 
   const handleSeparateChanged = React.useCallback(
-    (e: React.SyntheticEvent<HTMLElement>) => {
-      changeSeparator((e.target as any).value);
+    (value: string) => {
+      changeSeparator(value);
     },
     [changeSeparator],
   );
