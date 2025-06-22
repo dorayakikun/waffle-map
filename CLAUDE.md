@@ -5,8 +5,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Development Commands
 
 ### Core Development
-- `npm run start` - Start development server with hot reload
-- `npm run build` - Build production bundle
+- `npm run dev` or `npm start` - Start Vite development server with hot reload
+- `npm run build` - Build production bundle with Vite
+- `npm run preview` - Preview production build locally
 - `npm test` - Run Jest tests with coverage
 - `npm run typecheck` - Run TypeScript type checking
 
@@ -24,22 +25,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Application Structure
 This is a React-based interactive map application for visualizing mesh codes (geographic grid systems). The app uses a split-screen layout with controls on the left (1/5 width) and map on the right (4/5 width).
 
-### Context Architecture Pattern
-The codebase implements a **Separation of Concerns Context Pattern** that splits state management into distinct layers:
+### State Management Architecture
+The codebase uses **Zustand** for state management, providing a simple and performant alternative to React Context API:
 
-1. **Core State Hook** (`useCore*.ts`) - Contains reducer logic and action creators
-2. **State Context** (`*StateContext.ts`) - Provides read-only state access 
-3. **Dispatch Context** (`*DispatchContext.ts`) - Provides action dispatchers
-4. **Provider Component** (`*Provider.tsx`) - Wires contexts together
+1. **Zustand Stores** (`src/stores/*.ts`) - Centralized state management with actions
+2. **Selector Hooks** - Optimized hooks for granular component subscriptions
+3. **Performance Optimization** - Automatic re-render optimization through fine-grained subscriptions
 
-This pattern optimizes performance by preventing unnecessary re-renders and maintains clear separation between state consumption and action dispatching.
-
-### Provider Hierarchy
-The app uses nested context providers in `src/index.tsx`:
-```
-ChakraProvider > CoordPopupLayerProvider > GeodeticInputProvider > 
-MeshToggleProvider > MarkerInputProvider > MeshcodesInputProvider > TileToggleProvider
-```
+### Store Structure
+The app uses multiple focused Zustand stores:
+- `geodeticInputStore` - Geodetic system and coordinate unit settings
+- `coordPopupLayerStore` - Coordinate popup layer state
+- `markerInputStore` - Marker input form and marker positions
+- `meshcodesInputStore` - Mesh code input and processing
+- `meshToggleStore` - Mesh grid visibility toggle
+- `tileToggleStore` - Tile grid visibility toggle
 
 ### Key Modules
 
@@ -55,10 +55,11 @@ MeshToggleProvider > MarkerInputProvider > MeshcodesInputProvider > TileTogglePr
 - **Toggle Components**: UI controls for showing/hiding map features
 
 ### Build System
-- **Webpack**: Bundles to `public/bundle.js`
-- **TypeScript**: Compiled via ts-loader
-- **Assets**: Images and fonts handled as webpack assets
-- **Environment**: `LOGIC_TYPE` webpack define plugin for mesh calculator selection
+- **Vite**: Fast build tool with ES modules and hot module replacement
+- **TypeScript**: Built-in TypeScript support with esbuild
+- **Assets**: Static assets served from `public/` directory
+- **Build Output**: Production build outputs to `dist/` directory
+- **Environment**: Environment variables via Vite's built-in support
 
 ### Extensibility
 The mesh calculation system is pluggable via npm modules named `waffle-map-mesh-calculator-{type}`. Configure in package.json:

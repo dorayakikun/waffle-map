@@ -1,4 +1,5 @@
-declare const require: any;
+import * as basicCalculator from "waffle-map-mesh-calculator-basic";
+
 declare const LOGIC_TYPE: string;
 
 export type LatLng = {
@@ -27,10 +28,10 @@ type MeshCalculator = {
 };
 
 const meshCalculator: () => MeshCalculator = () => {
-  if (LOGIC_TYPE) {
-    return require(`waffle-map-mesh-calculator-${LOGIC_TYPE}`);
-  }
-  return require("waffle-map-mesh-calculator-basic");
+  // For now, always use the basic calculator since dynamic imports with require() 
+  // are not supported in ES modules. In the future, this could be enhanced with
+  // dynamic import() for different calculator types.
+  return basicCalculator as any;
 };
 
 export default meshCalculator();

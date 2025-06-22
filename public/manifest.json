@@ -1,29 +1,21 @@
 {
-  "short_name": "WM",
   "name": "Waffle Map",
+  "short_name": "WaffleMap",
+  "description": "Fantastic mesh renderer",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#FF9100",
+  "background_color": "#ffffff",
   "icons": [
     {
-      "src": "/android-chrome-192x192.png",
+      "src": "./images/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/android-chrome-384x384.png",
+      "src": "./images/android-chrome-384x384.png",
       "sizes": "384x384",
       "type": "image/png"
-    },
-    {
-      "src": "/images/icons-256.png",
-      "sizes": "256x256",
-      "type": "image/png"
-    },
-    {
-      "src": "/images/icons-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
     }
-  ],
-  "theme_color": "#FF9100",
-  "background_color": "#FF9100",
-  "display": "standalone"
+  ]
 }
