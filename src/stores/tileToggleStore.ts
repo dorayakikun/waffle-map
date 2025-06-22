@@ -25,15 +25,15 @@ export const useTileToggleStore = create<TileToggleStore>((set) => ({
 }));
 
 // Selector hooks for optimized re-renders
-export const useTileToggleState = () =>
-  useTileToggleStore((state) => ({
-    enableTileGrid: state.enableTileGrid,
-  }));
+export const useTileToggleState = () => {
+  const enableTileGrid = useTileToggleStore((state) => state.enableTileGrid);
+  return { enableTileGrid };
+};
 
-export const useTileToggleActions = () =>
-  useTileToggleStore((state) => ({
-    setEnableTileGrid: state.setEnableTileGrid,
-  }));
+export const useTileToggleActions = () => {
+  const setEnableTileGrid = useTileToggleStore((state) => state.setEnableTileGrid);
+  return { setEnableTileGrid };
+};
 
 // Individual field selectors for even more granular updates
 export const useTileToggleEnableTileGrid = () =>

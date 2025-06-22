@@ -26,15 +26,15 @@ export const useCoordPopupLayerStore = create<CoordPopupLayerStore>((set) => ({
 }));
 
 // Selector hooks for optimized re-renders
-export const useCoordPopupLayerState = () =>
-  useCoordPopupLayerStore((state) => ({
-    position: state.position,
-  }));
+export const useCoordPopupLayerState = () => {
+  const position = useCoordPopupLayerStore((state) => state.position);
+  return { position };
+};
 
-export const useCoordPopupLayerActions = () =>
-  useCoordPopupLayerStore((state) => ({
-    setPosition: state.setPosition,
-  }));
+export const useCoordPopupLayerActions = () => {
+  const setPosition = useCoordPopupLayerStore((state) => state.setPosition);
+  return { setPosition };
+};
 
 // Individual field selectors for even more granular updates
 export const useCoordPopupLayerPosition = () =>

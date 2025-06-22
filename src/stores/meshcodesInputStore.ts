@@ -78,20 +78,20 @@ export const useMeshcodesInputStore = create<MeshcodesInputStore>((set, get) => 
 }));
 
 // Selector hooks for optimized re-renders
-export const useMeshcodesInputState = () =>
-  useMeshcodesInputStore((state) => ({
-    errorMessage: state.errorMessage,
-    meshcodesString: state.meshcodesString,
-    separator: state.separator,
-    meshcodes: state.meshcodes,
-    userInputMeshes: state.userInputMeshes,
-  }));
+export const useMeshcodesInputState = () => {
+  const errorMessage = useMeshcodesInputStore((state) => state.errorMessage);
+  const meshcodesString = useMeshcodesInputStore((state) => state.meshcodesString);
+  const separator = useMeshcodesInputStore((state) => state.separator);
+  const meshcodes = useMeshcodesInputStore((state) => state.meshcodes);
+  const userInputMeshes = useMeshcodesInputStore((state) => state.userInputMeshes);
+  return { errorMessage, meshcodesString, separator, meshcodes, userInputMeshes };
+};
 
-export const useMeshcodesInputActions = () =>
-  useMeshcodesInputStore((state) => ({
-    inputMeshcodesString: state.inputMeshcodesString,
-    changeSeparator: state.changeSeparator,
-  }));
+export const useMeshcodesInputActions = () => {
+  const inputMeshcodesString = useMeshcodesInputStore((state) => state.inputMeshcodesString);
+  const changeSeparator = useMeshcodesInputStore((state) => state.changeSeparator);
+  return { inputMeshcodesString, changeSeparator };
+};
 
 // Individual field selectors for even more granular updates
 export const useMeshcodesInputErrorMessage = () =>

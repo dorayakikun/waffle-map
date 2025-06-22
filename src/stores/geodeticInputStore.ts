@@ -34,17 +34,17 @@ export const useGeodeticInputStore = create<GeodeticInputStore>((set) => ({
 }));
 
 // Selector hooks for optimized re-renders
-export const useGeodeticInputState = () =>
-  useGeodeticInputStore((state) => ({
-    unit: state.unit,
-    datum: state.datum,
-  }));
+export const useGeodeticInputState = () => {
+  const unit = useGeodeticInputStore((state) => state.unit);
+  const datum = useGeodeticInputStore((state) => state.datum);
+  return { unit, datum };
+};
 
-export const useGeodeticInputActions = () =>
-  useGeodeticInputStore((state) => ({
-    changeDatum: state.changeDatum,
-    changeUnit: state.changeUnit,
-  }));
+export const useGeodeticInputActions = () => {
+  const changeDatum = useGeodeticInputStore((state) => state.changeDatum);
+  const changeUnit = useGeodeticInputStore((state) => state.changeUnit);
+  return { changeDatum, changeUnit };
+};
 
 // Individual field selectors for even more granular updates
 export const useGeodeticInputUnit = () =>

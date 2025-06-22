@@ -25,15 +25,15 @@ export const useMeshToggleStore = create<MeshToggleStore>((set) => ({
 }));
 
 // Selector hooks for optimized re-renders
-export const useMeshToggleState = () =>
-  useMeshToggleStore((state) => ({
-    enableMeshGrid: state.enableMeshGrid,
-  }));
+export const useMeshToggleState = () => {
+  const enableMeshGrid = useMeshToggleStore((state) => state.enableMeshGrid);
+  return { enableMeshGrid };
+};
 
-export const useMeshToggleActions = () =>
-  useMeshToggleStore((state) => ({
-    setEnableMeshGrid: state.setEnableMeshGrid,
-  }));
+export const useMeshToggleActions = () => {
+  const setEnableMeshGrid = useMeshToggleStore((state) => state.setEnableMeshGrid);
+  return { setEnableMeshGrid };
+};
 
 // Individual field selectors for even more granular updates
 export const useMeshToggleEnableMeshGrid = () =>

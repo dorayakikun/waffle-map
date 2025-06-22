@@ -56,19 +56,19 @@ export const useMarkerInputStore = create<MarkerInputStore>((set, get) => ({
 }));
 
 // Selector hooks for optimized re-renders
-export const useMarkerInputState = () =>
-  useMarkerInputStore((state) => ({
-    latLngString: state.latLngString,
-    errorMessage: state.errorMessage,
-    positions: state.positions,
-  }));
+export const useMarkerInputState = () => {
+  const latLngString = useMarkerInputStore((state) => state.latLngString);
+  const errorMessage = useMarkerInputStore((state) => state.errorMessage);
+  const positions = useMarkerInputStore((state) => state.positions);
+  return { latLngString, errorMessage, positions };
+};
 
-export const useMarkerInputActions = () =>
-  useMarkerInputStore((state) => ({
-    inputLatLng: state.inputLatLng,
-    putMarker: state.putMarker,
-    removeAllMarkers: state.removeAllMarkers,
-  }));
+export const useMarkerInputActions = () => {
+  const inputLatLng = useMarkerInputStore((state) => state.inputLatLng);
+  const putMarker = useMarkerInputStore((state) => state.putMarker);
+  const removeAllMarkers = useMarkerInputStore((state) => state.removeAllMarkers);
+  return { inputLatLng, putMarker, removeAllMarkers };
+};
 
 // Individual field selectors for even more granular updates
 export const useMarkerInputLatLngString = () =>
