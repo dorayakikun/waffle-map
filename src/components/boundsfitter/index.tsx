@@ -9,7 +9,7 @@ import { initialLeafletBounds } from "../map/Map";
 import { BoundsFitter } from "./BoundsFitter";
 import { useMeshCodeInputStateContext } from "../meshcodeinput/MeshcodesInputStateContext";
 import { Meshcode } from "../../types";
-import { useGeodeticInputStateContext } from "../geodeticInput/GeodeticInputStateContext";
+import { useGeodeticInputDatum } from "../../stores/geodeticInputStore";
 import { useMarkerInputStateContext } from "../markerinput/MarkerInputStateContext";
 
 function meshesToLatsAndLngs(
@@ -63,7 +63,7 @@ function calculateLeafletBounds(
 export function BoundFitterContainer() {
   const { userInputMeshes, meshcodes } = useMeshCodeInputStateContext();
   const { positions } = useMarkerInputStateContext();
-  const { datum } = useGeodeticInputStateContext();
+  const datum = useGeodeticInputDatum();
   const bounds = calculateLeafletBounds(
     userInputMeshes,
     meshcodes,

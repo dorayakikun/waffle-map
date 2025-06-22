@@ -1,11 +1,10 @@
 import * as React from "react";
 import { GeodeticInput } from "./GeodeticInput";
-import { useGeodeticInputDispatchContext } from "./GeodeticInputDispatchContext";
-import { useGeodeticInputStateContext } from "./GeodeticInputStateContext";
+import { useGeodeticInputState, useGeodeticInputActions } from "../../stores/geodeticInputStore";
 
 export const GeodeticInputContainer = () => {
-  const { datum, unit } = useGeodeticInputStateContext();
-  const { changeDatum, changeUnit } = useGeodeticInputDispatchContext();
+  const { datum, unit } = useGeodeticInputState();
+  const { changeDatum, changeUnit } = useGeodeticInputActions();
 
   const handleDatumChanged = React.useCallback(
     (e: React.SyntheticEvent<HTMLElement>) => {

@@ -9,7 +9,7 @@ import {
 import { round } from "../../domain/roundPoint";
 import { useCoordPopupLayerDispatchContext } from "./CoordPopupLayerDispatchContext";
 import { useCoordPopupLayerStateContext } from "./CoordPopupLayerStateContext";
-import { useGeodeticInputStateContext } from "../geodeticInput/GeodeticInputStateContext";
+import { useGeodeticInputState } from "../../stores/geodeticInputStore";
 
 function createPositionDescription(
   datum: string,
@@ -28,7 +28,7 @@ function createPositionDescription(
 export function CoordPopupLayerContainer(): React.ReactElement | null {
   const { position } = useCoordPopupLayerStateContext();
   const { setPosition } = useCoordPopupLayerDispatchContext();
-  const { datum, unit } = useGeodeticInputStateContext();
+  const { datum, unit } = useGeodeticInputState();
   const positionDescription = createPositionDescription(datum, unit, position);
 
   useMapEvents({

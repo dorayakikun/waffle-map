@@ -8,7 +8,7 @@ import {
   convertLatLngToMillisecIfNeeded,
   convertLatLngToTokyoIfNeeded,
 } from "../../domain/convertLatLng";
-import { useGeodeticInputStateContext } from "../geodeticInput/GeodeticInputStateContext";
+import { useGeodeticInputState } from "../../stores/geodeticInputStore";
 
 const createRows = (center: LatLng, bounds: Bounds) => [
   { latLng: center, title: "center" },
@@ -17,7 +17,7 @@ const createRows = (center: LatLng, bounds: Bounds) => [
 ];
 
 export const MeshDetailsContainer = () => {
-  const { datum, unit } = useGeodeticInputStateContext();
+  const { datum, unit } = useGeodeticInputState();
   const { meshcodes, userInputMeshes } = useMeshCodeInputStateContext();
 
   return (

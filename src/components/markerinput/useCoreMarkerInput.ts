@@ -51,7 +51,7 @@ export function reducer(state: State, action: Action): State {
       } catch (e) {
         return {
           ...state,
-          errorMessage: e.message,
+          errorMessage: e instanceof Error ? e.message : String(e),
         };
       }
     }
