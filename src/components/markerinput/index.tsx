@@ -1,6 +1,6 @@
 import * as React from "react";
 import { MarkerInput } from "./MarkerInput";
-import { useMarkerInputState, useMarkerInputActions } from "../../stores/markerInputStore";
+import { useMarkerInputActions, useMarkerInputState } from "../../stores/markerInputStore";
 import { useGeodeticInputUnit } from "../../stores/geodeticInputStore";
 
 type Props = {

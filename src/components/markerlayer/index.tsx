@@ -1,4 +1,3 @@
-import * as React from "react";
 import { MarkerLayer } from "./MarkerLayer";
 import { useGeodeticInputDatum } from "../../stores/geodeticInputStore";
 import { useMarkerInputPositions } from "../../stores/markerInputStore";

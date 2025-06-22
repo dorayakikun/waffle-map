@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 export type TileToggleState = {
   enableTileGrid: boolean;
@@ -16,7 +16,7 @@ const initialState: TileToggleState = {
 
 export const useTileToggleStore = create<TileToggleStore>((set) => ({
   ...initialState,
-  
+
   setEnableTileGrid: (enableTileGrid: boolean) =>
     set((state) => ({
       ...state,

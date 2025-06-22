@@ -1,6 +1,5 @@
 import * as L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import * as React from "react";
 import { MapContainer as LeafletMap, TileLayer } from "react-leaflet";
 import { BoundFitterContainer } from "../boundsfitter/";
 import { CoordPopupLayerContainer } from "../coordpopup/";

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { GridToggle } from "../common/GridToggle";
-import { useMeshToggleState, useMeshToggleActions } from "../../stores/meshToggleStore";
+import { useMeshToggleActions, useMeshToggleState } from "../../stores/meshToggleStore";
 
 type Props = {
   id: string;

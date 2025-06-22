@@ -1,6 +1,6 @@
 import * as React from "react";
 import { MeshcodesInput } from "./MeshcodesInput";
-import { useMeshcodesInputState, useMeshcodesInputActions } from "../../stores/meshcodesInputStore";
+import { useMeshcodesInputActions, useMeshcodesInputState } from "../../stores/meshcodesInputStore";
 
 type Props = {
   id: string;

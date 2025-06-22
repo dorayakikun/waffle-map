@@ -28,7 +28,7 @@ type MeshCalculator = {
 };
 
 const meshCalculator: () => MeshCalculator = () => {
-  // For now, always use the basic calculator since dynamic imports with require() 
+  // For now, always use the basic calculator since dynamic imports with require()
   // are not supported in ES modules. In the future, this could be enhanced with
   // dynamic import() for different calculator types.
   return basicCalculator as any;

@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import { LatLng } from '../domain/calculateMesh';
-import { createLatLng } from '../domain/convertLatLng';
+import { create } from "zustand";
+import { LatLng } from "../domain/calculateMesh";
+import { createLatLng } from "../domain/convertLatLng";
 
 export type MarkerInputState = {
   latLngString: string;
@@ -22,15 +22,15 @@ const initialState: MarkerInputState = {
   positions: [],
 };
 
-export const useMarkerInputStore = create<MarkerInputStore>((set, get) => ({
+export const useMarkerInputStore = create<MarkerInputStore>((set) => ({
   ...initialState,
-  
+
   inputLatLng: (latLngString: string) =>
     set((state) => ({
       ...state,
       latLngString,
     })),
-    
+
   putMarker: (unit: string) =>
     set((state) => {
       try {
@@ -47,7 +47,7 @@ export const useMarkerInputStore = create<MarkerInputStore>((set, get) => ({
         };
       }
     }),
-    
+
   removeAllMarkers: () =>
     set((state) => ({
       ...state,
@@ -71,11 +71,8 @@ export const useMarkerInputActions = () => {
 };
 
 // Individual field selectors for even more granular updates
-export const useMarkerInputLatLngString = () =>
-  useMarkerInputStore((state) => state.latLngString);
+export const useMarkerInputLatLngString = () => useMarkerInputStore((state) => state.latLngString);
 
-export const useMarkerInputErrorMessage = () =>
-  useMarkerInputStore((state) => state.errorMessage);
+export const useMarkerInputErrorMessage = () => useMarkerInputStore((state) => state.errorMessage);
 
-export const useMarkerInputPositions = () =>
-  useMarkerInputStore((state) => state.positions);
+export const useMarkerInputPositions = () => useMarkerInputStore((state) => state.positions);

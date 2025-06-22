@@ -7,7 +7,10 @@ import {
   convertLatLngToTokyoIfNeeded,
 } from "../../domain/convertLatLng";
 import { round } from "../../domain/roundPoint";
-import { useCoordPopupLayerState, useCoordPopupLayerActions } from "../../stores/coordPopupLayerStore";
+import {
+  useCoordPopupLayerActions,
+  useCoordPopupLayerState,
+} from "../../stores/coordPopupLayerStore";
 import { useGeodeticInputState } from "../../stores/geodeticInputStore";
 
 function createPositionDescription(

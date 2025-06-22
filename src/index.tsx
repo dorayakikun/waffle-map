@@ -2,7 +2,7 @@ import "leaflet/dist/leaflet.css";
 import "./index.css";
 import * as React from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AppContainer } from "./pages";
 
 const rootElement = document.getElementById("root");
@@ -17,5 +17,5 @@ root.render(
         <Route path="/:meshCodes" element={<AppContainer />} />
       </Routes>
     </BrowserRouter>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 
@@ -12,7 +11,10 @@ export type Props = {
 export const GridToggle = (props: Props) => {
   return (
     <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-100 rounded-lg border border-slate-200 dark:border-slate-300 shadow-sm hover:bg-slate-50 hover:border-slate-400 dark:hover:bg-slate-200 dark:hover:border-slate-400 transition-colors">
-      <Label htmlFor={props.id} className="text-base font-bold text-slate-700 dark:text-slate-900 cursor-pointer">
+      <Label
+        htmlFor={props.id}
+        className="text-base font-bold text-slate-700 dark:text-slate-900 cursor-pointer"
+      >
         {props.title}
       </Label>
       <div className="ml-4">

@@ -1,4 +1,3 @@
-import * as React from "react";
 import { LatLng, Mesh } from "../../domain/calculateMesh";
 import {
   convertBoundsToWGS84IfNeeded,
@@ -7,7 +6,10 @@ import {
 // FIXME initialLeafletBounds を constans に移動する
 import { initialLeafletBounds } from "../map/Map";
 import { BoundsFitter } from "./BoundsFitter";
-import { useMeshcodesInputUserInputMeshes, useMeshcodesInputMeshcodes } from "../../stores/meshcodesInputStore";
+import {
+  useMeshcodesInputMeshcodes,
+  useMeshcodesInputUserInputMeshes,
+} from "../../stores/meshcodesInputStore";
 import { Meshcode } from "../../types";
 import { useGeodeticInputDatum } from "../../stores/geodeticInputStore";
 import { useMarkerInputPositions } from "../../stores/markerInputStore";

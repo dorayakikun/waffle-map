@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import { Meshcode } from '../types';
-import meshCalculator, { Mesh } from '../domain/calculateMesh';
+import { create } from "zustand";
+import { Meshcode } from "../types";
+import meshCalculator, { Mesh } from "../domain/calculateMesh";
 
 export type MeshcodesInputState = {
   errorMessage: string;
@@ -42,21 +42,21 @@ const initialState: MeshcodesInputState = {
   userInputMeshes: {},
 };
 
-export const useMeshcodesInputStore = create<MeshcodesInputStore>((set, get) => ({
+export const useMeshcodesInputStore = create<MeshcodesInputStore>((set) => ({
   ...initialState,
-  
+
   changeSeparator: (separator: string) =>
     set((state) => ({
       ...state,
       separator,
     })),
-    
+
   inputMeshcodesString: (meshcodesString: string) =>
     set((state) => {
       const meshcodes = meshcodesString
         .split(state.separator)
         .filter((meshCode) => meshCode !== "");
-      
+
       try {
         return {
           ...state,
@@ -100,11 +100,9 @@ export const useMeshcodesInputErrorMessage = () =>
 export const useMeshcodesInputMeshcodesString = () =>
   useMeshcodesInputStore((state) => state.meshcodesString);
 
-export const useMeshcodesInputSeparator = () =>
-  useMeshcodesInputStore((state) => state.separator);
+export const useMeshcodesInputSeparator = () => useMeshcodesInputStore((state) => state.separator);
 
-export const useMeshcodesInputMeshcodes = () =>
-  useMeshcodesInputStore((state) => state.meshcodes);
+export const useMeshcodesInputMeshcodes = () => useMeshcodesInputStore((state) => state.meshcodes);
 
 export const useMeshcodesInputUserInputMeshes = () =>
   useMeshcodesInputStore((state) => state.userInputMeshes);

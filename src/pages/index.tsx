@@ -20,34 +20,34 @@ export function AppContainer() {
   const { meshCodes } = useParams<{ meshCodes?: string }>();
   const { changeSeparator, inputMeshcodesString } = useMeshcodesInputStore();
   const [defaultOpenAccordions, setDefaultOpenAccordions] = React.useState<string[]>([]);
-  
+
   React.useEffect(() => {
     if (meshCodes) {
       // Detect separator type from URL
-      const hasDots = meshCodes.includes('.');
-      const hasCommas = meshCodes.includes(',');
-      
+      const hasDots = meshCodes.includes(".");
+      const hasCommas = meshCodes.includes(",");
+
       let finalMeshCodes = meshCodes;
-      
+
       // Set separator based on what's found in URL
       if (hasDots && !hasCommas) {
-        changeSeparator('.');
+        changeSeparator(".");
       } else if (hasCommas && !hasDots) {
-        changeSeparator(',');
+        changeSeparator(",");
       } else if (hasDots && hasCommas) {
         // If both are present, prefer comma and convert dots
-        changeSeparator(',');
-        finalMeshCodes = meshCodes.replace(/\./g, ',');
+        changeSeparator(",");
+        finalMeshCodes = meshCodes.replace(/\./g, ",");
       } else {
         // Default to comma separator
-        changeSeparator(',');
+        changeSeparator(",");
       }
-      
+
       // Set mesh codes - this will automatically process them through the store
       inputMeshcodesString(finalMeshCodes);
-      
+
       // Open the mesh-code accordion
-      setDefaultOpenAccordions(['mesh-code']);
+      setDefaultOpenAccordions(["mesh-code"]);
     }
   }, [meshCodes, changeSeparator, inputMeshcodesString]);
 
@@ -62,57 +62,83 @@ export function AppContainer() {
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white">wafflemap</h1>
               </div>
             </div>
-            
+
             <div className="flex-1 overflow-y-auto px-6 pb-6">
               <div className="space-y-4">
                 <div className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg p-4">
-                  <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-3">Coordinate System</h3>
+                  <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-3">
+                    Coordinate System
+                  </h3>
                   <GeodeticInputContainer />
                 </div>
-                
-                <Accordion type="multiple" className="w-full space-y-3" defaultValue={defaultOpenAccordions}>
-                <AccordionItem value="tile-grid" className="border border-slate-200 dark:border-slate-600 rounded-lg overflow-hidden">
-                  <AccordionTrigger className="px-4 py-4 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
-                    <div className="flex-1 text-left font-bold text-slate-800 dark:text-slate-100">🌐 Tile Grid</div>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-4 py-4 bg-slate-50 dark:bg-slate-800">
-                    <TileToggleContainer id="tileToggle" />
-                  </AccordionContent>
-                </AccordionItem>
-                
-                <AccordionItem value="mesh-grid" className="border border-slate-200 dark:border-slate-600 rounded-lg overflow-hidden">
-                  <AccordionTrigger className="px-4 py-4 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
-                    <div className="flex-1 text-left font-bold text-slate-800 dark:text-slate-100">🗂️ Mesh Grid</div>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-4 py-4 bg-slate-50 dark:bg-slate-800">
-                    <MeshToggleContainer id="meshToggle" />
-                  </AccordionContent>
-                </AccordionItem>
-                
-                <AccordionItem value="marker" className="border border-slate-200 dark:border-slate-600 rounded-lg overflow-hidden">
-                  <AccordionTrigger className="px-4 py-4 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
-                    <div className="flex-1 text-left font-bold text-slate-800 dark:text-slate-100">📍 Marker</div>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-4 py-4 bg-slate-50 dark:bg-slate-800">
-                    <MarkerInputContainer id="markerInput" />
-                  </AccordionContent>
-                </AccordionItem>
-                
-                <AccordionItem value="mesh-code" className="border border-slate-200 dark:border-slate-600 rounded-lg overflow-hidden">
-                  <AccordionTrigger className="px-4 py-4 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
-                    <div className="flex-1 text-left font-bold text-slate-800 dark:text-slate-100">🔢 Mesh Code</div>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-4 py-4 bg-slate-50 dark:bg-slate-800 space-y-4">
-                    <MeshcodesInputContainer id="meshCodeInput" />
-                    <MeshDetailsContainer />
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+
+                <Accordion
+                  type="multiple"
+                  className="w-full space-y-3"
+                  defaultValue={defaultOpenAccordions}
+                >
+                  <AccordionItem
+                    value="tile-grid"
+                    className="border border-slate-200 dark:border-slate-600 rounded-lg overflow-hidden"
+                  >
+                    <AccordionTrigger className="px-4 py-4 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
+                      <div className="flex-1 text-left font-bold text-slate-800 dark:text-slate-100">
+                        🌐 Tile Grid
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 py-4 bg-slate-50 dark:bg-slate-800">
+                      <TileToggleContainer id="tileToggle" />
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem
+                    value="mesh-grid"
+                    className="border border-slate-200 dark:border-slate-600 rounded-lg overflow-hidden"
+                  >
+                    <AccordionTrigger className="px-4 py-4 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
+                      <div className="flex-1 text-left font-bold text-slate-800 dark:text-slate-100">
+                        🗂️ Mesh Grid
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 py-4 bg-slate-50 dark:bg-slate-800">
+                      <MeshToggleContainer id="meshToggle" />
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem
+                    value="marker"
+                    className="border border-slate-200 dark:border-slate-600 rounded-lg overflow-hidden"
+                  >
+                    <AccordionTrigger className="px-4 py-4 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
+                      <div className="flex-1 text-left font-bold text-slate-800 dark:text-slate-100">
+                        📍 Marker
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 py-4 bg-slate-50 dark:bg-slate-800">
+                      <MarkerInputContainer id="markerInput" />
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem
+                    value="mesh-code"
+                    className="border border-slate-200 dark:border-slate-600 rounded-lg overflow-hidden"
+                  >
+                    <AccordionTrigger className="px-4 py-4 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
+                      <div className="flex-1 text-left font-bold text-slate-800 dark:text-slate-100">
+                        🔢 Mesh Code
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 py-4 bg-slate-50 dark:bg-slate-800 space-y-4">
+                      <MeshcodesInputContainer id="meshCodeInput" />
+                      <MeshDetailsContainer />
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
               </div>
             </div>
           </div>
         </div>
-        
+
         <div className="col-span-4">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
             <MapContainer />

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Popup } from "react-leaflet";
-import { Copy, Check } from "lucide-react";
+import { Check, Copy } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import meshCalculator, { LatLng } from "../../domain/calculateMesh";
@@ -15,7 +15,6 @@ function createScaleDescription(
   const { lat, lng } = convertLatLngToTokyoIfNeeded(latLng, datum);
   return `scale${scale}: ${meshCalculator.toMeshCode(lat, lng, scale)}`;
 }
-
 
 type Props = {
   position: LatLng;
@@ -33,13 +32,13 @@ export function CoordPopupLayer(props: Props) {
       setCopiedItem(itemId);
       setTimeout(() => setCopiedItem(null), 2000);
     } catch (err) {
-      console.error('Failed to copy to clipboard:', err);
+      console.error("Failed to copy to clipboard:", err);
     }
   };
 
   const copyPosition = async () => {
     const positionText = `${round(props.position.lat, 5)}, ${round(props.position.lng, 5)}`;
-    await copyToClipboard(positionText, 'position');
+    await copyToClipboard(positionText, "position");
   };
 
   const copyMeshCode = async (scale: number) => {
@@ -69,18 +68,16 @@ export function CoordPopupLayer(props: Props) {
                   onClick={copyPosition}
                   className="h-6 w-6 p-0 hover:bg-slate-200 dark:hover:bg-slate-300"
                 >
-                  {copiedItem === 'position' ? (
-                    <Check className="h-3 w-3 text-green-600" />
-                  ) : (
-                    <Copy className="h-3 w-3 text-slate-600 dark:text-slate-700" />
-                  )}
+                  {copiedItem === "position"
+                    ? <Check className="h-3 w-3 text-green-600" />
+                    : <Copy className="h-3 w-3 text-slate-600 dark:text-slate-700" />}
                 </Button>
               </div>
             </div>
             <div className="space-y-2">
               {meshCalculator.SCALES.map((scale, idx) => (
-                <div 
-                  key={`coord_popup_item_${idx}`} 
+                <div
+                  key={`coord_popup_item_${idx}`}
                   className="p-2 bg-slate-50 dark:bg-slate-200 rounded border border-slate-200 dark:border-slate-300"
                 >
                   <div className="flex items-center justify-between">
@@ -93,11 +90,9 @@ export function CoordPopupLayer(props: Props) {
                       onClick={() => copyMeshCode(scale)}
                       className="h-6 w-6 p-0 hover:bg-slate-200 dark:hover:bg-slate-300"
                     >
-                      {copiedItem === `scale-${scale}` ? (
-                        <Check className="h-3 w-3 text-green-600" />
-                      ) : (
-                        <Copy className="h-3 w-3 text-slate-600 dark:text-slate-700" />
-                      )}
+                      {copiedItem === `scale-${scale}`
+                        ? <Check className="h-3 w-3 text-green-600" />
+                        : <Copy className="h-3 w-3 text-slate-600 dark:text-slate-700" />}
                     </Button>
                   </div>
                 </div>

@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 export type GeodeticInputState = {
   unit: string;
@@ -19,13 +19,13 @@ const initialState: GeodeticInputState = {
 
 export const useGeodeticInputStore = create<GeodeticInputStore>((set) => ({
   ...initialState,
-  
+
   changeDatum: (datum: string) =>
     set((state) => ({
       ...state,
       datum,
     })),
-    
+
   changeUnit: (unit: string) =>
     set((state) => ({
       ...state,
@@ -47,8 +47,6 @@ export const useGeodeticInputActions = () => {
 };
 
 // Individual field selectors for even more granular updates
-export const useGeodeticInputUnit = () =>
-  useGeodeticInputStore((state) => state.unit);
+export const useGeodeticInputUnit = () => useGeodeticInputStore((state) => state.unit);
 
-export const useGeodeticInputDatum = () =>
-  useGeodeticInputStore((state) => state.datum);
+export const useGeodeticInputDatum = () => useGeodeticInputStore((state) => state.datum);

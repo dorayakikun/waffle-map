@@ -1,7 +1,9 @@
 import { convertBoundsToWGS84IfNeeded } from "../../domain/convertLatLng";
 import { MeshRectangle } from "../common/MeshRectangle";
-import * as React from "react";
-import { useMeshcodesInputMeshcodes, useMeshcodesInputUserInputMeshes } from "../../stores/meshcodesInputStore";
+import {
+  useMeshcodesInputMeshcodes,
+  useMeshcodesInputUserInputMeshes,
+} from "../../stores/meshcodesInputStore";
 import { useGeodeticInputDatum } from "../../stores/geodeticInputStore";
 
 export const UserInputMeshLayerContainer = () => {

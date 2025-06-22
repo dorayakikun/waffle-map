@@ -1,5 +1,7 @@
-import * as React from "react";
-import { useMeshcodesInputMeshcodes, useMeshcodesInputUserInputMeshes } from "../../stores/meshcodesInputStore";
+import {
+  useMeshcodesInputMeshcodes,
+  useMeshcodesInputUserInputMeshes,
+} from "../../stores/meshcodesInputStore";
 import { MeshDetail } from "./meshdetail/";
 import { Bounds, LatLng } from "../../domain/calculateMesh";
 import {

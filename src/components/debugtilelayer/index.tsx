@@ -1,4 +1,3 @@
-import * as React from "react";
 import { DebugTileLayer } from "./DebugTileLayer";
 import { useTileToggleEnableTileGrid } from "../../stores/tileToggleStore";
 
