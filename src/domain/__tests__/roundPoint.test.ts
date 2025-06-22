@@ -1,3 +1,4 @@
+import { test, expect } from "vitest";
 import { round } from "../roundPoint";
 
 test("Should throw an error when place less than 1", () => {

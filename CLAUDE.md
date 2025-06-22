@@ -8,7 +8,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run dev` or `npm start` - Start Vite development server with hot reload
 - `npm run build` - Build production bundle with Vite
 - `npm run preview` - Preview production build locally
-- `npm test` - Run Jest tests with coverage
+- `npm test` - Run Vitest tests with coverage
+- `npm run test:watch` - Run Vitest in watch mode
 - `npm run typecheck` - Run TypeScript type checking
 
 ### Code Quality (using Deno)
@@ -16,9 +17,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run lint` - Lint code using Deno linter
 
 ### Testing
-- `npm test` - Run all tests with coverage reports
-- `jest --testNamePattern="specific test"` - Run specific test
-- `jest --watch` - Run tests in watch mode
+- `npm test` - Run all tests with coverage reports using Vitest
+- `npm run test:watch` - Run tests in watch mode
+- `vitest run --reporter=verbose` - Run tests with detailed output
 
 ## Architecture Overview
 
@@ -70,10 +71,11 @@ The mesh calculation system is pluggable via npm modules named `waffle-map-mesh-
 ```
 
 ### Testing Setup
-- **Jest** with jsdom environment for React component testing
-- **Coverage** collection enabled with lcov reporting
-- **Emotion** serializer for styled component snapshots
+- **Vitest** with jsdom environment for React component testing
+- **Coverage** collection enabled with v8 provider and lcov reporting
 - Tests located in `__tests__/` directories
+- Test files: `*.test.ts`, `*.spec.ts` patterns supported
+- Built-in TypeScript support without additional configuration
 
 ### Code Style
 - **Formatting**: Deno formatter (2-space indent, 100 char line width)
