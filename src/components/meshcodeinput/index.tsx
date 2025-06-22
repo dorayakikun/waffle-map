@@ -1,15 +1,14 @@
 import * as React from "react";
 import { MeshcodesInput } from "./MeshcodesInput";
-import { useMeshCodeInputDispatchContext } from "./MeshcodesInputDispatchContext";
-import { useMeshCodeInputStateContext } from "./MeshcodesInputStateContext";
+import { useMeshcodesInputState, useMeshcodesInputActions } from "../../stores/meshcodesInputStore";
 
 type Props = {
   id: string;
 };
 
 export const MeshcodesInputContainer = (props: Props) => {
-  const { meshcodesString, errorMessage, separator } = useMeshCodeInputStateContext();
-  const { inputMeshcodesString, changeSeparator } = useMeshCodeInputDispatchContext();
+  const { meshcodesString, errorMessage, separator } = useMeshcodesInputState();
+  const { inputMeshcodesString, changeSeparator } = useMeshcodesInputActions();
 
   const handleMeshcodesStringChanged = React.useCallback(
     (e: React.SyntheticEvent<HTMLInputElement>) => {

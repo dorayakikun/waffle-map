@@ -7,8 +7,7 @@ import {
   convertLatLngToTokyoIfNeeded,
 } from "../../domain/convertLatLng";
 import { round } from "../../domain/roundPoint";
-import { useCoordPopupLayerDispatchContext } from "./CoordPopupLayerDispatchContext";
-import { useCoordPopupLayerStateContext } from "./CoordPopupLayerStateContext";
+import { useCoordPopupLayerState, useCoordPopupLayerActions } from "../../stores/coordPopupLayerStore";
 import { useGeodeticInputState } from "../../stores/geodeticInputStore";
 
 function createPositionDescription(
@@ -26,8 +25,8 @@ function createPositionDescription(
 }
 
 export function CoordPopupLayerContainer(): React.ReactElement | null {
-  const { position } = useCoordPopupLayerStateContext();
-  const { setPosition } = useCoordPopupLayerDispatchContext();
+  const { position } = useCoordPopupLayerState();
+  const { setPosition } = useCoordPopupLayerActions();
   const { datum, unit } = useGeodeticInputState();
   const positionDescription = createPositionDescription(datum, unit, position);
 

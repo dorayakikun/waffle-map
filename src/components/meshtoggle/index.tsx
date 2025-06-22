@@ -1,15 +1,14 @@
 import * as React from "react";
 import { GridToggle } from "../common/GridToggle";
-import { useMeshToggleDispatchContext } from "./MeshToggleDispatchContext";
-import { useMeshToggleStateContext } from "./MeshToggleStateContext";
+import { useMeshToggleState, useMeshToggleActions } from "../../stores/meshToggleStore";
 
 type Props = {
   id: string;
 };
 
 export const MeshToggleContainer = (props: Props) => {
-  const { enableMeshGrid } = useMeshToggleStateContext();
-  const { setEnableMeshGrid } = useMeshToggleDispatchContext();
+  const { enableMeshGrid } = useMeshToggleState();
+  const { setEnableMeshGrid } = useMeshToggleActions();
 
   const handleToggleChanged = React.useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {

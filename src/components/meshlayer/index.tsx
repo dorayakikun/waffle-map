@@ -4,7 +4,7 @@ import meshCalculator, { LatLng, Mesh } from "../../domain/calculateMesh";
 import { convertBoundsToWGS84IfNeeded } from "../../domain/convertLatLng";
 import { MeshRectangle } from "../common/MeshRectangle";
 import { useGeodeticInputDatum } from "../../stores/geodeticInputStore";
-import { useMeshToggleStateContext } from "../meshtoggle/MeshToggleStateContext";
+import { useMeshToggleEnableMeshGrid } from "../../stores/meshToggleStore";
 
 function getSquareMeshCodes(meshCode: string, redius: number): string[] {
   const meshCodes: string[] = [];
@@ -51,7 +51,7 @@ export const MeshLayerContainer = () => {
     },
   });
 
-  const { enableMeshGrid } = useMeshToggleStateContext();
+  const enableMeshGrid = useMeshToggleEnableMeshGrid();
   if (!enableMeshGrid) {
     return null;
   }

@@ -1,8 +1,8 @@
 import * as React from "react";
 import { DebugTileLayer } from "./DebugTileLayer";
-import { useTileToggleStateContext } from "../tileToggle/TileToggleStateContext";
+import { useTileToggleEnableTileGrid } from "../../stores/tileToggleStore";
 
 export const DebugtilelayerContainer = () => {
-  const { enableTileGrid } = useTileToggleStateContext();
+  const enableTileGrid = useTileToggleEnableTileGrid();
   return !enableTileGrid ? null : <DebugTileLayer />;
 };

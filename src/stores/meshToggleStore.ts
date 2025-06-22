@@ -20,7 +20,7 @@ export const useMeshToggleStore = create<MeshToggleStore>((set) => ({
   setEnableMeshGrid: (enableMeshGrid: boolean) =>
     set((state) => ({
       ...state,
-      enableMeshGrid: !state.enableMeshGrid,
+      enableMeshGrid,
     })),
 }));
 

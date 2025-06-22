@@ -3,7 +3,10 @@
     "allow": [
       "Bash(npm audit fix:*)",
       "Bash(npm run typecheck:*)",
-      "Bash(rg:*)"
+      "Bash(rg:*)",
+      "Bash(rm:*)",
+      "Bash(find:*)",
+      "Bash(npm test)"
     ]
   },
   "enableAllProjectMcpServers": true,

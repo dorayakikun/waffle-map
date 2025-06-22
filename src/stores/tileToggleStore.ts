@@ -20,7 +20,7 @@ export const useTileToggleStore = create<TileToggleStore>((set) => ({
   setEnableTileGrid: (enableTileGrid: boolean) =>
     set((state) => ({
       ...state,
-      enableTileGrid: !state.enableTileGrid,
+      enableTileGrid,
     })),
 }));
 
