@@ -1,8 +1,11 @@
 import * as React from "react";
 import { Popup } from "react-leaflet";
+import { Copy, Check } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import meshCalculator, { LatLng } from "../../domain/calculateMesh";
 import { convertLatLngToTokyoIfNeeded } from "../../domain/convertLatLng";
+import { round } from "../../domain/roundPoint";
 
 function createScaleDescription(
   scale: number,
@@ -35,6 +38,29 @@ type Props = {
 };
 
 export function CoordPopupLayer(props: Props) {
+  const [copiedItem, setCopiedItem] = React.useState<string | null>(null);
+
+  const copyToClipboard = async (text: string, itemId: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedItem(itemId);
+      setTimeout(() => setCopiedItem(null), 2000);
+    } catch (err) {
+      console.error('Failed to copy to clipboard:', err);
+    }
+  };
+
+  const copyPosition = async () => {
+    const positionText = `${round(props.position.lat, 5)}, ${round(props.position.lng, 5)}`;
+    await copyToClipboard(positionText, 'position');
+  };
+
+  const copyMeshCode = async (scale: number) => {
+    const { lat, lng } = convertLatLngToTokyoIfNeeded(props.position, props.datum);
+    const meshCode = meshCalculator.toMeshCode(lat, lng, scale);
+    await copyToClipboard(meshCode, `scale-${scale}`);
+  };
+
   return (
     <Popup position={props.position}>
       <Card className="w-full max-w-sm shadow-lg border border-slate-200 dark:border-slate-600">
@@ -46,9 +72,23 @@ export function CoordPopupLayer(props: Props) {
         <CardContent className="p-4 bg-white dark:bg-slate-100">
           <div className="space-y-3">
             <div className="p-3 bg-slate-50 dark:bg-slate-200 rounded-md border border-slate-200 dark:border-slate-300">
-              <p className="text-sm font-medium text-slate-800 dark:text-slate-900">
-                {props.positionDescription}
-              </p>
+              <div className="flex items-center justify-between">
+                <p className="text-sm font-medium text-slate-800 dark:text-slate-900">
+                  {props.positionDescription}
+                </p>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={copyPosition}
+                  className="h-6 w-6 p-0 hover:bg-slate-200 dark:hover:bg-slate-300"
+                >
+                  {copiedItem === 'position' ? (
+                    <Check className="h-3 w-3 text-green-600" />
+                  ) : (
+                    <Copy className="h-3 w-3 text-slate-600 dark:text-slate-700" />
+                  )}
+                </Button>
+              </div>
             </div>
             <div className="space-y-2">
               {meshCalculator.SCALES.map((scale, idx) => (
@@ -56,9 +96,23 @@ export function CoordPopupLayer(props: Props) {
                   key={`coord_popup_item_${idx}`} 
                   className="p-2 bg-slate-50 dark:bg-slate-200 rounded border border-slate-200 dark:border-slate-300"
                 >
-                  <span className="text-sm font-mono text-slate-700 dark:text-slate-900">
-                    {createScaleDescription(scale, props.datum, props.position)}
-                  </span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-mono text-slate-700 dark:text-slate-900">
+                      {createScaleDescription(scale, props.datum, props.position)}
+                    </span>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => copyMeshCode(scale)}
+                      className="h-6 w-6 p-0 hover:bg-slate-200 dark:hover:bg-slate-300"
+                    >
+                      {copiedItem === `scale-${scale}` ? (
+                        <Check className="h-3 w-3 text-green-600" />
+                      ) : (
+                        <Copy className="h-3 w-3 text-slate-600 dark:text-slate-700" />
+                      )}
+                    </Button>
+                  </div>
                 </div>
               ))}
             </div>
