@@ -38,10 +38,8 @@ export function AppContainer() {
         // If both are present, prefer comma and convert dots
         changeSeparator(",");
         finalMeshCodes = meshCodes.replace(/\./g, ",");
-      } else {
-        // Default to comma separator
-        changeSeparator(",");
       }
+      // If no separators are detected in URL, keep the current separator setting
 
       // Set mesh codes - this will automatically process them through the store
       inputMeshcodesString(finalMeshCodes);
