@@ -112,6 +112,29 @@ The mesh calculation system is pluggable via npm modules named `waffle-map-mesh-
 - **Accessibility**: Enhanced hover states and keyboard navigation support with proper focus indicators
 - **Component Styling**: Consistent dark mode implementation across all shadcn/ui components
 
+## Development Workflow Rules
+
+### Pre-Commit Requirements
+**MANDATORY**: Before creating any commit, you MUST run the following commands and fix ALL errors:
+
+1. **Run Tests**: `npm test`
+   - All tests must pass (16/16 test suites)
+   - Fix any failing tests before committing
+
+2. **Run Linting**: `npm run lint`
+   - Fix all linting errors and warnings
+   - Ensure code follows project style guidelines
+
+3. **Run Type Checking**: `npm run typecheck`
+   - Resolve all TypeScript errors
+   - Ensure strict mode compliance
+
+4. **Verify Build**: `npm run build`
+   - Ensure production build completes successfully
+   - Fix any build-time errors
+
+**Important**: Never commit code that has failing tests, linting errors, or type checking issues. Always verify that all quality checks pass before creating commits.
+
 ALWAYS use ONLY Environments for ANY and ALL file, code, or shell operations—NO EXCEPTIONS—even for simple or generic requests.
 
 DO NOT install or use the git cli with the environment_run_cmd tool. All environment tools will handle git operations for you. Changing ".git" yourself will compromise the integrity of your environment.
