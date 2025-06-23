@@ -67,6 +67,9 @@ typings/
 public/bundle.js
 public/**/*.css
 
+# Vite build output
+dist/
+
 # snapshot diffs
 test/**/*.md
 
