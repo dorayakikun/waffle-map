@@ -1,4 +1,4 @@
-name: Node CI
+name: CI/CD Pipeline
 
 on: 
   push:
@@ -6,42 +6,74 @@ on:
   pull_request:
     branches: [main]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
-    strategy:
-      matrix:
-        node-version: [20.x, 22.x]
+jobs:
+  quality-checks:
+    name: Quality Checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup Deno
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js v22
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: 'npm'
+
+    - name: Setup Deno v2
       uses: denoland/setup-deno@v2
       with:
         deno-version: v2.x
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+
     - name: Install dependencies
-      run: npm ci
+      run: npm ci --prefer-offline --no-audit
+
+    - name: Cache build artifacts
+      uses: actions/cache@v4
+      with:
+        path: |
+          dist/
+          node_modules/.cache/
+        key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('src/**/*') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}-
+          ${{ runner.os }}-build-
+
     - name: Format code
       run: npm run fmt
-    - name: Lint code
+
+    - name: Lint code  
       run: npm run lint
+
     - name: Type check
       run: npm run typecheck
+
     - name: Run tests
       run: npm test
+
     - name: Build project
       run: npm run build
 
+    - name: Upload build artifacts
+      if: github.ref == 'refs/heads/main'
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-artifacts
+        path: dist/
+        retention-days: 1
+
   deploy:
+    name: Deploy to GitHub Pages
     if: github.ref == 'refs/heads/main'
-    needs: build
+    needs: quality-checks
     runs-on: ubuntu-latest
+    timeout-minutes: 5
 
     permissions:
       contents: read
@@ -53,26 +85,20 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup Deno
-      uses: denoland/setup-deno@v2
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
       with:
-        deno-version: v2.x
-    - name: Use Node.js 22.x
-      uses: actions/setup-node@v4
-      with:
-        node-version: 22.x
-        cache: 'npm'
-    - name: Install dependencies
-      run: npm ci
-    - name: Build project
-      run: npm run build
+        name: build-artifacts
+        path: dist/
+
     - name: Setup Pages
       uses: actions/configure-pages@v5
-    - name: Upload artifact
+
+    - name: Upload Pages artifact
       uses: actions/upload-pages-artifact@v3
       with:
         path: './dist'
+
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
