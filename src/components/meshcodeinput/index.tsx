@@ -1,28 +1,31 @@
-import * as React from "react";
 import { MeshcodesInput } from "./MeshcodesInput";
-import { useMeshcodesInputActions, useMeshcodesInputState } from "../../stores/meshcodesInputStore";
+import { 
+  useMeshcodesInputErrorMessage,
+  useMeshcodesInputMeshcodesString,
+  useMeshcodesInputSeparator,
+  useMeshcodesInputInputMeshcodesString,
+  useMeshcodesInputChangeSeparator
+} from "../../stores/meshcodesInputStore";
+import { Separator } from "../../types";
 
 type Props = {
   id: string;
 };
 
 export const MeshcodesInputContainer = (props: Props) => {
-  const { meshcodesString, errorMessage, separator } = useMeshcodesInputState();
-  const { inputMeshcodesString, changeSeparator } = useMeshcodesInputActions();
+  const errorMessage = useMeshcodesInputErrorMessage();
+  const meshcodesString = useMeshcodesInputMeshcodesString();
+  const separator = useMeshcodesInputSeparator();
+  const inputMeshcodesString = useMeshcodesInputInputMeshcodesString();
+  const changeSeparator = useMeshcodesInputChangeSeparator();
 
-  const handleMeshcodesStringChanged = React.useCallback(
-    (e: React.SyntheticEvent<HTMLInputElement>) => {
-      inputMeshcodesString((e.target as any).value);
-    },
-    [inputMeshcodesString],
-  );
+  const handleMeshcodesStringChanged = (e: React.SyntheticEvent<HTMLInputElement>) => {
+    inputMeshcodesString((e.target as any).value);
+  };
 
-  const handleSeparateChanged = React.useCallback(
-    (value: string) => {
-      changeSeparator(value);
-    },
-    [changeSeparator],
-  );
+  const handleSeparateChanged = (value: string) => {
+    changeSeparator(value as Separator);
+  };
 
   return (
     <MeshcodesInput

@@ -1,6 +1,11 @@
-import * as React from "react";
 import { MarkerInput } from "./MarkerInput";
-import { useMarkerInputActions, useMarkerInputState } from "../../stores/markerInputStore";
+import { 
+  useMarkerInputErrorMessage, 
+  useMarkerInputLatLngString,
+  useMarkerInputInputLatLng,
+  useMarkerInputPutMarker,
+  useMarkerInputRemoveAllMarkers
+} from "../../stores/markerInputStore";
 import { useGeodeticInputUnit } from "../../stores/geodeticInputStore";
 
 type Props = {
@@ -9,24 +14,23 @@ type Props = {
 
 export function MarkerInputContainer(props: Props) {
   const unit = useGeodeticInputUnit();
-  const { errorMessage, latLngString } = useMarkerInputState();
-  const { inputLatLng, putMarker, removeAllMarkers } = useMarkerInputActions();
+  const errorMessage = useMarkerInputErrorMessage();
+  const latLngString = useMarkerInputLatLngString();
+  const inputLatLng = useMarkerInputInputLatLng();
+  const putMarker = useMarkerInputPutMarker();
+  const removeAllMarkers = useMarkerInputRemoveAllMarkers();
 
-  const handleLatLngStringChanged = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      inputLatLng(e.target.value);
-    },
-    [inputLatLng],
-  );
+  const handleLatLngStringChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+    inputLatLng(e.target.value);
+  };
 
-  const handleClickPutAMarker = React.useCallback(() => {
+  const handleClickPutAMarker = () => {
     putMarker(unit);
-  }, [putMarker, unit]);
+  };
 
-  const handleClickRemoveAllMarkers = React.useCallback(
-    () => removeAllMarkers(),
-    [removeAllMarkers],
-  );
+  const handleClickRemoveAllMarkers = () => {
+    removeAllMarkers();
+  };
 
   return (
     <MarkerInput

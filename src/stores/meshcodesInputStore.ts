@@ -1,18 +1,18 @@
 import { create } from "zustand";
-import { Meshcode } from "../types";
+import { Meshcode, Separator } from "../types";
 import meshCalculator, { Mesh } from "../domain/calculateMesh";
 
 export type MeshcodesInputState = {
   errorMessage: string;
   meshcodesString: string;
-  separator: string;
+  separator: Separator;
   meshcodes: Meshcode[];
   userInputMeshes: Record<Meshcode, Mesh>;
 };
 
 export type MeshcodesInputActions = {
   inputMeshcodesString: (meshcodesString: string) => void;
-  changeSeparator: (separator: string) => void;
+  changeSeparator: (separator: Separator) => void;
 };
 
 export type MeshcodesInputStore = MeshcodesInputState & MeshcodesInputActions;
@@ -45,11 +45,7 @@ const initialState: MeshcodesInputState = {
 export const useMeshcodesInputStore = create<MeshcodesInputStore>((set) => ({
   ...initialState,
 
-  changeSeparator: (separator: string) =>
-    set((state) => ({
-      ...state,
-      separator,
-    })),
+  changeSeparator: (separator: Separator) => set({ separator }),
 
   inputMeshcodesString: (meshcodesString: string) =>
     set((state) => {
@@ -77,32 +73,14 @@ export const useMeshcodesInputStore = create<MeshcodesInputStore>((set) => ({
     }),
 }));
 
-// Selector hooks for optimized re-renders
-export const useMeshcodesInputState = () => {
-  const errorMessage = useMeshcodesInputStore((state) => state.errorMessage);
-  const meshcodesString = useMeshcodesInputStore((state) => state.meshcodesString);
-  const separator = useMeshcodesInputStore((state) => state.separator);
-  const meshcodes = useMeshcodesInputStore((state) => state.meshcodes);
-  const userInputMeshes = useMeshcodesInputStore((state) => state.userInputMeshes);
-  return { errorMessage, meshcodesString, separator, meshcodes, userInputMeshes };
-};
-
-export const useMeshcodesInputActions = () => {
-  const inputMeshcodesString = useMeshcodesInputStore((state) => state.inputMeshcodesString);
-  const changeSeparator = useMeshcodesInputStore((state) => state.changeSeparator);
-  return { inputMeshcodesString, changeSeparator };
-};
-
-// Individual field selectors for even more granular updates
+// Individual field selectors for optimized re-renders
 export const useMeshcodesInputErrorMessage = () =>
   useMeshcodesInputStore((state) => state.errorMessage);
-
 export const useMeshcodesInputMeshcodesString = () =>
   useMeshcodesInputStore((state) => state.meshcodesString);
-
 export const useMeshcodesInputSeparator = () => useMeshcodesInputStore((state) => state.separator);
-
 export const useMeshcodesInputMeshcodes = () => useMeshcodesInputStore((state) => state.meshcodes);
-
 export const useMeshcodesInputUserInputMeshes = () =>
   useMeshcodesInputStore((state) => state.userInputMeshes);
+export const useMeshcodesInputInputMeshcodesString = () => useMeshcodesInputStore((state) => state.inputMeshcodesString);
+export const useMeshcodesInputChangeSeparator = () => useMeshcodesInputStore((state) => state.changeSeparator);

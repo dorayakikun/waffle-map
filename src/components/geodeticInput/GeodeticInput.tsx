@@ -6,12 +6,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Datum, Unit } from "../../types";
 
 export type Props = {
-  unit: string;
-  datum: string;
-  onUnitChanged: (value: string) => void;
-  onDatumChanged: (value: string) => void;
+  unit: Unit;
+  datum: Datum;
+  onUnitChanged: (value: Unit) => void;
+  onDatumChanged: (value: Datum) => void;
 };
 
 export function GeodeticInput(props: Props): React.ReactElement<Props> {

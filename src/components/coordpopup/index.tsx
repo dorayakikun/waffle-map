@@ -11,7 +11,7 @@ import {
   useCoordPopupLayerActions,
   useCoordPopupLayerState,
 } from "../../stores/coordPopupLayerStore";
-import { useGeodeticInputState } from "../../stores/geodeticInputStore";
+import { useGeodeticInputDatum, useGeodeticInputUnit } from "../../stores/geodeticInputStore";
 
 function createPositionDescription(
   datum: string,
@@ -30,7 +30,8 @@ function createPositionDescription(
 export function CoordPopupLayerContainer(): React.ReactElement | null {
   const { position } = useCoordPopupLayerState();
   const { setPosition } = useCoordPopupLayerActions();
-  const { datum, unit } = useGeodeticInputState();
+  const datum = useGeodeticInputDatum();
+  const unit = useGeodeticInputUnit();
   const positionDescription = createPositionDescription(datum, unit, position);
 
   useMapEvents({

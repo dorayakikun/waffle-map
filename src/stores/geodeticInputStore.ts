@@ -1,13 +1,14 @@
 import { create } from "zustand";
+import { Datum, Unit } from "../types";
 
 export type GeodeticInputState = {
-  unit: string;
-  datum: string;
+  unit: Unit;
+  datum: Datum;
 };
 
 export type GeodeticInputActions = {
-  changeDatum: (datum: string) => void;
-  changeUnit: (unit: string) => void;
+  changeDatum: (datum: Datum) => void;
+  changeUnit: (unit: Unit) => void;
 };
 
 export type GeodeticInputStore = GeodeticInputState & GeodeticInputActions;
@@ -20,33 +21,12 @@ const initialState: GeodeticInputState = {
 export const useGeodeticInputStore = create<GeodeticInputStore>((set) => ({
   ...initialState,
 
-  changeDatum: (datum: string) =>
-    set((state) => ({
-      ...state,
-      datum,
-    })),
-
-  changeUnit: (unit: string) =>
-    set((state) => ({
-      ...state,
-      unit,
-    })),
+  changeDatum: (datum: Datum) => set({ datum }),
+  changeUnit: (unit: Unit) => set({ unit }),
 }));
 
-// Selector hooks for optimized re-renders
-export const useGeodeticInputState = () => {
-  const unit = useGeodeticInputStore((state) => state.unit);
-  const datum = useGeodeticInputStore((state) => state.datum);
-  return { unit, datum };
-};
-
-export const useGeodeticInputActions = () => {
-  const changeDatum = useGeodeticInputStore((state) => state.changeDatum);
-  const changeUnit = useGeodeticInputStore((state) => state.changeUnit);
-  return { changeDatum, changeUnit };
-};
-
-// Individual field selectors for even more granular updates
+// Individual field selectors for optimized re-renders
 export const useGeodeticInputUnit = () => useGeodeticInputStore((state) => state.unit);
-
 export const useGeodeticInputDatum = () => useGeodeticInputStore((state) => state.datum);
+export const useGeodeticInputChangeDatum = () => useGeodeticInputStore((state) => state.changeDatum);
+export const useGeodeticInputChangeUnit = () => useGeodeticInputStore((state) => state.changeUnit);

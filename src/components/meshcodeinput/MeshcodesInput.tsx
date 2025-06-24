@@ -7,16 +7,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Separator } from "../../types";
 
 export type Props = {
   errorMessage: string;
   id: string;
   meshCodes: string;
-  separator: string;
+  separator: Separator;
   onMeshecodesStringChanged: (
     e: React.SyntheticEvent<HTMLInputElement>,
   ) => void;
-  onSeparatorChanged: (value: string) => void;
+  onSeparatorChanged: (value: Separator) => void;
 };
 
 export function MeshcodesInput(props: Props): React.ReactElement<Props> {
