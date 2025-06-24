@@ -39,7 +39,7 @@ export function CoordPopupLayerContainer(): React.ReactElement | null {
     },
   });
 
-  return position === null ? null : (
+  return position && (
     <CoordPopupLayer
       position={position}
       datum={datum}

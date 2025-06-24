@@ -3,5 +3,5 @@ import { useTileToggleEnableTileGrid } from "../../stores/tileToggleStore";
 
 export const DebugtilelayerContainer = () => {
   const enableTileGrid = useTileToggleEnableTileGrid();
-  return !enableTileGrid ? null : <DebugTileLayer />;
+  return enableTileGrid && <DebugTileLayer />;
 };
