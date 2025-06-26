@@ -65,5 +65,8 @@
     "waffle-map-mesh-calculator-basic": "^2.3.3",
     "zod": "^3.25.67",
     "zustand": "^5.0.2"
+  },
+  "wafflemap": {
+    "meshcalculator": "basic"
   }
 }

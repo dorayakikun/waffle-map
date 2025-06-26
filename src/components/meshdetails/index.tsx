@@ -28,6 +28,9 @@ export const MeshDetailsContainer = () => {
     <>
       {meshcodes.map((meshcode) => {
         const mesh = userInputMeshes[meshcode];
+        
+        // Skip rendering if mesh is not loaded yet
+        if (!mesh) return null;
 
         const center = convertLatLngToMillisecIfNeeded(
           convertLatLngToTokyoIfNeeded(mesh.center, datum),

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { Meshcode, Separator } from "../types";
-import meshCalculator, { Mesh } from "../domain/calculateMesh";
+import { getMeshCalculator, Mesh } from "../domain/calculateMesh";
 
 export type MeshcodesInputState = {
   errorMessage: string;
@@ -17,9 +17,10 @@ export type MeshcodesInputActions = {
 
 export type MeshcodesInputStore = MeshcodesInputState & MeshcodesInputActions;
 
-const { toBounds, toCenterLatLng } = meshCalculator;
-
-function mapToMeshes(meshcodes: Meshcode[]): Record<Meshcode, Mesh> {
+async function mapToMeshes(meshcodes: Meshcode[]): Promise<Record<Meshcode, Mesh>> {
+  const meshCalculator = await getMeshCalculator();
+  const { toBounds, toCenterLatLng } = meshCalculator;
+  
   return Object.fromEntries(
     meshcodes.map((meshcode) => {
       return [
@@ -47,30 +48,32 @@ export const useMeshcodesInputStore = create<MeshcodesInputStore>((set) => ({
 
   changeSeparator: (separator: Separator) => set({ separator }),
 
-  inputMeshcodesString: (meshcodesString: string) =>
-    set((state) => {
-      const meshcodes = meshcodesString
-        .split(state.separator)
-        .filter((meshCode) => meshCode !== "");
+  inputMeshcodesString: (meshcodesString: string) => {
+    const meshcodes = meshcodesString
+      .split(useMeshcodesInputStore.getState().separator)
+      .filter((meshCode) => meshCode !== "");
 
-      try {
-        return {
-          ...state,
-          errorMessage: "",
-          meshcodesString,
-          meshcodes,
-          userInputMeshes: mapToMeshes(meshcodes),
-        };
-      } catch (e) {
-        return {
-          ...state,
+    // Set immediate state with loading indicator
+    set({
+      errorMessage: "",
+      meshcodesString,
+      meshcodes,
+      userInputMeshes: {}, // Clear previous meshes while loading
+    });
+
+    // Load meshes asynchronously
+    mapToMeshes(meshcodes)
+      .then((userInputMeshes) => {
+        set({ userInputMeshes });
+      })
+      .catch((e) => {
+        set({
           errorMessage: e instanceof Error ? e.message : String(e),
-          meshcodesString,
           meshcodes: [],
           userInputMeshes: {},
-        };
-      }
-    }),
+        });
+      });
+  },
 }));
 
 // Individual field selectors for optimized re-renders

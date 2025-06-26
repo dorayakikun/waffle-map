@@ -1,6 +1,7 @@
-import * as basicCalculator from "waffle-map-mesh-calculator-basic";
+declare const MESH_CALCULATOR_TYPE: string;
 
-declare const LOGIC_TYPE: string;
+// Import the basic calculator statically to avoid dynamic import issues
+import * as basicMeshCalculator from 'waffle-map-mesh-calculator-basic';
 
 export type LatLng = {
   lat: number;
@@ -27,11 +28,30 @@ type MeshCalculator = {
   offset(meshCode: string, x: number, y: number): string;
 };
 
-const meshCalculator: () => MeshCalculator = () => {
-  // For now, always use the basic calculator since dynamic imports with require()
-  // are not supported in ES modules. In the future, this could be enhanced with
-  // dynamic import() for different calculator types.
-  return basicCalculator as any;
-};
+// Function to get mesh calculator based on configuration
+function getMeshCalculatorSync(): MeshCalculator {
+  const calculatorType = MESH_CALCULATOR_TYPE;
+  
+  // For now, only the basic calculator is supported
+  // In the future, this can be extended to support other calculator types
+  if (calculatorType !== 'basic') {
+    console.warn(`Calculator type '${calculatorType}' is not yet supported, falling back to basic calculator`);
+  }
+  
+  console.log(`Loaded mesh calculator: waffle-map-mesh-calculator-basic`);
+  return basicMeshCalculator as MeshCalculator;
+}
 
-export default meshCalculator();
+// Create a singleton instance
+let meshCalculatorInstance: MeshCalculator | null = null;
+
+// Function to get the mesh calculator (singleton pattern)
+export function getMeshCalculator(): Promise<MeshCalculator> {
+  if (!meshCalculatorInstance) {
+    meshCalculatorInstance = getMeshCalculatorSync();
+  }
+  return Promise.resolve(meshCalculatorInstance);
+}
+
+// For backward compatibility, export the promise as default
+export default getMeshCalculator();

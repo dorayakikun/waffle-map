@@ -1,5 +1,15 @@
-import { create } from "zustand";
+import { createToggleStore } from "./createToggleStore";
 
+// Create mesh toggle store using the generic factory
+const meshToggleStore = createToggleStore("enableMeshGrid", false);
+
+// Export the store and hooks with original names for backward compatibility
+export const useMeshToggleStore = meshToggleStore.useStore;
+export const useMeshToggleState = meshToggleStore.useState;
+export const useMeshToggleActions = meshToggleStore.useActions;
+export const useMeshToggleEnableMeshGrid = meshToggleStore.useValue;
+
+// Export types for backward compatibility
 export type MeshToggleState = {
   enableMeshGrid: boolean;
 };
@@ -9,32 +19,3 @@ export type MeshToggleActions = {
 };
 
 export type MeshToggleStore = MeshToggleState & MeshToggleActions;
-
-const initialState: MeshToggleState = {
-  enableMeshGrid: false,
-};
-
-export const useMeshToggleStore = create<MeshToggleStore>((set) => ({
-  ...initialState,
-
-  setEnableMeshGrid: (enableMeshGrid: boolean) =>
-    set((state) => ({
-      ...state,
-      enableMeshGrid,
-    })),
-}));
-
-// Selector hooks for optimized re-renders
-export const useMeshToggleState = () => {
-  const enableMeshGrid = useMeshToggleStore((state) => state.enableMeshGrid);
-  return { enableMeshGrid };
-};
-
-export const useMeshToggleActions = () => {
-  const setEnableMeshGrid = useMeshToggleStore((state) => state.setEnableMeshGrid);
-  return { setEnableMeshGrid };
-};
-
-// Individual field selectors for even more granular updates
-export const useMeshToggleEnableMeshGrid = () =>
-  useMeshToggleStore((state) => state.enableMeshGrid);

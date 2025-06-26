@@ -22,7 +22,9 @@ function meshesToLatsAndLngs(
   const lats: number[] = [];
   const lngs: number[] = [];
   meshcodes
-    .map((meshcode) => meshes[meshcode].bounds)
+    .map((meshcode) => meshes[meshcode])
+    .filter((mesh) => mesh != null) // Filter out undefined meshes
+    .map((mesh) => mesh.bounds)
     .map((bounds) => convertBoundsToWGS84IfNeeded(bounds, datum))
     .map((bounds) => [bounds.leftTop, bounds.rightBottom])
     .reduce((accumrator, current) => accumrator.concat(current), [])
@@ -55,6 +57,11 @@ function calculateLeafletBounds(
       lats.push(position.lat);
       lngs.push(position.lng);
     });
+
+  // If no valid coordinates are available, return initial bounds
+  if (lats.length === 0 || lngs.length === 0) {
+    return initialLeafletBounds;
+  }
 
   return [
     [Math.min(...lats), Math.max(...lngs)],

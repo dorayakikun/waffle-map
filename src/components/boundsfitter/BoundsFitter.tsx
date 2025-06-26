@@ -10,7 +10,13 @@ export function BoundsFitter(props: Props) {
 
   const map = useMap();
   useEffect(() => {
-    map.fitBounds(bounds);
+    // Check if bounds are valid before applying
+    if (bounds && bounds.length === 2 && bounds.every(bound => 
+      bound.length === 2 && 
+      bound.every(coord => typeof coord === 'number' && !isNaN(coord) && isFinite(coord))
+    )) {
+      map.fitBounds(bounds);
+    }
   });
 
   return null;

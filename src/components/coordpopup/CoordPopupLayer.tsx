@@ -3,7 +3,7 @@ import { Popup } from "react-leaflet";
 import { Check, Copy } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import meshCalculator, { LatLng } from "../../domain/calculateMesh";
+import { getMeshCalculator, LatLng } from "../../domain/calculateMesh";
 import { convertLatLngToTokyoIfNeeded } from "../../domain/convertLatLng";
 import { round } from "../../domain/roundPoint";
 
@@ -11,6 +11,7 @@ function createScaleDescription(
   scale: number,
   datum: string,
   latLng: LatLng,
+  meshCalculator: any,
 ): string {
   const { lat, lng } = convertLatLngToTokyoIfNeeded(latLng, datum);
   return `scale${scale}: ${meshCalculator.toMeshCode(lat, lng, scale)}`;
@@ -25,6 +26,12 @@ type Props = {
 
 export function CoordPopupLayer(props: Props) {
   const [copiedItem, setCopiedItem] = React.useState<string | null>(null);
+  const [meshCalculator, setMeshCalculator] = React.useState<any>(null);
+
+  // Load mesh calculator on component mount
+  React.useEffect(() => {
+    getMeshCalculator().then(setMeshCalculator);
+  }, []);
 
   const copyToClipboard = async (text: string, itemId: string) => {
     try {
@@ -42,10 +49,24 @@ export function CoordPopupLayer(props: Props) {
   };
 
   const copyMeshCode = async (scale: number) => {
+    if (!meshCalculator) return;
     const { lat, lng } = convertLatLngToTokyoIfNeeded(props.position, props.datum);
     const meshCode = meshCalculator.toMeshCode(lat, lng, scale);
     await copyToClipboard(meshCode, `scale-${scale}`);
   };
+
+  // Show loading state while mesh calculator is loading
+  if (!meshCalculator) {
+    return (
+      <Popup position={props.position}>
+        <Card className="w-full max-w-sm shadow-lg border border-slate-200 dark:border-slate-600">
+          <CardHeader className="bg-slate-700 text-white text-center rounded-t-lg">
+            <CardTitle className="text-lg font-semibold">Loading...</CardTitle>
+          </CardHeader>
+        </Card>
+      </Popup>
+    );
+  }
 
   return (
     <Popup position={props.position}>
@@ -75,14 +96,14 @@ export function CoordPopupLayer(props: Props) {
               </div>
             </div>
             <div className="space-y-2">
-              {meshCalculator.SCALES.map((scale, idx) => (
+              {meshCalculator.SCALES.map((scale: number, idx: number) => (
                 <div
                   key={`coord_popup_item_${idx}`}
                   className="p-2 bg-slate-50 dark:bg-slate-200 rounded border border-slate-200 dark:border-slate-300"
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-mono text-slate-700 dark:text-slate-900">
-                      {createScaleDescription(scale, props.datum, props.position)}
+                      {createScaleDescription(scale, props.datum, props.position, meshCalculator)}
                     </span>
                     <Button
                       variant="ghost"

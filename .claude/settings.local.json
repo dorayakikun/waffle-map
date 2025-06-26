@@ -15,7 +15,8 @@
       "Bash(npm update:*)",
       "Bash(npm run lint)",
       "Bash(grep:*)",
-      "Bash(npm run fmt:*)"
+      "Bash(npm run fmt:*)",
+      "Bash(ls:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
