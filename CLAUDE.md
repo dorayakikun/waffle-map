@@ -140,3 +140,11 @@ ALWAYS use ONLY Environments for ANY and ALL file, code, or shell operations—N
 DO NOT install or use the git cli with the environment_run_cmd tool. All environment tools will handle git operations for you. Changing ".git" yourself will compromise the integrity of your environment.
 
 You MUST inform the user how to view your work using `git checkout <branch_name>`. Failure to do this will make your work inaccessible to others.
+
+**CRITICAL Git Safety Rule**: NEVER add files outside the project directory to git. Only add files within the current project root directory. Do not accidentally stage or commit:
+- Home directory files (`~/` or `/Users/username/`)
+- System files (`/etc/`, `/usr/`, `/var/`)
+- Other project directories outside this repository
+- Personal configuration files outside this project scope
+
+Always verify with `git status` before committing to ensure only project-relevant files are staged.

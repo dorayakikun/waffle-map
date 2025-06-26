@@ -1,50 +1,35 @@
 import { create } from "zustand";
 
-export interface ToggleState<T extends string> {
-  [key: string]: boolean;
-}
-
-export interface ToggleActions<T extends string> {
-  [key: string]: (value: boolean) => void;
-}
-
-export type ToggleStore<T extends string> = ToggleState<T> & ToggleActions<T>;
-
-export function createToggleStore<T extends string>(
-  key: T,
+export function createToggleStore(
+  key: string,
   initialValue: boolean = false
 ) {
   const capitalizedKey = key.charAt(0).toUpperCase() + key.slice(1);
-  const setterName = `set${capitalizedKey}` as const;
+  const setterName = `set${capitalizedKey}`;
 
-  type State = { [K in T]: boolean };
-  type Actions = { [K in typeof setterName]: (value: boolean) => void };
-  type Store = State & Actions;
-
-  const initialState = { [key]: initialValue } as State;
-
-  const useStore = create<Store>((set) => ({
-    ...initialState,
+  // Use any for the store type to avoid complex type gymnastics
+  const useStore = create<any>((set) => ({
+    [key]: initialValue,
     [setterName]: (value: boolean) =>
-      set((state) => ({
+      set((state: any) => ({
         ...state,
         [key]: value,
       })),
-  } as Store));
+  }));
 
   // Selector hooks for optimized re-renders
   const useState = () => {
-    const value = useStore((state) => state[key]);
-    return { [key]: value } as { [K in T]: boolean };
+    const value = useStore((state: any) => state[key]);
+    return { [key]: value };
   };
 
   const useActions = () => {
-    const setter = useStore((state) => state[setterName]);
-    return { [setterName]: setter } as { [K in typeof setterName]: (value: boolean) => void };
+    const setter = useStore((state: any) => state[setterName]);
+    return { [setterName]: setter };
   };
 
   // Individual field selector for granular updates
-  const useValue = () => useStore((state) => state[key]);
+  const useValue = () => useStore((state: any) => state[key]);
 
   return {
     useStore,
