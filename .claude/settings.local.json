@@ -336,6 +336,7 @@
   "preferredNotifChannel": "terminal_bell",
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
-    "container-use"
+    "container-use",
+    "playwright"
   ]
 }
