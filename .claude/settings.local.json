@@ -1,7 +1,20 @@
 {
-  "model": "opus",
-  "theme": "dark",
   "cleanupPeriodDays": 30,
+  "env": {
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "0",
+    "DISABLE_COST_WARNINGS": "0",
+    "BASH_DEFAULT_TIMEOUT_MS": "300000",
+    "BASH_MAX_TIMEOUT_MS": "1200000",
+    "MAX_THINKING_TOKENS": "200000",
+    "SHELL": "/bin/zsh",
+    "UV_CACHE_DIR": "~/.cache/uv",
+    "UV_PYTHON_PREFERENCE": "managed",
+    "DENO_DIR": "~/.cache/deno",
+    "CARGO_HOME": "~/.cargo",
+    "RUSTUP_HOME": "~/.rustup",
+    "GOPATH": "~/go",
+    "NODE_OPTIONS": "--max-old-space-size=4096"
+  },
   "permissions": {
     "allow": [
       "Bash(npm:*)",
@@ -242,7 +255,10 @@
       "NotebookEdit(./**)",
       "TodoRead(**)",
       "TodoWrite(**)",
-      "Task(**)"
+      "Task(**)",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_type"
     ],
     "deny": [
       "Bash(rm -rf /)",
@@ -318,25 +334,11 @@
       "Write(/etc/sudoers)"
     ]
   },
-  "env": {
-    "CLAUDE_CODE_ENABLE_TELEMETRY": "0",
-    "DISABLE_COST_WARNINGS": "0",
-    "BASH_DEFAULT_TIMEOUT_MS": "300000",
-    "BASH_MAX_TIMEOUT_MS": "1200000",
-    "MAX_THINKING_TOKENS": "200000",
-    "SHELL": "/bin/zsh",
-    "UV_CACHE_DIR": "~/.cache/uv",
-    "UV_PYTHON_PREFERENCE": "managed",
-    "DENO_DIR": "~/.cache/deno",
-    "CARGO_HOME": "~/.cargo",
-    "RUSTUP_HOME": "~/.rustup",
-    "GOPATH": "~/go",
-    "NODE_OPTIONS": "--max-old-space-size=4096"
-  },
-  "preferredNotifChannel": "terminal_bell",
+  "model": "opus",
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
-    "container-use",
     "playwright"
-  ]
+  ],
+  "theme": "dark",
+  "preferredNotifChannel": "terminal_bell"
 }
