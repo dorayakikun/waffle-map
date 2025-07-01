@@ -1,13 +1,5 @@
 {
   "mcpServers": {
-    "container-use": {
-      "type": "stdio",
-      "command": "/opt/homebrew/bin/cu",
-      "args": [
-        "stdio"
-      ],
-      "env": {}
-    },
     "playwright": {
       "type": "stdio",
       "command": "npx",
