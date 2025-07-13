@@ -2,6 +2,11 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
+/**
+ * Renders a styled HTML input element with support for custom classes, dark mode, and various input states.
+ *
+ * Accepts all standard input element props and merges additional class names with predefined styles for consistent appearance across different states, including focus, disabled, invalid, and file input types.
+ */
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (
     <input

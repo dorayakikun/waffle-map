@@ -14,6 +14,16 @@ import { Meshcode } from "../../types";
 import { useGeodeticInputDatum } from "../../stores/geodeticInputStore";
 import { useMarkerInputPositions } from "../../stores/markerInputStore";
 
+/**
+ * Extracts arrays of latitudes and longitudes from the bounds of the specified meshes, converting coordinates to WGS84 if required.
+ *
+ * Only meshes present in the input record are considered. The returned arrays contain the latitudes and longitudes of the top-left and bottom-right corners of each mesh's bounds.
+ *
+ * @param meshes - A record mapping meshcodes to mesh objects
+ * @param meshcodes - An array of meshcodes to process
+ * @param datum - The geodetic datum of the input meshes; coordinates are converted to WGS84 if needed
+ * @returns An object containing arrays of latitudes (`lats`) and longitudes (`lngs`) from the mesh bounds
+ */
 function meshesToLatsAndLngs(
   meshes: Record<Meshcode, Mesh>,
   meshcodes: Meshcode[],
@@ -38,6 +48,17 @@ function meshesToLatsAndLngs(
   };
 }
 
+/**
+ * Calculates the bounding box that encompasses the specified meshes and marker positions, returning coordinates suitable for Leaflet map fitting.
+ *
+ * If no meshes or marker positions are provided, or if no valid coordinates are found, returns the initial default bounds.
+ *
+ * @param meshes - A record of mesh objects keyed by meshcode
+ * @param meshcodes - An array of meshcodes to include in the bounds calculation
+ * @param markerPositions - An array of marker positions to include in the bounds calculation
+ * @param datum - The geodetic datum used for coordinate conversion
+ * @returns An array of two coordinate pairs representing the southwest and northeast corners of the bounding box
+ */
 function calculateLeafletBounds(
   meshes: Record<Meshcode, Mesh>,
   meshcodes: Meshcode[],
@@ -69,6 +90,11 @@ function calculateLeafletBounds(
   ];
 }
 
+/**
+ * React container component that computes map bounds from user-selected meshes and marker positions, and renders a `BoundsFitter` with those bounds.
+ *
+ * Retrieves mesh data, meshcodes, marker positions, and geodetic datum from application stores, calculates the appropriate map bounds, and passes them to the `BoundsFitter` component for map fitting.
+ */
 export function BoundFitterContainer() {
   const userInputMeshes = useMeshcodesInputUserInputMeshes();
   const meshcodes = useMeshcodesInputMeshcodes();

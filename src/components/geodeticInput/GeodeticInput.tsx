@@ -15,6 +15,11 @@ export type Props = {
   onDatumChanged: (value: Datum) => void;
 };
 
+/**
+ * Renders a pair of dropdown selectors for choosing a geodetic unit and datum.
+ *
+ * Provides controlled select inputs for unit and datum selection, invoking callback functions when the user changes either value.
+ */
 export function GeodeticInput(props: Props): React.ReactElement<Props> {
   return (
     <div className="space-y-4">

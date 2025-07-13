@@ -11,6 +11,11 @@ export type Props = {
   onRemoveAllMarkersClicked: () => void;
 };
 
+/**
+ * Renders an input field for entering latitude and longitude coordinates, along with buttons to add a marker or remove all markers.
+ *
+ * Displays an error message if provided. The component relies on callback props for handling input changes and button actions.
+ */
 export function MarkerInput(props: Props) {
   return (
     <div className="space-y-4">

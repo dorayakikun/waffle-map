@@ -6,6 +6,16 @@ import { MeshRectangle } from "../common/MeshRectangle";
 import { useGeodeticInputDatum } from "../../stores/geodeticInputStore";
 import { useMeshToggleEnableMeshGrid } from "../../stores/meshToggleStore";
 
+/**
+ * Generates a list of mesh codes forming a square grid centered on a given mesh code.
+ *
+ * The grid extends `redius` meshes in all directions from the center, using the mesh calculator's offset method.
+ *
+ * @param meshCode - The center mesh code
+ * @param redius - The number of meshes to extend from the center in each direction
+ * @param meshCalculator - The mesh calculator instance used to compute offsets
+ * @returns An array of mesh codes covering the square grid
+ */
 function getSquareMeshCodes(meshCode: string, redius: number, meshCalculator: any): string[] {
   const meshCodes: string[] = [];
   for (let i = -redius; i <= redius; i++) {
@@ -17,6 +27,12 @@ function getSquareMeshCodes(meshCode: string, redius: number, meshCalculator: an
   return meshCodes;
 }
 
+/**
+ * Creates a Mesh object containing the geographic bounds, center coordinates, and code for a given mesh code.
+ *
+ * @param code - The mesh code to generate the Mesh object for
+ * @returns A Mesh object with bounds, center, and code properties
+ */
 function createMesh(code: string, meshCalculator: any): Mesh {
   return {
     bounds: meshCalculator.toBounds(code),
@@ -25,6 +41,14 @@ function createMesh(code: string, meshCalculator: any): Mesh {
   };
 }
 
+/**
+ * Generates a square grid of mesh objects centered on a given latitude, longitude, and zoom level.
+ *
+ * @param latlng - The center point of the mesh grid
+ * @param zoom - The map zoom level used to determine mesh scale
+ * @param redius - The radius (in mesh units) of the grid from the center mesh
+ * @returns An array of Mesh objects representing the square grid around the center point
+ */
 function getSquareMeshes(latlng: LatLng, zoom: number, redius: number, meshCalculator: any): Mesh[] {
   const scale: number = meshCalculator.scaleFrom(zoom);
   const centerMeshCode = meshCalculator.toMeshCode(

@@ -1,5 +1,14 @@
 import { create } from "zustand";
 
+/**
+ * Creates a Zustand store for managing a single boolean toggle state under a dynamic key.
+ *
+ * The returned object provides hooks for accessing the entire store, the toggle state, the setter action, and the raw boolean value. The setter function is named dynamically based on the provided key (e.g., `setActive` for key `"active"`).
+ *
+ * @param key - The name of the boolean state property to manage
+ * @param initialValue - The initial value of the toggle state (defaults to `false`)
+ * @returns An object containing `useStore`, `useState`, `useActions`, and `useValue` hooks for interacting with the toggle state
+ */
 export function createToggleStore(
   key: string,
   initialValue: boolean = false
