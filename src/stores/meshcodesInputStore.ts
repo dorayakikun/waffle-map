@@ -17,6 +17,14 @@ export type MeshcodesInputActions = {
 
 export type MeshcodesInputStore = MeshcodesInputState & MeshcodesInputActions;
 
+/**
+ * Converts an array of meshcodes into a record mapping each meshcode to its corresponding Mesh object.
+ *
+ * Each Mesh object includes the meshcode, its geographic bounds, and its center coordinates.
+ *
+ * @param meshcodes - An array of meshcodes to convert
+ * @returns A record where each key is a meshcode and each value is the corresponding Mesh object
+ */
 async function mapToMeshes(meshcodes: Meshcode[]): Promise<Record<Meshcode, Mesh>> {
   const meshCalculator = await getMeshCalculator();
   const { toBounds, toCenterLatLng } = meshCalculator;

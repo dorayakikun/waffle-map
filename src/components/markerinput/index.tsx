@@ -12,6 +12,13 @@ type Props = {
   id: string;
 };
 
+/**
+ * Container component that manages state and event handlers for the MarkerInput component.
+ *
+ * Retrieves marker input state and actions from stores, handles user interactions, and passes relevant props to the MarkerInput child component.
+ *
+ * @param props - Contains the unique identifier for the MarkerInput instance.
+ */
 export function MarkerInputContainer(props: Props) {
   const unit = useGeodeticInputUnit();
   const errorMessage = useMarkerInputErrorMessage();

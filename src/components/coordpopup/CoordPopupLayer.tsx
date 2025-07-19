@@ -7,6 +7,17 @@ import { getMeshCalculator, LatLng } from "../../domain/calculateMesh";
 import { convertLatLngToTokyoIfNeeded } from "../../domain/convertLatLng";
 import { round } from "../../domain/roundPoint";
 
+/**
+ * Generates a mesh code description string for the specified scale and coordinates.
+ *
+ * Converts the provided latitude and longitude to the Tokyo datum if required, then uses the mesh calculator to compute the mesh code for the given scale.
+ *
+ * @param scale - The mesh scale level to describe
+ * @param datum - The coordinate datum identifier (e.g., "Tokyo" or "WGS84")
+ * @param latLng - The geographic coordinates to convert and describe
+ * @param meshCalculator - The mesh calculator instance used to generate mesh codes
+ * @returns A string describing the mesh code at the specified scale for the given coordinates
+ */
 function createScaleDescription(
   scale: number,
   datum: string,
@@ -24,6 +35,11 @@ type Props = {
   positionDescription: string;
 };
 
+/**
+ * Displays a popup layer at a geographic position, allowing users to view and copy coordinates and mesh codes for various scales.
+ *
+ * The popup asynchronously loads a mesh calculator, shows a loading state until ready, and then presents the position description, rounded coordinates, and a list of mesh codes for each available scale. Users can copy the coordinates or mesh codes to the clipboard, with visual feedback indicating successful copy actions.
+ */
 export function CoordPopupLayer(props: Props) {
   const [copiedItem, setCopiedItem] = React.useState<string | null>(null);
   const [meshCalculator, setMeshCalculator] = React.useState<any>(null);

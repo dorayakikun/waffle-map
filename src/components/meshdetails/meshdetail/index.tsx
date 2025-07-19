@@ -10,6 +10,11 @@ export type Props = {
   rows: { latLng: LatLng; title: string }[];
 };
 
+/**
+ * Displays mesh code details and associated latitude/longitude rows with copy-to-clipboard functionality.
+ *
+ * Renders a table showing the mesh code and a list of labeled latitude/longitude pairs. Each entry includes a button to copy its value to the clipboard, with visual feedback indicating successful copying.
+ */
 export function MeshDetail(props: Props): React.ReactElement<Props> {
   const [copiedItem, setCopiedItem] = React.useState<string | null>(null);
 

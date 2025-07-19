@@ -19,6 +19,13 @@ export const initialLeafletBounds: [number, number][] = [
   [37, 140],
 ];
 
+/**
+ * Renders an interactive Leaflet map with OpenStreetMap tiles and multiple custom overlay layers.
+ *
+ * The map initializes with predefined bounds and includes layers for debugging, mesh visualization, user input, markers, coordinate popups, and automatic bounding box fitting.
+ *
+ * @returns A React element containing the configured map and its overlays.
+ */
 export function Map() {
   return (
     <div>

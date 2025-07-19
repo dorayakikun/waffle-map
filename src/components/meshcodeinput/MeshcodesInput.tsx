@@ -20,6 +20,11 @@ export type Props = {
   onSeparatorChanged: (value: Separator) => void;
 };
 
+/**
+ * Renders an input form for entering mesh codes with a selectable separator and error message display.
+ *
+ * Provides a text input for mesh codes, a dropdown to choose the separator character, and displays validation errors if present.
+ */
 export function MeshcodesInput(props: Props): React.ReactElement<Props> {
   const placeholder = React.useCallback(() => {
     const example = ["5339-35-97", "5339-35-98", "5339-35-99"].join(props.separator);

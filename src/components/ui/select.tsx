@@ -6,24 +6,42 @@ import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
+/**
+ * Root component for the custom Select UI, providing context and state management for all nested select elements.
+ */
 function Select({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Root>) {
   return <SelectPrimitive.Root data-slot="select" {...props} />;
 }
 
+/**
+ * Groups related items within a Select component for organizational purposes.
+ */
 function SelectGroup({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Group>) {
   return <SelectPrimitive.Group data-slot="select-group" {...props} />;
 }
 
+/**
+ * Renders the selected value within the Select component.
+ *
+ * Forwards all props to the underlying Radix SelectPrimitive.Value and adds a data attribute for styling or identification.
+ */
 function SelectValue({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Value>) {
   return <SelectPrimitive.Value data-slot="select-value" {...props} />;
 }
 
+/**
+ * Renders the clickable trigger button for the Select component with customizable size and styling.
+ *
+ * Displays the selected value and a downward chevron icon. Supports "default" and "sm" size variants and applies conditional styling for focus, disabled, and invalid states.
+ *
+ * @param size - Optional size variant for the trigger button ("default" or "sm")
+ */
 function SelectTrigger({
   className,
   size = "default",
@@ -50,6 +68,11 @@ function SelectTrigger({
   );
 }
 
+/**
+ * Renders the dropdown content for the Select component, including scroll buttons and viewport, with customizable positioning and animated transitions.
+ *
+ * @param position - Determines the dropdown's positioning strategy. Defaults to "popper".
+ */
 function SelectContent({
   className,
   children,
@@ -85,6 +108,11 @@ function SelectContent({
   );
 }
 
+/**
+ * Renders a styled label for a select group or item within the Select component.
+ *
+ * Applies muted text styling and padding for visual grouping or description.
+ */
 function SelectLabel({
   className,
   ...props
@@ -98,6 +126,11 @@ function SelectLabel({
   );
 }
 
+/**
+ * Renders a selectable item within the Select dropdown, displaying its content and a check icon when selected.
+ *
+ * Applies styling for focus, disabled, and selected states, and ensures consistent layout and icon sizing.
+ */
 function SelectItem({
   className,
   children,
@@ -122,6 +155,11 @@ function SelectItem({
   );
 }
 
+/**
+ * Renders a styled horizontal separator line within a Select dropdown.
+ *
+ * Visually separates groups or items in the Select menu.
+ */
 function SelectSeparator({
   className,
   ...props
@@ -135,6 +173,11 @@ function SelectSeparator({
   );
 }
 
+/**
+ * Renders a scroll-up button for the Select dropdown, allowing users to scroll upward through the options.
+ *
+ * Displays an upward chevron icon and applies consistent styling for alignment and spacing.
+ */
 function SelectScrollUpButton({
   className,
   ...props
@@ -153,6 +196,11 @@ function SelectScrollUpButton({
   );
 }
 
+/**
+ * Renders a styled scroll-down button for the Select dropdown, displaying a downward chevron icon.
+ *
+ * Used to scroll the dropdown content downward when there are more items than can be displayed at once.
+ */
 function SelectScrollDownButton({
   className,
   ...props

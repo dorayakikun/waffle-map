@@ -28,7 +28,14 @@ type MeshCalculator = {
   offset(meshCode: string, x: number, y: number): string;
 };
 
-// Function to get mesh calculator based on configuration
+/**
+ * Returns a mesh calculator instance based on the configured calculator type.
+ *
+ * If the configured type is not supported, falls back to the basic mesh calculator.
+ * Currently, only the basic calculator is available.
+ *
+ * @returns A MeshCalculator instance
+ */
 function getMeshCalculatorSync(): MeshCalculator {
   const calculatorType = MESH_CALCULATOR_TYPE;
   
@@ -45,7 +52,12 @@ function getMeshCalculatorSync(): MeshCalculator {
 // Create a singleton instance
 let meshCalculatorInstance: MeshCalculator | null = null;
 
-// Function to get the mesh calculator (singleton pattern)
+/**
+ * Returns a promise that resolves to a singleton instance of the mesh calculator.
+ *
+ * Ensures that only one instance of the mesh calculator is created and reused throughout the application.
+ * @returns A promise resolving to the mesh calculator instance
+ */
 export function getMeshCalculator(): Promise<MeshCalculator> {
   if (!meshCalculatorInstance) {
     meshCalculatorInstance = getMeshCalculatorSync();

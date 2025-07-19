@@ -5,6 +5,11 @@ type Props = {
   bounds: [number, number][];
 };
 
+/**
+ * Adjusts the Leaflet map view to fit the specified bounds if they are valid.
+ *
+ * Expects `bounds` to be an array of two coordinate pairs, each containing two finite numbers. If the bounds are invalid or malformed, the map view is not changed.
+ */
 export function BoundsFitter(props: Props) {
   const { bounds } = props;
 

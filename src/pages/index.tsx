@@ -16,6 +16,11 @@ import { MeshToggleContainer } from "../components/meshtoggle/";
 import { TileToggleContainer } from "../components/tileToggle";
 import { useMeshcodesInputStore } from "../stores/meshcodesInputStore";
 
+/**
+ * Main container component for the mapping application UI.
+ *
+ * Initializes mesh code input and accordion state from the URL if a `meshCodes` parameter is present. Renders the sidebar with coordinate input, tile and mesh grid toggles, marker input, and mesh code input panels, as well as the main map display area.
+ */
 export function AppContainer() {
   const { meshCodes } = useParams<{ meshCodes?: string }>();
   const { changeSeparator, inputMeshcodesString } = useMeshcodesInputStore();

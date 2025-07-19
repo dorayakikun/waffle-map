@@ -32,6 +32,14 @@ const buttonVariants = cva(
   },
 );
 
+/**
+ * Renders a customizable button with support for multiple visual variants, sizes, and flexible composition.
+ *
+ * If `asChild` is true, renders the button as a child component using Radix UI's `Slot`; otherwise, renders a native `button` element.
+ *
+ * @param asChild - If true, renders the button as a child component instead of a native button element
+ * @returns The rendered button element or custom component with applied styles and props
+ */
 function Button({
   className,
   variant,
