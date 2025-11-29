@@ -60,7 +60,7 @@ function reducer(state: State, action: Action): State {
           meshcodes,
           userInputMeshes: mapToMeshes(meshcodes),
         };
-      } catch (e) {
+      } catch (e: any) {
         return {
           ...state,
           errorMessage: e.message,

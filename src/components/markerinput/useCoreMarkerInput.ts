@@ -48,7 +48,7 @@ export function reducer(state: State, action: Action): State {
             createLatLng(state.latLngString, unit),
           ],
         };
-      } catch (e) {
+      } catch (e: any) {
         return {
           ...state,
           errorMessage: e.message,

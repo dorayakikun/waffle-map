@@ -1,12 +1,21 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "lib": ["dom", "esnext"],
+    "lib": [
+      "dom",
+      "esnext"
+    ],
     "moduleResolution": "node",
     "outDir": "dist",
     "skipLibCheck": true,
     "strict": true,
-    "target": "es5"
+    "target": "es5",
+    "types": [
+      "vitest/globals"
+    ]
   },
-  "exclude": ["node_modules", "public"]
+  "exclude": [
+    "node_modules",
+    "public"
+  ]
 }
