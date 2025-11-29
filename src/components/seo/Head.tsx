@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 type Props = {
     meshcodes?: string;
@@ -10,7 +10,7 @@ export const Head = ({ meshcodes }: Props) => {
     // In a real scenario with server-side generation, this would point to an endpoint
     // that generates the image. For now, we update the meta tag client-side.
     const ogImage = meshcodes
-        ? `/.netlify/functions/og-image?meshcodes=${meshcodes}`
+        ? `/.netlify/functions/og-image?meshcodes=${encodeURIComponent(meshcodes)}`
         : `/.netlify/functions/og-image`;
 
     return (

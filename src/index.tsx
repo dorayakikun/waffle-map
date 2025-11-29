@@ -4,10 +4,14 @@ import * as React from "react";
 import { render } from "react-dom";
 import { AppContainer } from "./pages";
 
+import { HelmetProvider } from "react-helmet-async";
+
 const root = document.getElementById("root");
 render(
-  <ChakraProvider>
-    <AppContainer />
-  </ChakraProvider>,
+  <HelmetProvider>
+    <ChakraProvider>
+      <AppContainer />
+    </ChakraProvider>
+  </HelmetProvider>,
   root,
 );
