@@ -88,3 +88,4 @@ website/i18n/*
 
 junit.xml
 dist/
+public/*.png
