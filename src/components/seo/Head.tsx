@@ -10,8 +10,8 @@ export const Head = ({ meshcodes }: Props) => {
     // In a real scenario with server-side generation, this would point to an endpoint
     // that generates the image. For now, we update the meta tag client-side.
     const ogImage = meshcodes
-        ? `https://waffle-map.netlify.com/api/og?meshcodes=${meshcodes}`
-        : "https://waffle-map.netlify.com/images/apple-touch-icon.png";
+        ? `/.netlify/functions/og-image?meshcodes=${meshcodes}`
+        : `/.netlify/functions/og-image`;
 
     return (
         <Helmet>
