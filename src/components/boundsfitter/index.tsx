@@ -7,10 +7,10 @@ import {
 // FIXME initialLeafletBounds を constans に移動する
 import { initialLeafletBounds } from "../map/Map";
 import { BoundsFitter } from "./BoundsFitter";
-import { useMeshCodeInputStateContext } from "../meshcodeinput/MeshcodesInputStateContext";
+import { useMeshcodesInputStore } from "../../stores/useMeshcodesInputStore";
 import { Meshcode } from "../../types";
-import { useGeodeticInputStateContext } from "../geodeticInput/GeodeticInputStateContext";
-import { useMarkerInputStateContext } from "../markerinput/MarkerInputStateContext";
+import { useGeodeticInputStore } from "../../stores/useGeodeticInputStore";
+import { useMarkerInputStore } from "../../stores/useMarkerInputStore";
 
 function meshesToLatsAndLngs(
   meshes: Record<Meshcode, Mesh>,
@@ -61,9 +61,9 @@ function calculateLeafletBounds(
 }
 
 export function BoundFitterContainer() {
-  const { userInputMeshes, meshcodes } = useMeshCodeInputStateContext();
-  const { positions } = useMarkerInputStateContext();
-  const { datum } = useGeodeticInputStateContext();
+  const { userInputMeshes, meshcodes } = useMeshcodesInputStore();
+  const { positions } = useMarkerInputStore();
+  const { datum } = useGeodeticInputStore();
   const bounds = calculateLeafletBounds(
     userInputMeshes,
     meshcodes,

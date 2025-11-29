@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMeshCodeInputStateContext } from "../meshcodeinput/MeshcodesInputStateContext";
+import { useMeshcodesInputStore } from "../../stores/useMeshcodesInputStore";
 import { MeshDetail } from "./meshdetail/";
 import { Bounds, LatLng } from "../../domain/calculateMesh";
 import {
@@ -8,7 +8,7 @@ import {
   convertLatLngToMillisecIfNeeded,
   convertLatLngToTokyoIfNeeded,
 } from "../../domain/convertLatLng";
-import { useGeodeticInputStateContext } from "../geodeticInput/GeodeticInputStateContext";
+import { useGeodeticInputStore } from "../../stores/useGeodeticInputStore";
 
 const createRows = (center: LatLng, bounds: Bounds) => [
   { latLng: center, title: "center" },
@@ -17,8 +17,8 @@ const createRows = (center: LatLng, bounds: Bounds) => [
 ];
 
 export const MeshDetailsContainer = () => {
-  const { datum, unit } = useGeodeticInputStateContext();
-  const { meshcodes, userInputMeshes } = useMeshCodeInputStateContext();
+  const { datum, unit } = useGeodeticInputStore();
+  const { meshcodes, userInputMeshes } = useMeshcodesInputStore();
 
   return (
     <>

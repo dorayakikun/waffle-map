@@ -3,8 +3,8 @@ import { useMapEvents } from "react-leaflet";
 import meshCalculator, { LatLng, Mesh } from "../../domain/calculateMesh";
 import { convertBoundsToWGS84IfNeeded } from "../../domain/convertLatLng";
 import { MeshRectangle } from "../common/MeshRectangle";
-import { useGeodeticInputStateContext } from "../geodeticInput/GeodeticInputStateContext";
-import { useMeshToggleStateContext } from "../meshtoggle/MeshToggleStateContext";
+import { useGeodeticInputStore } from "../../stores/useGeodeticInputStore";
+import { useMeshToggleStore } from "../../stores/useMeshToggleStore";
 
 function getSquareMeshCodes(meshCode: string, redius: number): string[] {
   const meshCodes: string[] = [];
@@ -39,7 +39,7 @@ function getSquareMeshes(latlng: LatLng, zoom: number, redius: number): Mesh[] {
 export const MeshLayerContainer = () => {
   const [latlng, setLatlng] = React.useState({ lat: 36.01357, lng: 139.49891 });
   const [zoom, setZoom] = React.useState(6);
-  const { datum } = useGeodeticInputStateContext();
+  const { datum } = useGeodeticInputStore();
   const map = useMapEvents({
     zoomlevelschange() {
       setLatlng(map.getCenter());
@@ -51,7 +51,7 @@ export const MeshLayerContainer = () => {
     },
   });
 
-  const { enableMeshGrid } = useMeshToggleStateContext();
+  const { enableMeshGrid } = useMeshToggleStore();
   if (!enableMeshGrid) {
     return null;
   }

@@ -20,8 +20,22 @@ import { MeshcodesInputContainer } from "../components/meshcodeinput/index";
 import { MeshDetailsContainer } from "../components/meshdetails";
 import { MeshToggleContainer } from "../components/meshtoggle/";
 import { TileToggleContainer } from "../components/tileToggle";
+import { useMeshcodesInputStore } from "../stores/useMeshcodesInputStore";
 
 export function AppContainer() {
+  const { inputMeshcodesString, changeSeparator } = useMeshcodesInputStore();
+
+  React.useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const meshCodesParam = searchParams.get("meshcodes");
+    if (meshCodesParam) {
+      if (meshCodesParam.includes(",")) {
+        changeSeparator(",");
+      }
+      inputMeshcodesString(meshCodesParam);
+    }
+  }, [inputMeshcodesString, changeSeparator]);
+
   return (
     <Grid templateColumns="repeat(5, 1fr)" gap={4}>
       <GridItem colSpan={1}>

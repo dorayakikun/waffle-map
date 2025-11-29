@@ -57,7 +57,8 @@
     "react-dom": "^18.3.1",
     "react-leaflet": "^4.2.1",
     "waffle-map-mesh-calculator-basic": "^2.3.3",
-    "webpack-dev-server": "^5"
+    "webpack-dev-server": "^5",
+    "zustand": "^5.0.8"
   },
   "jest": {
     "testEnvironment": "jsdom",

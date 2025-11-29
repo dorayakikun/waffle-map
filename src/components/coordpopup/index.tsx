@@ -7,9 +7,8 @@ import {
   convertLatLngToTokyoIfNeeded,
 } from "../../domain/convertLatLng";
 import { round } from "../../domain/roundPoint";
-import { useCoordPopupLayerDispatchContext } from "./CoordPopupLayerDispatchContext";
-import { useCoordPopupLayerStateContext } from "./CoordPopupLayerStateContext";
-import { useGeodeticInputStateContext } from "../geodeticInput/GeodeticInputStateContext";
+import { useCoordPopupLayerStore } from "../../stores/useCoordPopupLayerStore";
+import { useGeodeticInputStore } from "../../stores/useGeodeticInputStore";
 
 function createPositionDescription(
   datum: string,
@@ -26,9 +25,8 @@ function createPositionDescription(
 }
 
 export function CoordPopupLayerContainer(): React.ReactElement | null {
-  const { position } = useCoordPopupLayerStateContext();
-  const { setPosition } = useCoordPopupLayerDispatchContext();
-  const { datum, unit } = useGeodeticInputStateContext();
+  const { position, setPosition } = useCoordPopupLayerStore();
+  const { datum, unit } = useGeodeticInputStore();
   const positionDescription = createPositionDescription(datum, unit, position);
 
   useMapEvents({

@@ -1,10 +1,10 @@
 import * as React from "react";
 import { MarkerLayer } from "./MarkerLayer";
-import { useGeodeticInputStateContext } from "../geodeticInput/GeodeticInputStateContext";
-import { useMarkerInputStateContext } from "../markerinput/MarkerInputStateContext";
+import { useGeodeticInputStore } from "../../stores/useGeodeticInputStore";
+import { useMarkerInputStore } from "../../stores/useMarkerInputStore";
 
 export const MarkerlayerContainer = () => {
-  const { datum } = useGeodeticInputStateContext();
-  const { positions } = useMarkerInputStateContext();
+  const { datum } = useGeodeticInputStore();
+  const { positions } = useMarkerInputStore();
   return <MarkerLayer datum={datum} positions={positions} />;
 };
