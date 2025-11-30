@@ -1,4 +1,5 @@
 import { Context } from "https://edge.netlify.com";
+import { replaceOgTags } from "../../src/domain/ogTransform.ts";
 
 export default async (request: Request, context: Context) => {
     const url = new URL(request.url);
@@ -25,17 +26,8 @@ export default async (request: Request, context: Context) => {
     const origin = url.origin;
     const ogImageUrl = `${origin}/.netlify/functions/og-image?meshcodes=${encodeURIComponent(meshcodes)}`;
 
-    // Replace the static OGP tags with the dynamic ones
-    // We use a regex to find the existing tags and replace their content
-    const updatedPage = page
-        .replace(
-            /<meta property="og:image" content="[^"]*"\s*\/?>/,
-            `<meta property="og:image" content="${ogImageUrl}" />`
-        )
-        .replace(
-            /<meta name="twitter:image" content="[^"]*"\s*\/?>/,
-            `<meta name="twitter:image" content="${ogImageUrl}" />`
-        );
+    // Replace the static OGP tags with the dynamic ones using the utility function
+    const updatedPage = replaceOgTags(page, ogImageUrl);
 
     return new Response(updatedPage, response);
 };
