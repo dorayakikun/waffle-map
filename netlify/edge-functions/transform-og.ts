@@ -4,14 +4,21 @@ export default async (request: Request, context: Context) => {
     const url = new URL(request.url);
     const meshcodes = url.searchParams.get("meshcodes");
 
+    // If no meshcodes, return the original response immediately
+    if (!meshcodes) {
+        return context.next();
+    }
+
     // Get the response from the origin
     const response = await context.next();
-    const page = await response.text();
+    const contentType = response.headers.get("content-type") || "";
 
-    // If no meshcodes, return the original page
-    if (!meshcodes) {
+    // If the response is not HTML, return it as is
+    if (!contentType.includes("text/html")) {
         return response;
     }
+
+    const page = await response.text();
 
     // Construct the dynamic OGP image URL
     // We use the origin from the request to ensure it matches the deployed site
