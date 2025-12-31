@@ -1,24 +1,23 @@
-import { FormControl, FormLabel, Switch } from "@chakra-ui/react";
-import * as React from "react";
+import { HStack, Switch } from "@chakra-ui/react";
+import type * as React from "react";
 
 export type Props = {
   enableGrid: boolean;
   id: string;
-  handleChanged: (event: React.FormEvent<HTMLInputElement>) => void;
+  handleChanged: (details: { checked: boolean }) => void;
   title: string;
 };
 
 export const GridToggle = (props: Props) => {
   return (
-    <FormControl id={props.id} display={"flex"} alignItems={"center"}>
-      <FormLabel htmlFor={props.title} mb={"0"}>
-        {props.title}
-      </FormLabel>
-      <Switch
-        id={props.title}
-        isChecked={props.enableGrid}
-        onChange={props.handleChanged}
-      />
-    </FormControl>
+    <HStack id={props.id}>
+      <Switch.Root checked={props.enableGrid} onCheckedChange={props.handleChanged}>
+        <Switch.HiddenInput />
+        <Switch.Control>
+          <Switch.Thumb />
+        </Switch.Control>
+        <Switch.Label>{props.title}</Switch.Label>
+      </Switch.Root>
+    </HStack>
   );
 };

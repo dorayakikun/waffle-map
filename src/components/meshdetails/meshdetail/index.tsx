@@ -1,6 +1,6 @@
-import { Table, Tbody, Td, Tr } from "@chakra-ui/react";
-import * as React from "react";
-import { LatLng } from "../../../domain/calculateMesh";
+import { Table } from "@chakra-ui/react";
+import type * as React from "react";
+import type { LatLng } from "../../../domain/calculateMesh";
 import { round } from "../../../domain/roundPoint";
 
 export type Props = {
@@ -10,23 +10,23 @@ export type Props = {
 
 export function MeshDetail(props: Props): React.ReactElement<Props> {
   return (
-    <Table>
-      <Tbody>
-        <Tr>
-          <Td>mesh code</Td>
-          <Td>{props.code}</Td>
-        </Tr>
+    <Table.Root>
+      <Table.Body>
+        <Table.Row>
+          <Table.Cell>mesh code</Table.Cell>
+          <Table.Cell>{props.code}</Table.Cell>
+        </Table.Row>
         {props.rows.map((row) => (
-          <Tr key={`${props.code}-${row.title}`}>
-            <Td>{row.title}</Td>
-            <Td>
+          <Table.Row key={`${props.code}-${row.title}`}>
+            <Table.Cell>{row.title}</Table.Cell>
+            <Table.Cell>
               {round(row.latLng.lat, 5)}
               <br />
               {round(row.latLng.lng, 5)}
-            </Td>
-          </Tr>
+            </Table.Cell>
+          </Table.Row>
         ))}
-      </Tbody>
-    </Table>
+      </Table.Body>
+    </Table.Root>
   );
 }

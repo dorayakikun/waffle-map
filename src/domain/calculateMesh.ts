@@ -1,5 +1,4 @@
-declare const require: any;
-declare const LOGIC_TYPE: string;
+declare const LOGIC_TYPE: string | undefined;
 
 export type LatLng = {
   lat: number;
@@ -26,11 +25,17 @@ type MeshCalculator = {
   offset(meshCode: string, x: number, y: number): string;
 };
 
-const meshCalculator: () => MeshCalculator = () => {
+const loadMeshCalculator = async (): Promise<MeshCalculator> => {
   if (LOGIC_TYPE) {
-    return require(`waffle-map-mesh-calculator-${LOGIC_TYPE}`);
+    const module = await import(
+      /* @vite-ignore */ `waffle-map-mesh-calculator-${LOGIC_TYPE}`
+    );
+    return module.default ?? module;
   }
-  return require("waffle-map-mesh-calculator-basic");
+  const module = await import("waffle-map-mesh-calculator-basic");
+  return module.default ?? module;
 };
 
-export default meshCalculator();
+const meshCalculator = await loadMeshCalculator();
+
+export default meshCalculator;

@@ -1,21 +1,16 @@
-import * as React from "react";
+import type * as React from "react";
 import { useMapEvents } from "react-leaflet";
-import { CoordPopupLayer } from "./CoordPopupLayer";
-import { LatLng } from "../../domain/calculateMesh";
+import type { LatLng } from "../../domain/calculateMesh";
 import {
   convertLatLngToMillisecIfNeeded,
   convertLatLngToTokyoIfNeeded,
 } from "../../domain/convertLatLng";
 import { round } from "../../domain/roundPoint";
-import { useCoordPopupLayerDispatchContext } from "./CoordPopupLayerDispatchContext";
-import { useCoordPopupLayerStateContext } from "./CoordPopupLayerStateContext";
-import { useGeodeticInputStateContext } from "../geodeticInput/GeodeticInputStateContext";
+import { useGeodeticInputStore } from "../../stores/useGeodeticInputStore";
+import { useCoordPopupStore } from "../../stores/useCoordPopupStore";
+import { CoordPopupLayer } from "./CoordPopupLayer";
 
-function createPositionDescription(
-  datum: string,
-  unit: string,
-  latLng?: LatLng,
-): string {
+function createPositionDescription(datum: string, unit: string, latLng?: LatLng): string {
   if (latLng == null) {
     return "";
   }
@@ -26,9 +21,8 @@ function createPositionDescription(
 }
 
 export function CoordPopupLayerContainer(): React.ReactElement | null {
-  const { position } = useCoordPopupLayerStateContext();
-  const { setPosition } = useCoordPopupLayerDispatchContext();
-  const { datum, unit } = useGeodeticInputStateContext();
+  const { position, setPosition } = useCoordPopupStore();
+  const { datum, unit } = useGeodeticInputStore();
   const positionDescription = createPositionDescription(datum, unit, position);
 
   useMapEvents({

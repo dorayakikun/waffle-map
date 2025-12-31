@@ -2,9 +2,13 @@
 
 > Fantastic mesh renderer
 
+**Requires Node.js v20, v22, or v24**
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/798c58bf-4950-41de-9f4e-27b39fa16fed/deploy-status)](https://app.netlify.com/sites/waffle-map/deploys)
 [![Known Vulnerabilities](https://snyk.io/test/github/dorayakikun/waffle-map/badge.svg?style=flat-square)](https://snyk.io/test/github/dorayakikun/waffle-map)
-[![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
+[![tested with vitest](https://img.shields.io/badge/tested_with-vitest-6E9F18.svg)](https://vitest.dev/)
+[![Built with Vite](https://img.shields.io/badge/built_with-vite-646CFF.svg)](https://vitejs.dev/)
+[![Formatted with Biome](https://img.shields.io/badge/formatted_with-biome-60A5FA.svg)](https://biomejs.dev/)
 
 Mesh code is a very useful project, but it is not intuitive. Waffle Map generates a mesh from the mesh code and render it on the map. I would be happy if we can help everyone understand the mesh code !!
 
@@ -12,17 +16,73 @@ Mesh code is a very useful project, but it is not intuitive. Waffle Map generate
 
 ## Contents
 
+- [Tech Stack](#tech-stack)
 - [Usage](#usage)
 - [Demo](#demo)
 - [Extending Waffle Map](#extending-waffle-map)
 - [Author](#author)
 
+## Tech Stack
+
+### Core
+- **Node.js**: v20 / v22 / v24
+- **TypeScript**: v5
+- **React**: v18
+
+### Build & Development
+- **Build Tool**: [Vite](https://vitejs.dev/) - Next generation frontend tooling
+- **Test Framework**: [Vitest](https://vitest.dev/) - Blazing fast unit test framework
+- **Linter & Formatter**: [Biome](https://biomejs.dev/) - Fast formatter and linter
+
+### State Management
+- **Zustand**: Lightweight state management
+
+### UI Framework
+- **Chakra UI**: v3 - Modular component library
+- **React Leaflet**: v4 - Map rendering library
+
+### Mesh Calculator
+- **waffle-map-mesh-calculator-basic**: Mesh code calculation logic
+
 ## Usage
+
+### Prerequisites
+- Node.js v20, v22, or v24
+- npm v9 or later
+
+### Installation & Development
 
 ```console
 $ git clone https://github.com/dorayakikun/waffle-map.git
-$ yarn
-$ yarn start
+$ cd waffle-map
+$ npm ci
+$ npm run dev
+```
+
+Open http://localhost:5173 in your browser.
+
+### Available Scripts
+
+```console
+# Development
+$ npm run dev          # Start development server with HMR
+
+# Build
+$ npm run build        # Build for production
+$ npm run preview      # Preview production build
+
+# Testing
+$ npm test             # Run tests in watch mode
+$ npm test -- --run    # Run tests once
+$ npm run test:ui      # Run tests with UI
+$ npm run test:coverage  # Generate coverage report
+
+# Code Quality
+$ npm run lint         # Lint code with Biome
+$ npm run lint:fix     # Fix linting issues
+$ npm run fmt          # Format code with Biome
+$ npm run fmt:check    # Check formatting
+$ npm run typecheck    # Type checking with TypeScript
 ```
 
 ## Demo

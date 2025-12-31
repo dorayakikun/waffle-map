@@ -1,4 +1,4 @@
-import { Bounds, LatLng } from "./calculateMesh";
+import type { Bounds, LatLng } from "./calculateMesh";
 
 function createFormatErrorMessage(name: string, value: string): string {
   return `Unexpected ${name} found.
@@ -18,15 +18,15 @@ Actual: ${value}`;
 
 function createDegreeLatLng(latString: string, lngString: string): LatLng {
   return {
-    lat: parseFloat(latString),
-    lng: parseFloat(lngString),
+    lat: Number.parseFloat(latString),
+    lng: Number.parseFloat(lngString),
   };
 }
 
 function createMillisecLatLng(latString: string, lngString: string): LatLng {
   return {
-    lat: parseInt(latString, 10) / 3600000,
-    lng: parseInt(lngString, 10) / 3600000,
+    lat: Number.parseInt(latString, 10) / 3600000,
+    lng: Number.parseInt(lngString, 10) / 3600000,
   };
 }
 
@@ -97,44 +97,26 @@ export function convertBoundsToMillisec(bounds: Bounds): Bounds {
   };
 }
 
-export function convertBoundsToWGS84IfNeeded(
-  bounds: Bounds,
-  datum: string,
-): Bounds {
+export function convertBoundsToWGS84IfNeeded(bounds: Bounds, datum: string): Bounds {
   return datum === "Tokyo" ? convertBoundsToWGS84(bounds) : bounds;
 }
 
-export function convertBoundsToTokyoIfNeeded(
-  bounds: Bounds,
-  datum: string,
-): Bounds {
+export function convertBoundsToTokyoIfNeeded(bounds: Bounds, datum: string): Bounds {
   return datum === "Tokyo" ? convertBoundsToTokyo(bounds) : bounds;
 }
 
-export function convertLatLngToTokyoIfNeeded(
-  latLng: LatLng,
-  datum: string,
-): LatLng {
+export function convertLatLngToTokyoIfNeeded(latLng: LatLng, datum: string): LatLng {
   return datum === "Tokyo" ? convertLatLngToTokyo(latLng) : latLng;
 }
 
-export function convertLatLngToWGS84IfNeeded(
-  latLng: LatLng,
-  datum: string,
-): LatLng {
+export function convertLatLngToWGS84IfNeeded(latLng: LatLng, datum: string): LatLng {
   return datum === "Tokyo" ? convertLatLngToWGS84(latLng) : latLng;
 }
 
-export function convertLatLngToMillisecIfNeeded(
-  latLng: LatLng,
-  unit: string,
-): LatLng {
+export function convertLatLngToMillisecIfNeeded(latLng: LatLng, unit: string): LatLng {
   return unit === "millisec" ? convertLatLngToMillisec(latLng) : latLng;
 }
 
-export function convertBoundsToMillisecIfNeeded(
-  bounds: Bounds,
-  unit: string,
-): Bounds {
+export function convertBoundsToMillisecIfNeeded(bounds: Bounds, unit: string): Bounds {
   return unit === "millisec" ? convertBoundsToMillisec(bounds) : bounds;
 }

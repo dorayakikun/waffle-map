@@ -1,5 +1,5 @@
 import { createLayerComponent, updateGridLayer, withPane } from "@react-leaflet/core";
-import { Coords, GridLayer, GridLayerOptions } from "leaflet";
+import { type Coords, GridLayer, type GridLayerOptions } from "leaflet";
 
 const _debugTileLayer = (GridLayer as any).extend({
   createTile: (coords: Coords): HTMLElement => {
