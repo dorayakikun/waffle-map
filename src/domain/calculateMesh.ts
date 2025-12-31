@@ -26,14 +26,23 @@ type MeshCalculator = {
 };
 
 const loadMeshCalculator = async (): Promise<MeshCalculator> => {
-  if (LOGIC_TYPE) {
-    const module = await import(
-      /* @vite-ignore */ `waffle-map-mesh-calculator-${LOGIC_TYPE}`
-    );
+  try {
+    if (LOGIC_TYPE) {
+      const module = await import(
+        /* @vite-ignore */ `waffle-map-mesh-calculator-${LOGIC_TYPE}`
+      );
+      return module.default ?? module;
+    }
+    const module = await import("waffle-map-mesh-calculator-basic");
     return module.default ?? module;
+  } catch (error) {
+    const moduleName = LOGIC_TYPE
+      ? `waffle-map-mesh-calculator-${LOGIC_TYPE}`
+      : "waffle-map-mesh-calculator-basic";
+    throw new Error(
+      `Failed to load mesh calculator module "${moduleName}": ${error instanceof Error ? error.message : String(error)}`,
+    );
   }
-  const module = await import("waffle-map-mesh-calculator-basic");
-  return module.default ?? module;
 };
 
 const meshCalculator = await loadMeshCalculator();

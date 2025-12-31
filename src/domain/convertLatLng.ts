@@ -7,7 +7,7 @@ Actual: ${value}`;
 }
 
 function isNumber(str: string): boolean {
-  return /^([1-9]\d*|0)(\.\d+)?$/.test(str);
+  return /^-?([1-9]\d*|0)(\.\d+)?$/.test(str);
 }
 
 function createNumberErrorMessage(name: string, value: string): string {

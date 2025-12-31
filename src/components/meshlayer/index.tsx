@@ -6,10 +6,10 @@ import { MeshRectangle } from "../common/MeshRectangle";
 import { useGeodeticInputStore } from "../../stores/useGeodeticInputStore";
 import { useMeshToggleStore } from "../../stores/useMeshToggleStore";
 
-function getSquareMeshCodes(meshCode: string, redius: number): string[] {
+function getSquareMeshCodes(meshCode: string, radius: number): string[] {
   const meshCodes: string[] = [];
-  for (let i = -redius; i <= redius; i++) {
-    for (let j = -redius; j <= redius; j++) {
+  for (let i = -radius; i <= radius; i++) {
+    for (let j = -radius; j <= radius; j++) {
       const code: string = meshCalculator.offset(meshCode, i, j);
       meshCodes.push(code);
     }
@@ -25,10 +25,10 @@ function createMesh(code: string): Mesh {
   };
 }
 
-function getSquareMeshes(latlng: LatLng, zoom: number, redius: number): Mesh[] {
+function getSquareMeshes(latlng: LatLng, zoom: number, radius: number): Mesh[] {
   const scale: number = meshCalculator.scaleFrom(zoom);
   const centerMeshCode = meshCalculator.toMeshCode(latlng.lat, latlng.lng, scale);
-  const meshCodes: string[] = getSquareMeshCodes(centerMeshCode, redius);
+  const meshCodes: string[] = getSquareMeshCodes(centerMeshCode, radius);
   return meshCodes.map(createMesh);
 }
 

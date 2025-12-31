@@ -153,3 +153,27 @@ test("Should convert bounds to millisec if needed", () => {
 
   expect(convertBoundsToMillisecIfNeeded(boundsDegree, "degree")).toEqual(boundsDegree);
 });
+
+// ---
+// Negative coordinate tests (southern/western hemispheres)
+// ---
+test("Should parse negative latitude (southern hemisphere)", () => {
+  expect(createLatLng("-33.8688,151.2093", "degree")).toEqual({
+    lat: -33.8688,
+    lng: 151.2093,
+  });
+});
+
+test("Should parse negative longitude (western hemisphere)", () => {
+  expect(createLatLng("40.7128,-74.006", "degree")).toEqual({
+    lat: 40.7128,
+    lng: -74.006,
+  });
+});
+
+test("Should parse both negative coordinates", () => {
+  expect(createLatLng("-23.5505,-46.6333", "degree")).toEqual({
+    lat: -23.5505,
+    lng: -46.6333,
+  });
+});

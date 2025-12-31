@@ -7,6 +7,7 @@ import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 import * as React from "react";
 import { MapContainer as LeafletMap, TileLayer } from "react-leaflet";
 import { BoundFitterContainer } from "../boundsfitter/";
+import { ErrorBoundary } from "../common/ErrorBoundary";
 import { CoordPopupLayerContainer } from "../coordpopup/";
 import { DebugtilelayerContainer } from "../debugtilelayer/";
 import { MarkerlayerContainer } from "../markerlayer/index";
@@ -42,23 +43,25 @@ export const initialLeafletBounds: [number, number][] = [
 export function MapView() {
   return (
     <Box>
-      <LeafletMap
-        bounds={initialLeafletBounds}
-        maxZoom={18}
-        minZoom={5}
-        style={{ width: "100%", height: "100vh" }}
-      >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        />
-        <DebugtilelayerContainer />
-        <MeshLayerContainer />
-        <UserInputMeshLayerContainer />
-        <MarkerlayerContainer />
-        <CoordPopupLayerContainer />
-        <BoundFitterContainer />
-      </LeafletMap>
+      <ErrorBoundary>
+        <LeafletMap
+          bounds={initialLeafletBounds}
+          maxZoom={18}
+          minZoom={5}
+          style={{ width: "100%", height: "100vh" }}
+        >
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          />
+          <DebugtilelayerContainer />
+          <MeshLayerContainer />
+          <UserInputMeshLayerContainer />
+          <MarkerlayerContainer />
+          <CoordPopupLayerContainer />
+          <BoundFitterContainer />
+        </LeafletMap>
+      </ErrorBoundary>
     </Box>
   );
 }

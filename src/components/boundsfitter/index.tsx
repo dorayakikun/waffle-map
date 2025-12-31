@@ -6,7 +6,7 @@ import {
 } from "../../domain/convertLatLng";
 import type { Meshcode } from "../../types";
 import { useGeodeticInputStore } from "../../stores/useGeodeticInputStore";
-// FIXME initialLeafletBounds を constans に移動する
+// FIXME: Move initialLeafletBounds to constants file
 import { initialLeafletBounds } from "../map/Map";
 import { useMarkerInputStore } from "../../stores/useMarkerInputStore";
 import { useMeshcodesInputStore } from "../../stores/useMeshcodesInputStore";
@@ -20,6 +20,7 @@ function meshesToLatsAndLngs(
   const lats: number[] = [];
   const lngs: number[] = [];
   const latLngs = meshcodes
+    .filter((meshcode) => meshes[meshcode] != null)
     .map((meshcode) => meshes[meshcode].bounds)
     .map((bounds) => convertBoundsToWGS84IfNeeded(bounds, datum))
     .map((bounds) => [bounds.leftTop, bounds.rightBottom])

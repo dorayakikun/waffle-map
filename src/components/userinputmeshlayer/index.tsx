@@ -11,6 +11,9 @@ export const UserInputMeshLayerContainer = () => {
     <>
       {meshcodes.map((meshcode, index) => {
         const mesh = userInputMeshes[meshcode];
+        if (!mesh) {
+          return null;
+        }
         const bounds = convertBoundsToWGS84IfNeeded(mesh.bounds, datum);
         return (
           <MeshRectangle
