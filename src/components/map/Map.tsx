@@ -39,7 +39,7 @@ export const initialLeafletBounds: [number, number][] = [
   [37, 140],
 ];
 
-export function Map() {
+export function MapView() {
   return (
     <Box>
       <LeafletMap

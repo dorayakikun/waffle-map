@@ -1,6 +1,7 @@
 import { createLayerComponent, updateGridLayer, withPane } from "@react-leaflet/core";
 import { type Coords, GridLayer, type GridLayerOptions } from "leaflet";
 
+// biome-ignore lint/suspicious/noExplicitAny: Leaflet's GridLayer.extend() requires casting due to incomplete TypeScript definitions
 const _debugTileLayer = (GridLayer as any).extend({
   createTile: (coords: Coords): HTMLElement => {
     const tile = document.createElement("div");

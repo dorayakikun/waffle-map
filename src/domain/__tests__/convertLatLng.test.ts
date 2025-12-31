@@ -17,7 +17,7 @@ import {
 // ---
 // Invalid case
 // ---
-test(`Should throw an error when invalidValue`, () => {
+test("Should throw an error when invalidValue", () => {
   const testcases = [
     {
       errorValue: "LatLng",
@@ -36,13 +36,13 @@ test(`Should throw an error when invalidValue`, () => {
     },
   ];
 
-  testcases.forEach((testcase) => {
+  for (const testcase of testcases) {
     expect(() =>
       createLatLng(testcase.latLng, "degree"),
     ).toThrow(`Unexpected ${testcase.errorValue} found.
 ${testcase.expectedValueMessage}
 Actual: ${testcase.latLng}`);
-  });
+  }
 });
 // ---
 // normal case
@@ -50,14 +50,14 @@ Actual: ${testcase.latLng}`);
 
 const latLngStringDegree = "35,139";
 const latLngStringMellisec = "126000000,500400000";
-test(`Should return degree LatLng`, () => {
+test("Should return degree LatLng", () => {
   expect(createLatLng(latLngStringDegree, "degree")).toEqual({
     lat: 35,
     lng: 139,
   });
 });
 
-test(`Should convert to degree LatLng`, () => {
+test("Should convert to degree LatLng", () => {
   expect(createLatLng(latLngStringMellisec, "millisec")).toEqual({
     lat: 35,
     lng: 139,
@@ -65,13 +65,13 @@ test(`Should convert to degree LatLng`, () => {
 });
 
 const latLngDgree = { lat: 35, lng: 139 };
-test(`Should convert to WGS84 LatLng`, () => {
+test("Should convert to WGS84 LatLng", () => {
   expect(convertLatLngToWGS84(latLngDgree)).toEqual({
     lat: 35.003285946000005,
     lng: 138.996885693,
   });
 });
-test(`Should convert to Tokyo LatLng`, () => {
+test("Should convert to Tokyo LatLng", () => {
   expect(convertLatLngToTokyo(latLngDgree)).toEqual({
     lat: 34.996713705,
     lng: 139.00311441,
@@ -82,14 +82,14 @@ const boundsDegree = {
   leftTop: { lat: 36, lng: 139 },
   rightBottom: { lat: 35, lng: 140 },
 };
-test(`Should convert to WGS84 Bounds`, () => {
+test("Should convert to WGS84 Bounds", () => {
   expect(convertBoundsToWGS84(boundsDegree)).toEqual({
     leftTop: { lat: 36.003178996, lng: 138.996839655 },
     rightBottom: { lat: 35.00330341, lng: 139.99680265 },
   });
 });
 
-test(`Should convert to Tokyo Bounds`, () => {
+test("Should convert to Tokyo Bounds", () => {
   expect(convertBoundsToTokyo(boundsDegree)).toEqual({
     leftTop: { lat: 35.996820666, lng: 139.003160457 },
     rightBottom: { lat: 34.996696238, lng: 140.00319745899998 },

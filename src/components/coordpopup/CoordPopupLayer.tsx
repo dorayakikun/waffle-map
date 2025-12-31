@@ -13,8 +13,8 @@ function createScaleDescription(scale: number, datum: string, latLng?: LatLng): 
 }
 
 function createScaleCardContents(datum: string, latLng?: LatLng): React.ReactElement[] {
-  return meshCalculator.SCALES.map((scale, idx) => (
-    <List.Item key={`coord_popup_item_${idx}`}>
+  return meshCalculator.SCALES.map((scale) => (
+    <List.Item key={`coord_popup_item_scale_${scale}`}>
       <Text fontSize={"md"}>{createScaleDescription(scale, datum, latLng)}</Text>
     </List.Item>
   ));

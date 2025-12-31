@@ -19,15 +19,15 @@ function meshesToLatsAndLngs(
 ): { lats: number[]; lngs: number[] } {
   const lats: number[] = [];
   const lngs: number[] = [];
-  meshcodes
+  const latLngs = meshcodes
     .map((meshcode) => meshes[meshcode].bounds)
     .map((bounds) => convertBoundsToWGS84IfNeeded(bounds, datum))
     .map((bounds) => [bounds.leftTop, bounds.rightBottom])
-    .reduce((accumrator, current) => accumrator.concat(current), [])
-    .forEach((latLng) => {
-      lats.push(latLng.lat);
-      lngs.push(latLng.lng);
-    });
+    .reduce((accumrator, current) => accumrator.concat(current), []);
+  for (const latLng of latLngs) {
+    lats.push(latLng.lat);
+    lngs.push(latLng.lng);
+  }
   return {
     lats,
     lngs,
@@ -47,12 +47,13 @@ function calculateLeafletBounds(
   const lats: number[] = latsAndLngs.lats;
   const lngs: number[] = latsAndLngs.lngs;
 
-  markerPositions
-    .map((position) => convertLatLngToWGS84IfNeeded(position, datum))
-    .forEach((position) => {
-      lats.push(position.lat);
-      lngs.push(position.lng);
-    });
+  const convertedPositions = markerPositions.map((position) =>
+    convertLatLngToWGS84IfNeeded(position, datum),
+  );
+  for (const position of convertedPositions) {
+    lats.push(position.lat);
+    lngs.push(position.lng);
+  }
 
   return [
     [Math.min(...lats), Math.max(...lngs)],
