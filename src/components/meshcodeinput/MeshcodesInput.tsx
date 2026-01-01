@@ -16,16 +16,21 @@ export function MeshcodesInput(props: Props): React.ReactElement<Props> {
   }, [props.separator]);
 
   return (
-    <Field.Root id={props.id} invalid={props.errorMessage !== ""}>
+    <Field.Root invalid={props.errorMessage !== ""}>
       <Stack gap={3}>
         <Input
+          id={props.id}
           placeholder={placeholder()}
           onChange={props.onMeshecodesStringChanged}
           value={props.meshCodes}
         />
         <Field.ErrorText>{props.errorMessage}</Field.ErrorText>
         <NativeSelect.Root>
-          <NativeSelect.Field onChange={props.onSeparatorChanged} value={props.separator}>
+          <NativeSelect.Field
+            id="meshCodeSeparator"
+            onChange={props.onSeparatorChanged}
+            value={props.separator}
+          >
             <option value={","}>commas</option>
             <option value={"."}>dots</option>
           </NativeSelect.Field>

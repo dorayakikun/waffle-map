@@ -51,10 +51,9 @@ export class WaffleMapPage {
     this.removeMarkersButton = page.getByRole("button", { name: /Remove/i });
     this.markerErrorMessage = page.locator("[data-part='error-text']").first();
 
-    // Mesh Code Input - in Chakra UI 3, the id is on the input itself
-    // Use data-part to distinguish between input and select with same id
+    // Mesh Code Input - input and select have unique IDs
     this.meshCodeInput = page.locator("input#meshCodeInput");
-    this.separatorSelect = page.locator("select#meshCodeInput");
+    this.separatorSelect = page.locator("select#meshCodeSeparator");
     this.meshCodeErrorMessage = page.locator("[data-part='error-text']").last();
 
     // Toggles - Chakra UI Switch with data-part="control"
