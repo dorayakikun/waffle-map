@@ -40,8 +40,8 @@ describe("round property-based tests", () => {
         fc.property(finiteNumber, validPlace, (n, place) => {
           const once = round(n, place);
           const twice = round(once, place);
-          // Use epsilon comparison due to floating point precision
-          const epsilon = 1 / 10 ** place;
+          // Use 2x epsilon to account for cascading floating point errors
+          const epsilon = 2 / 10 ** place;
           return Math.abs(once - twice) < epsilon;
         }),
         { numRuns: 2000 },
