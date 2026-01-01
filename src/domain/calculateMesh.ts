@@ -31,27 +31,17 @@ let loadError: Error | null = null;
 let initPromise: Promise<boolean> | null = null;
 
 /**
- * Creates a fallback mesh calculator that logs errors when used.
- * This prevents the app from crashing while indicating that the
- * real calculator failed to load.
+ * Gets the initialized calculator or throws a clear error.
+ * @throws Error if initialization has not completed or failed
  */
-function createFallbackCalculator(): MeshCalculator {
-  const errorMessage = loadError
-    ? `Mesh calculator failed to load: ${loadError.message}`
-    : "Mesh calculator not yet initialized";
-
-  const throwError = (): never => {
-    throw new Error(errorMessage);
-  };
-
-  return {
-    SCALES: [],
-    toCenterLatLng: throwError,
-    toBounds: throwError,
-    toMeshCode: throwError,
-    scaleFrom: throwError,
-    offset: throwError,
-  };
+function getCalculator(): MeshCalculator {
+  if (loadedCalculator === null) {
+    const message = loadError
+      ? `Mesh calculator failed to load: ${loadError.message}`
+      : "Mesh calculator not yet initialized. Ensure initializationPromise is awaited before using meshCalculator.";
+    throw new Error(message);
+  }
+  return loadedCalculator;
 }
 
 /**
@@ -84,7 +74,7 @@ async function loadMeshCalculatorModule(): Promise<MeshCalculator | null> {
  * subsequent calls return the cached promise.
  *
  * @returns Promise that resolves to true if initialization succeeded,
- *          false if it failed (fallback will be used)
+ *          false if it failed
  */
 export function initializeMeshCalculator(): Promise<boolean> {
   if (initPromise) {
@@ -105,6 +95,15 @@ export function initializeMeshCalculator(): Promise<boolean> {
 /**
  * Promise that resolves when initialization is complete.
  * Resolves to true if successful, false if failed.
+ *
+ * IMPORTANT: This promise MUST be awaited in the app bootstrap (src/index.tsx)
+ * before rendering any components that use meshCalculator. This ensures all
+ * consumers can safely use meshCalculator methods synchronously.
+ *
+ * @example
+ * // In app bootstrap:
+ * await initializationPromise;
+ * // Now safe to render components that use meshCalculator
  */
 export const initializationPromise: Promise<boolean> = initializeMeshCalculator();
 
@@ -123,42 +122,32 @@ export function isInitialized(): boolean {
 }
 
 /**
- * Proxy object that lazily accesses the mesh calculator.
- * If initialization failed, methods will throw descriptive errors.
+ * Mesh calculator proxy that provides access to mesh calculation functions.
+ *
+ * IMPORTANT: The app must await initializationPromise before using this object.
+ * If methods are called before initialization, they will throw a clear error.
+ *
+ * The initialization is enforced at app bootstrap (src/index.tsx), so consumers
+ * (stores, components) can safely use this object synchronously.
  */
 const meshCalculator: MeshCalculator = {
   get SCALES() {
-    return loadedCalculator?.SCALES ?? createFallbackCalculator().SCALES;
+    return getCalculator().SCALES;
   },
   toCenterLatLng(meshCode: string) {
-    if (!loadedCalculator) {
-      return createFallbackCalculator().toCenterLatLng(meshCode);
-    }
-    return loadedCalculator.toCenterLatLng(meshCode);
+    return getCalculator().toCenterLatLng(meshCode);
   },
   toBounds(meshCode: string) {
-    if (!loadedCalculator) {
-      return createFallbackCalculator().toBounds(meshCode);
-    }
-    return loadedCalculator.toBounds(meshCode);
+    return getCalculator().toBounds(meshCode);
   },
   toMeshCode(lat: number, lng: number, scale: number) {
-    if (!loadedCalculator) {
-      return createFallbackCalculator().toMeshCode(lat, lng, scale);
-    }
-    return loadedCalculator.toMeshCode(lat, lng, scale);
+    return getCalculator().toMeshCode(lat, lng, scale);
   },
   scaleFrom(zoom: number) {
-    if (!loadedCalculator) {
-      return createFallbackCalculator().scaleFrom(zoom);
-    }
-    return loadedCalculator.scaleFrom(zoom);
+    return getCalculator().scaleFrom(zoom);
   },
   offset(meshCode: string, x: number, y: number) {
-    if (!loadedCalculator) {
-      return createFallbackCalculator().offset(meshCode, x, y);
-    }
-    return loadedCalculator.offset(meshCode, x, y);
+    return getCalculator().offset(meshCode, x, y);
   },
 };
 
