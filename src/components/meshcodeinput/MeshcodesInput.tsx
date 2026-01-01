@@ -1,4 +1,4 @@
-import { FormControl, FormErrorMessage, Input, Select, Stack } from "@chakra-ui/react";
+import { Field, Input, NativeSelect, Stack } from "@chakra-ui/react";
 import * as React from "react";
 
 export type Props = {
@@ -6,10 +6,8 @@ export type Props = {
   id: string;
   meshCodes: string;
   separator: string;
-  onMeshecodesStringChanged: (
-    e: React.SyntheticEvent<HTMLInputElement>,
-  ) => void;
-  onSeparatorChanged: (e: React.SyntheticEvent<HTMLElement>) => void;
+  onMeshecodesStringChanged: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onSeparatorChanged: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
 export function MeshcodesInput(props: Props): React.ReactElement<Props> {
@@ -18,19 +16,26 @@ export function MeshcodesInput(props: Props): React.ReactElement<Props> {
   }, [props.separator]);
 
   return (
-    <FormControl id={props.id} isInvalid={props.errorMessage !== ""}>
-      <Stack spacing={3}>
+    <Field.Root invalid={props.errorMessage !== ""}>
+      <Stack gap={3}>
         <Input
+          id={props.id}
           placeholder={placeholder()}
           onChange={props.onMeshecodesStringChanged}
           value={props.meshCodes}
         />
-        <FormErrorMessage>{props.errorMessage}</FormErrorMessage>
-        <Select onChange={props.onSeparatorChanged} value={props.separator}>
-          <option value={","}>commas</option>
-          <option value={"."}>dots</option>
-        </Select>
+        <Field.ErrorText>{props.errorMessage}</Field.ErrorText>
+        <NativeSelect.Root>
+          <NativeSelect.Field
+            id="meshCodeSeparator"
+            onChange={props.onSeparatorChanged}
+            value={props.separator}
+          >
+            <option value={","}>commas</option>
+            <option value={"."}>dots</option>
+          </NativeSelect.Field>
+        </NativeSelect.Root>
       </Stack>
-    </FormControl>
+    </Field.Root>
   );
 }

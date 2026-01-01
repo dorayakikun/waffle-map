@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Map } from "./Map";
+import { MapView } from "./Map";
 
 export const MapContainer = () => {
-  return <Map />;
+  return <MapView />;
 };

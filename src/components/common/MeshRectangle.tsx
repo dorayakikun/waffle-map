@@ -1,6 +1,6 @@
-import { Bounds } from "../../domain/calculateMesh";
-import * as React from "react";
+import type * as React from "react";
 import { Rectangle, Tooltip } from "react-leaflet";
+import type { Bounds } from "../../domain/calculateMesh";
 
 type Props = {
   bounds: Bounds;

@@ -1,31 +1,36 @@
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
 import "leaflet/dist/leaflet.css";
 import * as React from "react";
-import { render } from "react-dom";
-import { CoordPopupLayerProvider } from "./components/coordpopup/CoordPopupLayerProvider";
-import { GeodeticInputProvider } from "./components/geodeticInput/GeodeticInputProvider";
-import { MeshcodesInputProvider } from "./components/meshcodeinput/MeshcodesInputProvider";
-import { MeshToggleProvider } from "./components/meshtoggle/MeshToggleProvider";
-import { MarkerInputProvider } from "./components/markerinput/MarkerInputProvider";
-import { TileToggleProvider } from "./components/tileToggle/TileToggleProvider";
+import { createRoot } from "react-dom/client";
+import { ErrorBoundary } from "./components/common/ErrorBoundary";
+import { initializationPromise, getInitializationError } from "./domain/calculateMesh";
 import { AppContainer } from "./pages";
 
-const root = document.getElementById("root");
-render(
-  <ChakraProvider>
-    <CoordPopupLayerProvider>
-      <GeodeticInputProvider>
-        <MeshToggleProvider>
-          <MarkerInputProvider>
-            <MeshcodesInputProvider>
-              <TileToggleProvider>
-                <AppContainer />
-              </TileToggleProvider>
-            </MeshcodesInputProvider>
-          </MarkerInputProvider>
-        </MeshToggleProvider>
-      </GeodeticInputProvider>
-    </CoordPopupLayerProvider>
-  </ChakraProvider>,
-  root,
-);
+/**
+ * Initialize the app after mesh calculator is ready.
+ * This ensures all components can safely use meshCalculator methods.
+ */
+async function initializeApp(): Promise<void> {
+  const success = await initializationPromise;
+
+  if (!success) {
+    const error = getInitializationError();
+    console.error("[App] Mesh calculator failed to initialize:", error);
+    // Continue rendering - ErrorBoundary will catch any issues
+  }
+
+  const rootElement = document.getElementById("root");
+  if (!rootElement) {
+    throw new Error("Root element not found");
+  }
+
+  createRoot(rootElement).render(
+    <ChakraProvider value={defaultSystem}>
+      <ErrorBoundary>
+        <AppContainer />
+      </ErrorBoundary>
+    </ChakraProvider>,
+  );
+}
+
+initializeApp();

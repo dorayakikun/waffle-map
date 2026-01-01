@@ -1,19 +1,17 @@
 import * as React from "react";
 import { GridToggle } from "../common/GridToggle";
-import { useTileToggleStateContext } from "./TileToggleStateContext";
-import { useTileToggleDispatchContext } from "./TileToggleDispatchContext";
+import { useTileToggleStore } from "../../stores/useTileToggleStore";
 
 type Props = {
   id: string;
 };
 
 export const TileToggleContainer = (props: Props) => {
-  const { enableTileGrid } = useTileToggleStateContext();
-  const { setEnableTileGrid } = useTileToggleDispatchContext();
+  const { enableTileGrid, setEnableTileGrid } = useTileToggleStore();
 
   const handleToggleChanged = React.useCallback(
-    (e: React.FormEvent<HTMLInputElement>) => {
-      setEnableTileGrid((e.target as any).value);
+    (details: { checked: boolean }) => {
+      setEnableTileGrid(details.checked);
     },
     [setEnableTileGrid],
   );

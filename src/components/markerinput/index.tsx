@@ -1,17 +1,16 @@
 import * as React from "react";
+import { useGeodeticInputStore } from "../../stores/useGeodeticInputStore";
+import { useMarkerInputStore } from "../../stores/useMarkerInputStore";
 import { MarkerInput } from "./MarkerInput";
-import { useMarkerInputDispatchContext } from "./MarkerInputDispatchContext";
-import { useMarkerInputStateContext } from "./MarkerInputStateContext";
-import { useGeodeticInputStateContext } from "../geodeticInput/GeodeticInputStateContext";
 
 type Props = {
   id: string;
 };
 
 export function MarkerInputContainer(props: Props) {
-  const { unit } = useGeodeticInputStateContext();
-  const { errorMessage, latLngString } = useMarkerInputStateContext();
-  const { inputLatLng, putMarker, removeAllMarkers } = useMarkerInputDispatchContext();
+  const unit = useGeodeticInputStore((state) => state.unit);
+  const { errorMessage, latLngString, inputLatLng, putMarker, removeAllMarkers } =
+    useMarkerInputStore();
 
   const handleLatLngStringChanged = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {

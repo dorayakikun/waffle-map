@@ -1,16 +1,4 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-  Grid,
-  GridItem,
-  Image,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Accordion, Box, Grid, GridItem, Image, Stack, Text } from "@chakra-ui/react";
 import * as React from "react";
 
 import { GeodeticInputContainer } from "../components/geodeticInput/";
@@ -25,67 +13,59 @@ export function AppContainer() {
   return (
     <Grid templateColumns="repeat(5, 1fr)" gap={4}>
       <GridItem colSpan={1}>
-        <Stack spacing={3}>
-          <Stack direction="row" ml={3} mt={3} spacing={3}>
+        <Stack gap={3}>
+          <Stack direction="row" ml={3} mt={3} gap={3}>
             <Image src={"/images/logo.png"} alt={"wafflemap"} />
             <Text fontSize={"3xl"}>wafflemap</Text>
           </Stack>
           <GeodeticInputContainer />
-          <Accordion>
-            <AccordionItem>
-              <h2>
-                <AccordionButton>
-                  <Box flex={"1"} textAlign={"left"}>
-                    Tile Grid
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
-              <AccordionPanel pb={4}>
+          <Accordion.Root collapsible>
+            <Accordion.Item value="tile-grid">
+              <Accordion.ItemTrigger>
+                <Box flex={"1"} textAlign={"left"}>
+                  Tile Grid
+                </Box>
+                <Accordion.ItemIndicator />
+              </Accordion.ItemTrigger>
+              <Accordion.ItemContent pb={4}>
                 <TileToggleContainer id={"tileToggle"} />
-              </AccordionPanel>
-            </AccordionItem>
-            <AccordionItem>
-              <h2>
-                <AccordionButton>
-                  <Box flex={"1"} textAlign={"left"}>
-                    Mesh Grid
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
-              <AccordionPanel pb={4}>
+              </Accordion.ItemContent>
+            </Accordion.Item>
+            <Accordion.Item value="mesh-grid">
+              <Accordion.ItemTrigger>
+                <Box flex={"1"} textAlign={"left"}>
+                  Mesh Grid
+                </Box>
+                <Accordion.ItemIndicator />
+              </Accordion.ItemTrigger>
+              <Accordion.ItemContent pb={4}>
                 <MeshToggleContainer id={"meshToggle"} />
-              </AccordionPanel>
-            </AccordionItem>
-            <AccordionItem>
-              <h2>
-                <AccordionButton>
-                  <Box flex={"1"} textAlign={"left"}>
-                    Marker
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
-              <AccordionPanel pb={4}>
+              </Accordion.ItemContent>
+            </Accordion.Item>
+            <Accordion.Item value="marker">
+              <Accordion.ItemTrigger>
+                <Box flex={"1"} textAlign={"left"}>
+                  Marker
+                </Box>
+                <Accordion.ItemIndicator />
+              </Accordion.ItemTrigger>
+              <Accordion.ItemContent pb={4}>
                 <MarkerInputContainer id={"markerInput"} />
-              </AccordionPanel>
-            </AccordionItem>
-            <AccordionItem>
-              <h2>
-                <AccordionButton>
-                  <Box flex={"1"} textAlign={"left"}>
-                    Mesh Code
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
-              <AccordionPanel pb={4}>
+              </Accordion.ItemContent>
+            </Accordion.Item>
+            <Accordion.Item value="mesh-code">
+              <Accordion.ItemTrigger>
+                <Box flex={"1"} textAlign={"left"}>
+                  Mesh Code
+                </Box>
+                <Accordion.ItemIndicator />
+              </Accordion.ItemTrigger>
+              <Accordion.ItemContent pb={4}>
                 <MeshcodesInputContainer id={"meshCodeInput"} />
                 <MeshDetailsContainer />
-              </AccordionPanel>
-            </AccordionItem>
-          </Accordion>
+              </Accordion.ItemContent>
+            </Accordion.Item>
+          </Accordion.Root>
         </Stack>
       </GridItem>
       <GridItem colSpan={4}>

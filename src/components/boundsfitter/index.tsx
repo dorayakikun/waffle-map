@@ -1,16 +1,16 @@
 import * as React from "react";
-import { LatLng, Mesh } from "../../domain/calculateMesh";
+import type { LatLng, Mesh } from "../../domain/calculateMesh";
 import {
   convertBoundsToWGS84IfNeeded,
   convertLatLngToWGS84IfNeeded,
 } from "../../domain/convertLatLng";
-// FIXME initialLeafletBounds を constans に移動する
+import type { Meshcode } from "../../types";
+import { useGeodeticInputStore } from "../../stores/useGeodeticInputStore";
+// FIXME: Move initialLeafletBounds to constants file
 import { initialLeafletBounds } from "../map/Map";
+import { useMarkerInputStore } from "../../stores/useMarkerInputStore";
+import { useMeshcodesInputStore } from "../../stores/useMeshcodesInputStore";
 import { BoundsFitter } from "./BoundsFitter";
-import { useMeshCodeInputStateContext } from "../meshcodeinput/MeshcodesInputStateContext";
-import { Meshcode } from "../../types";
-import { useGeodeticInputStateContext } from "../geodeticInput/GeodeticInputStateContext";
-import { useMarkerInputStateContext } from "../markerinput/MarkerInputStateContext";
 
 function meshesToLatsAndLngs(
   meshes: Record<Meshcode, Mesh>,
@@ -19,15 +19,16 @@ function meshesToLatsAndLngs(
 ): { lats: number[]; lngs: number[] } {
   const lats: number[] = [];
   const lngs: number[] = [];
-  meshcodes
+  const latLngs = meshcodes
+    .filter((meshcode) => meshes[meshcode] != null)
     .map((meshcode) => meshes[meshcode].bounds)
     .map((bounds) => convertBoundsToWGS84IfNeeded(bounds, datum))
     .map((bounds) => [bounds.leftTop, bounds.rightBottom])
-    .reduce((accumrator, current) => accumrator.concat(current), [])
-    .forEach((latLng) => {
-      lats.push(latLng.lat);
-      lngs.push(latLng.lng);
-    });
+    .reduce((accumrator, current) => accumrator.concat(current), []);
+  for (const latLng of latLngs) {
+    lats.push(latLng.lat);
+    lngs.push(latLng.lng);
+  }
   return {
     lats,
     lngs,
@@ -47,12 +48,13 @@ function calculateLeafletBounds(
   const lats: number[] = latsAndLngs.lats;
   const lngs: number[] = latsAndLngs.lngs;
 
-  markerPositions
-    .map((position) => convertLatLngToWGS84IfNeeded(position, datum))
-    .forEach((position) => {
-      lats.push(position.lat);
-      lngs.push(position.lng);
-    });
+  const convertedPositions = markerPositions.map((position) =>
+    convertLatLngToWGS84IfNeeded(position, datum),
+  );
+  for (const position of convertedPositions) {
+    lats.push(position.lat);
+    lngs.push(position.lng);
+  }
 
   return [
     [Math.min(...lats), Math.max(...lngs)],
@@ -61,14 +63,9 @@ function calculateLeafletBounds(
 }
 
 export function BoundFitterContainer() {
-  const { userInputMeshes, meshcodes } = useMeshCodeInputStateContext();
-  const { positions } = useMarkerInputStateContext();
-  const { datum } = useGeodeticInputStateContext();
-  const bounds = calculateLeafletBounds(
-    userInputMeshes,
-    meshcodes,
-    positions,
-    datum,
-  );
+  const { userInputMeshes, meshcodes } = useMeshcodesInputStore();
+  const positions = useMarkerInputStore((state) => state.positions);
+  const datum = useGeodeticInputStore((state) => state.datum);
+  const bounds = calculateLeafletBounds(userInputMeshes, meshcodes, positions, datum);
   return <BoundsFitter bounds={bounds} />;
 }
