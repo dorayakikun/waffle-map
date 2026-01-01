@@ -56,8 +56,9 @@ describe("round property-based tests", () => {
           const result = round(n, place);
           const ep = 10 ** place;
           const scaled = result * ep;
-          // Check if scaled result is very close to an integer
-          return Math.abs(scaled - Math.round(scaled)) < 1e-6;
+          // Use relative tolerance to handle floating-point precision at large magnitudes
+          const tolerance = Math.max(1e-9, Math.abs(scaled) * Number.EPSILON * 10);
+          return Math.abs(scaled - Math.round(scaled)) < tolerance;
         }),
         { numRuns: 1000 },
       );
