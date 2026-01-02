@@ -1,23 +1,82 @@
-import { Box, List, Stack, Text } from "@chakra-ui/react";
-import type * as React from "react";
+import { Box, HStack, IconButton, List, Stack, Text } from "@chakra-ui/react";
+import { Check, ClipboardCopy } from "lucide-react";
+import * as React from "react";
 import { Popup } from "react-leaflet";
 import meshCalculator, { type LatLng } from "../../domain/calculateMesh";
 import { convertLatLngToTokyoIfNeeded } from "../../domain/convertLatLng";
 
-function createScaleDescription(scale: number, datum: string, latLng?: LatLng): string {
-  if (latLng == null) {
-    throw new Error("Unexpected exception occured. Missing latlang.");
-  }
-  const { lat, lng } = convertLatLngToTokyoIfNeeded(latLng, datum);
-  return `scale${scale}: ${meshCalculator.toMeshCode(lat, lng, scale)}`;
+function CopyableListItem({
+  text,
+  copyValue,
+}: { text: string; copyValue: string }) {
+  const [copied, setCopied] = React.useState(false);
+  const timeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  React.useEffect(() => {
+    return () => {
+      if (timeoutRef.current !== null) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+    };
+  }, []);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(copyValue);
+      setCopied(true);
+
+      if (timeoutRef.current !== null) {
+        clearTimeout(timeoutRef.current);
+      }
+      timeoutRef.current = setTimeout(() => {
+        setCopied(false);
+        timeoutRef.current = null;
+      }, 2000);
+    } catch (error) {
+      console.error("Failed to copy to clipboard:", error);
+    }
+  };
+
+  return (
+    <List.Item>
+      <HStack justify="space-between">
+        <Text fontSize="md">{text}</Text>
+        <IconButton
+          aria-label="Copy to clipboard"
+          size="xs"
+          variant="ghost"
+          onClick={handleCopy}
+        >
+          {copied ? <Check size={14} /> : <ClipboardCopy size={14} />}
+        </IconButton>
+      </HStack>
+    </List.Item>
+  );
 }
 
-function createScaleCardContents(datum: string, latLng?: LatLng): React.ReactElement[] {
-  return meshCalculator.SCALES.map((scale) => (
-    <List.Item key={`coord_popup_item_scale_${scale}`}>
-      <Text fontSize={"md"}>{createScaleDescription(scale, datum, latLng)}</Text>
-    </List.Item>
-  ));
+function getMeshCode(scale: number, datum: string, latLng: LatLng): string {
+  const { lat, lng } = convertLatLngToTokyoIfNeeded(latLng, datum);
+  return meshCalculator.toMeshCode(lat, lng, scale);
+}
+
+function createScaleCardContents(
+  datum: string,
+  latLng?: LatLng,
+): React.ReactElement[] {
+  if (latLng == null) {
+    throw new Error("Unexpected exception occurred. Missing latLng.");
+  }
+  return meshCalculator.SCALES.map((scale) => {
+    const meshCode = getMeshCode(scale, datum, latLng);
+    return (
+      <CopyableListItem
+        key={`coord_popup_item_scale_${scale}`}
+        text={`scale${scale}: ${meshCode}`}
+        copyValue={meshCode}
+      />
+    );
+  });
 }
 type Props = {
   position: LatLng;
@@ -50,9 +109,10 @@ export function CoordPopupLayer(props: Props) {
         </Stack>
         <Box bg={"gray.50"} _dark={{ bg: "gray.900" }} px={6} py={6}>
           <List.Root gap={3}>
-            <List.Item>
-              <Text fontSize="md">{props.positionDescription}</Text>
-            </List.Item>
+            <CopyableListItem
+              text={props.positionDescription}
+              copyValue={`${props.position.lat},${props.position.lng}`}
+            />
             {createScaleCardContents(props.datum, props.position)}
           </List.Root>
         </Box>
