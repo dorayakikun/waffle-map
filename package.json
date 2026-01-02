@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/generate-404.js dist",
     "preview": "vite preview",
     "fmt": "biome format --write .",
     "fmt:check": "biome format .",
