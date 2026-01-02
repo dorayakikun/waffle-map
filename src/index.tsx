@@ -1,4 +1,5 @@
-import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
+import { system } from "./theme";
 import "leaflet/dist/leaflet.css";
 import { createRoot } from "react-dom/client";
 import { ErrorBoundary } from "./components/common/ErrorBoundary";
@@ -41,7 +42,7 @@ async function initializeApp(): Promise<void> {
   }
 
   createRoot(rootElement).render(
-    <ChakraProvider value={defaultSystem}>
+    <ChakraProvider value={system}>
       <ErrorBoundary>
         <AppContainer />
       </ErrorBoundary>

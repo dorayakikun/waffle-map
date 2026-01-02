@@ -14,15 +14,15 @@ export type Props = {
 export function MarkerInput(props: Props) {
   return (
     <Field.Root id={props.id} invalid={props.errorMessage !== ""}>
-      <Stack gap={3}>
+      <Stack gap={2}>
         <Input
           onChange={props.handleLatLangStringChanged}
           placeholder="lat,lng"
           value={props.latLngString}
         />
-        <HStack gap={3}>
+        <HStack gap={2}>
           <Button
-            colorPalette={"teal"}
+            colorPalette="secondary"
             onClick={props.onPutMarkerClicked}
             width="128px"
             variant="outline"
@@ -31,7 +31,7 @@ export function MarkerInput(props: Props) {
             Put
           </Button>
           <Button
-            colorPalette={"teal"}
+            colorPalette="secondary"
             onClick={props.onRemoveAllMarkersClicked}
             width="128px"
             variant="outline"

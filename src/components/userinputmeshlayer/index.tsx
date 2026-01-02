@@ -1,8 +1,8 @@
-
 import { convertBoundsToWGS84IfNeeded } from "../../domain/convertLatLng";
-import { MeshRectangle } from "../common/MeshRectangle";
 import { useGeodeticInputStore } from "../../stores/useGeodeticInputStore";
 import { useMeshcodesInputStore } from "../../stores/useMeshcodesInputStore";
+import { MESH_COLORS } from "../../theme/constants";
+import { MeshRectangle } from "../common/MeshRectangle";
 
 export const UserInputMeshLayerContainer = () => {
   const datum = useGeodeticInputStore((state) => state.datum);
@@ -21,7 +21,7 @@ export const UserInputMeshLayerContainer = () => {
             bounds={bounds}
             index={index}
             meshCode={mesh.code}
-            color={"#00847e"}
+            color={MESH_COLORS.userInput}
           />
         );
       })}

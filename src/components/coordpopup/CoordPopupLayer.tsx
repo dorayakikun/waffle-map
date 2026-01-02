@@ -87,28 +87,28 @@ type Props = {
 export function CoordPopupLayer(props: Props) {
   return (
     <Popup position={props.position}>
-      <Box w={"full"} bg={"white"} _dark={{ bg: "gray.800" }} rounded={"md"} overflow={"hidden"}>
+      <Box w={"full"} bg={"white"} _dark={{ bg: "neutral.800" }} rounded={"md"} overflow={"hidden"}>
         <Stack
           textAlign={"center"}
-          p={6}
-          color={"gray.800"}
+          p={4}
+          color={"neutral.800"}
           _dark={{ color: "white" }}
           align={"center"}
         >
           <Text
             fontSize={"3xl"}
-            bg={"green.50"}
-            _dark={{ bg: "green.900" }}
-            p={2}
-            px={3}
-            color={"green.500"}
+            bg={"purple.50"}
+            _dark={{ bg: "purple.900" }}
+            p={1}
+            px={2}
+            color={"purple.500"}
             rounded={"full"}
           >
             Scales
           </Text>
         </Stack>
-        <Box bg={"gray.50"} _dark={{ bg: "gray.900" }} px={6} py={6}>
-          <List.Root gap={3}>
+        <Box bg={"neutral.50"} _dark={{ bg: "neutral.900" }} px={4} py={4}>
+          <List.Root gap={2}>
             <CopyableListItem
               text={props.positionDescription}
               copyValue={`${props.position.lat},${props.position.lng}`}

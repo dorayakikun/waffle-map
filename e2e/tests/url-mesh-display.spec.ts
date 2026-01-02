@@ -1,4 +1,5 @@
 import { expect, test } from "../fixtures/test-fixtures";
+import { MESH_COLORS } from "../../src/theme/constants";
 
 test.describe("URL Mesh Display", () => {
   test("should display mesh when navigating to URL with comma-separated meshcodes", async ({
@@ -8,8 +9,8 @@ test.describe("URL Mesh Display", () => {
     await waffleMap.mapContainer.waitFor({ state: "visible" });
     await waffleMap.page.waitForTimeout(1000);
 
-    // Check that user input meshes are displayed (green color)
-    const meshes = waffleMap.page.locator('path[stroke="#00847e"]');
+    // Check that user input meshes are displayed (indigo color)
+    const meshes = waffleMap.page.locator(`path[stroke="${MESH_COLORS.userInput}"]`);
     const count = await meshes.count();
     expect(count).toBeGreaterThan(0);
   });
@@ -22,7 +23,7 @@ test.describe("URL Mesh Display", () => {
     await waffleMap.page.waitForTimeout(1000);
 
     // Check that user input meshes are displayed
-    const meshes = waffleMap.page.locator('path[stroke="#00847e"]');
+    const meshes = waffleMap.page.locator(`path[stroke="${MESH_COLORS.userInput}"]`);
     const count = await meshes.count();
     expect(count).toBeGreaterThan(0);
   });
@@ -75,7 +76,7 @@ test.describe("URL Mesh Display", () => {
     await waffleMap.page.waitForTimeout(1000);
 
     // Check that user input mesh is displayed
-    const meshes = waffleMap.page.locator('path[stroke="#00847e"]');
+    const meshes = waffleMap.page.locator(`path[stroke="${MESH_COLORS.userInput}"]`);
     const count = await meshes.count();
     expect(count).toBeGreaterThan(0);
   });
@@ -99,7 +100,7 @@ test.describe("URL Mesh Display", () => {
     await waffleMap.page.waitForTimeout(1500);
 
     // Get the mesh rectangle position to verify it's visible
-    const meshes = waffleMap.page.locator('path[stroke="#00847e"]');
+    const meshes = waffleMap.page.locator(`path[stroke="${MESH_COLORS.userInput}"]`);
     await expect(meshes.first()).toBeVisible();
   });
 });
