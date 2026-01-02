@@ -1,4 +1,4 @@
-import * as React from "react";
+
 import type { Bounds, LatLng } from "../../domain/calculateMesh";
 import {
   convertBoundsToMillisecIfNeeded,

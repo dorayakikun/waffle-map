@@ -1,4 +1,4 @@
-import * as React from "react";
+
 import { convertBoundsToWGS84IfNeeded } from "../../domain/convertLatLng";
 import { MeshRectangle } from "../common/MeshRectangle";
 import { useGeodeticInputStore } from "../../stores/useGeodeticInputStore";

@@ -30,21 +30,18 @@
   },
   "homepage": "https://dorayakikun.github.io/waffle-map/",
   "engines": {
-    "node": ">=20.0.0 <25.0.0"
+    "node": ">=20.19.0 || >=22.12.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.0",
+    "@biomejs/biome": "^2",
     "@playwright/test": "^1.57.0",
-    "@types/react-test-renderer": "^18.0.0",
-    "@vitejs/plugin-react": "^4.5.2",
+    "@testing-library/react": "^16",
+    "@vitejs/plugin-react": "^5",
     "@vitest/coverage-v8": "^4.0.0",
     "@vitest/ui": "^4.0.0",
     "connect": "^3.6.6",
-    "core-js": "^3.0.0",
     "fast-check": "^4.5.3",
-    "jsdom": "^25.0.0",
-    "react-test-renderer": "^18.0.0",
-    "regenerator-runtime": "^0.13.1",
+    "jsdom": "^27",
     "typescript": "^5.0.0",
     "vite": "^7.3.0",
     "vitest": "^4.0.0"
@@ -54,14 +51,14 @@
     "@emotion/react": "^11",
     "@types/leaflet": "^1.9.14",
     "@types/node": "^20",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "leaflet": "^1.9.4",
-    "lucide-react": "^0.468.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-leaflet": "^4.2.1",
-    "waffle-map-mesh-calculator-basic": "^2.3.3",
+    "lucide-react": "^0.562.0",
+    "react": "^19",
+    "react-dom": "^19",
+    "react-leaflet": "^5",
+    "waffle-map-mesh-calculator-basic": "github:dorayakikun/waffle-map-mesh-calculator-basic#ee66cc18785d308390b8ed1c2dd0d553ac93528a",
     "zustand": "^5.0.9"
   }
 }

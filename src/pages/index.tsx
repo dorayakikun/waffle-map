@@ -1,5 +1,4 @@
 import { Accordion, Box, Grid, GridItem, Image, Stack, Text } from "@chakra-ui/react";
-import * as React from "react";
 
 import { GeodeticInputContainer } from "../components/geodeticInput/";
 import { MapContainer } from "../components/map/";

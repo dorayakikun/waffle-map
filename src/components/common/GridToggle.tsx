@@ -1,5 +1,4 @@
 import { HStack, Switch } from "@chakra-ui/react";
-import type * as React from "react";
 
 export type Props = {
   enableGrid: boolean;
