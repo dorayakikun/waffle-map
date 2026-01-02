@@ -52,4 +52,48 @@ test.describe("Marker Input", () => {
     const markers = waffleMap.getMapMarkers();
     await expect(markers).toHaveCount(1);
   });
+
+  test("should display input and buttons in two rows (stacked layout)", async ({
+    waffleMap,
+  }) => {
+    // Get the input element bounding box
+    const inputBox = await waffleMap.markerInput.boundingBox();
+    expect(inputBox).not.toBeNull();
+
+    // Get the Put button bounding box
+    const putButtonBox = await waffleMap.putMarkerButton.boundingBox();
+    expect(putButtonBox).not.toBeNull();
+
+    // Button should be below the input (y position should be greater)
+    // Allow for some margin/padding tolerance
+    expect(putButtonBox!.y).toBeGreaterThan(inputBox!.y + inputBox!.height - 10);
+  });
+
+  test("should have Put and Remove buttons on the same row", async ({
+    waffleMap,
+  }) => {
+    // Get the Put button bounding box
+    const putButtonBox = await waffleMap.putMarkerButton.boundingBox();
+    expect(putButtonBox).not.toBeNull();
+
+    // Get the Remove button bounding box
+    const removeButtonBox = await waffleMap.removeMarkersButton.boundingBox();
+    expect(removeButtonBox).not.toBeNull();
+
+    // Both buttons should be on roughly the same y position (same row)
+    // Allow for 5px tolerance for any minor rendering differences
+    expect(Math.abs(putButtonBox!.y - removeButtonBox!.y)).toBeLessThan(5);
+  });
+
+  test("should have full-width input in stacked layout", async ({
+    waffleMap,
+  }) => {
+    const inputBox = await waffleMap.markerInput.boundingBox();
+    expect(inputBox).not.toBeNull();
+
+    // The input width should be reasonably wide (not squished)
+    // In the old horizontal layout, the input was narrow
+    // In the new stacked layout, it should be wider
+    expect(inputBox!.width).toBeGreaterThan(100);
+  });
 });
