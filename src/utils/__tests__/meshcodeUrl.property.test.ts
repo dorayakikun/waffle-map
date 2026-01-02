@@ -28,7 +28,8 @@ describe("meshcodeUrl property-based tests", () => {
             const result = parseMeshcodesFromUrl(url);
 
             return (
-              JSON.stringify(result.meshcodes) === JSON.stringify(meshcodes) &&
+              result.meshcodes.length === meshcodes.length &&
+              result.meshcodes.every((code, i) => code === meshcodes[i]) &&
               result.separator === separator
             );
           },

@@ -22,16 +22,20 @@ function CopyableListItem({
   }, []);
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(copyValue);
-    setCopied(true);
+    try {
+      await navigator.clipboard.writeText(copyValue);
+      setCopied(true);
 
-    if (timeoutRef.current !== null) {
-      clearTimeout(timeoutRef.current);
+      if (timeoutRef.current !== null) {
+        clearTimeout(timeoutRef.current);
+      }
+      timeoutRef.current = setTimeout(() => {
+        setCopied(false);
+        timeoutRef.current = null;
+      }, 2000);
+    } catch (error) {
+      console.error("Failed to copy to clipboard:", error);
     }
-    timeoutRef.current = setTimeout(() => {
-      setCopied(false);
-      timeoutRef.current = null;
-    }, 2000);
   };
 
   return (
