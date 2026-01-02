@@ -19,8 +19,8 @@ export function AppContainer() {
         overflowY="auto"
         borderRight="1px solid"
         borderColor="neutral.200"
-        _dark={{ borderColor: "neutral.700" }}
-        bg={{ base: "neutral.50", _dark: "neutral.900" }}
+        bg="neutral.50"
+        _dark={{ borderColor: "neutral.700", bg: "neutral.900" }}
       >
         <Stack gap={2} p={2}>
           <Stack direction="row" ml={2} mt={2} gap={2} align="center">

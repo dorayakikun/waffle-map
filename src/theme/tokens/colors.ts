@@ -41,6 +41,7 @@ export const colors = defineTokens.colors({
     700: { value: "#B91C1C" },
     800: { value: "#991B1B" },
     900: { value: "#7F1D1D" },
+    950: { value: "#450A0A" },
   },
   // サクセス（Green系）
   success: {
@@ -54,6 +55,7 @@ export const colors = defineTokens.colors({
     700: { value: "#15803D" },
     800: { value: "#166534" },
     900: { value: "#14532D" },
+    950: { value: "#052E16" },
   },
   // ニュートラル（Gray系）
   neutral: {

@@ -22,7 +22,7 @@ export function MarkerInput(props: Props) {
         />
         <HStack gap={2}>
           <Button
-            colorPalette="purple"
+            colorPalette="secondary"
             onClick={props.onPutMarkerClicked}
             width="128px"
             variant="outline"
@@ -31,7 +31,7 @@ export function MarkerInput(props: Props) {
             Put
           </Button>
           <Button
-            colorPalette="purple"
+            colorPalette="secondary"
             onClick={props.onRemoveAllMarkersClicked}
             width="128px"
             variant="outline"
