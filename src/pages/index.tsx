@@ -1,4 +1,4 @@
-import { Accordion, Box, Grid, GridItem, Image, Stack, Text } from "@chakra-ui/react";
+import { Accordion, Box, Flex, Image, Stack, Text } from "@chakra-ui/react";
 
 import { GeodeticInputContainer } from "../components/geodeticInput/";
 import { MapContainer } from "../components/map/";
@@ -10,12 +10,24 @@ import { TileToggleContainer } from "../components/tileToggle";
 
 export function AppContainer() {
   return (
-    <Grid templateColumns="repeat(5, 1fr)" gap={4}>
-      <GridItem colSpan={1}>
-        <Stack gap={3}>
-          <Stack direction="row" ml={3} mt={3} gap={3}>
-            <Image src={"/images/logo.png"} alt={"wafflemap"} />
-            <Text fontSize={"3xl"}>wafflemap</Text>
+    <Flex h="100vh">
+      <Box
+        as="aside"
+        w="320px"
+        minW="280px"
+        flexShrink={0}
+        overflowY="auto"
+        borderRight="1px solid"
+        borderColor="neutral.200"
+        _dark={{ borderColor: "neutral.700" }}
+        bg={{ base: "neutral.50", _dark: "neutral.900" }}
+      >
+        <Stack gap={2} p={2}>
+          <Stack direction="row" ml={2} mt={2} gap={2} align="center">
+            <Image src={"/images/logo.png"} alt={"wafflemap"} boxSize="32px" />
+            <Text fontSize={"2xl"} fontWeight="bold" color="purple.600">
+              wafflemap
+            </Text>
           </Stack>
           <GeodeticInputContainer />
           <Accordion.Root collapsible>
@@ -26,7 +38,7 @@ export function AppContainer() {
                 </Box>
                 <Accordion.ItemIndicator />
               </Accordion.ItemTrigger>
-              <Accordion.ItemContent pb={4}>
+              <Accordion.ItemContent pb={2}>
                 <TileToggleContainer id={"tileToggle"} />
               </Accordion.ItemContent>
             </Accordion.Item>
@@ -37,7 +49,7 @@ export function AppContainer() {
                 </Box>
                 <Accordion.ItemIndicator />
               </Accordion.ItemTrigger>
-              <Accordion.ItemContent pb={4}>
+              <Accordion.ItemContent pb={2}>
                 <MeshToggleContainer id={"meshToggle"} />
               </Accordion.ItemContent>
             </Accordion.Item>
@@ -48,7 +60,7 @@ export function AppContainer() {
                 </Box>
                 <Accordion.ItemIndicator />
               </Accordion.ItemTrigger>
-              <Accordion.ItemContent pb={4}>
+              <Accordion.ItemContent pb={2}>
                 <MarkerInputContainer id={"markerInput"} />
               </Accordion.ItemContent>
             </Accordion.Item>
@@ -59,17 +71,17 @@ export function AppContainer() {
                 </Box>
                 <Accordion.ItemIndicator />
               </Accordion.ItemTrigger>
-              <Accordion.ItemContent pb={4}>
+              <Accordion.ItemContent pb={2}>
                 <MeshcodesInputContainer id={"meshCodeInput"} />
                 <MeshDetailsContainer />
               </Accordion.ItemContent>
             </Accordion.Item>
           </Accordion.Root>
         </Stack>
-      </GridItem>
-      <GridItem colSpan={4}>
+      </Box>
+      <Box as="main" flex="1" position="relative">
         <MapContainer />
-      </GridItem>
-    </Grid>
+      </Box>
+    </Flex>
   );
 }

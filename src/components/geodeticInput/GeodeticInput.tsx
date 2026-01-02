@@ -9,7 +9,7 @@ export type Props = {
 
 export function GeodeticInput(props: Props): React.ReactElement<Props> {
   return (
-    <Stack gap={3}>
+    <Stack gap={2}>
       <NativeSelect.Root size="md">
         <NativeSelect.Field onChange={props.onUnitChanged} value={props.unit}>
           <option value={"millisec"}>millisec</option>

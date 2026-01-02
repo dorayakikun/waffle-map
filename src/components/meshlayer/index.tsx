@@ -2,9 +2,10 @@ import * as React from "react";
 import { useMapEvents } from "react-leaflet";
 import meshCalculator, { type LatLng, type Mesh } from "../../domain/calculateMesh";
 import { convertBoundsToWGS84IfNeeded } from "../../domain/convertLatLng";
-import { MeshRectangle } from "../common/MeshRectangle";
 import { useGeodeticInputStore } from "../../stores/useGeodeticInputStore";
 import { useMeshToggleStore } from "../../stores/useMeshToggleStore";
+import { MESH_COLORS } from "../../theme/constants";
+import { MeshRectangle } from "../common/MeshRectangle";
 
 function getSquareMeshCodes(meshCode: string, radius: number): string[] {
   const meshCodes: string[] = [];
@@ -64,7 +65,7 @@ export const MeshLayerContainer = () => {
             bounds={bounds}
             index={index}
             meshCode={mesh.code}
-            color={"#9C27B0"}
+            color={MESH_COLORS.grid}
           />
         );
       })}

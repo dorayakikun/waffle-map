@@ -1,13 +1,14 @@
 import { createLayerComponent, updateGridLayer, withPane } from "@react-leaflet/core";
 import { type Coords, GridLayer, type GridLayerOptions } from "leaflet";
+import { MESH_COLORS } from "../../theme/constants";
 
 // biome-ignore lint/suspicious/noExplicitAny: Leaflet's GridLayer.extend() requires casting due to incomplete TypeScript definitions
 const _debugTileLayer = (GridLayer as any).extend({
   createTile: (coords: Coords): HTMLElement => {
     const tile = document.createElement("div");
-    tile.style.backgroundColor = "rgba(41, 98, 255, 0.2)";
+    tile.style.backgroundColor = MESH_COLORS.debug.background;
     tile.style.outline = "2px solid";
-    tile.style.outlineColor = "#2962FF";
+    tile.style.outlineColor = MESH_COLORS.debug.outline;
     tile.innerHTML = `<span style="
                                       font-family: Lato, 
                                       'Helvetica Neue', 

@@ -40,15 +40,15 @@ export class ErrorBoundary extends React.Component<Props, State> {
       }
 
       return (
-        <Box p={6} bg="red.50" _dark={{ bg: "red.900" }} borderRadius="md">
-          <VStack gap={4} align="start">
+        <Box p={4} bg="red.50" _dark={{ bg: "red.900" }} borderRadius="md">
+          <VStack gap={2} align="start">
             <Heading size="md" color="red.600" _dark={{ color: "red.300" }}>
               Something went wrong
             </Heading>
-            <Text color="gray.700" _dark={{ color: "gray.300" }}>
+            <Text color="neutral.700" _dark={{ color: "neutral.300" }}>
               {this.state.error?.message ?? "An unexpected error occurred"}
             </Text>
-            <Button colorScheme="red" size="sm" onClick={this.handleReset}>
+            <Button colorPalette="red" size="sm" onClick={this.handleReset}>
               Try again
             </Button>
           </VStack>

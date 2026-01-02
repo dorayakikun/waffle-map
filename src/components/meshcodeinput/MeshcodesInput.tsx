@@ -17,7 +17,7 @@ export function MeshcodesInput(props: Props): React.ReactElement<Props> {
 
   return (
     <Field.Root invalid={props.errorMessage !== ""}>
-      <Stack gap={3}>
+      <Stack gap={2}>
         <Input
           id={props.id}
           placeholder={placeholder()}
