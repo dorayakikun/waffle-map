@@ -1,4 +1,4 @@
-import * as React from "react";
+
 import type { LatLng, Mesh } from "../../domain/calculateMesh";
 import {
   convertBoundsToWGS84IfNeeded,

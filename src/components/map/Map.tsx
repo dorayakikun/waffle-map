@@ -4,7 +4,6 @@ import "leaflet/dist/leaflet.css";
 import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
 import iconUrl from "leaflet/dist/images/marker-icon.png";
 import shadowUrl from "leaflet/dist/images/marker-shadow.png";
-import * as React from "react";
 import { MapContainer as LeafletMap, TileLayer } from "react-leaflet";
 import { BoundFitterContainer } from "../boundsfitter/";
 import { ErrorBoundary } from "../common/ErrorBoundary";
@@ -28,7 +27,6 @@ import { UserInputMeshLayerContainer } from "../userinputmeshlayer/index";
  * - https://github.com/Leaflet/Leaflet/issues/4968
  * - https://github.com/ghybs/leaflet-defaulticon-compatibility
  */
-// biome-ignore lint/performance/noDelete: Required to disable Leaflet's broken CSS-based icon URL detection
 delete (L.Icon.Default.prototype as unknown as { _getIconUrl?: unknown })._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl,

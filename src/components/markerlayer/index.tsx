@@ -1,4 +1,4 @@
-import * as React from "react";
+
 import { useGeodeticInputStore } from "../../stores/useGeodeticInputStore";
 import { useMarkerInputStore } from "../../stores/useMarkerInputStore";
 import { MarkerLayer } from "./MarkerLayer";
