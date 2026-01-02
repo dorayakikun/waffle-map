@@ -61,7 +61,7 @@ function createScaleCardContents(
   latLng?: LatLng,
 ): React.ReactElement[] {
   if (latLng == null) {
-    throw new Error("Unexpected exception occured. Missing latlang.");
+    throw new Error("Unexpected exception occurred. Missing latLng.");
   }
   return meshCalculator.SCALES.map((scale) => {
     const meshCode = getMeshCode(scale, datum, latLng);
