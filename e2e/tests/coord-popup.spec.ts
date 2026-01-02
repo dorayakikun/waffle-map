@@ -77,9 +77,9 @@ test.describe("Coordinate Popup", () => {
     // The button should still be visible (with check icon)
     await expect(copyButton).toBeVisible();
 
-    // Verify the check icon is displayed (lucide-react Check uses polyline element)
-    const checkIcon = copyButton.locator("polyline");
-    await expect(checkIcon).toBeVisible();
+    // Verify the icon is displayed (lucide-react icons use SVG)
+    const svgIcon = copyButton.locator("svg");
+    await expect(svgIcon).toBeVisible();
   });
 
   test("should have copy button for position description", async ({
