@@ -16,30 +16,66 @@ Mesh code is a very useful project, but it is not intuitive. Waffle Map generate
 
 ## Contents
 
+- [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Usage](#usage)
 - [Demo](#demo)
 - [Extending Waffle Map](#extending-waffle-map)
 - [Author](#author)
 
+## Features
+
+### URL-based Mesh Code Routing
+
+Share mesh codes directly via URL. The app supports URL-based routing for mesh codes:
+
+```text
+https://waffle-map.netlify.com/5339-35-97,5339-35-98/
+https://waffle-map.netlify.com/5339-35-97.5339-35-98/
+```
+
+**Supported separators:**
+- `,` (comma): `/{meshcode1},{meshcode2}/`
+- `.` (dot): `/{meshcode1}.{meshcode2}/`
+
+When you access a URL with mesh codes, the app automatically parses and displays them on the map. The URL updates as you add or remove mesh codes, making it easy to share specific locations.
+
+### Clipboard Integration
+
+Copy mesh codes to clipboard with a single click for easy sharing.
+
+### Interactive Map
+
+- Click on the map to add mesh codes at any location
+- Zoom in/out to change mesh code scale (1-6)
+- Pan and explore the entire Japan mesh code grid
+
 ## Tech Stack
 
 ### Core
 - **Node.js**: v20 / v22 / v24
 - **TypeScript**: v5
-- **React**: v18
+- **React**: v19
 
 ### Build & Development
 - **Build Tool**: [Vite](https://vitejs.dev/) - Next generation frontend tooling
 - **Test Framework**: [Vitest](https://vitest.dev/) - Blazing fast unit test framework
+- **E2E Testing**: [Playwright](https://playwright.dev/) - Modern end-to-end testing
 - **Linter & Formatter**: [Biome](https://biomejs.dev/) - Fast formatter and linter
 
 ### State Management
 - **Zustand**: Lightweight state management
 
 ### UI Framework
-- **Chakra UI**: v3 - Modular component library
-- **React Leaflet**: v4 - Map rendering library
+- **Chakra UI**: v3 - Modular component library with custom theme
+- **React Leaflet**: v5 - Map rendering library
+- **Lucide React**: Icon library
+
+### Design System
+- **Color Palette**: Indigo (primary) / Purple (secondary) with neutral grays
+- **Spacing**: 4px-based compact spacing system
+- **Layout**: Fixed-width sidebar (320px) with flexible map area
+- **Dark Mode**: Full dark mode support
 
 ### Mesh Calculator
 - **waffle-map-mesh-calculator-basic**: Mesh code calculation logic
