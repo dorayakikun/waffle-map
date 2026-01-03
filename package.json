@@ -50,7 +50,7 @@
     "@chakra-ui/react": "^3.0.0",
     "@emotion/react": "^11",
     "@types/leaflet": "^1.9.14",
-    "@types/node": "^20",
+    "@types/node": "^24.0.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "leaflet": "^1.9.4",
