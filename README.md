@@ -29,7 +29,7 @@ Mesh code is a very useful project, but it is not intuitive. Waffle Map generate
 
 Share mesh codes directly via URL. The app supports URL-based routing for mesh codes:
 
-```
+```text
 https://waffle-map.netlify.com/5339-35-97,5339-35-98/
 https://waffle-map.netlify.com/5339-35-97.5339-35-98/
 ```
