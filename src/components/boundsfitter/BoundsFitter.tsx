@@ -19,11 +19,12 @@ function boundsEqual(a: [number, number][], b: [number, number][]): boolean {
  */
 export function BoundsFitter({ bounds }: Props) {
   const map = useMap();
-  const prevBoundsRef = useRef<[number, number][]>(bounds);
+  // Initialize to null so first render triggers fitBounds
+  const prevBoundsRef = useRef<[number, number][] | null>(null);
 
   useEffect(() => {
-    // Only fit bounds if they actually changed
-    if (!boundsEqual(bounds, prevBoundsRef.current)) {
+    // Fit bounds on first render or when bounds actually changed
+    if (prevBoundsRef.current === null || !boundsEqual(bounds, prevBoundsRef.current)) {
       prevBoundsRef.current = bounds;
       map.fitBounds(bounds);
     }

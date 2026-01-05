@@ -1,3 +1,5 @@
+import type { Separator } from "../types";
+
 /**
  * Parse meshcodes from URL pathname.
  * Supports both comma and dot separators.
@@ -7,7 +9,7 @@
  */
 export function parseMeshcodesFromUrl(pathname: string): {
   meshcodes: string[];
-  separator: string;
+  separator: Separator;
 } {
   // Remove leading/trailing slashes and get the path segment
   const match = pathname.match(/^\/([^/]+)\/?$/);
@@ -33,7 +35,7 @@ export function parseMeshcodesFromUrl(pathname: string): {
  */
 export function generateMeshcodesUrl(
   meshcodes: string[],
-  separator: string,
+  separator: Separator,
 ): string {
   if (meshcodes.length === 0) {
     return "/";

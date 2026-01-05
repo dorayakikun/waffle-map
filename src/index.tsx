@@ -7,7 +7,6 @@ import { initializationPromise, getInitializationError } from "./domain/calculat
 import { AppContainer } from "./pages";
 import { useMeshcodesInputStore } from "./stores/useMeshcodesInputStore";
 import { parseMeshcodesFromUrl } from "./utils/meshcodeUrl";
-import type { Separator } from "./types";
 
 /**
  * Initialize the app after mesh calculator is ready.
@@ -34,7 +33,7 @@ async function initializeApp(): Promise<void> {
     window.location.pathname,
   );
   if (meshcodes.length > 0) {
-    useMeshcodesInputStore.getState().setMeshcodesFromUrl(meshcodes, separator as Separator);
+    useMeshcodesInputStore.getState().setMeshcodesFromUrl(meshcodes, separator);
   }
 
   const rootElement = document.getElementById("root");

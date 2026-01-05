@@ -9,7 +9,6 @@
 import { useEffect, useRef } from "react";
 import { useMeshcodesInputStore } from "../stores/useMeshcodesInputStore";
 import { generateMeshcodesUrl, parseMeshcodesFromUrl } from "../utils/meshcodeUrl";
-import type { Separator } from "../types";
 
 /**
  * Enables bidirectional synchronization between the meshcodes store and the URL.
@@ -60,7 +59,7 @@ export function useUrlSync(): void {
 
       useMeshcodesInputStore.getState().setMeshcodesFromUrl(
         parsedMeshcodes,
-        parsedSeparator as Separator,
+        parsedSeparator,
       );
     };
 
