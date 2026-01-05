@@ -1,17 +1,33 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useMap } from "react-leaflet";
 
 type Props = {
   bounds: [number, number][];
 };
 
-export function BoundsFitter(props: Props) {
-  const { bounds } = props;
+/**
+ * Check if two bounds arrays are equal.
+ */
+function boundsEqual(a: [number, number][], b: [number, number][]): boolean {
+  if (a.length !== b.length) return false;
+  return a.every((point, i) => point[0] === b[i][0] && point[1] === b[i][1]);
+}
 
+/**
+ * Component that fits the map view to the given bounds.
+ * Only triggers fitBounds when bounds actually change.
+ */
+export function BoundsFitter({ bounds }: Props) {
   const map = useMap();
+  const prevBoundsRef = useRef<[number, number][]>(bounds);
+
   useEffect(() => {
-    map.fitBounds(bounds);
-  });
+    // Only fit bounds if they actually changed
+    if (!boundsEqual(bounds, prevBoundsRef.current)) {
+      prevBoundsRef.current = bounds;
+      map.fitBounds(bounds);
+    }
+  }, [bounds, map]);
 
   return null;
 }

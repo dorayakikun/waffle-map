@@ -19,9 +19,7 @@ test.describe("Error Handling", () => {
     await waffleMap.page.waitForTimeout(500);
     await waffleMap.putMarker("abc,xyz");
 
-    await expect(waffleMap.markerErrorMessage).toContainText(
-      "Only numbers are acceptable",
-    );
+    await expect(waffleMap.markerErrorMessage).toContainText("Invalid format for lat");
   });
 
   test("should handle malformed coordinate format", async ({ waffleMap }) => {
@@ -29,7 +27,7 @@ test.describe("Error Handling", () => {
     await waffleMap.page.waitForTimeout(500);
     await waffleMap.putMarker("35.6762");
 
-    await expect(waffleMap.markerErrorMessage).toContainText("Expected: lat,lng");
+    await expect(waffleMap.markerErrorMessage).toContainText("expected lat,lng");
   });
 
   test("should recover from error state", async ({ waffleMap }) => {

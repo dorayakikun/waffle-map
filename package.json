@@ -55,6 +55,7 @@
     "@types/react-dom": "^19",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.562.0",
+    "neverthrow": "^8.2.0",
     "react": "^19",
     "react-dom": "^19",
     "react-leaflet": "^5",
