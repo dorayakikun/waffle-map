@@ -10,7 +10,7 @@ import { MeshRectangle } from "../common/MeshRectangle";
 /**
  * Debounce delay for map events in milliseconds.
  */
-const MAP_EVENT_DEBOUNCE_MS = 100;
+const MAP_EVENT_DEBOUNCE_MS = 200;
 
 /**
  * Generate mesh codes in a square pattern around a center mesh.
@@ -59,6 +59,7 @@ const MemoizedMeshRectangle = React.memo(MeshRectangle);
 export const MeshLayerContainer = React.memo(function MeshLayerContainer() {
   const [latlng, setLatlng] = React.useState<LatLng>({ lat: 36.01357, lng: 139.49891 });
   const [zoom, setZoom] = React.useState(6);
+  const [isZooming, setIsZooming] = React.useState(false);
   const datum = useGeodeticInputStore((state) => state.datum);
   const enableMeshGrid = useMeshToggleStore((state) => state.enableMeshGrid);
 
@@ -74,11 +75,18 @@ export const MeshLayerContainer = React.memo(function MeshLayerContainer() {
       const center = map.getCenter();
       setLatlng({ lat: center.lat, lng: center.lng });
       setZoom(map.getZoom());
+      setIsZooming(false);
     }, MAP_EVENT_DEBOUNCE_MS);
   }, []);
 
   // Setup map event listeners
   const map = useMapEvents({
+    zoomstart() {
+      setIsZooming(true);
+    },
+    zoomend() {
+      debouncedUpdate(map);
+    },
     zoomlevelschange() {
       debouncedUpdate(map);
     },
@@ -120,6 +128,7 @@ export const MeshLayerContainer = React.memo(function MeshLayerContainer() {
             index={index}
             meshCode={mesh.code}
             color={MESH_COLORS.grid}
+            showLabel={!isZooming}
           />
         );
       })}

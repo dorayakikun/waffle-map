@@ -14,4 +14,7 @@ export const MESH_COLORS = {
     background: "rgba(99, 102, 241, 0.2)", // primary.500 with opacity
     outline: "#6366F1", // primary.500
   },
+  label: {
+    stroke: "#FFFFFF", // white (tokens/colors.ts)
+  },
 } as const;

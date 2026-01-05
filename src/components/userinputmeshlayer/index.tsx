@@ -22,6 +22,7 @@ export const UserInputMeshLayerContainer = () => {
             index={index}
             meshCode={mesh.code}
             color={MESH_COLORS.userInput}
+            showLabel={true}
           />
         );
       })}
