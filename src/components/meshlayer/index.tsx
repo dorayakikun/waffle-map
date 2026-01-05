@@ -75,6 +75,7 @@ export const MeshLayerContainer = React.memo(function MeshLayerContainer() {
       const center = map.getCenter();
       setLatlng({ lat: center.lat, lng: center.lng });
       setZoom(map.getZoom());
+      setIsZooming(false);
     }, MAP_EVENT_DEBOUNCE_MS);
   }, []);
 
@@ -84,7 +85,6 @@ export const MeshLayerContainer = React.memo(function MeshLayerContainer() {
       setIsZooming(true);
     },
     zoomend() {
-      setIsZooming(false);
       debouncedUpdate(map);
     },
     zoomlevelschange() {

@@ -1,6 +1,8 @@
 import { defineTokens } from "@chakra-ui/react";
 
 export const colors = defineTokens.colors({
+  // 基本色
+  white: { value: "#FFFFFF" },
   // プライマリ（Indigo系）- ブランドカラー
   primary: {
     50: { value: "#EEF2FF" },

@@ -15,6 +15,6 @@ export const MESH_COLORS = {
     outline: "#6366F1", // primary.500
   },
   label: {
-    stroke: "#FFFFFF", // White stroke for text readability
+    stroke: "#FFFFFF", // white (tokens/colors.ts)
   },
 } as const;
