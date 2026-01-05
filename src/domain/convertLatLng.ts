@@ -1,4 +1,6 @@
+import { type Result, ok, err } from "neverthrow";
 import type { Bounds, LatLng } from "./calculateMesh";
+import type { LatLngError } from "../errors";
 
 function createFormatErrorMessage(name: string, value: string): string {
   return `Unexpected ${name} found.
@@ -49,6 +51,53 @@ export function createLatLng(latLng: string, unit: string): LatLng {
   return unit === "degree"
     ? createDegreeLatLng(latString, lngString)
     : createMillisecLatLng(latString, lngString);
+}
+
+/**
+ * Safe version of createLatLng that returns a Result instead of throwing.
+ */
+export function safeCreateLatLng(
+  latLng: string,
+  unit: string,
+): Result<LatLng, LatLngError> {
+  const latLngArray = latLng.split(",");
+
+  if (latLngArray.length !== 2) {
+    return err({
+      code: "LATLNG_FORMAT_ERROR",
+      field: "latLng",
+      value: latLng,
+      expectedFormat: "lat,lng",
+    });
+  }
+
+  const latString = latLngArray[0].trim();
+  const lngString = latLngArray[1].trim();
+
+  if (!isNumber(latString)) {
+    return err({
+      code: "LATLNG_FORMAT_ERROR",
+      field: "lat",
+      value: latString,
+      expectedFormat: "number",
+    });
+  }
+
+  if (!isNumber(lngString)) {
+    return err({
+      code: "LATLNG_FORMAT_ERROR",
+      field: "lng",
+      value: lngString,
+      expectedFormat: "number",
+    });
+  }
+
+  const result =
+    unit === "degree"
+      ? createDegreeLatLng(latString, lngString)
+      : createMillisecLatLng(latString, lngString);
+
+  return ok(result);
 }
 
 export function convertLatLngToTokyo(latLng: LatLng): LatLng {

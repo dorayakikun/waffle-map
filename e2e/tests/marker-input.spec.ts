@@ -42,7 +42,7 @@ test.describe("Marker Input", () => {
     await waffleMap.putMarker("invalid");
 
     await expect(waffleMap.markerErrorMessage).toBeVisible();
-    await expect(waffleMap.markerErrorMessage).toContainText("Unexpected");
+    await expect(waffleMap.markerErrorMessage).toContainText("Invalid format");
   });
 
   test("should accept millisecond coordinates", async ({ waffleMap }) => {

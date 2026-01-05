@@ -7,8 +7,12 @@ import { MeshcodesInputContainer } from "../components/meshcodeinput/index";
 import { MeshDetailsContainer } from "../components/meshdetails";
 import { MeshToggleContainer } from "../components/meshtoggle/";
 import { TileToggleContainer } from "../components/tileToggle";
+import { useUrlSync } from "../hooks";
 
 export function AppContainer() {
+  // Enable bidirectional URL synchronization with meshcodes state
+  useUrlSync();
+
   return (
     <Flex h="100vh">
       <Box

@@ -7,6 +7,14 @@ import { useMeshToggleStore } from "../../stores/useMeshToggleStore";
 import { MESH_COLORS } from "../../theme/constants";
 import { MeshRectangle } from "../common/MeshRectangle";
 
+/**
+ * Debounce delay for map events in milliseconds.
+ */
+const MAP_EVENT_DEBOUNCE_MS = 100;
+
+/**
+ * Generate mesh codes in a square pattern around a center mesh.
+ */
 function getSquareMeshCodes(meshCode: string, radius: number): string[] {
   const meshCodes: string[] = [];
   for (let i = -radius; i <= radius; i++) {
@@ -18,6 +26,9 @@ function getSquareMeshCodes(meshCode: string, radius: number): string[] {
   return meshCodes;
 }
 
+/**
+ * Create a Mesh object from a mesh code.
+ */
 function createMesh(code: string): Mesh {
   return {
     bounds: meshCalculator.toBounds(code),
@@ -26,6 +37,9 @@ function createMesh(code: string): Mesh {
   };
 }
 
+/**
+ * Get meshes in a square pattern around the given coordinates.
+ */
 function getSquareMeshes(latlng: LatLng, zoom: number, radius: number): Mesh[] {
   const scale: number = meshCalculator.scaleFrom(zoom);
   const centerMeshCode = meshCalculator.toMeshCode(latlng.lat, latlng.lng, scale);
@@ -33,34 +47,74 @@ function getSquareMeshes(latlng: LatLng, zoom: number, radius: number): Mesh[] {
   return meshCodes.map(createMesh);
 }
 
-export const MeshLayerContainer = () => {
-  const [latlng, setLatlng] = React.useState({ lat: 36.01357, lng: 139.49891 });
+/**
+ * Memoized MeshRectangle component to prevent unnecessary re-renders.
+ */
+const MemoizedMeshRectangle = React.memo(MeshRectangle);
+
+/**
+ * Container component that renders the mesh grid overlay on the map.
+ * Optimized with memoization and debounced map event handlers.
+ */
+export const MeshLayerContainer = React.memo(function MeshLayerContainer() {
+  const [latlng, setLatlng] = React.useState<LatLng>({ lat: 36.01357, lng: 139.49891 });
   const [zoom, setZoom] = React.useState(6);
   const datum = useGeodeticInputStore((state) => state.datum);
+  const enableMeshGrid = useMeshToggleStore((state) => state.enableMeshGrid);
+
+  // Ref for debounce timeout
+  const updateTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  // Debounced update function
+  const debouncedUpdate = React.useCallback((map: L.Map) => {
+    if (updateTimeoutRef.current) {
+      clearTimeout(updateTimeoutRef.current);
+    }
+    updateTimeoutRef.current = setTimeout(() => {
+      const center = map.getCenter();
+      setLatlng({ lat: center.lat, lng: center.lng });
+      setZoom(map.getZoom());
+    }, MAP_EVENT_DEBOUNCE_MS);
+  }, []);
+
+  // Setup map event listeners
   const map = useMapEvents({
     zoomlevelschange() {
-      setLatlng(map.getCenter());
-      setZoom(map.getZoom());
+      debouncedUpdate(map);
     },
     moveend() {
-      setLatlng(map.getCenter());
-      setZoom(map.getZoom());
+      debouncedUpdate(map);
     },
   });
 
-  const enableMeshGrid = useMeshToggleStore((state) => state.enableMeshGrid);
+  // Cleanup timeout on unmount
+  React.useEffect(() => {
+    return () => {
+      if (updateTimeoutRef.current) {
+        clearTimeout(updateTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Memoize meshes calculation - only recalculate when latlng, zoom, or enableMeshGrid changes
+  const meshes = React.useMemo(() => {
+    if (!enableMeshGrid) {
+      return [];
+    }
+    return getSquareMeshes(latlng, zoom, 10);
+  }, [latlng, zoom, enableMeshGrid]);
+
+  // Early return if mesh grid is disabled
   if (!enableMeshGrid) {
     return null;
   }
-
-  const meshes = getSquareMeshes(latlng, zoom, 10);
 
   return (
     <>
       {meshes.map((mesh, index) => {
         const bounds = convertBoundsToWGS84IfNeeded(mesh.bounds, datum);
         return (
-          <MeshRectangle
+          <MemoizedMeshRectangle
             key={`mesh_layer_${mesh.code}`}
             bounds={bounds}
             index={index}
@@ -71,4 +125,4 @@ export const MeshLayerContainer = () => {
       })}
     </>
   );
-};
+});
