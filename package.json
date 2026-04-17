@@ -42,7 +42,7 @@
     "connect": "^3.6.6",
     "fast-check": "^4.5.3",
     "jsdom": "^28.0.0",
-    "typescript": "^5.0.0",
+    "typescript": "^6.0.0",
     "vite": "^7.3.0",
     "vitest": "^4.0.0"
   },
