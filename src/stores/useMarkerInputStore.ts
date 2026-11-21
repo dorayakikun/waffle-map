@@ -1,11 +1,11 @@
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
-import { type Result, err } from "neverthrow";
 import type { LatLng } from "../domain/calculateMesh";
 import { safeCreateLatLng } from "../domain/convertLatLng";
 import type { LatLngError } from "../errors";
 import { formatLatLngError } from "../errors";
 import type { Unit } from "../types";
+import { err, type Result } from "../types/result";
 
 /**
  * Result type for marker operations.

@@ -2,7 +2,7 @@
  * Debouncing hooks for performance optimization.
  */
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
  * Returns a debounced version of the value that only updates
@@ -67,14 +67,17 @@ export function useDebouncedCallback<T extends (...args: Parameters<T>) => void>
     };
   }, []);
 
-  return useCallback(((...args: Parameters<T>) => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-    }
-    timerRef.current = setTimeout(() => {
-      callbackRef.current(...args);
-    }, delayRef.current);
-  }) as T, []);
+  return useCallback(
+    ((...args: Parameters<T>) => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+      timerRef.current = setTimeout(() => {
+        callbackRef.current(...args);
+      }, delayRef.current);
+    }) as T,
+    [],
+  );
 }
 
 /**

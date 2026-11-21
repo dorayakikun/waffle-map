@@ -12,6 +12,7 @@ import {
   convertLatLngToWGS84,
   convertLatLngToWGS84IfNeeded,
   createLatLng,
+  safeCreateLatLng,
 } from "../convertLatLng";
 
 // ---
@@ -175,5 +176,88 @@ test("Should parse both negative coordinates", () => {
   expect(createLatLng("-23.5505,-46.6333", "degree")).toEqual({
     lat: -23.5505,
     lng: -46.6333,
+  });
+});
+
+test("Should parse zero and decimal coordinates with whitespace", () => {
+  expect(createLatLng(" 0 , 0.5 ", "degree")).toEqual({ lat: 0, lng: 0.5 });
+  expect(createLatLng("-0.25,10.05", "degree")).toEqual({ lat: -0.25, lng: 10.05 });
+});
+
+test("Should reject invalid number patterns in createLatLng", () => {
+  expect(() => createLatLng("01,139", "degree")).toThrow(/Unexpected lat found/);
+  expect(() => createLatLng("35,01", "degree")).toThrow(/Unexpected lng found/);
+  expect(() => createLatLng("35.,139", "degree")).toThrow(/Unexpected lat found/);
+  expect(() => createLatLng("35,139.", "degree")).toThrow(/Unexpected lng found/);
+  expect(() => createLatLng("35,139,1", "degree")).toThrow(/Unexpected LatLng found/);
+  expect(() => createLatLng("35abc,139", "degree")).toThrow(/Unexpected lat found/);
+  expect(() => createLatLng("abc35,139", "degree")).toThrow(/Unexpected lat found/);
+});
+
+describe("safeCreateLatLng", () => {
+  test("returns ok with degree LatLng", () => {
+    const res = safeCreateLatLng(" 35.6762 , 139.6503 ", "degree");
+    expect(res.isOk()).toBe(true);
+    if (res.isOk()) {
+      expect(res.value).toEqual({ lat: 35.6762, lng: 139.6503 });
+    }
+  });
+
+  test("returns ok with millisec LatLng", () => {
+    const res = safeCreateLatLng("126000000,500400000", "millisec");
+    expect(res.isOk()).toBe(true);
+    if (res.isOk()) {
+      expect(res.value).toEqual({ lat: 35, lng: 139 });
+    }
+  });
+
+  test("returns LATLNG_FORMAT_ERROR when comma count is invalid", () => {
+    const res1 = safeCreateLatLng("35.6762", "degree");
+    expect(res1.isErr()).toBe(true);
+    if (res1.isErr()) {
+      expect(res1.error).toEqual({
+        code: "LATLNG_FORMAT_ERROR",
+        field: "latLng",
+        value: "35.6762",
+        expectedFormat: "lat,lng",
+      });
+    }
+
+    const res2 = safeCreateLatLng("35,139,0", "degree");
+    expect(res2.isErr()).toBe(true);
+    if (res2.isErr()) {
+      expect(res2.error).toEqual({
+        code: "LATLNG_FORMAT_ERROR",
+        field: "latLng",
+        value: "35,139,0",
+        expectedFormat: "lat,lng",
+      });
+    }
+  });
+
+  test("returns LATLNG_FORMAT_ERROR for non-numeric lat", () => {
+    const res = safeCreateLatLng(" abc , 139 ", "degree");
+    expect(res.isErr()).toBe(true);
+    if (res.isErr()) {
+      expect(res.error).toEqual({
+        code: "LATLNG_FORMAT_ERROR",
+        field: "lat",
+        value: "abc",
+        expectedFormat: "number",
+      });
+    }
+  });
+
+  test("returns LATLNG_FORMAT_ERROR for non-numeric lng", () => {
+    const res = safeCreateLatLng(" 35 , xyz ", "degree");
+    expect(res.isErr()).toBe(true);
+    if (res.isErr()) {
+      expect(res.error).toEqual({
+        code: "LATLNG_FORMAT_ERROR",
+        field: "lng",
+        value: "xyz",
+        expectedFormat: "number",
+      });
+    }
   });
 });

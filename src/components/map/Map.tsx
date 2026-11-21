@@ -1,8 +1,8 @@
 import { Box } from "@chakra-ui/react";
 import * as L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
 import iconUrl from "leaflet/dist/images/marker-icon.png";
+import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
 import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 import { MapContainer as LeafletMap, TileLayer } from "react-leaflet";
 import { BoundFitterContainer } from "../boundsfitter/";
@@ -40,13 +40,13 @@ export const initialLeafletBounds: [number, number][] = [
 
 export function MapView() {
   return (
-    <Box>
+    <Box w="full" h="full">
       <ErrorBoundary>
         <LeafletMap
           bounds={initialLeafletBounds}
           maxZoom={18}
           minZoom={5}
-          style={{ width: "100%", height: "100vh" }}
+          style={{ width: "100%", height: "100%" }}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

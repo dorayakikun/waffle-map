@@ -5,9 +5,9 @@ export const semanticColors = defineSemanticTokens.colors({
   brand: {
     solid: { value: "{colors.primary.600}" },
     contrast: { value: "white" },
-    fg: { value: "{colors.primary.700}" },
-    muted: { value: "{colors.primary.100}" },
-    subtle: { value: "{colors.primary.50}" },
+    fg: { value: { base: "{colors.primary.700}", _dark: "{colors.primary.300}" } },
+    muted: { value: { base: "{colors.primary.100}", _dark: "{colors.primary.900}" } },
+    subtle: { value: { base: "{colors.primary.50}", _dark: "{colors.primary.950}" } },
     emphasized: { value: "{colors.primary.800}" },
     focusRing: { value: "{colors.primary.500}" },
   },
@@ -15,9 +15,9 @@ export const semanticColors = defineSemanticTokens.colors({
   accent: {
     solid: { value: "{colors.secondary.600}" },
     contrast: { value: "white" },
-    fg: { value: "{colors.secondary.700}" },
-    muted: { value: "{colors.secondary.100}" },
-    subtle: { value: "{colors.secondary.50}" },
+    fg: { value: { base: "{colors.secondary.700}", _dark: "{colors.secondary.300}" } },
+    muted: { value: { base: "{colors.secondary.100}", _dark: "{colors.secondary.900}" } },
+    subtle: { value: { base: "{colors.secondary.50}", _dark: "{colors.secondary.950}" } },
   },
   // メッシュグリッド用
   mesh: {
@@ -29,11 +29,14 @@ export const semanticColors = defineSemanticTokens.colors({
     DEFAULT: {
       value: { base: "white", _dark: "{colors.neutral.900}" },
     },
+    panel: {
+      value: { base: "white", _dark: "{colors.neutral.900}" },
+    },
     subtle: {
       value: { base: "{colors.neutral.50}", _dark: "{colors.neutral.800}" },
     },
     muted: {
-      value: { base: "{colors.neutral.100}", _dark: "{colors.neutral.700}" },
+      value: { base: "{colors.neutral.100}", _dark: "{colors.neutral.800}" },
     },
     canvas: {
       value: { base: "{colors.neutral.50}", _dark: "{colors.neutral.950}" },
@@ -42,7 +45,7 @@ export const semanticColors = defineSemanticTokens.colors({
   // 前景色（テキスト）
   fg: {
     DEFAULT: {
-      value: { base: "{colors.neutral.900}", _dark: "white" },
+      value: { base: "{colors.neutral.900}", _dark: "{colors.neutral.50}" },
     },
     muted: {
       value: { base: "{colors.neutral.600}", _dark: "{colors.neutral.400}" },
@@ -54,7 +57,7 @@ export const semanticColors = defineSemanticTokens.colors({
   // ボーダー
   border: {
     DEFAULT: {
-      value: { base: "{colors.neutral.200}", _dark: "{colors.neutral.700}" },
+      value: { base: "{colors.neutral.200}", _dark: "{colors.neutral.800}" },
     },
     muted: {
       value: { base: "{colors.neutral.100}", _dark: "{colors.neutral.800}" },

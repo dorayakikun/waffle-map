@@ -6,8 +6,8 @@ import {
   convertLatLngToTokyoIfNeeded,
 } from "../../domain/convertLatLng";
 import { round } from "../../domain/roundPoint";
-import { useGeodeticInputStore } from "../../stores/useGeodeticInputStore";
 import { useCoordPopupStore } from "../../stores/useCoordPopupStore";
+import { useGeodeticInputStore } from "../../stores/useGeodeticInputStore";
 import { CoordPopupLayer } from "./CoordPopupLayer";
 
 function createPositionDescription(datum: string, unit: string, latLng?: LatLng): string {

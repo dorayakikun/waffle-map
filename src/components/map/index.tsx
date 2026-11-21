@@ -1,4 +1,3 @@
-
 import { MapView } from "./Map";
 
 export const MapContainer = () => {

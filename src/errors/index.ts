@@ -2,24 +2,22 @@
  * Error handling module exports.
  */
 
-export type {
-  ErrorCode,
-  AppError,
-  MeshcodeError,
-  LatLngError,
-  InitializationError,
-} from "./types";
-
-export {
-  createMeshcodeError,
-  createLatLngError,
-  toAppError,
-} from "./types";
-
 export {
   ERROR_MESSAGES,
-  formatMeshcodeError,
-  formatLatLngError,
   formatAppError,
+  formatLatLngError,
+  formatMeshcodeError,
   getDefaultMessage,
 } from "./messages";
+export type {
+  AppError,
+  ErrorCode,
+  InitializationError,
+  LatLngError,
+  MeshcodeError,
+} from "./types";
+export {
+  createLatLngError,
+  createMeshcodeError,
+  toAppError,
+} from "./types";

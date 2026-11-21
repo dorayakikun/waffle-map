@@ -49,13 +49,14 @@ function getCalculator(): MeshCalculator {
  * Returns the loaded module or null on failure.
  */
 async function loadMeshCalculatorModule(): Promise<MeshCalculator | null> {
-  const moduleName = LOGIC_TYPE
-    ? `waffle-map-mesh-calculator-${LOGIC_TYPE}`
+  const logicType = typeof LOGIC_TYPE !== "undefined" ? LOGIC_TYPE : undefined;
+  const moduleName = logicType
+    ? `waffle-map-mesh-calculator-${logicType}`
     : "waffle-map-mesh-calculator-basic";
 
   try {
-    const module = LOGIC_TYPE
-      ? await import(/* @vite-ignore */ `waffle-map-mesh-calculator-${LOGIC_TYPE}`)
+    const module = logicType
+      ? await import(/* @vite-ignore */ `waffle-map-mesh-calculator-${logicType}`)
       : await import("waffle-map-mesh-calculator-basic");
     return module.default ?? module;
   } catch (error) {

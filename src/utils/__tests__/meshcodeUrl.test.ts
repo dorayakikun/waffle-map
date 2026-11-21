@@ -1,7 +1,4 @@
-import {
-  generateMeshcodesUrl,
-  parseMeshcodesFromUrl,
-} from "../meshcodeUrl";
+import { generateMeshcodesUrl, parseMeshcodesFromUrl } from "../meshcodeUrl";
 
 describe("parseMeshcodesFromUrl", () => {
   describe("basic parsing", () => {
@@ -24,26 +21,14 @@ describe("parseMeshcodesFromUrl", () => {
     });
 
     test("parses multiple meshcodes with comma", () => {
-      const result = parseMeshcodesFromUrl(
-        "/5339-35-97,5339-35-98,5339-35-99/",
-      );
-      expect(result.meshcodes).toEqual([
-        "5339-35-97",
-        "5339-35-98",
-        "5339-35-99",
-      ]);
+      const result = parseMeshcodesFromUrl("/5339-35-97,5339-35-98,5339-35-99/");
+      expect(result.meshcodes).toEqual(["5339-35-97", "5339-35-98", "5339-35-99"]);
       expect(result.separator).toBe(",");
     });
 
     test("parses multiple meshcodes with dot", () => {
-      const result = parseMeshcodesFromUrl(
-        "/5339-35-97.5339-35-98.5339-35-99/",
-      );
-      expect(result.meshcodes).toEqual([
-        "5339-35-97",
-        "5339-35-98",
-        "5339-35-99",
-      ]);
+      const result = parseMeshcodesFromUrl("/5339-35-97.5339-35-98.5339-35-99/");
+      expect(result.meshcodes).toEqual(["5339-35-97", "5339-35-98", "5339-35-99"]);
       expect(result.separator).toBe(".");
     });
   });
@@ -85,6 +70,18 @@ describe("parseMeshcodesFromUrl", () => {
       const result = parseMeshcodesFromUrl("/5339-35-97,,5339-35-98/");
       expect(result.meshcodes).toEqual(["5339-35-97", "5339-35-98"]);
     });
+
+    test("returns empty array for path not starting with slash", () => {
+      const result = parseMeshcodesFromUrl("5339-35-97/");
+      expect(result.meshcodes).toEqual([]);
+      expect(result.separator).toBe(".");
+    });
+
+    test("returns empty array for double trailing slashes", () => {
+      const result = parseMeshcodesFromUrl("/5339-35-97//");
+      expect(result.meshcodes).toEqual([]);
+      expect(result.separator).toBe(".");
+    });
   });
 
   describe("separator detection", () => {
@@ -103,15 +100,11 @@ describe("parseMeshcodesFromUrl", () => {
 
 describe("generateMeshcodesUrl", () => {
   test("generates URL with comma separator", () => {
-    expect(generateMeshcodesUrl(["5339-35-97", "5339-35-98"], ",")).toBe(
-      "/5339-35-97,5339-35-98/",
-    );
+    expect(generateMeshcodesUrl(["5339-35-97", "5339-35-98"], ",")).toBe("/5339-35-97,5339-35-98/");
   });
 
   test("generates URL with dot separator", () => {
-    expect(generateMeshcodesUrl(["5339-35-97", "5339-35-98"], ".")).toBe(
-      "/5339-35-97.5339-35-98/",
-    );
+    expect(generateMeshcodesUrl(["5339-35-97", "5339-35-98"], ".")).toBe("/5339-35-97.5339-35-98/");
   });
 
   test("generates URL for single meshcode", () => {
@@ -124,9 +117,9 @@ describe("generateMeshcodesUrl", () => {
   });
 
   test("generates URL for multiple meshcodes", () => {
-    expect(
-      generateMeshcodesUrl(["5339-35-97", "5339-35-98", "5339-35-99"], ","),
-    ).toBe("/5339-35-97,5339-35-98,5339-35-99/");
+    expect(generateMeshcodesUrl(["5339-35-97", "5339-35-98", "5339-35-99"], ",")).toBe(
+      "/5339-35-97,5339-35-98,5339-35-99/",
+    );
   });
 });
 

@@ -1,18 +1,18 @@
 import * as fc from "fast-check";
 import {
-  convertLatLngToTokyo,
-  convertLatLngToWGS84,
-  convertLatLngToMillisec,
-  convertBoundsToTokyo,
-  convertBoundsToWGS84,
   convertBoundsToMillisec,
-  createLatLng,
-  convertLatLngToTokyoIfNeeded,
-  convertLatLngToWGS84IfNeeded,
-  convertLatLngToMillisecIfNeeded,
-  convertBoundsToTokyoIfNeeded,
-  convertBoundsToWGS84IfNeeded,
   convertBoundsToMillisecIfNeeded,
+  convertBoundsToTokyo,
+  convertBoundsToTokyoIfNeeded,
+  convertBoundsToWGS84,
+  convertBoundsToWGS84IfNeeded,
+  convertLatLngToMillisec,
+  convertLatLngToMillisecIfNeeded,
+  convertLatLngToTokyo,
+  convertLatLngToTokyoIfNeeded,
+  convertLatLngToWGS84,
+  convertLatLngToWGS84IfNeeded,
+  createLatLng,
 } from "../convertLatLng";
 
 // Custom arbitrary for valid LatLng (Japan region for realistic testing)
@@ -34,11 +34,7 @@ const boundsArbitrary = fc
       lng: fc.double({ min: 140, max: 154, noNaN: true }),
     }),
   })
-  .filter(
-    (b) =>
-      b.leftTop.lat > b.rightBottom.lat + 1 &&
-      b.leftTop.lng < b.rightBottom.lng - 1,
-  );
+  .filter((b) => b.leftTop.lat > b.rightBottom.lat + 1 && b.leftTop.lng < b.rightBottom.lng - 1);
 
 describe("convertLatLng property-based tests", () => {
   describe("Tokyo/WGS84 conversion reversibility", () => {
@@ -151,10 +147,7 @@ describe("convertLatLng property-based tests", () => {
             try {
               const result = createLatLng(input, "degree");
               // Allow small floating point differences
-              return (
-                Math.abs(result.lat - lat) < 1e-9 &&
-                Math.abs(result.lng - lng) < 1e-9
-              );
+              return Math.abs(result.lat - lat) < 1e-9 && Math.abs(result.lng - lng) < 1e-9;
             } catch {
               // Some edge case formatting might fail - that's acceptable
               return true;
@@ -183,17 +176,14 @@ describe("convertLatLng property-based tests", () => {
 
     test("throws on invalid format (no comma)", () => {
       fc.assert(
-        fc.property(
-          fc.double({ min: -90, max: 90, noNaN: true }),
-          (lat) => {
-            try {
-              createLatLng(lat.toString(), "degree");
-              return false; // Should have thrown
-            } catch (e) {
-              return e instanceof Error && e.message.includes("Expected: lat,lng");
-            }
-          },
-        ),
+        fc.property(fc.double({ min: -90, max: 90, noNaN: true }), (lat) => {
+          try {
+            createLatLng(lat.toString(), "degree");
+            return false; // Should have thrown
+          } catch (e) {
+            return e instanceof Error && e.message.includes("Expected: lat,lng");
+          }
+        }),
       );
     });
 

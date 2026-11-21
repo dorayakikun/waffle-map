@@ -1,14 +1,11 @@
-import { Box, HStack, IconButton, List, Stack, Text } from "@chakra-ui/react";
-import { Check, ClipboardCopy } from "lucide-react";
+import { Badge, Box, HStack, IconButton, List, Text } from "@chakra-ui/react";
+import { Check, ClipboardCopy, Crosshair } from "lucide-react";
 import * as React from "react";
 import { Popup } from "react-leaflet";
 import meshCalculator, { type LatLng } from "../../domain/calculateMesh";
 import { convertLatLngToTokyoIfNeeded } from "../../domain/convertLatLng";
 
-function CopyableListItem({
-  text,
-  copyValue,
-}: { text: string; copyValue: string }) {
+function CopyableListItem({ text, copyValue }: { text: string; copyValue: string }) {
   const [copied, setCopied] = React.useState(false);
   const timeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -39,16 +36,28 @@ function CopyableListItem({
   };
 
   return (
-    <List.Item>
-      <HStack justify="space-between">
-        <Text fontSize="md">{text}</Text>
+    <List.Item listStyleType="none">
+      <HStack
+        justify="space-between"
+        gap={3}
+        px={2}
+        py={1}
+        rounded="md"
+        transition="background-color 120ms ease"
+        _hover={{ bg: "bg.muted" }}
+      >
+        <Text fontSize="xs" fontFamily="mono" fontVariantNumeric="tabular-nums" color="fg" m={0}>
+          {text}
+        </Text>
         <IconButton
           aria-label="Copy to clipboard"
-          size="xs"
+          size="2xs"
           variant="ghost"
+          rounded="md"
+          color={copied ? "success.600" : "fg.muted"}
           onClick={handleCopy}
         >
-          {copied ? <Check size={14} /> : <ClipboardCopy size={14} />}
+          {copied ? <Check size={13} /> : <ClipboardCopy size={13} />}
         </IconButton>
       </HStack>
     </List.Item>
@@ -60,10 +69,7 @@ function getMeshCode(scale: number, datum: string, latLng: LatLng): string {
   return meshCalculator.toMeshCode(lat, lng, scale);
 }
 
-function createScaleCardContents(
-  datum: string,
-  latLng?: LatLng,
-): React.ReactElement[] {
+function createScaleCardContents(datum: string, latLng?: LatLng): React.ReactElement[] {
   if (latLng == null) {
     throw new Error("Unexpected exception occurred. Missing latLng.");
   }
@@ -78,37 +84,50 @@ function createScaleCardContents(
     );
   });
 }
+
 type Props = {
   position: LatLng;
   datum: string;
   unit: string;
   positionDescription: string;
 };
+
 export function CoordPopupLayer(props: Props) {
   return (
     <Popup position={props.position}>
-      <Box w={"full"} bg={"white"} _dark={{ bg: "neutral.800" }} rounded={"md"} overflow={"hidden"}>
-        <Stack
-          textAlign={"center"}
-          p={4}
-          color={"neutral.800"}
-          _dark={{ color: "white" }}
-          align={"center"}
+      <Box
+        w="full"
+        bg="bg.panel"
+        color="fg"
+        rounded="xl"
+        borderWidth="1px"
+        borderColor="border"
+        overflow="hidden"
+      >
+        <HStack
+          px={3.5}
+          py={2.5}
+          pr={9}
+          justify="space-between"
+          bg="bg.subtle"
+          borderBottomWidth="1px"
+          borderColor="border"
         >
-          <Text
-            fontSize={"3xl"}
-            bg={"purple.50"}
-            _dark={{ bg: "purple.900" }}
-            p={1}
-            px={2}
-            color={"purple.500"}
-            rounded={"full"}
-          >
-            Scales
-          </Text>
-        </Stack>
-        <Box bg={"neutral.50"} _dark={{ bg: "neutral.900" }} px={4} py={4}>
-          <List.Root gap={2}>
+          <HStack gap={1.5}>
+            <Box color="brand.fg">
+              <Crosshair size={14} />
+            </Box>
+            <Text fontSize="xs" fontWeight="700" color="fg" m={0}>
+              Scales
+            </Text>
+          </HStack>
+          <Badge size="xs" variant="subtle" colorPalette="primary" rounded="full" fontFamily="mono">
+            {props.datum} · {props.unit}
+          </Badge>
+        </HStack>
+
+        <Box px={2} py={2}>
+          <List.Root gap={0.5} m={0}>
             <CopyableListItem
               text={props.positionDescription}
               copyValue={`${props.position.lat},${props.position.lng}`}

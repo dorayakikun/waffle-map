@@ -11,8 +11,10 @@ Waffle Map is a Japanese mesh code visualization tool built with React 19 and Le
 ```bash
 npm run dev          # Start development server (http://localhost:5173)
 npm run build        # Build for production
-npm test             # Run unit tests (Vitest)
-npm run test:e2e     # Run E2E tests (Playwright)
+npm test                  # Run unit tests (Vitest 5)
+npm run test:mutation     # Run in-memory Oxc mutation tests (cached)
+npm run test:mutation:diff # Run diff-driven mutation tests (--since origin/main)
+npm run test:e2e          # Run E2E tests (Playwright)
 npm run typecheck    # TypeScript type checking
 npm run lint         # Lint with Biome
 npm run lint:fix     # Fix linting issues
@@ -44,14 +46,14 @@ e2e/
 
 ### Key Technologies
 
-- **React 19** + TypeScript 5
-- **Chakra UI v3** with custom theme system
+- **React 19** + **TypeScript 7**
+- **Chakra UI v3** with custom theme system (Light / Dark mode)
 - **React Leaflet v5** for map rendering
-- **Zustand** for state management
-- **Vite 7** for build tooling
-- **Vitest** for unit testing
+- **Zustand v5** for state management
+- **Vite 8** for build tooling
+- **Vitest 5** for unit testing + custom Oxc diff-driven mutation runner (`scripts/mutator.mjs`)
 - **Playwright** for E2E testing
-- **Biome** for linting/formatting
+- **Biome v2** for linting/formatting
 
 ### Design System
 

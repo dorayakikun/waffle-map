@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useGeodeticInputStore } from "../../stores/useGeodeticInputStore";
-import { GeodeticInput } from "./GeodeticInput";
 import type { Datum, Unit } from "../../types";
+import { GeodeticInput } from "./GeodeticInput";
 
 export const GeodeticInputContainer = () => {
   const { datum, unit, changeDatum, changeUnit } = useGeodeticInputStore();

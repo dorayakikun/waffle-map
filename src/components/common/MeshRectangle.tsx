@@ -1,5 +1,5 @@
-import type * as React from "react";
 import type { LatLngBoundsExpression } from "leaflet";
+import type * as React from "react";
 import { Rectangle, SVGOverlay } from "react-leaflet";
 import type { Bounds } from "../../domain/calculateMesh";
 import { MESH_COLORS } from "../../theme/constants";
@@ -20,11 +20,7 @@ export function MeshRectangle(props: Props): React.ReactElement {
 
   return (
     <>
-      <Rectangle
-        bounds={leafletBounds}
-        key={props.index}
-        color={props.color}
-      />
+      <Rectangle bounds={leafletBounds} key={props.index} color={props.color} />
       {props.showLabel !== false && (
         <SVGOverlay bounds={leafletBounds}>
           <svg viewBox="0 0 100 100" width="100%" height="100%" aria-hidden="true">
@@ -35,7 +31,8 @@ export function MeshRectangle(props: Props): React.ReactElement {
               textAnchor="middle"
               style={{
                 fontSize: 12,
-                fontFamily: 'Lato, "Helvetica Neue", Helvetica, Arial, sans-serif',
+                fontFamily:
+                  'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                 fontWeight: 700,
                 fill: props.color,
                 stroke: MESH_COLORS.label.stroke,

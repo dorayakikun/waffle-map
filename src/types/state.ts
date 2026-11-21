@@ -62,18 +62,14 @@ export function isLoading<T>(state: AsyncState<T>): state is { status: "loading"
 /**
  * Type guard for success state.
  */
-export function isSuccess<T>(
-  state: AsyncState<T>,
-): state is { status: "success"; data: T } {
+export function isSuccess<T>(state: AsyncState<T>): state is { status: "success"; data: T } {
   return state.status === "success";
 }
 
 /**
  * Type guard for error state.
  */
-export function isError<T>(
-  state: AsyncState<T>,
-): state is { status: "error"; error: AppError } {
+export function isError<T>(state: AsyncState<T>): state is { status: "error"; error: AppError } {
   return state.status === "error";
 }
 
@@ -87,10 +83,7 @@ export function getDataOrDefault<T>(state: AsyncState<T>, defaultValue: T): T {
 /**
  * Map over the data in an async state.
  */
-export function mapAsyncState<T, U>(
-  state: AsyncState<T>,
-  fn: (data: T) => U,
-): AsyncState<U> {
+export function mapAsyncState<T, U>(state: AsyncState<T>, fn: (data: T) => U): AsyncState<U> {
   if (isSuccess(state)) {
     return success(fn(state.data));
   }

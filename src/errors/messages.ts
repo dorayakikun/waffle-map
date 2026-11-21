@@ -3,7 +3,7 @@
  * These messages are designed to be helpful and actionable.
  */
 
-import type { ErrorCode, MeshcodeError, LatLngError, AppError } from "./types";
+import type { AppError, ErrorCode, LatLngError, MeshcodeError } from "./types";
 
 /**
  * Default user-facing error messages by error code.

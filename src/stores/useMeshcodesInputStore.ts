@@ -1,10 +1,10 @@
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
-import { type Result, ok, err } from "neverthrow";
 import meshCalculator, { type Mesh } from "../domain/calculateMesh";
-import type { Meshcode, Separator } from "../types";
 import type { MeshcodeError } from "../errors";
 import { formatMeshcodeError } from "../errors";
+import type { Meshcode, Separator } from "../types";
+import { err, ok, type Result } from "../types/result";
 
 const { toBounds, toCenterLatLng } = meshCalculator;
 
@@ -20,10 +20,6 @@ type ParseMeshesResult = Result<
  * Parse meshcodes and compute their mesh data.
  */
 function parseMeshcodes(input: string, separator: Separator): ParseMeshesResult {
-  if (!input.trim()) {
-    return ok({ meshes: {}, meshcodes: [] });
-  }
-
   const codes = input
     .split(separator)
     .map((s) => s.trim())

@@ -1,6 +1,6 @@
-import { type Result, ok, err } from "neverthrow";
-import type { Bounds, LatLng } from "./calculateMesh";
 import type { LatLngError } from "../errors";
+import { err, ok, type Result } from "../types/result";
+import type { Bounds, LatLng } from "./calculateMesh";
 
 function createFormatErrorMessage(name: string, value: string): string {
   return `Unexpected ${name} found.
@@ -56,10 +56,7 @@ export function createLatLng(latLng: string, unit: string): LatLng {
 /**
  * Safe version of createLatLng that returns a Result instead of throwing.
  */
-export function safeCreateLatLng(
-  latLng: string,
-  unit: string,
-): Result<LatLng, LatLngError> {
+export function safeCreateLatLng(latLng: string, unit: string): Result<LatLng, LatLngError> {
   const latLngArray = latLng.split(",");
 
   if (latLngArray.length !== 2) {
