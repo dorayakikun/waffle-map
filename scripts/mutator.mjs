@@ -30,6 +30,7 @@ const DEFAULT_TARGETS = [
   "src/utils/meshcodeUrl.ts",
   "src/errors/messages.ts",
   "src/types/result.ts",
+  "src/og/meta.ts",
   "src/hooks/useUrlSync.ts",
   "src/stores/useColorModeStore.ts",
   "src/stores/useCoordPopupStore.ts",
