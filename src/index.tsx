@@ -22,13 +22,6 @@ async function initializeApp(): Promise<void> {
     // Continue rendering - ErrorBoundary will catch any issues
   }
 
-  // Handle GitHub Pages SPA redirect
-  const redirectPath = sessionStorage.getItem("redirect");
-  if (redirectPath) {
-    sessionStorage.removeItem("redirect");
-    window.history.replaceState(null, "", redirectPath);
-  }
-
   // Parse meshcodes from URL and initialize store
   const { meshcodes, separator } = parseMeshcodesFromUrl(window.location.pathname);
   if (meshcodes.length > 0) {

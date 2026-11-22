@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/generate-404.js dist",
+    "build": "vite build",
     "preview": "vite preview",
     "fmt": "biome format --write .",
     "fmt:check": "biome format .",
@@ -30,7 +30,7 @@
     "type": "git",
     "url": "https://github.com/dorayakikun/waffle-map.git"
   },
-  "homepage": "https://dorayakikun.github.io/waffle-map/",
+  "homepage": "https://waffle-map.netlify.app/",
   "engines": {
     "node": ">=22.12.0"
   },
