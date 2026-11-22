@@ -3,7 +3,7 @@ import { round } from "../roundPoint";
 
 describe("round property-based tests", () => {
   const validPlace = fc.integer({ min: 1, max: 6 });
-  // Use a smaller range to avoid floating point precision issues with very large numbers
+
   const finiteNumber = fc.double({
     noNaN: true,
     noDefaultInfinity: true,
@@ -40,7 +40,7 @@ describe("round property-based tests", () => {
         fc.property(finiteNumber, validPlace, (n, place) => {
           const once = round(n, place);
           const twice = round(once, place);
-          // Use 2x epsilon to account for cascading floating point errors
+
           const epsilon = 2 / 10 ** place;
           return Math.abs(once - twice) < epsilon;
         }),
@@ -56,7 +56,7 @@ describe("round property-based tests", () => {
           const result = round(n, place);
           const ep = 10 ** place;
           const scaled = result * ep;
-          // Use relative tolerance to handle floating-point precision at large magnitudes
+
           const tolerance = Math.max(1e-9, Math.abs(scaled) * Number.EPSILON * 10);
           return Math.abs(scaled - Math.round(scaled)) < tolerance;
         }),
@@ -71,7 +71,7 @@ describe("round property-based tests", () => {
         fc.property(finiteNumber, fc.integer({ min: -100, max: 0 }), (n, invalidPlace) => {
           try {
             round(n, invalidPlace);
-            return false; // Should have thrown
+            return false;
           } catch (e) {
             return e instanceof Error;
           }

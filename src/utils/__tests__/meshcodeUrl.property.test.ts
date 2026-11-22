@@ -2,7 +2,6 @@ import fc from "fast-check";
 import { generateMeshcodesUrl, parseMeshcodesFromUrl } from "../meshcodeUrl";
 
 describe("meshcodeUrl property-based tests", () => {
-  // Arbitrary for meshcode-like strings (e.g., "5339-35-97")
   const meshcodeArb = fc
     .tuple(
       fc.integer({ min: 1000, max: 9999 }),
@@ -17,7 +16,6 @@ describe("meshcodeUrl property-based tests", () => {
     test("generate → parse restores original meshcodes (multiple meshcodes)", () => {
       fc.assert(
         fc.property(
-          // Use minLength: 2 because single meshcode URLs don't contain separator
           fc.array(meshcodeArb, { minLength: 2, maxLength: 10 }),
           separatorArb,
           (meshcodes, separator) => {
@@ -41,8 +39,6 @@ describe("meshcodeUrl property-based tests", () => {
           const url = generateMeshcodesUrl([meshcode], separator);
           const result = parseMeshcodesFromUrl(url);
 
-          // For single meshcode, we only check the meshcode value is preserved
-          // Separator cannot be determined from single meshcode URL
           return result.meshcodes.length === 1 && result.meshcodes[0] === meshcode;
         }),
         { numRuns: 200 },
@@ -94,7 +90,7 @@ describe("meshcodeUrl property-based tests", () => {
           separatorArb,
           (meshcodes, separator) => {
             const url = generateMeshcodesUrl(meshcodes, separator);
-            // URL should contain all meshcodes joined by separator plus slashes
+
             const expectedLength = 2 + meshcodes.join(separator).length;
             return url.length === expectedLength;
           },

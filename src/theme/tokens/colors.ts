@@ -1,9 +1,8 @@
 import { defineTokens } from "@chakra-ui/react";
 
 export const colors = defineTokens.colors({
-  // 基本色
   white: { value: "#FFFFFF" },
-  // プライマリ（Indigo系）- ブランドカラー
+
   primary: {
     50: { value: "#EEF2FF" },
     100: { value: "#E0E7FF" },
@@ -17,7 +16,7 @@ export const colors = defineTokens.colors({
     900: { value: "#312E81" },
     950: { value: "#1E1B4B" },
   },
-  // セカンダリ（Purple系）- アクセントカラー
+
   secondary: {
     50: { value: "#FAF5FF" },
     100: { value: "#F3E8FF" },
@@ -31,7 +30,7 @@ export const colors = defineTokens.colors({
     900: { value: "#581C87" },
     950: { value: "#3B0764" },
   },
-  // エラー（Red系）
+
   error: {
     50: { value: "#FEF2F2" },
     100: { value: "#FEE2E2" },
@@ -45,7 +44,7 @@ export const colors = defineTokens.colors({
     900: { value: "#7F1D1D" },
     950: { value: "#450A0A" },
   },
-  // サクセス（Green系）
+
   success: {
     50: { value: "#F0FDF4" },
     100: { value: "#DCFCE7" },
@@ -59,7 +58,7 @@ export const colors = defineTokens.colors({
     900: { value: "#14532D" },
     950: { value: "#052E16" },
   },
-  // ニュートラル（Gray系）
+
   neutral: {
     50: { value: "#F9FAFB" },
     100: { value: "#F3F4F6" },

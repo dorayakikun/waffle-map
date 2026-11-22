@@ -86,7 +86,6 @@ describe("parseMeshcodesFromUrl", () => {
 
   describe("separator detection", () => {
     test("comma takes precedence if both comma and dot present", () => {
-      // This is an unusual case, but comma should take precedence
       const result = parseMeshcodesFromUrl("/5339-35-97,5339.35.98/");
       expect(result.separator).toBe(",");
     });

@@ -136,7 +136,6 @@ describe("Mercator projection & tile grid", () => {
     expect(pt.x).toBeCloseTo(128, 5);
     expect(pt.y).toBeCloseTo(128, 5);
 
-    // Clamps extreme latitudes without returning NaN/Infinity
     const north = latLngToWorldPx(90, 180, 1);
     expect(Number.isFinite(north.y)).toBe(true);
     expect(north.x).toBeCloseTo(512, 5);

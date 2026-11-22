@@ -10,7 +10,6 @@ test.describe("Error Handling", () => {
     await waffleMap.page.waitForTimeout(500);
     await waffleMap.putMarkerButton.click();
 
-    // Should show error but not crash
     await expect(waffleMap.markerErrorMessage).toBeVisible();
   });
 
@@ -34,14 +33,11 @@ test.describe("Error Handling", () => {
     await waffleMap.expandAccordion("marker");
     await waffleMap.page.waitForTimeout(500);
 
-    // Trigger error
     await waffleMap.putMarker("invalid");
     await expect(waffleMap.markerErrorMessage).toBeVisible();
 
-    // Fix input - degree is default, so valid coords should work
     await waffleMap.putMarker("35.6762,139.6503");
 
-    // Error should clear and marker should be added
     const markers = waffleMap.getMapMarkers();
     await expect(markers).toHaveCount(1);
   });
@@ -50,12 +46,10 @@ test.describe("Error Handling", () => {
     await waffleMap.expandAccordion("mesh");
     await waffleMap.page.waitForTimeout(500);
 
-    // Rapid toggle clicks
     await waffleMap.toggleMeshGrid();
     await waffleMap.toggleMeshGrid();
     await waffleMap.toggleMeshGrid();
 
-    // Should end in checked state (odd number of clicks)
     await expect(waffleMap.meshGridToggle).toHaveAttribute(
       "data-state",
       "checked",
@@ -63,17 +57,14 @@ test.describe("Error Handling", () => {
   });
 
   test("should handle switching sections", async ({ waffleMap }) => {
-    // Open marker section
     await waffleMap.expandAccordion("marker");
     await waffleMap.page.waitForTimeout(500);
     await expect(waffleMap.markerInput).toBeVisible();
 
-    // Switch to mesh code section
     await waffleMap.expandAccordion("meshcode");
     await waffleMap.page.waitForTimeout(500);
     await expect(waffleMap.meshCodeInput).toBeVisible();
 
-    // Switch to tile section
     await waffleMap.expandAccordion("tile");
     await waffleMap.page.waitForTimeout(500);
     await expect(waffleMap.tileGridToggle).toBeVisible();

@@ -7,7 +7,7 @@ import { useGeodeticInputStore } from "../../stores/useGeodeticInputStore";
 import { useMarkerInputStore } from "../../stores/useMarkerInputStore";
 import { useMeshcodesInputStore } from "../../stores/useMeshcodesInputStore";
 import type { Meshcode } from "../../types";
-// FIXME: Move initialLeafletBounds to constants file
+
 import { initialLeafletBounds } from "../map/Map";
 import { BoundsFitter } from "./BoundsFitter";
 

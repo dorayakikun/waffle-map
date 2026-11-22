@@ -9,20 +9,14 @@ import { AppContainer } from "./pages";
 import { useMeshcodesInputStore } from "./stores/useMeshcodesInputStore";
 import { parseMeshcodesFromUrl } from "./utils/meshcodeUrl";
 
-/**
- * Initialize the app after mesh calculator is ready.
- * This ensures all components can safely use meshCalculator methods.
- */
 async function initializeApp(): Promise<void> {
   const success = await initializationPromise;
 
   if (!success) {
     const error = getInitializationError();
     console.error("[App] Mesh calculator failed to initialize:", error);
-    // Continue rendering - ErrorBoundary will catch any issues
   }
 
-  // Parse meshcodes from URL and initialize store
   const { meshcodes, separator } = parseMeshcodesFromUrl(window.location.pathname);
   if (meshcodes.length > 0) {
     useMeshcodesInputStore.getState().setMeshcodesFromUrl(meshcodes, separator);

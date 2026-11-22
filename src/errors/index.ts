@@ -1,7 +1,3 @@
-/**
- * Error handling module exports.
- */
-
 export {
   ERROR_MESSAGES,
   formatAppError,

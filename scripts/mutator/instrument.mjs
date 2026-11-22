@@ -109,12 +109,6 @@ function isReactHookDepsArray(node, parent) {
   return false;
 }
 
-/**
- * Pure oxc-based mutation switcher (extracted from mizchi/mutator concept):
- * - Parses once with oxc-parser
- * - Assigns position-independent mutant identity (file + scopePath + fnHash + astPath + mutator + replacement)
- * - Compiles all mutants into the module once via bottom-up span stitching
- */
 export function instrumentFile(relPath, code, startId = 1) {
   const { program, errors } = parseSync(relPath, code, {
     sourceType: "module",
@@ -151,13 +145,7 @@ export function instrumentFile(relPath, code, startId = 1) {
     return { id, replacement };
   }
 
-  /**
-   * Recursively transform a node's span into instrumented code.
-   * Child mutations are embedded inside the "original" branch while mutant alternatives
-   * use clean unmutated child text, guaranteeing single-mutant isolation.
-   */
   function visit(node, parent, propKey, scopeStack, astPath) {
-    // Skip TypeScript type-only syntax and module import/export specifiers
     if (
       node.type.startsWith("TS") ||
       node.type === "ImportDeclaration" ||
@@ -166,7 +154,6 @@ export function instrumentFile(relPath, code, startId = 1) {
       return code.slice(node.start, node.end);
     }
 
-    // Track enclosing function scope & content hash for function-level cache reuse
     let nextScopeStack = scopeStack;
     if (isFunctionNode(node)) {
       const fnName = getFunctionScopeName(node, parent);
@@ -178,11 +165,9 @@ export function instrumentFile(relPath, code, startId = 1) {
       ];
     }
 
-    // Collect direct AST child spans in source order
     const childEntries = [];
     for (const [key, value] of Object.entries(node)) {
       if (key === "type" || key === "start" || key === "end") continue;
-      // Never mutate non-expression identifier/key positions or export source literals
       if (node.type === "ExportNamedDeclaration" && key === "source") continue;
       if (node.type === "Property" && key === "key" && !node.computed) continue;
       if (node.type === "MethodDefinition" && key === "key" && !node.computed) continue;
@@ -203,14 +188,12 @@ export function instrumentFile(relPath, code, startId = 1) {
 
     childEntries.sort((a, b) => a.child.start - b.child.start);
 
-    // Build instrumented version of this node by stitching transformed child spans
     let cursor = node.start;
     let stitched = "";
     for (const entry of childEntries) {
-      if (entry.child.start < cursor) continue; // Defensive against overlapping synthetic spans
+      if (entry.child.start < cursor) continue;
       stitched += code.slice(cursor, entry.child.start);
 
-      // Special case: IfStatement test condition gets mutated directly in place
       if (node.type === "IfStatement" && entry.key === "test") {
         const innerOrig = visit(entry.child, node, entry.key, nextScopeStack, entry.subPath);
         const mTrue = registerMutant(
@@ -235,7 +218,6 @@ export function instrumentFile(relPath, code, startId = 1) {
     }
     stitched += code.slice(cursor, node.end);
 
-    // Check if this node itself is a mutable expression
     const nodeMutants = createNodeMutants(node, parent, propKey, nextScopeStack, astPath);
     if (nodeMutants.length === 0) {
       return stitched;
@@ -244,7 +226,6 @@ export function instrumentFile(relPath, code, startId = 1) {
   }
 
   function createNodeMutants(node, parent, propKey, scopeStack, astPath) {
-    // Do not wrap left-hand side of assignments or update expressions
     if (
       (parent?.type === "AssignmentExpression" && propKey === "left") ||
       parent?.type === "UpdateExpression" ||
@@ -306,7 +287,6 @@ export function instrumentFile(relPath, code, startId = 1) {
         registerMutant(node, "BooleanLiteral", flipped, scopeStack, `${astPath}#bool:${flipped}`),
       );
     } else if (node.type === "Literal" && typeof node.value === "string") {
-      // Skip object property keys and template-like directives
       if (parent?.type === "ExpressionStatement") return [];
       const replacement = node.value === "" ? '"__mutated__"' : '""';
       result.push(

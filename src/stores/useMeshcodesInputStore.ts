@@ -8,17 +8,11 @@ import { err, ok, type Result } from "../types/result";
 
 const { toBounds, toCenterLatLng } = meshCalculator;
 
-/**
- * Result type for mesh parsing operations.
- */
 type ParseMeshesResult = Result<
   { meshes: Record<Meshcode, Mesh>; meshcodes: Meshcode[] },
   MeshcodeError
 >;
 
-/**
- * Parse meshcodes and compute their mesh data.
- */
 function parseMeshcodes(input: string, separator: Separator): ParseMeshesResult {
   const codes = input
     .split(separator)
@@ -45,17 +39,14 @@ function parseMeshcodes(input: string, separator: Separator): ParseMeshesResult 
 }
 
 type MeshcodesInputState = {
-  // State
   meshcodesString: string;
   separator: Separator;
   meshcodes: Meshcode[];
   userInputMeshes: Record<Meshcode, Mesh>;
   errorMessage: string;
 
-  // Parse result for advanced consumers
   parseResult: ParseMeshesResult;
 
-  // Actions
   changeSeparator: (separator: Separator) => void;
   inputMeshcodesString: (meshcodesString: string) => void;
   setMeshcodesFromUrl: (meshcodes: Meshcode[], separator: Separator) => void;

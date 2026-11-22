@@ -7,21 +7,15 @@ import { formatLatLngError } from "../errors";
 import type { Unit } from "../types";
 import { err, type Result } from "../types/result";
 
-/**
- * Result type for marker operations.
- */
 type AddMarkerResult = Result<LatLng, LatLngError>;
 
 type MarkerInputState = {
-  // State
   latLngString: string;
   errorMessage: string;
   positions: LatLng[];
 
-  // Last operation result for advanced consumers
   lastResult: AddMarkerResult | null;
 
-  // Actions
   inputLatLng: (latLngString: string) => void;
   putMarker: (unit: Unit) => void;
   removeAllMarkers: () => void;
@@ -60,7 +54,7 @@ export const useMarkerInputStore = create<MarkerInputState>()(
           errorMessage: "",
           positions: [...positions, result.value],
           lastResult: result,
-          latLngString: "", // Clear input on success
+          latLngString: "",
         });
       } else {
         set({

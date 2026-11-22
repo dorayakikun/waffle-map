@@ -11,10 +11,6 @@ type State = {
   error: Error | null;
 };
 
-/**
- * Error Boundary component to catch and handle React rendering errors.
- * Prevents entire app from crashing when a child component throws an error.
- */
 export class ErrorBoundary extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);

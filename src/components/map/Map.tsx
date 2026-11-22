@@ -13,20 +13,6 @@ import { MarkerlayerContainer } from "../markerlayer/index";
 import { MeshLayerContainer } from "../meshlayer/index";
 import { UserInputMeshLayerContainer } from "../userinputmeshlayer/index";
 
-/**
- * Leaflet Default Icon workaround for Vite/Webpack bundlers.
- *
- * Problem: Leaflet's L.Icon.Default uses _getIconUrl() to resolve icon paths from CSS.
- * Bundlers rewrite CSS URLs, breaking this automatic path detection.
- *
- * Solution: Delete _getIconUrl to disable auto-detection, then manually specify icon URLs
- * via mergeOptions() with ES module imports.
- *
- * References:
- * - https://github.com/PaulLeCam/react-leaflet/issues/808
- * - https://github.com/Leaflet/Leaflet/issues/4968
- * - https://github.com/ghybs/leaflet-defaulticon-compatibility
- */
 delete (L.Icon.Default.prototype as unknown as { _getIconUrl?: unknown })._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl,

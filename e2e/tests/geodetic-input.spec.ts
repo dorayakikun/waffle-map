@@ -27,10 +27,8 @@ test.describe("Geodetic Input", () => {
     await waffleMap.selectUnit("millisec");
     await waffleMap.selectDatum("Tokyo");
 
-    // Interact with accordion
     await waffleMap.expandAccordion("marker");
 
-    // Verify selections persist
     await expect(waffleMap.unitSelect).toHaveValue("millisec");
     await expect(waffleMap.datumSelect).toHaveValue("Tokyo");
   });

@@ -15,14 +15,11 @@ import {
   createLatLng,
 } from "../convertLatLng";
 
-// Custom arbitrary for valid LatLng (Japan region for realistic testing)
 const latLngArbitrary = fc.record({
   lat: fc.double({ min: 20, max: 46, noNaN: true }),
   lng: fc.double({ min: 122, max: 154, noNaN: true }),
 });
 
-// Custom arbitrary for valid Bounds (leftTop.lat > rightBottom.lat, leftTop.lng < rightBottom.lng)
-// Use wider separation to ensure coordinate transform doesn't invert the relationship
 const boundsArbitrary = fc
   .record({
     leftTop: fc.record({
@@ -44,7 +41,7 @@ describe("convertLatLng property-based tests", () => {
           const tokyo = convertLatLngToTokyo(latLng);
           const backToWGS84 = convertLatLngToWGS84(tokyo);
 
-          const EPSILON = 0.0001; // ~11 meters tolerance
+          const EPSILON = 0.0001;
           return (
             Math.abs(backToWGS84.lat - latLng.lat) < EPSILON &&
             Math.abs(backToWGS84.lng - latLng.lng) < EPSILON
@@ -139,17 +136,15 @@ describe("convertLatLng property-based tests", () => {
           fc.double({ min: -90, max: 90, noNaN: true, noDefaultInfinity: true }),
           fc.double({ min: -180, max: 180, noNaN: true, noDefaultInfinity: true }),
           (lat, lng) => {
-            // Format numbers without scientific notation
             const latStr = lat.toFixed(10).replace(/\.?0+$/, "");
             const lngStr = lng.toFixed(10).replace(/\.?0+$/, "");
             const input = `${latStr},${lngStr}`;
 
             try {
               const result = createLatLng(input, "degree");
-              // Allow small floating point differences
+
               return Math.abs(result.lat - lat) < 1e-9 && Math.abs(result.lng - lng) < 1e-9;
             } catch {
-              // Some edge case formatting might fail - that's acceptable
               return true;
             }
           },
@@ -179,7 +174,7 @@ describe("convertLatLng property-based tests", () => {
         fc.property(fc.double({ min: -90, max: 90, noNaN: true }), (lat) => {
           try {
             createLatLng(lat.toString(), "degree");
-            return false; // Should have thrown
+            return false;
           } catch (e) {
             return e instanceof Error && e.message.includes("Expected: lat,lng");
           }
@@ -188,8 +183,6 @@ describe("convertLatLng property-based tests", () => {
     });
 
     test("throws on non-numeric values", () => {
-      // Test with known non-numeric values that don't contain commas
-      // Note: "1,000" would be split at comma and become two values, so it's excluded
       const nonNumericArb = fc.constantFrom(
         "abc",
         "1.2.3",
@@ -206,7 +199,7 @@ describe("convertLatLng property-based tests", () => {
         fc.property(nonNumericArb, fc.integer({ min: -180, max: 180 }), (invalidLat, lng) => {
           try {
             createLatLng(`${invalidLat},${lng}`, "degree");
-            return false; // Should have thrown
+            return false;
           } catch (e) {
             return e instanceof Error && e.message.includes("Only numbers are acceptable");
           }

@@ -20,22 +20,18 @@ test.describe("Map Interactions", () => {
   test("should zoom in with zoom control button", async ({ waffleMap }) => {
     const zoomIn = waffleMap.page.locator(".leaflet-control-zoom-in");
 
-    // Click zoom in button
     await zoomIn.click();
     await waffleMap.page.waitForTimeout(500);
 
-    // Map should still be functional
     await expect(waffleMap.mapContainer).toBeVisible();
   });
 
   test("should zoom out with zoom control button", async ({ waffleMap }) => {
     const zoomOut = waffleMap.page.locator(".leaflet-control-zoom-out");
 
-    // Click zoom out button
     await zoomOut.click();
     await waffleMap.page.waitForTimeout(500);
 
-    // Map should still be functional
     await expect(waffleMap.mapContainer).toBeVisible();
   });
 
@@ -51,7 +47,6 @@ test.describe("Map Interactions", () => {
     await waffleMap.page.mouse.move(centerX + 100, centerY + 100, { steps: 10 });
     await waffleMap.page.mouse.up();
 
-    // Map should still be functional
     await expect(waffleMap.mapContainer).toBeVisible();
   });
 

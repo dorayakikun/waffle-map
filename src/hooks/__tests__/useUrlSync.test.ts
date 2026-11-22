@@ -34,7 +34,7 @@ describe("useUrlSync", () => {
     const replaceSpy = vi.spyOn(window.history, "replaceState");
 
     const { unmount } = renderHook(() => useUrlSync());
-    // Initially at "/" with empty meshcodes -> no unnecessary replaceState call
+
     expect(replaceSpy).not.toHaveBeenCalled();
 
     act(() => {
@@ -59,8 +59,6 @@ describe("useUrlSync", () => {
     const { unmount } = renderHook(() => useUrlSync());
     const replaceSpy = vi.spyOn(window.history, "replaceState");
 
-    // Navigate to a URL without trailing slash so newUrl !== window.location.pathname;
-    // isUpdatingFromUrl must suppress replaceState on the resulting store update.
     window.history.pushState(null, "", "/5339-35-97,5339-35-98");
 
     act(() => {
@@ -72,14 +70,12 @@ describe("useUrlSync", () => {
     expect(window.location.pathname).toBe("/5339-35-97,5339-35-98");
     expect(replaceSpy).not.toHaveBeenCalled();
 
-    // Firing popstate again with the SAME URL should be ignored (no store update)
     const setSpy = vi.spyOn(useMeshcodesInputStore.getState(), "setMeshcodesFromUrl");
     act(() => {
       window.dispatchEvent(new PopStateEvent("popstate"));
     });
     expect(setSpy).not.toHaveBeenCalled();
 
-    // Subsequent store change after popstate still syncs to URL (flag was reset)
     act(() => {
       useMeshcodesInputStore.getState().inputMeshcodesString("5339-35-99");
     });
@@ -97,7 +93,6 @@ describe("useUrlSync", () => {
 
     expect(removeSpy).toHaveBeenCalledWith("popstate", expect.any(Function));
 
-    // Popstate after unmount does not mutate store
     window.history.pushState(null, "", "/5339-35-97/");
     window.dispatchEvent(new PopStateEvent("popstate"));
     expect(useMeshcodesInputStore.getState().meshcodes).toEqual([]);

@@ -1,21 +1,4 @@
 #!/usr/bin/env node
-/**
- * Lightweight, diff-driven, in-memory mutation testing runner for Vitest 5.
- *
- * Extracts the core concepts of https://github.com/mizchi/mutator without heavy
- * sandbox-based frameworks (e.g. StrykerJS):
- *   1. Oxc-based mutation switching (single-pass AST instrumentation)
- *   2. In-memory Vite transform hook inside a warm Vitest 5 instance (no sandbox copy)
- *   3. Per-test-file coverage (each mutant runs only covering tests, unit tests first)
- *   4. Position-independent identity & function-level hash caching (.mutator/cache.json)
- *   5. Diff-driven mode (--since <git-ref>) to test only modified lines
- *
- * Usage:
- *   node scripts/mutator.mjs                      # Full run (uses function-level cache)
- *   node scripts/mutator.mjs --since origin/main  # Only mutants touched by git diff
- *   node scripts/mutator.mjs --no-cache           # Ignore cached results
- *   node scripts/mutator.mjs --min-score 95       # Custom threshold (default: 95)
- */
 
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
@@ -69,7 +52,6 @@ async function main() {
   const cwd = process.cwd();
   const opts = parseArgs(process.argv.slice(2));
 
-  // 1. Instrument target source files once in memory using oxc-parser
   const instrumentedMap = new Map();
   const allMutants = [];
   let nextId = 1;
@@ -84,7 +66,6 @@ async function main() {
     allMutants.push(...result.mutants);
   }
 
-  // 2. Apply optional --since <ref> git diff filtering
   let selectedMutants = allMutants;
   if (opts.since) {
     const changedLines = getChangedLinesSince(opts.since, cwd);
@@ -102,7 +83,6 @@ async function main() {
     );
   }
 
-  // 3. Prepare Vite in-memory transform plugin (no sandbox copy)
   const mutatorPlugin = {
     name: "waffle-mutator-instrument",
     enforce: "pre",
@@ -140,7 +120,6 @@ async function main() {
     const project = vitest.getRootProject();
     const allSpecs = await vitest.globTestSpecifications();
 
-    // 4. Dry run: verify baseline passes & collect per-test-file mutant coverage
     project.provide("mutatorActive", -1);
     project.provide("mutatorCovDir", covDir);
 
@@ -156,7 +135,6 @@ async function main() {
     }
     const dryMs = Math.round(performance.now() - dryStart);
 
-    // Build mutantId -> covering test file paths map
     const mutantToTests = new Map();
     for (const file of readdirSync(covDir)) {
       if (!file.endsWith(".json")) continue;
@@ -173,16 +151,14 @@ async function main() {
     }
     rmSync(covDir, { recursive: true, force: true });
 
-    // Index specs by normalized moduleId, ordering fast unit tests before property tests
     const specByPath = new Map();
     for (const spec of allSpecs) {
       specByPath.set(normalizePath(spec.moduleId), spec);
     }
 
-    // 5. Evaluate each selected mutant (with function-level hash cache reuse)
     const cache = opts.noCache ? { version: 1, entries: {} } : loadCache(cwd);
     const testHashMemo = new Map();
-    const results = new Map(); // mutantId -> { status, cached }
+    const results = new Map();
     let cacheHits = 0;
     let executed = 0;
 
@@ -214,7 +190,6 @@ async function main() {
         continue;
       }
 
-      // Run ONLY the covering test files against this mutant, fast unit tests first
       project.provide("mutatorActive", mutant.id);
       let status = "Survived";
       for (const testPath of testPaths) {
@@ -234,7 +209,6 @@ async function main() {
 
     saveCache(cwd, cache);
 
-    // 6. Report per-file summary & survivors
     const byFile = new Map();
     const survivors = [];
     const noCov = [];
@@ -309,8 +283,6 @@ async function main() {
       console.error(`[mutator] FAILED: score ${grandScore.toFixed(2)}% < ${opts.minScore}%`);
       process.exitCode = 1;
     } else {
-      // Vitest sets process.exitCode = 1 internally when killed mutants fail tests;
-      // explicitly reset to 0 when the mutation score meets the threshold.
       process.exitCode = 0;
     }
   } finally {

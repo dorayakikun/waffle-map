@@ -32,9 +32,6 @@ export function escapeHtmlAttr(value: string): string {
     .replace(/>/g, "&gt;");
 }
 
-/**
- * Build OGP & X Card metadata for a given URL pathname and origin.
- */
 export function buildOgMeta(pathname: string, origin: string): OgMeta {
   const cleanOrigin = origin.replace(/\/$/, "");
   const { meshcodes, separator } = parseMeshcodesFromUrl(pathname);
@@ -82,9 +79,6 @@ function replaceOrInsertMeta(
   return html.replace("</head>", `    ${tag}\n  </head>`);
 }
 
-/**
- * Inject dynamic OGP & X Card tags into an HTML document string.
- */
 export function injectOgMeta(html: string, meta: OgMeta): string {
   let out = html.replace(/<title>[^<]*<\/title>/i, `<title>${escapeHtmlAttr(meta.title)}</title>`);
   out = replaceOrInsertMeta(out, "name", "Description", meta.description);

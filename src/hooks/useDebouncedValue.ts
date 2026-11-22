@@ -1,17 +1,5 @@
-/**
- * Debouncing hooks for performance optimization.
- */
-
 import { useCallback, useEffect, useRef, useState } from "react";
 
-/**
- * Returns a debounced version of the value that only updates
- * after the specified delay has passed without changes.
- *
- * @param value - The value to debounce
- * @param delay - The debounce delay in milliseconds
- * @returns The debounced value
- */
 export function useDebouncedValue<T>(value: T, delay: number): T {
   const [debouncedValue, setDebouncedValue] = useState(value);
   const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -31,15 +19,6 @@ export function useDebouncedValue<T>(value: T, delay: number): T {
   return debouncedValue;
 }
 
-/**
- * Returns a debounced version of a callback function.
- * The callback will only be invoked after the specified delay
- * has passed since the last call.
- *
- * @param callback - The callback function to debounce
- * @param delay - The debounce delay in milliseconds
- * @returns A debounced version of the callback
- */
 export function useDebouncedCallback<T extends (...args: Parameters<T>) => void>(
   callback: T,
   delay: number,
@@ -48,17 +27,14 @@ export function useDebouncedCallback<T extends (...args: Parameters<T>) => void>
   const callbackRef = useRef(callback);
   const delayRef = useRef(delay);
 
-  // Keep callback ref up to date
   useEffect(() => {
     callbackRef.current = callback;
   }, [callback]);
 
-  // Keep delay ref up to date
   useEffect(() => {
     delayRef.current = delay;
   }, [delay]);
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (timerRef.current) {
@@ -80,14 +56,6 @@ export function useDebouncedCallback<T extends (...args: Parameters<T>) => void>
   );
 }
 
-/**
- * Returns a throttled version of the value that only updates
- * at most once per specified interval.
- *
- * @param value - The value to throttle
- * @param interval - The throttle interval in milliseconds
- * @returns The throttled value
- */
 export function useThrottledValue<T>(value: T, interval: number): T {
   const [throttledValue, setThrottledValue] = useState(value);
   const lastUpdated = useRef(Date.now());
@@ -101,7 +69,6 @@ export function useThrottledValue<T>(value: T, interval: number): T {
       setThrottledValue(value);
       lastUpdated.current = now;
     } else {
-      // Schedule update for remaining time
       if (timerRef.current) {
         clearTimeout(timerRef.current);
       }

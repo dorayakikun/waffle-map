@@ -1,9 +1,5 @@
 import { execFileSync } from "node:child_process";
 
-/**
- * Parse `git diff -U0 <ref>` to find modified line numbers per repository-relative file.
- * Extracted from mizchi/mutator's `--since <ref>` diff-driven concept.
- */
 export function getChangedLinesSince(ref, cwd) {
   const output = execFileSync("git", ["diff", "-U0", "--no-color", ref], {
     cwd,
