@@ -1,0 +1,11 @@
+{
+  "docs-and-comments-guard": {
+    "Stop": [
+      {
+        "type": "command",
+        "command": "node ../scripts/agent-stop-hook.mjs --format=agy",
+        "timeout": 15
+      }
+    ]
+  }
+}

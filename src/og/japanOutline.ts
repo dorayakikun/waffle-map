@@ -1,9 +1,3 @@
-/**
- * Simplified public-domain coastline polygons for the Japanese archipelago
- * (derived from Natural Earth 110m public-domain geographic coordinates).
- * Each polygon is an array of [lat, lng] coordinates.
- */
-
 export type PolyRing = readonly (readonly [lat: number, lng: number])[];
 
 export const JAPAN_BOUNDS = {
@@ -14,7 +8,6 @@ export const JAPAN_BOUNDS = {
 } as const;
 
 export const JAPAN_OUTLINE_POLYGONS: readonly PolyRing[] = [
-  // Hokkaido
   [
     [45.52, 141.93],
     [44.95, 142.6],
@@ -39,7 +32,7 @@ export const JAPAN_OUTLINE_POLYGONS: readonly PolyRing[] = [
     [44.85, 141.7],
     [45.52, 141.93],
   ],
-  // Honshu
+
   [
     [41.54, 140.91],
     [41.2, 141.4],
@@ -87,7 +80,7 @@ export const JAPAN_OUTLINE_POLYGONS: readonly PolyRing[] = [
     [40.88, 140.75],
     [41.54, 140.91],
   ],
-  // Shikoku
+
   [
     [34.35, 134.05],
     [34.18, 134.62],
@@ -101,7 +94,7 @@ export const JAPAN_OUTLINE_POLYGONS: readonly PolyRing[] = [
     [34.15, 133.05],
     [34.35, 134.05],
   ],
-  // Kyushu
+
   [
     [33.92, 130.95],
     [33.25, 131.65],
@@ -118,7 +111,7 @@ export const JAPAN_OUTLINE_POLYGONS: readonly PolyRing[] = [
     [33.6, 130.38],
     [33.92, 130.95],
   ],
-  // Okinawa Main Island
+
   [
     [26.87, 128.25],
     [26.52, 128.12],

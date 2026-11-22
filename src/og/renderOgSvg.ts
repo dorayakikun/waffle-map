@@ -107,9 +107,6 @@ function renderMeshRectangles(meshes: Mesh[], view: MercatorView): string {
     .join("\n");
 }
 
-/**
- * Render a 1200x630 OGP / X Card SVG styled to mirror the 2026 Light-mode Waffle Map UI.
- */
 export function renderOgSvg(input: OgRenderInput): string {
   const { meshcodes, meshes, tiles = [], attribution } = input;
   const view = input.view ?? computeMercatorView(meshes, MAP_RECT.width, MAP_RECT.height);

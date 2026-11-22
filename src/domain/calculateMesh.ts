@@ -25,15 +25,10 @@ type MeshCalculator = {
   offset(meshCode: string, x: number, y: number): string;
 };
 
-/** Cached calculator instance */
 let loadedCalculator: MeshCalculator | null = null;
 let loadError: Error | null = null;
 let initPromise: Promise<boolean> | null = null;
 
-/**
- * Gets the initialized calculator or throws a clear error.
- * @throws Error if initialization has not completed or failed
- */
 function getCalculator(): MeshCalculator {
   if (loadedCalculator === null) {
     const message = loadError
@@ -44,10 +39,6 @@ function getCalculator(): MeshCalculator {
   return loadedCalculator;
 }
 
-/**
- * Loads the mesh calculator module with error handling.
- * Returns the loaded module or null on failure.
- */
 async function loadMeshCalculatorModule(): Promise<MeshCalculator | null> {
   const logicType = typeof LOGIC_TYPE !== "undefined" ? LOGIC_TYPE : undefined;
   const moduleName = logicType
@@ -70,13 +61,6 @@ async function loadMeshCalculatorModule(): Promise<MeshCalculator | null> {
   }
 }
 
-/**
- * Initializes the mesh calculator. Safe to call multiple times -
- * subsequent calls return the cached promise.
- *
- * @returns Promise that resolves to true if initialization succeeded,
- *          false if it failed
- */
 export function initializeMeshCalculator(): Promise<boolean> {
   if (initPromise) {
     return initPromise;
@@ -93,44 +77,16 @@ export function initializeMeshCalculator(): Promise<boolean> {
   return initPromise;
 }
 
-/**
- * Promise that resolves when initialization is complete.
- * Resolves to true if successful, false if failed.
- *
- * IMPORTANT: This promise MUST be awaited in the app bootstrap (src/index.tsx)
- * before rendering any components that use meshCalculator. This ensures all
- * consumers can safely use meshCalculator methods synchronously.
- *
- * @example
- * // In app bootstrap:
- * await initializationPromise;
- * // Now safe to render components that use meshCalculator
- */
 export const initializationPromise: Promise<boolean> = initializeMeshCalculator();
 
-/**
- * Returns the initialization error if one occurred.
- */
 export function getInitializationError(): Error | null {
   return loadError;
 }
 
-/**
- * Returns true if the mesh calculator loaded successfully.
- */
 export function isInitialized(): boolean {
   return loadedCalculator !== null;
 }
 
-/**
- * Mesh calculator proxy that provides access to mesh calculation functions.
- *
- * IMPORTANT: The app must await initializationPromise before using this object.
- * If methods are called before initialization, they will throw a clear error.
- *
- * The initialization is enforced at app bootstrap (src/index.tsx), so consumers
- * (stores, components) can safely use this object synchronously.
- */
 const meshCalculator: MeshCalculator = {
   get SCALES() {
     return getCalculator().SCALES;

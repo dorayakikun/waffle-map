@@ -2,7 +2,7 @@
 
 > Fantastic mesh renderer
 
-**Requires Node.js v20, v22, or v24**
+**Requires Node.js >= 22.12.0 (v22 or v24)**
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/798c58bf-4950-41de-9f4e-27b39fa16fed/deploy-status)](https://app.netlify.com/sites/waffle-map/deploys)
 [![Known Vulnerabilities](https://snyk.io/test/github/dorayakikun/waffle-map/badge.svg?style=flat-square)](https://snyk.io/test/github/dorayakikun/waffle-map)
@@ -10,7 +10,7 @@
 [![Built with Vite](https://img.shields.io/badge/built_with-vite-646CFF.svg)](https://vitejs.dev/)
 [![Formatted with Biome](https://img.shields.io/badge/formatted_with-biome-60A5FA.svg)](https://biomejs.dev/)
 
-Mesh code is a very useful project, but it is not intuitive. Waffle Map generates a mesh from the mesh code and render it on the map. I would be happy if we can help everyone understand the mesh code !!
+Mesh code is a very useful system, but it is not always intuitive. Waffle Map generates meshes from Japanese mesh codes and renders them interactively on a map.
 
 # ![Waffle Map](media/header.gif)
 
@@ -27,55 +27,63 @@ Mesh code is a very useful project, but it is not intuitive. Waffle Map generate
 
 ### URL-based Mesh Code Routing
 
-Share mesh codes directly via URL. The app supports URL-based routing for mesh codes:
+Share mesh codes directly via URL with bidirectional URL synchronization:
 
 ```text
-https://waffle-map.netlify.com/5339-35-97,5339-35-98/
-https://waffle-map.netlify.com/5339-35-97.5339-35-98/
+https://waffle-map.netlify.app/5339-35-97,5339-35-98/
+https://waffle-map.netlify.app/5339-35-97.5339-35-98/
 ```
 
 **Supported separators:**
 - `,` (comma): `/{meshcode1},{meshcode2}/`
 - `.` (dot): `/{meshcode1}.{meshcode2}/`
 
-When you access a URL with mesh codes, the app automatically parses and displays them on the map. The URL updates as you add or remove mesh codes, making it easy to share specific locations.
+When you open a URL with mesh codes, Waffle Map automatically parses, renders, and fits the map bounds to them. The URL updates as you edit mesh codes, and you can copy the shareable URL with a single click from the sidebar header.
 
-### Clipboard Integration
+### Dynamic OGP / X Card Previews
 
-Copy mesh codes to clipboard with a single click for easy sharing.
+Shared mesh URLs automatically serve dynamically generated `1200×630` Open Graph / X Card (`summary_large_image`) PNG previews via Netlify Edge Functions (`og-meta`) and Netlify Functions (`/api/og`). Each card composites real GSI Pale map tiles (Geospatial Information Authority of Japan) with the requested mesh overlays rendered by `@resvg/resvg-js`.
 
-### Interactive Map
+### Interactive Map & Inspector
 
-- Click on the map to add mesh codes at any location
-- Zoom in/out to change mesh code scale (1-6)
-- Pan and explore the entire Japan mesh code grid
+- **Coordinate & Mesh Scale Inspection**: Right-click anywhere on the map to inspect the coordinates and all mesh code scales (1–6) in a popup, with one-click clipboard copy
+- **Mesh Code Rendering**: Enter multiple mesh codes to render labeled mesh rectangles on the map and view copyable mesh detail cards
+- **Grid Overlays**: Toggle Tile Grid and Mesh Grid overlays independently
+- **Markers**: Place markers by `lat,lng` input (supports Enter to add), remove individual markers, or clear all
+- **Coordinate System**: Switch between geodetic datums (`Tokyo` / `WGS84`) and units (`millisec` / `degree`)
+- **Modern Workspace UI**: Collapsible sidebar (340px), Light / Dark mode toggle (with dark-styled map tiles), and floating status HUD
 
 ## Tech Stack
 
 ### Core
-- **Node.js**: v20 / v22 / v24
-- **TypeScript**: v5
+- **Node.js**: v22 / v24 (`>=22.12.0`; `24` configured in `.node-version` and `mise.toml`)
+- **TypeScript**: v7
 - **React**: v19
 
-### Build & Development
-- **Build Tool**: [Vite](https://vitejs.dev/) - Next generation frontend tooling
-- **Test Framework**: [Vitest](https://vitest.dev/) - Blazing fast unit test framework
-- **E2E Testing**: [Playwright](https://playwright.dev/) - Modern end-to-end testing
-- **Linter & Formatter**: [Biome](https://biomejs.dev/) - Fast formatter and linter
+### Build, Testing & Code Quality
+- **Build Tool**: [Vite](https://vitejs.dev/) v8
+- **Unit & Property Testing**: [Vitest](https://vitest.dev/) v5 + [fast-check](https://fast-check.dev/) v4
+- **Mutation Testing**: Custom diff-driven in-memory [Oxc](https://oxc.rs/) mutation runner (`scripts/mutator.mjs`)
+- **E2E Testing**: [Playwright](https://playwright.dev/)
+- **Linter & Formatter**: [Biome](https://biomejs.dev/) v2
 
 ### State Management
-- **Zustand**: Lightweight state management
+- **Zustand**: v5 - Lightweight state management
 
-### UI Framework
+### UI & Mapping
 - **Chakra UI**: v3 - Modular component library with custom theme
-- **React Leaflet**: v5 - Map rendering library
-- **Lucide React**: Icon library
+- **React Leaflet**: v5 (Leaflet v1.9) - Interactive map rendering
+- **Lucide React**: v1 - Icon library
+
+### Dynamic OGP & Hosting
+- **Netlify**: Static hosting with SPA routing (`public/_redirects`), Netlify Functions (`netlify/functions/og.ts`), and Netlify Edge Functions (`netlify/edge-functions/og-meta.ts`)
+- **OGP Renderer**: `@resvg/resvg-js` + GSI Pale map tiles
 
 ### Design System
 - **Color Palette**: Indigo (primary) / Purple (secondary) with neutral grays
 - **Spacing**: 4px-based compact spacing system
-- **Layout**: Fixed-width sidebar (320px) with flexible map area
-- **Dark Mode**: Full dark mode support
+- **Layout**: Collapsible sidebar (340px) with flexible map canvas
+- **Dark Mode**: Full Light / Dark mode support
 
 ### Mesh Calculator
 - **waffle-map-mesh-calculator-basic**: Mesh code calculation logic
@@ -83,8 +91,8 @@ Copy mesh codes to clipboard with a single click for easy sharing.
 ## Usage
 
 ### Prerequisites
-- Node.js v20, v22, or v24
-- npm v9 or later
+- Node.js `>=22.12.0` (v22 or v24 recommended)
+- npm
 
 ### Installation & Development
 
@@ -95,57 +103,76 @@ $ npm ci
 $ npm run dev
 ```
 
-Open http://localhost:5173 in your browser.
+Open http://localhost:8080 in your browser.
+
+During local development, Vite middleware also mirrors Netlify's dynamic OGP endpoints so you can preview generated cards at `http://localhost:8080/api/og?codes=5339.5340`.
 
 ### Available Scripts
 
 ```console
 # Development
-$ npm run dev          # Start development server with HMR
+$ npm run dev                 # Start development server with HMR (port 8080)
 
 # Build
-$ npm run build        # Build for production
-$ npm run preview      # Preview production build
+$ npm run build               # Build for production
+$ npm run preview             # Preview production build
 
 # Testing
-$ npm test             # Run tests in watch mode
-$ npm test -- --run    # Run tests once
-$ npm run test:ui      # Run tests with UI
-$ npm run test:coverage  # Generate coverage report
+$ npm test                    # Run unit tests in watch mode
+$ npm test -- --run           # Run unit tests once
+$ npm run test:ui             # Run unit tests with Vitest UI
+$ npm run test:coverage       # Generate test coverage report
+$ npm run test:property       # Run property-based tests (fast-check)
+$ npm run test:mutation       # Run in-memory Oxc mutation tests (cached)
+$ npm run test:mutation:diff  # Run diff-driven mutation tests (--since origin/main)
+$ npm run test:e2e            # Run Playwright E2E tests
+$ npm run test:e2e:ui         # Run Playwright E2E tests with UI
+$ npm run test:all            # Run unit and E2E tests
 
 # Code Quality
-$ npm run lint         # Lint code with Biome
-$ npm run lint:fix     # Fix linting issues
-$ npm run fmt          # Format code with Biome
-$ npm run fmt:check    # Check formatting
-$ npm run typecheck    # Type checking with TypeScript
+$ npm run lint                # Lint code with Biome
+$ npm run lint:fix            # Fix linting issues with Biome
+$ npm run fmt                 # Format code with Biome
+$ npm run fmt:check           # Check formatting with Biome
+$ npm run check               # Run Biome lint & format with auto-fix
+$ npm run check:docs          # Verify AGENTS.md, CLAUDE.md, and README.md stay in sync with code
+$ npm run check:comments      # Verify source files contain no explanatory code comments
+$ npm run typecheck           # Type checking with TypeScript
 ```
 
 ## Demo
 
-Please See https://waffle-map.netlify.com/
+Please see https://waffle-map.netlify.app/
 
 ## Extending Waffle Map
 
-### first step
+### First step
 
-Prepare below modules
+Prepare a module with the following interface:
 
-- name: waffle-map-mesh-calculator-{your-logic-name}
-- functions:
-  - toMeshCode: (lat: number, lng: number, scale: number) => string
-  - toBounds: (meshCode: string) => Bounds
-  - toCenterLatLng: (meshCode: string) => LatLng
-  - scaleFrom(zoom: number): number
-  - offset(meshCode: string, x: number, y: number): string
-- constant
-  - SCALES: [number]
+- Name: `waffle-map-mesh-calculator-{your-logic-name}`
+- Functions:
+  - `toMeshCode: (lat: number, lng: number, scale: number) => string`
+  - `toBounds: (meshCode: string) => Bounds`
+  - `toCenterLatLng: (meshCode: string) => LatLng`
+  - `scaleFrom(zoom: number): number`
+  - `offset(meshCode: string, x: number, y: number): string`
+- Constant:
+  - `SCALES: number[]`
 
-Please see [here](https://github.com/dorayakikun/waffle-map-mesh-calculator-basic) as sample code.
+See [waffle-map-mesh-calculator-basic](https://github.com/dorayakikun/waffle-map-mesh-calculator-basic) as a reference implementation.
 
-### second step
+### Second step
 
-Append wafflemap config in package.json.
+Install your calculator package in the project:
+
+```console
+$ npm install waffle-map-mesh-calculator-{your-logic-name}
+```
+
+### Third step
+
+Add the `wafflemap` config to `package.json`:
 
 ```json
 "wafflemap": {

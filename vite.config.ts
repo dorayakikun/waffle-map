@@ -2,10 +2,6 @@ import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
 import { buildOgMeta, injectOgMeta, isStaticAssetPath } from "./src/og/meta.ts";
 
-/**
- * Local dev middleware mirroring Netlify's `/api/og` PNG endpoint and
- * Edge Function OGP meta tag injection for convenient local verification.
- */
 function localOgPreviewPlugin(): Plugin {
 	return {
 		name: "waffle-local-og-preview",

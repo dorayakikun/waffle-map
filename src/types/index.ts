@@ -1,8 +1,3 @@
-/**
- * Core type definitions for the application.
- */
-
-// Re-export branded types
 export type {
   Latitude,
   Longitude,
@@ -32,7 +27,6 @@ export {
   zoom,
 } from "./branded";
 
-// Re-export state types
 export type { AsyncState } from "./state";
 
 export {
@@ -49,18 +43,11 @@ export {
   success,
 } from "./state";
 
-// Domain types
 export type Datum = "WGS84" | "Tokyo";
 export type LatLngString = string;
 export type Separator = "." | ",";
 export type Unit = "degree" | "millisec";
 
-/**
- * Available separators as a tuple for iteration.
- */
 export const SEPARATORS = [".", ","] as const satisfies readonly Separator[];
 
-/**
- * @deprecated Use MeshCode from branded types instead
- */
 export type Meshcode = string;

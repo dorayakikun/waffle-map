@@ -33,13 +33,8 @@ export function latLngToWorldPx(lat: number, lng: number, zoom: number): { x: nu
   return { x, y };
 }
 
-/**
- * Compute the best Web Mercator integer zoom and pixel origin to frame all meshes
- * comfortably inside a `width x height` map viewport (matching Leaflet's fitBounds).
- */
 export function computeMercatorView(meshes: Mesh[], width: number, height: number): MercatorView {
   if (meshes.length === 0) {
-    // Default overview centered on Japan (Honshu / Tokyo area)
     const zoom = 6;
     const center = latLngToWorldPx(36.2, 138.2, zoom);
     return {
@@ -67,7 +62,6 @@ export function computeMercatorView(meshes: Mesh[], width: number, height: numbe
     }
   }
 
-  // Target ~62% of viewport width/height so surrounding geography gives strong context
   const usableW = width * 0.62;
   const usableH = height * 0.62;
 
@@ -113,9 +107,6 @@ export function projectToViewport(
   };
 }
 
-/**
- * List all 256x256 map tiles intersecting the Mercator viewport.
- */
 export function getVisibleTiles(view: MercatorView, offsetX: number, offsetY: number): TileCoord[] {
   const maxIndex = 2 ** view.zoom - 1;
   const minTileX = Math.max(0, Math.floor(view.originWorldX / TILE_SIZE));

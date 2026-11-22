@@ -14,7 +14,6 @@ const GSI_ATTRIBUTION = "Map: GSI Tiles (GSI Japan), modified by Waffle Map";
 const TILE_FETCH_TIMEOUT_MS = 2500;
 const MAX_TILE_CACHE_ENTRIES = 256;
 
-// In-memory LRU-style tile cache across warm Netlify Function invocations
 const tileCache = new Map<string, string>();
 
 function resolveFontFiles(): string[] {
@@ -66,14 +65,9 @@ async function fetchGsiTileDataUri(z: number, x: number, y: number): Promise<str
 }
 
 export type RenderOgPngOptions = {
-  /** Set false in offline/unit tests to skip external GSI tile fetches. Defaults to true. */
   fetchTiles?: boolean;
 };
 
-/**
- * Parse raw mesh code query string (e.g. "5339.5340" or "5339-35-97,5339-35-98"),
- * composite real GSI Pale map tiles + mesh overlays, and render a 1200x630 PNG buffer.
- */
 export async function renderOgPng(
   codesParam: string,
   displayUrl?: string,
@@ -90,9 +84,7 @@ export async function renderOgPng(
       const center = meshCalculatorBasic.toCenterLatLng(code);
       meshes.push({ code, bounds, center });
       validCodes.push(code);
-    } catch {
-      // Skip invalid mesh codes gracefully so OGP always returns a valid PNG
-    }
+    } catch {}
   }
 
   const view = computeMercatorView(meshes, MAP_RECT.width, MAP_RECT.height);

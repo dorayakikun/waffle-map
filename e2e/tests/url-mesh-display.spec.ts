@@ -9,7 +9,6 @@ test.describe("URL Mesh Display", () => {
     await waffleMap.mapContainer.waitFor({ state: "visible" });
     await waffleMap.page.waitForTimeout(1000);
 
-    // Check that user input meshes are displayed (indigo color)
     const meshes = waffleMap.page.locator(`path[stroke="${MESH_COLORS.userInput}"]`);
     const count = await meshes.count();
     expect(count).toBeGreaterThan(0);
@@ -22,7 +21,6 @@ test.describe("URL Mesh Display", () => {
     await waffleMap.mapContainer.waitFor({ state: "visible" });
     await waffleMap.page.waitForTimeout(1000);
 
-    // Check that user input meshes are displayed
     const meshes = waffleMap.page.locator(`path[stroke="${MESH_COLORS.userInput}"]`);
     const count = await meshes.count();
     expect(count).toBeGreaterThan(0);
@@ -35,10 +33,8 @@ test.describe("URL Mesh Display", () => {
     await waffleMap.mapContainer.waitFor({ state: "visible" });
     await waffleMap.page.waitForTimeout(500);
 
-    // Open Mesh Code accordion
     await waffleMap.expandAccordion("meshcode");
 
-    // Check input field value
     await expect(waffleMap.meshCodeInput).toHaveValue("5339-35-97,5339-35-98");
   });
 
@@ -49,10 +45,8 @@ test.describe("URL Mesh Display", () => {
     await waffleMap.mapContainer.waitFor({ state: "visible" });
     await waffleMap.page.waitForTimeout(500);
 
-    // Open Mesh Code accordion
     await waffleMap.expandAccordion("meshcode");
 
-    // Check separator is set to comma
     await expect(waffleMap.separatorSelect).toHaveValue(",");
   });
 
@@ -63,10 +57,8 @@ test.describe("URL Mesh Display", () => {
     await waffleMap.mapContainer.waitFor({ state: "visible" });
     await waffleMap.page.waitForTimeout(500);
 
-    // Open Mesh Code accordion
     await waffleMap.expandAccordion("meshcode");
 
-    // Check separator is set to dot
     await expect(waffleMap.separatorSelect).toHaveValue(".");
   });
 
@@ -75,7 +67,6 @@ test.describe("URL Mesh Display", () => {
     await waffleMap.mapContainer.waitFor({ state: "visible" });
     await waffleMap.page.waitForTimeout(1000);
 
-    // Check that user input mesh is displayed
     const meshes = waffleMap.page.locator(`path[stroke="${MESH_COLORS.userInput}"]`);
     const count = await meshes.count();
     expect(count).toBeGreaterThan(0);
@@ -86,10 +77,8 @@ test.describe("URL Mesh Display", () => {
   }) => {
     await waffleMap.goto();
 
-    // Map should be visible
     await expect(waffleMap.mapContainer).toBeVisible();
 
-    // No user input meshes should be displayed initially
     await waffleMap.expandAccordion("meshcode");
     await expect(waffleMap.meshCodeInput).toHaveValue("");
   });
@@ -99,7 +88,6 @@ test.describe("URL Mesh Display", () => {
     await waffleMap.mapContainer.waitFor({ state: "visible" });
     await waffleMap.page.waitForTimeout(1500);
 
-    // Get the mesh rectangle position to verify it's visible
     const meshes = waffleMap.page.locator(`path[stroke="${MESH_COLORS.userInput}"]`);
     await expect(meshes.first()).toBeVisible();
   });

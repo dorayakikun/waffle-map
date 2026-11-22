@@ -32,7 +32,6 @@ export function loadCache(cwd) {
       return parsed;
     }
   } catch {
-    // Ignore corrupt cache and start fresh
   }
   return { version: CACHE_VERSION, entries: {} };
 }

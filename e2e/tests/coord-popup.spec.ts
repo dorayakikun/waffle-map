@@ -28,7 +28,6 @@ test.describe("Coordinate Popup", () => {
     await waffleMap.waitForPopup();
 
     const popup = waffleMap.page.locator(".leaflet-popup-content");
-    // Check for scale entries
     await expect(popup).toContainText("scale1:");
   });
 
@@ -36,7 +35,6 @@ test.describe("Coordinate Popup", () => {
     await waffleMap.rightClickOnMap(400, 300);
     await waffleMap.waitForPopup();
 
-    // Click elsewhere on the map
     await waffleMap.mapContainer.click({ position: { x: 200, y: 200 } });
 
     const popup = waffleMap.page.locator(".leaflet-popup");
@@ -49,13 +47,11 @@ test.describe("Coordinate Popup", () => {
     await waffleMap.rightClickOnMap(400, 300);
     await waffleMap.waitForPopup();
 
-    // Check that copy buttons are visible
     const copyButtons = waffleMap.page.locator(
       '[aria-label="Copy to clipboard"]',
     );
     await expect(copyButtons.first()).toBeVisible();
 
-    // Should have multiple copy buttons (position + scales)
     const count = await copyButtons.count();
     expect(count).toBeGreaterThan(1);
   });
@@ -71,13 +67,10 @@ test.describe("Coordinate Popup", () => {
       .first();
     await copyButton.click();
 
-    // Wait for the state change
     await waffleMap.page.waitForTimeout(100);
 
-    // The button should still be visible (with check icon)
     await expect(copyButton).toBeVisible();
 
-    // Verify the icon is displayed (lucide-react icons use SVG)
     const svgIcon = copyButton.locator("svg");
     await expect(svgIcon).toBeVisible();
   });
@@ -89,10 +82,8 @@ test.describe("Coordinate Popup", () => {
     await waffleMap.waitForPopup();
 
     const popup = waffleMap.page.locator(".leaflet-popup-content");
-    // Position description should contain "position:"
     await expect(popup).toContainText("position:");
 
-    // First copy button should be for position
     const firstCopyButton = waffleMap.page
       .locator('[aria-label="Copy to clipboard"]')
       .first();

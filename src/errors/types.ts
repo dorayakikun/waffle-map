@@ -1,8 +1,3 @@
-/**
- * Error type definitions for the application.
- * Uses discriminated unions for type-safe error handling.
- */
-
 export type ErrorCode =
   | "MESHCODE_INVALID"
   | "MESHCODE_PARSE_FAILED"
@@ -14,9 +9,6 @@ export type ErrorCode =
   | "CLIPBOARD_ERROR"
   | "UNKNOWN_ERROR";
 
-/**
- * Base application error type with structured information.
- */
 export type AppError = {
   readonly code: ErrorCode;
   readonly message: string;
@@ -24,9 +16,6 @@ export type AppError = {
   readonly cause?: Error;
 };
 
-/**
- * Meshcode-specific error types.
- */
 export type MeshcodeError =
   | {
       readonly code: "MESHCODE_INVALID";
@@ -39,9 +28,6 @@ export type MeshcodeError =
       readonly separator: string;
     };
 
-/**
- * LatLng-specific error types.
- */
 export type LatLngError =
   | {
       readonly code: "LATLNG_INVALID";
@@ -61,9 +47,6 @@ export type LatLngError =
       readonly expectedFormat: string;
     };
 
-/**
- * Initialization-specific error types.
- */
 export type InitializationError =
   | { readonly code: "MESH_CALCULATOR_NOT_INITIALIZED" }
   | {
@@ -72,9 +55,6 @@ export type InitializationError =
       readonly cause: Error;
     };
 
-/**
- * Factory functions for creating errors.
- */
 export function createMeshcodeError(
   code: "MESHCODE_INVALID",
   meshcode: string,
@@ -138,9 +118,6 @@ export function createLatLngError(
   };
 }
 
-/**
- * Convert any error type to AppError for unified handling.
- */
 export function toAppError(error: MeshcodeError | LatLngError | InitializationError): AppError {
   switch (error.code) {
     case "MESHCODE_INVALID":

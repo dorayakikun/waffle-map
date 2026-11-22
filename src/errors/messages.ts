@@ -1,13 +1,5 @@
-/**
- * User-facing error messages for the application.
- * These messages are designed to be helpful and actionable.
- */
-
 import type { AppError, ErrorCode, LatLngError, MeshcodeError } from "./types";
 
-/**
- * Default user-facing error messages by error code.
- */
 export const ERROR_MESSAGES: Record<ErrorCode, string> = {
   MESHCODE_INVALID: "The mesh code format is invalid. Please check the format.",
   MESHCODE_PARSE_FAILED: "Could not parse the mesh codes. Please check the separator.",
@@ -20,9 +12,6 @@ export const ERROR_MESSAGES: Record<ErrorCode, string> = {
   UNKNOWN_ERROR: "An unexpected error occurred. Please try again.",
 };
 
-/**
- * Get a user-friendly message for a meshcode error.
- */
 export function formatMeshcodeError(error: MeshcodeError): string {
   switch (error.code) {
     case "MESHCODE_INVALID":
@@ -32,9 +21,6 @@ export function formatMeshcodeError(error: MeshcodeError): string {
   }
 }
 
-/**
- * Get a user-friendly message for a lat/lng error.
- */
 export function formatLatLngError(error: LatLngError): string {
   switch (error.code) {
     case "LATLNG_INVALID":
@@ -46,16 +32,10 @@ export function formatLatLngError(error: LatLngError): string {
   }
 }
 
-/**
- * Get a user-friendly message for any AppError.
- */
 export function formatAppError(error: AppError): string {
   return error.message || ERROR_MESSAGES[error.code] || ERROR_MESSAGES.UNKNOWN_ERROR;
 }
 
-/**
- * Get the default message for an error code.
- */
 export function getDefaultMessage(code: ErrorCode): string {
   return ERROR_MESSAGES[code];
 }

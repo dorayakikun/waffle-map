@@ -4,7 +4,6 @@ test.describe("Mesh Code Input", () => {
   test.beforeEach(async ({ waffleMap }) => {
     await waffleMap.goto();
     await waffleMap.expandAccordion("meshcode");
-    // Wait for accordion animation to complete
     await waffleMap.page.waitForTimeout(500);
   });
 

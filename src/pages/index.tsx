@@ -39,7 +39,6 @@ import { useMeshToggleStore } from "../stores/useMeshToggleStore";
 import { useTileToggleStore } from "../stores/useTileToggleStore";
 
 export function AppContainer() {
-  // Enable bidirectional URL synchronization with meshcodes state
   useUrlSync();
 
   const [sidebarOpen, setSidebarOpen] = React.useState(true);
@@ -96,7 +95,6 @@ export function AppContainer() {
           zIndex={10}
           shadow="sm"
         >
-          {/* Sticky Header */}
           <Flex
             px={4}
             py={3}
@@ -166,7 +164,6 @@ export function AppContainer() {
             </HStack>
           </Flex>
 
-          {/* Scrollable Inspector Body */}
           <Box flex="1" overflowY="auto" px={3} py={3}>
             <Stack gap={3}>
               <GeodeticInputContainer />
@@ -178,7 +175,6 @@ export function AppContainer() {
                 flexDirection="column"
                 gap={2}
               >
-                {/* Tile Grid */}
                 <Accordion.Item
                   value="tile-grid"
                   rounded="xl"
@@ -228,7 +224,6 @@ export function AppContainer() {
                   </Accordion.ItemContent>
                 </Accordion.Item>
 
-                {/* Mesh Grid */}
                 <Accordion.Item
                   value="mesh-grid"
                   rounded="xl"
@@ -278,7 +273,6 @@ export function AppContainer() {
                   </Accordion.ItemContent>
                 </Accordion.Item>
 
-                {/* Marker */}
                 <Accordion.Item
                   value="marker"
                   rounded="xl"
@@ -329,7 +323,6 @@ export function AppContainer() {
                   </Accordion.ItemContent>
                 </Accordion.Item>
 
-                {/* Mesh Code */}
                 <Accordion.Item
                   value="mesh-code"
                   rounded="xl"
@@ -388,7 +381,6 @@ export function AppContainer() {
         </Box>
       )}
 
-      {/* Map Canvas */}
       <Box as="main" flex="1" position="relative" h="full">
         {!sidebarOpen && (
           <IconButton
@@ -413,7 +405,6 @@ export function AppContainer() {
 
         <MapContainer />
 
-        {/* Subtle Floating Status HUD */}
         <HStack
           position="absolute"
           bottom={3}

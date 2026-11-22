@@ -53,9 +53,6 @@ export function createLatLng(latLng: string, unit: string): LatLng {
     : createMillisecLatLng(latString, lngString);
 }
 
-/**
- * Safe version of createLatLng that returns a Result instead of throwing.
- */
 export function safeCreateLatLng(latLng: string, unit: string): Result<LatLng, LatLngError> {
   const latLngArray = latLng.split(",");
 

@@ -1,7 +1,3 @@
-/**
- * Minimal zero-dependency Result type replacing inactive external `neverthrow`.
- */
-
 export class Ok<T, E> {
   readonly value: T;
 

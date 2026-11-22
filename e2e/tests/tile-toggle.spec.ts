@@ -39,8 +39,6 @@ test.describe("Tile Grid Toggle", () => {
     await waffleMap.toggleTileGrid();
     await waffleMap.page.waitForTimeout(500);
 
-    // Debug tile layer adds elements with tile coordinates
-    // Just verify the toggle state is correct
     await expect(waffleMap.tileGridToggle).toHaveAttribute(
       "data-state",
       "checked",

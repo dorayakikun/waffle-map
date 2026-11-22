@@ -197,13 +197,11 @@ describe("Zustand stores", () => {
       const listener = vi.fn();
       const unsub = useMarkerInputStore.subscribe((s) => s.positions, listener);
 
-      // Out-of-bounds indices must not trigger state updates or change array reference
       useMarkerInputStore.getState().removeMarker(-1);
       useMarkerInputStore.getState().removeMarker(3);
       expect(listener).not.toHaveBeenCalled();
       expect(useMarkerInputStore.getState().positions).toBe(originalPositions);
 
-      // Remove index 0 (lower boundary)
       useMarkerInputStore.getState().removeMarker(0);
       expect(listener).toHaveBeenCalledTimes(1);
       expect(useMarkerInputStore.getState().positions).toEqual([
@@ -211,7 +209,6 @@ describe("Zustand stores", () => {
         { lat: 3, lng: 3 },
       ]);
 
-      // Remove last element (upper boundary)
       useMarkerInputStore.getState().removeMarker(1);
       expect(listener).toHaveBeenCalledTimes(2);
       expect(useMarkerInputStore.getState().positions).toEqual([{ lat: 2, lng: 2 }]);
@@ -294,11 +291,10 @@ describe("Zustand stores", () => {
 
     test("changeSeparator re-parses existing meshcodesString with new separator", () => {
       useMeshcodesInputStore.getState().inputMeshcodesString("5339-35-97,5339-35-98");
-      // Initially fails because separator is "."
+
       expect(useMeshcodesInputStore.getState().parseResult.isErr()).toBe(true);
       expect(useMeshcodesInputStore.getState().errorMessage).toContain('separator "."');
 
-      // Switching separator to "," succeeds
       useMeshcodesInputStore.getState().changeSeparator(",");
       let state = useMeshcodesInputStore.getState();
       expect(state.separator).toBe(",");
@@ -307,7 +303,6 @@ describe("Zustand stores", () => {
       expect(state.errorMessage).toBe("");
       expect(state.parseResult.isOk()).toBe(true);
 
-      // Switching back to "." fails again
       useMeshcodesInputStore.getState().changeSeparator(".");
       state = useMeshcodesInputStore.getState();
       expect(state.separator).toBe(".");
@@ -327,7 +322,6 @@ describe("Zustand stores", () => {
       expect(Object.keys(state.userInputMeshes)).toEqual(["5339-35-97", "5339-35-98"]);
       expect(state.errorMessage).toBe("");
 
-      // Invalid meshcode from URL
       useMeshcodesInputStore.getState().setMeshcodesFromUrl(["bad-mesh"], ",");
       state = useMeshcodesInputStore.getState();
       expect(state.meshcodesString).toBe("bad-mesh");

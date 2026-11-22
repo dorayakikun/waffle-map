@@ -15,9 +15,6 @@ import {
   safeCreateLatLng,
 } from "../convertLatLng";
 
-// ---
-// Invalid case
-// ---
 test("Should throw an error when invalidValue", () => {
   const testcases = [
     {
@@ -45,9 +42,6 @@ ${testcase.expectedValueMessage}
 Actual: ${testcase.latLng}`);
   }
 });
-// ---
-// normal case
-// ---
 
 const latLngStringDegree = "35,139";
 const latLngStringMellisec = "126000000,500400000";
@@ -155,9 +149,6 @@ test("Should convert bounds to millisec if needed", () => {
   expect(convertBoundsToMillisecIfNeeded(boundsDegree, "degree")).toEqual(boundsDegree);
 });
 
-// ---
-// Negative coordinate tests (southern/western hemispheres)
-// ---
 test("Should parse negative latitude (southern hemisphere)", () => {
   expect(createLatLng("-33.8688,151.2093", "degree")).toEqual({
     lat: -33.8688,

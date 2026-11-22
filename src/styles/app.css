@@ -1,12 +1,9 @@
-/* 2026 Modern Geospatial UI Overrides for Leaflet & Scrollbars */
-
 html,
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Subtle custom scrollbar for inspector panel */
 aside::-webkit-scrollbar {
   width: 6px;
 }
@@ -24,7 +21,6 @@ aside::-webkit-scrollbar-thumb:hover {
   background: rgba(107, 114, 128, 0.45);
 }
 
-/* Modern floating glassmorphic Leaflet zoom controls */
 .leaflet-bar {
   border: 1px solid rgba(15, 23, 42, 0.08) !important;
   border-radius: 12px !important;
@@ -70,7 +66,6 @@ aside::-webkit-scrollbar-thumb:hover {
   color: #c7d2fe !important;
 }
 
-/* Frameless modern card popup */
 .leaflet-popup-content-wrapper {
   padding: 0 !important;
   border-radius: 14px !important;
@@ -127,7 +122,6 @@ aside::-webkit-scrollbar-thumb:hover {
   color: #f9fafb !important;
 }
 
-/* Modern pill attribution */
 .leaflet-control-attribution {
   background: rgba(255, 255, 255, 0.78) !important;
   backdrop-filter: blur(8px);
@@ -146,7 +140,6 @@ aside::-webkit-scrollbar-thumb:hover {
   color: #a5b4fc !important;
 }
 
-/* Dark mode subtle styling for OSM base tiles (preserves vector overlays) */
 .dark .leaflet-tile-pane {
   filter: invert(100%) hue-rotate(180deg) brightness(92%) contrast(88%);
 }

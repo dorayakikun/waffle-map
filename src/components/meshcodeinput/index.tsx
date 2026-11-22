@@ -4,19 +4,12 @@ import { useMeshcodesInputStore } from "../../stores/useMeshcodesInputStore";
 import type { Separator } from "../../types";
 import { MeshcodesInput } from "./MeshcodesInput";
 
-/**
- * Debounce delay for input changes in milliseconds.
- */
 const INPUT_DEBOUNCE_MS = 150;
 
 type Props = {
   id: string;
 };
 
-/**
- * Container component for mesh code input.
- * Handles state management and debouncing of user input.
- */
 export const MeshcodesInputContainer = React.memo(function MeshcodesInputContainer({ id }: Props) {
   const meshcodesString = useMeshcodesInputStore((state) => state.meshcodesString);
   const errorMessage = useMeshcodesInputStore((state) => state.errorMessage);
@@ -24,15 +17,12 @@ export const MeshcodesInputContainer = React.memo(function MeshcodesInputContain
   const inputMeshcodesString = useMeshcodesInputStore((state) => state.inputMeshcodesString);
   const changeSeparator = useMeshcodesInputStore((state) => state.changeSeparator);
 
-  // Local state for immediate input feedback
   const [localInput, setLocalInput] = React.useState(meshcodesString);
 
-  // Sync local state when store changes (e.g., from URL)
   React.useEffect(() => {
     setLocalInput(meshcodesString);
   }, [meshcodesString]);
 
-  // Debounced store update
   const debouncedInputMeshcodesString = useDebouncedCallback(
     inputMeshcodesString,
     INPUT_DEBOUNCE_MS,
@@ -41,8 +31,8 @@ export const MeshcodesInputContainer = React.memo(function MeshcodesInputContain
   const handleMeshcodesStringChanged = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value;
-      setLocalInput(value); // Update immediately for responsive UI
-      debouncedInputMeshcodesString(value); // Debounce store update
+      setLocalInput(value);
+      debouncedInputMeshcodesString(value);
     },
     [debouncedInputMeshcodesString],
   );
