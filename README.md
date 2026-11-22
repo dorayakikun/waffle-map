@@ -164,6 +164,14 @@ See [waffle-map-mesh-calculator-basic](https://github.com/dorayakikun/waffle-map
 
 ### Second step
 
+Install your calculator package in the project:
+
+```console
+$ npm install waffle-map-mesh-calculator-{your-logic-name}
+```
+
+### Third step
+
 Add the `wafflemap` config to `package.json`:
 
 ```json
