@@ -1,14 +1,13 @@
 import type { Mesh } from "../../domain/calculateMesh";
+import {
+  computeMercatorView,
+  getVisibleTiles,
+  latLngToWorldPx,
+  projectToViewport,
+} from "../mercator";
 import { buildOgMeta, escapeHtmlAttr, injectOgMeta, isStaticAssetPath } from "../meta";
 import { renderOgPng } from "../renderOgPng";
-import {
-  computeViewportBounds,
-  escapeXml,
-  OG_HEIGHT,
-  OG_WIDTH,
-  projectPoint,
-  renderOgSvg,
-} from "../renderOgSvg";
+import { escapeXml, MAP_RECT, OG_HEIGHT, OG_WIDTH, renderOgSvg } from "../renderOgSvg";
 
 describe("OGP metadata utilities", () => {
   describe("isStaticAssetPath", () => {
@@ -112,6 +111,63 @@ describe("OGP metadata utilities", () => {
   });
 });
 
+describe("Mercator projection & tile grid", () => {
+  const sampleMeshes: Mesh[] = [
+    {
+      code: "5339",
+      center: { lat: 35.6667, lng: 139.5 },
+      bounds: {
+        leftTop: { lat: 36.0, lng: 139.0 },
+        rightBottom: { lat: 35.3333, lng: 140.0 },
+      },
+    },
+    {
+      code: "5340",
+      center: { lat: 35.6667, lng: 140.5 },
+      bounds: {
+        leftTop: { lat: 36.0, lng: 140.0 },
+        rightBottom: { lat: 35.3333, lng: 141.0 },
+      },
+    },
+  ];
+
+  test("latLngToWorldPx maps equator/prime meridian to exact center of world", () => {
+    const pt = latLngToWorldPx(0, 0, 0);
+    expect(pt.x).toBeCloseTo(128, 5);
+    expect(pt.y).toBeCloseTo(128, 5);
+
+    // Clamps extreme latitudes without returning NaN/Infinity
+    const north = latLngToWorldPx(90, 180, 1);
+    expect(Number.isFinite(north.y)).toBe(true);
+    expect(north.x).toBeCloseTo(512, 5);
+  });
+
+  test("computeMercatorView returns Japan overview for empty meshes and fits given meshes", () => {
+    const emptyView = computeMercatorView([], MAP_RECT.width, MAP_RECT.height);
+    expect(emptyView.zoom).toBe(6);
+    expect(emptyView.width).toBe(MAP_RECT.width);
+
+    const meshView = computeMercatorView(sampleMeshes, MAP_RECT.width, MAP_RECT.height);
+    expect(meshView.zoom).toBeGreaterThanOrEqual(7);
+    expect(meshView.zoom).toBeLessThanOrEqual(10);
+
+    const centerPt = projectToViewport(35.6667, 140.0, meshView, MAP_RECT.x, MAP_RECT.y);
+    expect(centerPt.x).toBeCloseTo(MAP_RECT.x + MAP_RECT.width / 2, 0);
+    expect(centerPt.y).toBeCloseTo(MAP_RECT.height / 2, -1);
+  });
+
+  test("getVisibleTiles covers viewport with valid tile coordinates", () => {
+    const view = computeMercatorView(sampleMeshes, MAP_RECT.width, MAP_RECT.height);
+    const tiles = getVisibleTiles(view, MAP_RECT.x, MAP_RECT.y);
+    expect(tiles.length).toBeGreaterThanOrEqual(6);
+    for (const tile of tiles) {
+      expect(tile.z).toBe(view.zoom);
+      expect(tile.x).toBeGreaterThanOrEqual(0);
+      expect(tile.y).toBeGreaterThanOrEqual(0);
+    }
+  });
+});
+
 describe("OGP SVG & PNG renderer", () => {
   const sampleMeshes: Mesh[] = [
     {
@@ -136,48 +192,32 @@ describe("OGP SVG & PNG renderer", () => {
     expect(escapeXml(`<&>"'`)).toBe("&lt;&amp;&gt;&quot;&apos;");
   });
 
-  test("computeViewportBounds returns Japan bounds when empty and padded bounds for meshes", () => {
-    const empty = computeViewportBounds([], 744, 558);
-    expect(empty.minLat).toBe(24.0);
-    expect(empty.maxLng).toBe(146.2);
-
-    const bounds = computeViewportBounds(sampleMeshes, 744, 558);
-    expect(bounds.minLat).toBeLessThan(35.3333);
-    expect(bounds.maxLat).toBeGreaterThan(36.0);
-    expect(bounds.minLng).toBeLessThan(139.0);
-    expect(bounds.maxLng).toBeGreaterThan(141.0);
-  });
-
-  test("projectPoint maps corners cleanly to box coordinates", () => {
-    const bounds = { minLat: 30, maxLat: 40, minLng: 130, maxLng: 140 };
-    const box = { x: 10, y: 20, width: 100, height: 200 };
-    expect(projectPoint(40, 130, bounds, box)).toEqual({ x: 10, y: 20 });
-    expect(projectPoint(30, 140, bounds, box)).toEqual({ x: 110, y: 220 });
-  });
-
-  test("renderOgSvg renders valid 1200x630 SVG for meshes and empty state", () => {
-    const svgWithMeshes = renderOgSvg({
+  test("renderOgSvg renders valid 1200x630 SVG with tiles, attribution, and fallback", () => {
+    const svgWithTiles = renderOgSvg({
       meshcodes: ["5339", "5340"],
       meshes: sampleMeshes,
       displayUrl: "waffle-map.netlify.app/5339.5340/",
+      tiles: [{ drawX: 344, drawY: 0, dataUri: "data:image/png;base64,AA==" }],
+      attribution: "Map: GSI Tiles (GSI Japan), modified by Waffle Map",
     });
-    expect(svgWithMeshes).toContain(`width="${OG_WIDTH}" height="${OG_HEIGHT}"`);
-    expect(svgWithMeshes).toContain("5339");
-    expect(svgWithMeshes).toContain("5340");
-    expect(svgWithMeshes).toContain("2 MESHES");
-    expect(svgWithMeshes).toContain("JAPAN");
+    expect(svgWithTiles).toContain(`width="${OG_WIDTH}" height="${OG_HEIGHT}"`);
+    expect(svgWithTiles).toContain("5339");
+    expect(svgWithTiles).toContain("5340");
+    expect(svgWithTiles).toContain("data:image/png;base64,AA==");
+    expect(svgWithTiles).toContain("GSI Tiles");
 
     const svgEmpty = renderOgSvg({ meshcodes: [], meshes: [] });
-    expect(svgEmpty).toContain("JAPAN MESH GRID");
+    expect(svgEmpty).toContain("Japanese Mesh Code Studio");
   });
 
-  test("renderOgPng produces a valid PNG image buffer for valid, invalid, and empty codes", () => {
-    const png = renderOgPng("5339.5340", "waffle-map.netlify.app/5339.5340/");
-    // Verify PNG magic signature: 89 50 4E 47 0D 0A 1A 0A
+  test("renderOgPng produces a valid PNG image buffer offline (fallback mode)", async () => {
+    const png = await renderOgPng("5339.5340", "waffle-map.netlify.app/5339.5340/", {
+      fetchTiles: false,
+    });
     expect(Array.from(png.slice(0, 8))).toEqual([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
     expect(png.byteLength).toBeGreaterThan(5000);
 
-    const fallbackPng = renderOgPng("not-a-mesh");
+    const fallbackPng = await renderOgPng("not-a-mesh", undefined, { fetchTiles: false });
     expect(Array.from(fallbackPng.slice(0, 4))).toEqual([0x89, 0x50, 0x4e, 0x47]);
   });
 });

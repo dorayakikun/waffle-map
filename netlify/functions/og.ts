@@ -5,7 +5,7 @@ export default async function handler(req: Request): Promise<Response> {
   const codes = url.searchParams.get("codes") ?? "";
   const displayUrl = codes ? `${url.host}/${codes}/` : url.host;
 
-  const png = renderOgPng(codes, displayUrl);
+  const png = await renderOgPng(codes, displayUrl);
 
   return new Response(png as unknown as BodyInit, {
     status: 200,

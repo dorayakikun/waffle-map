@@ -21,7 +21,7 @@ function localOgPreviewPlugin(): Plugin {
 					const codes = parsed.searchParams.get("codes") ?? "";
 					const displayUrl = codes ? `${host}/${codes}/` : host;
 					const { renderOgPng } = await import("./src/og/renderOgPng.ts");
-					const png = renderOgPng(codes, displayUrl);
+					const png = await renderOgPng(codes, displayUrl);
 					res.statusCode = 200;
 					res.setHeader("Content-Type", "image/png");
 					res.setHeader("Cache-Control", "no-store");
