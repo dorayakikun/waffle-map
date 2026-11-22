@@ -11,7 +11,7 @@ Waffle Map is a Japanese mesh code visualization tool built with React 19 and Le
 1. **Keep documentation in sync with code**:
    - `AGENTS.md` is the single source of truth for agent instructions (`CLAUDE.md` imports `@AGENTS.md`).
    - Whenever you add, rename, move, or remove directories, stores, Netlify functions, npm scripts, config values (dev port, Node version, homepage), or major dependencies, update `AGENTS.md` (and `README.md` for user-facing changes) in the same change.
-   - Always run `npm run check:docs` before finishing a task to verify documentation consistency.
+   - Always run `npm run check:docs` and `npm run check:comments` before finishing a task (also enforced automatically via Stop hooks in `.agents/hooks.json`, `.claude/settings.json`, `.codex/hooks.json`, `.cursor/hooks.json` and in CI).
 2. **Code comment policy**:
    - Do not add explanatory, inline, JSDoc, JSX, or CSS comments to source code (avoid injecting unnecessary context into AI sessions).
    - Only license headers (e.g. MIT / author) and functionally required toolchain directives (`#!/usr/bin/env node`, `/// <reference ... />`, `/* @vite-ignore */`) are allowed.
@@ -32,6 +32,7 @@ npm run lint:fix           # Fix linting issues
 npm run fmt                # Format with Biome
 npm run check              # Run Biome lint & format with auto-fix
 npm run check:docs         # Verify AGENTS.md, CLAUDE.md, and README.md stay in sync with code
+npm run check:comments     # Verify source files contain no explanatory code comments
 ```
 
 ## Architecture
@@ -75,7 +76,9 @@ netlify/
 └── functions/            # Dynamic OGP PNG endpoint (/api/og -> og.ts)
 
 scripts/
+├── agent-stop-hook.mjs   # Shared Stop hook runner for agy, Claude Code, Codex, and Cursor
 ├── check-docs-sync.mjs   # Automated docs-vs-code consistency check
+├── check-no-comments.mjs # Automated source code comment policy check
 └── mutator.mjs           # Diff-driven in-memory Oxc mutation test runner
 
 e2e/

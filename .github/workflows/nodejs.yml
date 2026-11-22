@@ -24,6 +24,8 @@ jobs:
         run: npm run lint
       - name: Check docs sync
         run: npm run check:docs
+      - name: Check no comments
+        run: npm run check:comments
       - name: Type check
         run: npm run typecheck
       - name: Test

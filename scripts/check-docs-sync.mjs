@@ -45,6 +45,21 @@ if (claudeMd.trim() !== "@AGENTS.md") {
   errors.push('CLAUDE.md must import "@AGENTS.md" as its sole content to keep a single source of truth.');
 }
 
+for (const hookConfig of [
+  ".agents/hooks.json",
+  ".claude/settings.json",
+  ".codex/hooks.json",
+  ".cursor/hooks.json",
+]) {
+  const raw = read(hookConfig);
+  if (!raw) continue;
+  try {
+    JSON.parse(raw);
+  } catch (err) {
+    errors.push(`${hookConfig} is not valid JSON: ${err instanceof Error ? err.message : String(err)}`);
+  }
+}
+
 const scripts = pkg.scripts ?? {};
 const scriptNames = Object.keys(scripts);
 
