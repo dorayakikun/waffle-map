@@ -68,18 +68,14 @@ describe("round property-based tests", () => {
   describe("Error handling", () => {
     test("throws for place < 1", () => {
       fc.assert(
-        fc.property(
-          finiteNumber,
-          fc.integer({ min: -100, max: 0 }),
-          (n, invalidPlace) => {
-            try {
-              round(n, invalidPlace);
-              return false; // Should have thrown
-            } catch (e) {
-              return e instanceof Error;
-            }
-          },
-        ),
+        fc.property(finiteNumber, fc.integer({ min: -100, max: 0 }), (n, invalidPlace) => {
+          try {
+            round(n, invalidPlace);
+            return false; // Should have thrown
+          } catch (e) {
+            return e instanceof Error;
+          }
+        }),
       );
     });
   });

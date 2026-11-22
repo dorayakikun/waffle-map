@@ -64,6 +64,7 @@ typings/
 .vscode
 
 # Distribution JavaScript
+dist/
 public/bundle.js
 public/**/*.css
 
@@ -87,3 +88,8 @@ website/i18n/*
 !website/i18n/en.json
 
 junit.xml
+
+# Mutation testing
+.mutator/
+playwright-report/
+test-results/

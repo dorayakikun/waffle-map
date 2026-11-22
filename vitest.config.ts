@@ -3,6 +3,9 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
 	plugins: [react()],
+	define: {
+		LOGIC_TYPE: JSON.stringify(process.env.npm_package_wafflemap_meshcalculator),
+	},
 	test: {
 		globals: true,
 		environment: "jsdom",

@@ -107,9 +107,7 @@ export function scale(value: number): Scale {
     throw new RangeError(`Scale must be an integer, got ${value}`);
   }
   if (value < SCALE_MIN || value > SCALE_MAX) {
-    throw new RangeError(
-      `Scale must be between ${SCALE_MIN} and ${SCALE_MAX}, got ${value}`,
-    );
+    throw new RangeError(`Scale must be between ${SCALE_MIN} and ${SCALE_MAX}, got ${value}`);
   }
   return value as Scale;
 }

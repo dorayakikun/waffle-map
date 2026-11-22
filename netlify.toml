@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["@resvg/resvg-js"]
+  included_files = ["src/og/fonts/**"]
+
+[[edge_functions]]
+  path = "/*"
+  function = "og-meta"

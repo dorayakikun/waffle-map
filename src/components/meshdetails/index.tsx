@@ -1,4 +1,4 @@
-
+import { Stack } from "@chakra-ui/react";
 import type { Bounds, LatLng } from "../../domain/calculateMesh";
 import {
   convertBoundsToMillisecIfNeeded,
@@ -20,8 +20,12 @@ export const MeshDetailsContainer = () => {
   const { datum, unit } = useGeodeticInputStore();
   const { meshcodes, userInputMeshes } = useMeshcodesInputStore();
 
+  if (meshcodes.length === 0) {
+    return null;
+  }
+
   return (
-    <>
+    <Stack gap={2}>
       {meshcodes.map((meshcode) => {
         const mesh = userInputMeshes[meshcode];
         if (!mesh) {
@@ -40,6 +44,6 @@ export const MeshDetailsContainer = () => {
         const rows = createRows(center, bounds);
         return <MeshDetail key={`meshDetail-${mesh.code}`} code={mesh.code} rows={rows} />;
       })}
-    </>
+    </Stack>
   );
 };

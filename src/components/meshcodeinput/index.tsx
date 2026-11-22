@@ -1,8 +1,8 @@
 import * as React from "react";
-import { useMeshcodesInputStore } from "../../stores/useMeshcodesInputStore";
 import { useDebouncedCallback } from "../../hooks";
-import { MeshcodesInput } from "./MeshcodesInput";
+import { useMeshcodesInputStore } from "../../stores/useMeshcodesInputStore";
 import type { Separator } from "../../types";
+import { MeshcodesInput } from "./MeshcodesInput";
 
 /**
  * Debounce delay for input changes in milliseconds.
@@ -17,9 +17,7 @@ type Props = {
  * Container component for mesh code input.
  * Handles state management and debouncing of user input.
  */
-export const MeshcodesInputContainer = React.memo(function MeshcodesInputContainer({
-  id,
-}: Props) {
+export const MeshcodesInputContainer = React.memo(function MeshcodesInputContainer({ id }: Props) {
   const meshcodesString = useMeshcodesInputStore((state) => state.meshcodesString);
   const errorMessage = useMeshcodesInputStore((state) => state.errorMessage);
   const separator = useMeshcodesInputStore((state) => state.separator);

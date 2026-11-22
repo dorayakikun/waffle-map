@@ -1,15 +1,14 @@
-
 import type { LatLng, Mesh } from "../../domain/calculateMesh";
 import {
   convertBoundsToWGS84IfNeeded,
   convertLatLngToWGS84IfNeeded,
 } from "../../domain/convertLatLng";
-import type { Meshcode } from "../../types";
 import { useGeodeticInputStore } from "../../stores/useGeodeticInputStore";
-// FIXME: Move initialLeafletBounds to constants file
-import { initialLeafletBounds } from "../map/Map";
 import { useMarkerInputStore } from "../../stores/useMarkerInputStore";
 import { useMeshcodesInputStore } from "../../stores/useMeshcodesInputStore";
+import type { Meshcode } from "../../types";
+// FIXME: Move initialLeafletBounds to constants file
+import { initialLeafletBounds } from "../map/Map";
 import { BoundsFitter } from "./BoundsFitter";
 
 function meshesToLatsAndLngs(

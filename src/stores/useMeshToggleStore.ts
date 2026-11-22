@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
 type MeshToggleState = {
-	enableMeshGrid: boolean;
-	setEnableMeshGrid: (enable: boolean) => void;
+  enableMeshGrid: boolean;
+  setEnableMeshGrid: (enable: boolean) => void;
 };
 
 export const useMeshToggleStore = create<MeshToggleState>((set) => ({
-	enableMeshGrid: false,
-	setEnableMeshGrid: (enableMeshGrid) => set({ enableMeshGrid }),
+  enableMeshGrid: false,
+  setEnableMeshGrid: (enableMeshGrid) => set({ enableMeshGrid }),
 }));

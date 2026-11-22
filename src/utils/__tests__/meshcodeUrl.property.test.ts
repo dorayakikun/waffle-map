@@ -1,8 +1,5 @@
 import fc from "fast-check";
-import {
-  generateMeshcodesUrl,
-  parseMeshcodesFromUrl,
-} from "../meshcodeUrl";
+import { generateMeshcodesUrl, parseMeshcodesFromUrl } from "../meshcodeUrl";
 
 describe("meshcodeUrl property-based tests", () => {
   // Arbitrary for meshcode-like strings (e.g., "5339-35-97")
@@ -46,9 +43,7 @@ describe("meshcodeUrl property-based tests", () => {
 
           // For single meshcode, we only check the meshcode value is preserved
           // Separator cannot be determined from single meshcode URL
-          return (
-            result.meshcodes.length === 1 && result.meshcodes[0] === meshcode
-          );
+          return result.meshcodes.length === 1 && result.meshcodes[0] === meshcode;
         }),
         { numRuns: 200 },
       );
@@ -58,26 +53,20 @@ describe("meshcodeUrl property-based tests", () => {
   describe("separator detection", () => {
     test("comma URLs are detected as comma-separated", () => {
       fc.assert(
-        fc.property(
-          fc.array(meshcodeArb, { minLength: 2, maxLength: 5 }),
-          (meshcodes) => {
-            const url = `/${meshcodes.join(",")}/`;
-            return parseMeshcodesFromUrl(url).separator === ",";
-          },
-        ),
+        fc.property(fc.array(meshcodeArb, { minLength: 2, maxLength: 5 }), (meshcodes) => {
+          const url = `/${meshcodes.join(",")}/`;
+          return parseMeshcodesFromUrl(url).separator === ",";
+        }),
         { numRuns: 200 },
       );
     });
 
     test("dot URLs are detected as dot-separated", () => {
       fc.assert(
-        fc.property(
-          fc.array(meshcodeArb, { minLength: 2, maxLength: 5 }),
-          (meshcodes) => {
-            const url = `/${meshcodes.join(".")}/`;
-            return parseMeshcodesFromUrl(url).separator === ".";
-          },
-        ),
+        fc.property(fc.array(meshcodeArb, { minLength: 2, maxLength: 5 }), (meshcodes) => {
+          const url = `/${meshcodes.join(".")}/`;
+          return parseMeshcodesFromUrl(url).separator === ".";
+        }),
         { numRuns: 200 },
       );
     });
@@ -106,8 +95,7 @@ describe("meshcodeUrl property-based tests", () => {
           (meshcodes, separator) => {
             const url = generateMeshcodesUrl(meshcodes, separator);
             // URL should contain all meshcodes joined by separator plus slashes
-            const expectedLength =
-              2 + meshcodes.join(separator).length;
+            const expectedLength = 2 + meshcodes.join(separator).length;
             return url.length === expectedLength;
           },
         ),
@@ -167,7 +155,8 @@ describe("meshcodeUrl property-based tests", () => {
 
     test("root URL always produces empty meshcodes", () => {
       const result = parseMeshcodesFromUrl("/");
-      return result.meshcodes.length === 0;
+      expect(result.meshcodes).toEqual([]);
+      expect(result.separator).toBe(".");
     });
   });
 });

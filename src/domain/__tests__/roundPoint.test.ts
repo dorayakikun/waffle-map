@@ -3,6 +3,8 @@ import { round } from "../roundPoint";
 test("Should throw an error when place less than 1", () => {
   expect(() => round(1.2345, 0)).toThrow(`Invalid place found.
 The acceptable place is greater than 0.`);
+  expect(() => round(1.2345, -1)).toThrow(`Invalid place found.
+The acceptable place is greater than 0.`);
 });
 
 test("Should round up to specified decimal places", () => {

@@ -33,10 +33,7 @@ export function parseMeshcodesFromUrl(pathname: string): {
 /**
  * Generate URL pathname from meshcodes.
  */
-export function generateMeshcodesUrl(
-  meshcodes: string[],
-  separator: Separator,
-): string {
+export function generateMeshcodesUrl(meshcodes: string[], separator: Separator): string {
   if (meshcodes.length === 0) {
     return "/";
   }

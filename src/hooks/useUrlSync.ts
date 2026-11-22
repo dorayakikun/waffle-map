@@ -57,10 +57,7 @@ export function useUrlSync(): void {
       const { meshcodes: parsedMeshcodes, separator: parsedSeparator } =
         parseMeshcodesFromUrl(currentPath);
 
-      useMeshcodesInputStore.getState().setMeshcodesFromUrl(
-        parsedMeshcodes,
-        parsedSeparator,
-      );
+      useMeshcodesInputStore.getState().setMeshcodesFromUrl(parsedMeshcodes, parsedSeparator);
     };
 
     window.addEventListener("popstate", handlePopState);

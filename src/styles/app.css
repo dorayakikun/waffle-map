@@ -1,0 +1,152 @@
+/* 2026 Modern Geospatial UI Overrides for Leaflet & Scrollbars */
+
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle custom scrollbar for inspector panel */
+aside::-webkit-scrollbar {
+  width: 6px;
+}
+
+aside::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+aside::-webkit-scrollbar-thumb {
+  background: rgba(107, 114, 128, 0.25);
+  border-radius: 9999px;
+}
+
+aside::-webkit-scrollbar-thumb:hover {
+  background: rgba(107, 114, 128, 0.45);
+}
+
+/* Modern floating glassmorphic Leaflet zoom controls */
+.leaflet-bar {
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.1), 0 1px 3px rgba(15, 23, 42, 0.06) !important;
+  backdrop-filter: blur(12px);
+}
+
+.leaflet-bar a {
+  width: 34px !important;
+  height: 34px !important;
+  line-height: 34px !important;
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  color: #1f2937 !important;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08) !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.leaflet-bar a:last-child {
+  border-bottom: none !important;
+}
+
+.leaflet-bar a:hover {
+  background-color: #eef2ff !important;
+  color: #4f46e5 !important;
+}
+
+.dark .leaflet-bar {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45) !important;
+}
+
+.dark .leaflet-bar a {
+  background-color: rgba(17, 24, 39, 0.88) !important;
+  color: #f3f4f6 !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark .leaflet-bar a:hover {
+  background-color: rgba(79, 70, 229, 0.3) !important;
+  color: #c7d2fe !important;
+}
+
+/* Frameless modern card popup */
+.leaflet-popup-content-wrapper {
+  padding: 0 !important;
+  border-radius: 14px !important;
+  background: transparent !important;
+  box-shadow: 0 16px 40px -8px rgba(15, 23, 42, 0.22), 0 4px 12px -2px rgba(15, 23, 42, 0.1) !important;
+  overflow: hidden;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  min-width: 268px;
+}
+
+.leaflet-popup-content p {
+  margin: 0 !important;
+}
+
+.leaflet-popup-tip {
+  background: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12) !important;
+}
+
+.dark .leaflet-popup-tip {
+  background: #111827 !important;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+  top: 10px !important;
+  right: 10px !important;
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280 !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+  padding: 0 !important;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.leaflet-container a.leaflet-popup-close-button:hover {
+  background-color: rgba(107, 114, 128, 0.12);
+  color: #111827 !important;
+}
+
+.dark .leaflet-container a.leaflet-popup-close-button {
+  color: #9ca3af !important;
+}
+
+.dark .leaflet-container a.leaflet-popup-close-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #f9fafb !important;
+}
+
+/* Modern pill attribution */
+.leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.78) !important;
+  backdrop-filter: blur(8px);
+  border-top-left-radius: 10px;
+  padding: 2px 8px !important;
+  font-size: 11px !important;
+  color: #4b5563 !important;
+}
+
+.dark .leaflet-control-attribution {
+  background: rgba(17, 24, 39, 0.78) !important;
+  color: #9ca3af !important;
+}
+
+.dark .leaflet-control-attribution a {
+  color: #a5b4fc !important;
+}
+
+/* Dark mode subtle styling for OSM base tiles (preserves vector overlays) */
+.dark .leaflet-tile-pane {
+  filter: invert(100%) hue-rotate(180deg) brightness(92%) contrast(88%);
+}
