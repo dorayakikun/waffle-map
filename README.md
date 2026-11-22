@@ -135,6 +135,7 @@ $ npm run lint:fix            # Fix linting issues with Biome
 $ npm run fmt                 # Format code with Biome
 $ npm run fmt:check           # Check formatting with Biome
 $ npm run check               # Run Biome lint & format with auto-fix
+$ npm run check:docs          # Verify AGENTS.md, CLAUDE.md, and README.md stay in sync with code
 $ npm run typecheck           # Type checking with TypeScript
 ```
 
